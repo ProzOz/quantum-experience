@@ -197,6 +197,7 @@
 
     if (state === 'happy') {
       html = `
+        <!-- Happy face -->
         <div style="position:absolute;top:${sz*0.30}px;left:${sz*0.19}px;width:${sz*0.20}px;height:${sz*0.11}px;
                     background:${CFG.pink1};border-radius:0 0 50% 50%;opacity:0.65"></div>
         <div style="position:absolute;top:${sz*0.30}px;right:${sz*0.19}px;width:${sz*0.20}px;height:${sz*0.11}px;
@@ -205,16 +206,6 @@
                     width:${sz*0.38}px;height:${sz*0.20}px;
                     border:3px solid ${CFG.pink1};border-top:none;border-radius:0 0 50% 50%;
                     background:transparent;opacity:0.75"></div>
-        <!-- Blush cheeks -->
-        <div style="position:absolute;top:${sz*0.42}px;left:${sz*0.10}px;width:${sz*0.18}px;height:${sz*0.10}px;
-                    background:rgba(255,150,180,0.5);border-radius:50%;filter:blur(2px)"></div>
-        <div style="position:absolute;top:${sz*0.42}px;right:${sz*0.10}px;width:${sz*0.18}px;height:${sz*0.10}px;
-                    background:rgba(255,150,180,0.5);border-radius:50%;filter:blur(2px)"></div>
-        <!-- Eye sparkles -->
-        <div style="position:absolute;top:${sz*0.14}px;left:${sz*0.12}px;width:${sz*0.11}px;height:${sz*0.07}px;
-                    background:rgba(255,255,255,0.8);border-radius:50%"></div>
-        <div style="position:absolute;top:${sz*0.14}px;right:${sz*0.12}px;width:${sz*0.11}px;height:${sz*0.07}px;
-                    background:rgba(255,255,255,0.8);border-radius:50%"></div>
       `;
     } else if (state === 'hurt') {
       const ex = `font-family:sans-serif;font-size:${sz*0.24}px;font-weight:900;color:${CFG.hurtColor};text-shadow:0 0 8px ${CFG.hurtColor};line-height:1;position:absolute;top:${sz*0.26}px`;
