@@ -76,15 +76,15 @@
 
     window.addEventListener('resize', resizeTrailCanvas);
 
-    // Ball wrapper — barely there pink glow, person image is the star
+    // Ball wrapper — transparent, just shows the person image
     ball = document.getElementById('spaceballBall');
     ball.style.cssText = `
       position:absolute;
       width:${CFG.ballSize}px;height:${CFG.ballSize}px;
       border-radius:20px;
       background:transparent;
-      box-shadow:0 0 8px rgba(255,107,168,0.15),0 0 16px rgba(255,107,168,0.05);
-      border:1px solid rgba(255,107,168,0.10);
+      box-shadow:none;
+      border:none;
       will-change:transform,left,top;
     `;
 
@@ -137,8 +137,8 @@
         100% { transform: translateY(14px) scaleY(1.5); opacity: 0; }
       }
       @keyframes hurtPulse {
-        0%,100% { box-shadow: 0 0 12px ${CFG.hurtColor}, 0 0 24px rgba(255,68,136,0.2); border-radius:20px; border:1px solid rgba(255,68,136,0.2); }
-        50%      { box-shadow: 0 0 20px ${CFG.hurtColor}, 0 0 40px rgba(255,68,136,0.3); border-radius:20px; border:1px solid rgba(255,68,136,0.3); }
+        0%,100% { box-shadow: none; border-radius:20px; border:none; }
+        50%      { box-shadow: none; border-radius:20px; border:none; }
       }
       @keyframes hurtSpin {
         0%   { transform: scaleX(1) scaleY(1) rotate(0deg); border-radius:20px; }
@@ -385,7 +385,7 @@
       ball.style.animation = 'hurtPulse 0.12s ease-in-out infinite alternate, hurtSpin 0.35s ease-in-out';
     } else {
       ball.style.animation = 'none';
-      ball.style.boxShadow = `0 0 8px rgba(255,107,168,0.15), 0 0 16px rgba(255,107,168,0.05); border:1px solid rgba(255,107,168,0.10);`;
+      ball.style.boxShadow = 'none';
     }
 
     // Record trail
