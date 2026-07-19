@@ -1,0 +1,6 @@
+node_modules
+.git
+.claude
+*.log
+*.tmp
+.DS_Store
