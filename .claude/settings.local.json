@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir \"C:\\\\Users\\\\USER\\\\Desktop\\\\quan2\")"
+    ]
+  }
+}

@@ -1,0 +1,1736 @@
+/* ============================================================
+   Quantum Experience — SCIUS BUU
+   Interactive quantum-science learning platform
+   ============================================================ */
+
+'use strict';
+
+/* ============================================================
+   1. TRANSLATIONS (Thai default, English full support)
+   ============================================================ */
+const I18N = {
+  brand:            { th: "Quantum Experience", en: "Quantum Experience" },
+  nav_back:         { th: "กลับหน้าหลัก", en: "Back to menu" },
+
+  home_eyebrow:     { th: "ห้องทดลองควอนตัมเสมือนจริง", en: "A Virtual Quantum Laboratory" },
+  home_title:       { th: "Quantum Experience", en: "Quantum Experience" },
+  home_subtitle:    { th: "สัมผัสโลกของอนุภาคที่เล็กที่สุด ทดลองด้วยตัวเอง แล้วค้นพบว่าทำไมควอนตัมถึงพลิกทุกอย่างที่เรารู้จัก", en: "Step into the world of the tiniest particles. Run the experiments yourself and discover why the quantum world breaks all the rules." },
+  home_hint:        { th: "เลือกหัวข้อไหนก่อนก็ได้ ไม่ต้องเรียงลำดับ", en: "Explore any topic in any order — it is all up to you" },
+  home_topics_label:{ th: "หกการทดลองควอนตัม", en: "Six Quantum Experiments" },
+  badge_recommended:{ th: "แนะนำให้เริ่มที่นี่", en: "Best place to start" },
+  progress_summary: { th: "ทำสำเร็จแล้ว", en: "Completed" },
+
+  challenge_chip:   { th: "ภารกิจ", en: "Challenge" },
+  predict_tag:      { th: "ทายก่อนทดลอง", en: "Predict before you test" },
+  correct_label:    { th: "ถูกต้อง! เยี่ยมมาก", en: "Correct! Nice work" },
+  incorrect_label:  { th: "ยังไม่ใช่ ลองคิดใหม่นะ", en: "Not quite — here is why" },
+
+  // Buttons
+  btn_fire:         { th: "ยิงอนุภาค", en: "Fire particle" },
+  btn_continuous:   { th: "ยิงรัว", en: "Rapid fire" },
+  btn_continuous_stop:{ th: "หยุดยิง", en: "Stop firing" },
+  btn_reset:        { th: "เริ่มใหม่", en: "Reset" },
+  btn_prepare:      { th: "เตรียมสถานะ", en: "Prepare state" },
+  btn_measure:      { th: "วัดผล", en: "Measure" },
+  btn_play:         { th: "เล่น", en: "Play" },
+  btn_pause:        { th: "หยุดชั่วคราว", en: "Pause" },
+  btn_fire_wave:    { th: "ยิงกลุ่มคลื่น", en: "Fire wave packet" },
+  btn_create_pair:  { th: "สร้างคู่พัวพัน", en: "Create entangled pair" },
+  btn_run_many:     { th: "วัดรวด 40 ครั้ง", en: "Run 40 trials" },
+  btn_open_box:     { th: "เปิดกล่อง!", en: "Open the box!" },
+  btn_prepare_exp:  { th: "เริ่มการทดลอง", en: "Set up experiment" },
+  btn_wave_view:    { th: "แสดงคลื่น", en: "Show wave view" },
+  btn_wave_view_off:{ th: "ซ่อนคลื่น", en: "Hide wave view" },
+
+  // Topic 1
+  t1_title:   { th: "ความเป็นคู่ของคลื่นและอนุภาค", en: "Wave–Particle Duality" },
+  t1_desc:    { th: "แสงและอิเล็กตรอนเป็นได้ทั้งอนุภาคและคลื่นในเวลาเดียวกัน", en: "Light and electrons act as both particles and waves at once." },
+  t1_intro:   { th: "ยิงอนุภาคทีละตัวผ่านช่องคู่ แต่ละจุดตกดูสุ่มไปหมด แล้วทำไมพอสะสมมากพอถึงเกิดลายเส้นสว่าง–มืดได้? นั่นคือหลักฐานว่าอนุภาคเดินทางแบบคลื่น", en: "Fire particles one at a time through two slits. Each landing looks random — so why does a striped pattern appear once enough of them pile up? That is the signature of a wave." },
+  t1_challenge:{ th: "ยิงให้ครบ 60 อนุภาค แล้วสังเกตว่าแถบสว่าง–มืดโผล่มาตรงไหนบ้าง", en: "Fire 60 particles and watch where the bright and dark bands appear." },
+  t1_q:       { th: "ทายดู: ยิงอนุภาคไปเรื่อย ๆ จุดตกจะไปรวมกันแบบไหน?", en: "Predict: as you keep firing, how will the landing spots cluster?" },
+  t1_a:       { th: "กองอยู่ตรงกลางจุดเดียว", en: "All piled in one central spot" },
+  t1_b:       { th: "กระจายสุ่มทั่วฉากเท่า ๆ กัน", en: "Spread evenly and randomly" },
+  t1_c:       { th: "รวมเป็นแถบ ๆ สลับสว่างกับมืด", en: "Form alternating bright and dark bands" },
+  t1_explain: { th: "แม้ยิงทีละอนุภาค จุดตกกลับรวมเป็นแถบแทรกสอด เหมือนคลื่นสองลูกจากสองช่องมาเสริมและหักล้างกัน อนุภาคจึงมีธรรมชาติเป็นคลื่นด้วย", en: "Even fired one by one, the hits build interference bands — as if a wave from each slit adds and cancels. The particle carries a wave nature too." },
+
+  // Topic 2
+  t2_title:   { th: "การซ้อนทับเชิงควอนตัม", en: "Quantum Superposition" },
+  t2_desc:    { th: "คิวบิตอยู่ได้หลายสถานะพร้อมกัน จนกว่าจะถูกวัด", en: "A qubit can be many states at once — until it is measured." },
+  t2_intro:   { th: "ลูกศรบนทรงกลมบลอคคือสถานะของคิวบิต ลากหมุนดูได้เลย ยิ่งลูกศรเอียง โอกาสวัดได้ 0 หรือ 1 ก็เปลี่ยนไป กด “วัดผล” แล้วดูมันยุบลงเป็นคำตอบเดียว", en: "The arrow on the Bloch sphere is the qubit’s state — drag to spin it. Its tilt sets the odds of measuring 0 or 1. Hit Measure and watch it collapse to a single answer." },
+  t2_challenge:{ th: "ตั้ง θ ให้ได้ 50:50 แล้ววัดสัก 20 ครั้ง ผลออกมาใกล้ครึ่ง–ครึ่งไหม?", en: "Set θ for a 50:50 split, measure 20 times — does it land near half and half?" },
+  t2_q:       { th: "ทายดู: ถ้าตั้งลูกศรที่ θ = 90° (แนวระนาบ) ผลการวัดจะเป็นอย่างไร?", en: "Predict: with the arrow at θ = 90° (on the equator), what will measurements give?" },
+  t2_a:       { th: "ได้ 0 (สปินขึ้น) ทุกครั้ง", en: "Always 0 (spin up)" },
+  t2_b:       { th: "ได้ 1 (สปินลง) ทุกครั้ง", en: "Always 1 (spin down)" },
+  t2_c:       { th: "ได้ 0 กับ 1 อย่างละครึ่ง", en: "Half 0 and half 1" },
+  t2_explain: { th: "ที่ θ = 90° โอกาสได้ 0 และ 1 เท่ากันพอดี (50:50) การวัดแต่ละครั้งสุ่มออกมา แต่ผลรวมหลายครั้งจะเข้าใกล้ครึ่ง–ครึ่ง", en: "At θ = 90° the chances of 0 and 1 are exactly equal (50:50). Each measurement is random, but many together approach an even split." },
+
+  // Topic 3
+  t3_title:   { th: "หลักความไม่แน่นอน", en: "The Uncertainty Principle" },
+  t3_desc:    { th: "ยิ่งรู้ตำแหน่งแม่นเท่าไร ก็ยิ่งไม่รู้ความเร็ว", en: "The better you know position, the less you know momentum." },
+  t3_intro:   { th: "กราฟบนคือความน่าจะเป็นของ “ตำแหน่ง” กราฟล่างคือของ “โมเมนตัม” ลองบีบอันหนึ่งให้แคบ อีกอันจะกว้างขึ้นทันที ผลคูณ Δx × Δp ไม่มีทางต่ำกว่า ħ/2 เลย", en: "The top curve is the spread of position; the bottom is momentum. Squeeze one narrow and the other widens instantly. The product Δx × Δp can never drop below ħ/2." },
+  t3_challenge:{ th: "ลองทำให้ Δx เล็กที่สุด แล้วดูว่า Δp พุ่งขึ้นแค่ไหน กด “เล่น” เพื่อดูกลุ่มคลื่นบานออกตามเวลา", en: "Make Δx as small as you can and watch Δp shoot up. Press Play to see the packet spread over time." },
+  t3_q:       { th: "ทายดู: เราทำให้ Δx × Δp เท่ากับ 0 ได้ไหม?", en: "Predict: can we make Δx × Δp equal to zero?" },
+  t3_a:       { th: "ได้ ถ้าวัดตำแหน่งให้เป๊ะ (Δx = 0)", en: "Yes — pin position exactly (Δx = 0)" },
+  t3_b:       { th: "ได้ ถ้าวัดโมเมนตัมให้เป๊ะ (Δp = 0)", en: "Yes — pin momentum exactly (Δp = 0)" },
+  t3_c:       { th: "ไม่ได้ มันมีขีดต่ำสุดเสมอ", en: "No — there is always a minimum" },
+  t3_explain: { th: "ถ้าบีบ Δx ให้เข้าใกล้ 0 ตัว Δp จะพุ่งเข้าหาอนันต์ ผลคูณจึงลงไม่ถึง 0 ธรรมชาติกำหนดขีดต่ำสุดไว้ที่ ħ/2 หลบเลี่ยงไม่ได้", en: "Push Δx toward 0 and Δp blows up toward infinity, so the product never reaches 0. Nature fixes the floor at ħ/2 — there is no way around it." },
+
+  // Topic 4
+  t4_title:   { th: "การทะลุอุโมงค์ควอนตัม", en: "Quantum Tunneling" },
+  t4_desc:    { th: "อนุภาคผ่านกำแพงพลังงานที่โดยปกติมันข้ามไม่ได้", en: "Particles slip through energy walls they could never climb." },
+  t4_intro:   { th: "ยิงกลุ่มคลื่นเข้าใส่กำแพงพลังงาน ตามฟิสิกส์ปกติมันควรเด้งกลับหมด แต่ควอนตัมกลับมีบางส่วน “ทะลุ” ออกไปอีกฝั่งได้ ลองปรับกำแพงดูว่าโอกาสทะลุเปลี่ยนแค่ไหน", en: "Fire a wave packet at an energy wall. Classically it should bounce straight back — yet a slice of it tunnels through to the far side. Tune the wall and watch the odds change." },
+  t4_challenge:{ th: "ลองทำให้กำแพงบางและเตี้ยที่สุด แล้วดูว่าโอกาสทะลุขึ้นไปได้สูงแค่ไหน", en: "Make the wall as thin and low as possible and see how high the tunneling odds climb." },
+  t4_q:       { th: "ทายดู: ถ้าเพิ่ม “ความสูงกำแพง” โอกาสทะลุจะเป็นอย่างไร?", en: "Predict: if you raise the wall height, what happens to the tunneling odds?" },
+  t4_a:       { th: "สูงขึ้น ทะลุง่ายขึ้น", en: "They rise — easier to tunnel" },
+  t4_b:       { th: "ต่ำลง ทะลุยากขึ้น", en: "They fall — harder to tunnel" },
+  t4_c:       { th: "เท่าเดิม ไม่เกี่ยวกัน", en: "No change — unrelated" },
+  t4_explain: { th: "กำแพงยิ่งสูง (และหนา) โอกาสทะลุยิ่งลดลงอย่างรวดเร็วแบบเอกซ์โพเนนเชียล แต่ก็ไม่เคยเป็นศูนย์สนิท จึงยังมีลุ้นทะลุได้เสมอ", en: "A taller (and thicker) wall drops the odds fast — exponentially — but never all the way to zero, so a tiny chance always remains." },
+
+  // Topic 5
+  t5_title:   { th: "การพัวพันเชิงควอนตัม", en: "Quantum Entanglement" },
+  t5_desc:    { th: "อนุภาคสองตัวเชื่อมผลกัน แม้อยู่ไกลคนละมุมโลก", en: "Two particles share one fate, no matter the distance." },
+  t5_intro:   { th: "สร้างคู่อนุภาคพัวพันแล้วส่งไปให้เครื่องวัด A และ B คนละฝั่ง วัดพร้อมกันแล้วดูว่าผลของทั้งสองสัมพันธ์กันแค่ไหน ลองหมุนมุมเครื่องวัดให้ต่างกันดู", en: "Make an entangled pair and send them to detectors A and B on opposite sides. Measure together and see how tightly the two results agree. Try tilting the detector angles apart." },
+  t5_challenge:{ th: "ตั้งมุม A และ B ให้เท่ากัน แล้ววัดหลาย ๆ ครั้ง ผลตรงกันกี่เปอร์เซ็นต์?", en: "Set A and B to the same angle, measure many times — what percent match?" },
+  t5_q:       { th: "ทายดู: ถ้าตั้งมุมเครื่องวัดทั้งสองให้เท่ากัน ผลจะเป็นอย่างไร?", en: "Predict: with both detectors at the same angle, what will the results be?" },
+  t5_a:       { th: "ตรงกันทุกครั้ง (100%)", en: "Identical every time (100%)" },
+  t5_b:       { th: "ตรงข้ามกันทุกครั้ง", en: "Opposite every time" },
+  t5_c:       { th: "สุ่มไม่มีความสัมพันธ์", en: "Random and unrelated" },
+  t5_explain: { th: "เมื่อมุมเท่ากัน ผลของ A และ B จะตรงกันทุกครั้ง ทั้งที่แต่ละตัวออกมาแบบสุ่ม ความสัมพันธ์ที่แน่นขนาดนี้เองที่คลาสสิกอธิบายไม่ได้ นี่คือหัวใจของทฤษฎีบทเบลล์", en: "At equal angles A and B match every single time, even though each result is random on its own. That perfect link is what classical physics cannot explain — the heart of Bell’s theorem." },
+
+  // Topic 6
+  t6_title:   { th: "แมวของชเรอดิงเงอร์", en: "Schrödinger’s Cat" },
+  t6_desc:    { th: "ก่อนเปิดกล่อง แมวเป็นทั้งเป็นและตายพร้อมกัน", en: "Before you look, the cat is alive and dead at once." },
+  t6_intro:   { th: "แมวอยู่ในกล่องปิดสนิทกับอะตอมกัมมันตรังสี ถ้าอะตอมสลาย สารพิษจะถูกปล่อย ตราบใดที่ยังไม่เปิด แมวจึงอยู่ในสถานะซ้อนทับ “เป็น+ตาย” การเปิดกล่องคือการวัดที่ทำให้มันกลายเป็นคำตอบเดียว", en: "A cat sits in a sealed box with a radioactive atom. If the atom decays, poison is released. Until you open it, the cat is in a superposition of alive and dead — opening the box is the measurement that forces one answer." },
+  t6_challenge:{ th: "ทดลองเปิดกล่องหลาย ๆ รอบ แล้วดูว่าอัตราส่วนเป็น:ตาย เข้าใกล้ที่ทฤษฎีทำนายไหม", en: "Open the box many times and check whether the alive:dead ratio matches the prediction." },
+  t6_q:       { th: "ทายดู: ก่อนเปิดกล่อง แมวอยู่ในสถานะใด?", en: "Predict: before the box is opened, what state is the cat in?" },
+  t6_a:       { th: "เป็นอย่างเดียว", en: "Alive only" },
+  t6_b:       { th: "ตายอย่างเดียว", en: "Dead only" },
+  t6_c:       { th: "ซ้อนทับของเป็นและตาย", en: "A superposition of alive and dead" },
+  t6_explain: { th: "ตามกลศาสตร์ควอนตัม ก่อนถูกสังเกต แมวอยู่ในสถานะซ้อนทับของเป็นและตายพร้อมกัน การเปิดกล่องคือการวัดที่ทำให้สถานะยุบลงเหลือเพียงคำตอบเดียว", en: "In quantum mechanics, before observation the cat is genuinely in a superposition of alive and dead. Opening the box is the measurement that collapses it to just one outcome." },
+
+  // Game page
+  game_eyebrow:     { th: "ARCADE · ควอนตัม", en: "ARCADE · QUANTUM" },
+  game_title:       { th: "Qubit Runner", en: "Qubit Runner" },
+  game_desc:        { th: "คุณคืออนุภาคควอนตัมวิ่งฝ่าแถบกำแพงพลังงาน กดค้าง SPACE เพื่อแยกตัวเป็นซ้อนทับ — ลอยทะลุกำแพง แล้วยุบกลับมารอด ทำได้ไกลแค่ไหนก่อนที่จักรวาลจะวัดคุณ?", en: "You are a quantum particle dashing through a barrier field. Hold SPACE to split into superposition — phase through walls, then collapse back to survive. How far can you run before the universe measures you?" },
+  game_menu_title:  { th: "QUBIT RUNNER", en: "QUBIT RUNNER" },
+  game_menu_sub:    { th: "คุณคืออนุภาคควอนตัม วิ่งเลย!", en: "You are a quantum particle. Run." },
+  game_tagline:     { th: "กด SPACE ค้างเพื่อแยกตัว · หลบกำแพง · รอดชีวิต", en: "Hold SPACE to split · Dodge barriers · Survive" },
+  game_start:       { th: "เริ่มเล่น", en: "START" },
+  game_how_title:   { th: "วิธีเล่น", en: "HOW TO PLAY" },
+  game_how_move:    { th: "เคลื่อนที่ — ขึ้น / ลง เลน", en: "Move — up / down lanes" },
+  game_how_split:   { th: "แยกตัว — กด SPACE เพื่อเข้าสู่ซ้อนทับและลอดใต้กำแพง", en: "Split — hold SPACE to enter superposition and phase through barriers" },
+  game_how_coh:     { th: "ความเป็นระเบียบ — ลดลงขณะแยกตัว ฟื้นเมื่อกลับเป็นอนุภาคเดียว", en: "Coherence — depletes while split; regenerates when whole" },
+  game_over_title:  { th: "ยุบแล้ว!", en: "COLLAPSED" },
+  game_over_sub:    { th: "ฟังก์ชันคลื่นถูกวัดแล้ว", en: "The wavefunction was measured." },
+  game_newrecord:   { th: "สถิติใหม่!", en: "NEW RECORD!" },
+  game_retry:       { th: "เล่นอีกครั้ง", en: "PLAY AGAIN" },
+  game_physics:     { th: "ฟิสิกส์", en: "PHYSICS" },
+  game_phys_note:   { th: "ทุกกลไกสอดคล้องกับฟิสิกส์ควอนตัมจริง", en: "Every mechanic maps to real quantum physics" },
+  game_phys_superp: { th: "การแยกซ้อนทับ", en: "Superposition Split" },
+  game_phys_superp_desc:{ th: "กด SPACE สร้างซ้อนทับที่คุณอยู่สองเลนพร้อมกัน — จนกว่ากำแพงจะยุบฟังก์ชันคลื่น", en: "Holding SPACE creates a superposition where you exist in two lanes simultaneously — until a barrier collapses the wavefunction." },
+  game_phys_tunnel: { th: "การผ่านคลื่น", en: "Quantum Tunneling" },
+  game_phys_tunnel_desc:{ th: "อนุภาคที่แยกตัวมีความน่าจะเป็นที่จะผ่านกำแพงพลังงาน ความน่าจะเป็นลดแบบทวีคูณตามความหนาของกำแพง", en: "A split particle has a probability amplitude to tunnel through energy barriers. The odds fall exponentially with barrier thickness." },
+  game_phys_collapse:{ th: "การวัด / การยุบ", en: "Measurement / Collapse" },
+  game_phys_collapse_desc:{ th: "เมื่ออนุภาคที่ยังไม่แยกชนกำแพง ฟังก์ชันคลื่นไม่มีทางไป ต้องยุบ เกมจบเพราะอนุภาคถูก \"วัด\"", en: "When an unsplit you hits a barrier, the wavefunction has nowhere to go — collapse. The game ends because the particle was \"measured.\"" },
+
+  // Lab page
+  lab_title:          { th: "ห้องปฏิบัติการควอนตัม", en: "Quantum Core Lab" },
+  lab_desc:           { th: "ฝึกฝนทักษะควอนตัมขั้นสูง ผ่านสามสถานีท้าทาย", en: "Sharpen your quantum skills through three challenging stations." },
+  lab_match:          { th: "ตรงกัน", en: "MATCH" },
+  lab_target_locked:  { th: "เป้าหมายล็อคแล้ว รันควอนตัมเซิร์ช?", en: "Target locked. Run quantum search?" },
+  lab_search_running: { th: "ควอนตัมเซิร์ชกำลังทำงาน…", en: "Quantum search running…" },
+  lab_search_complete:{ th: "ควอนตัมเซิร์ชเสร็จใน 1 คิวรี!", en: "Quantum search complete in 1 query!" },
+  lab_classical_q:    { th: "คิวรี", en: "queries" },
+  lab_select_target:  { th: "เลือกไอเทมในฐานข้อมูลเพื่อกำหนดเป้าหมาย แล้วรันเซิร์ช", en: "Select a database item to mark as the target, then run the search." },
+
+  // Control labels
+  ctl_slit_sep:  { th: "ระยะห่างช่อง", en: "Slit separation" },
+  ctl_energy:    { th: "พลังงานอนุภาค", en: "Particle energy" },
+  ctl_theta:     { th: "มุมเอียง θ", en: "Polar angle θ" },
+  ctl_phi:       { th: "มุมรอบแกน φ", en: "Azimuth φ" },
+  ctl_width:     { th: "ความกว้างกลุ่มคลื่น", en: "Wave packet width" },
+  ctl_speed:     { th: "ความเร็วเวลา", en: "Time speed" },
+  ctl_barrier_h: { th: "ความสูงกำแพง", en: "Barrier height" },
+  ctl_barrier_w: { th: "ความหนากำแพง", en: "Barrier width" },
+  ctl_angle_a:   { th: "มุมเครื่องวัด A", en: "Detector A angle" },
+  ctl_angle_b:   { th: "มุมเครื่องวัด B", en: "Detector B angle" },
+  ctl_wait:      { th: "เวลารอ (วินาที)", en: "Wait time (s)" },
+
+  // Stat labels
+  stat_particles:   { th: "อนุภาคที่ยิงแล้ว", en: "Particles fired" },
+  stat_spin_up:     { th: "วัดได้ 0 ↑", en: "Measured 0 ↑" },
+  stat_spin_down:   { th: "วัดได้ 1 ↓", en: "Measured 1 ↓" },
+  stat_measurements:{ th: "จำนวนการวัด", en: "Measurements" },
+  stat_dx:          { th: "Δx (ตำแหน่ง)", en: "Δx (position)" },
+  stat_dp:          { th: "Δp (โมเมนตัม)", en: "Δp (momentum)" },
+  stat_product:     { th: "Δx × Δp", en: "Δx × Δp" },
+  stat_transmission:{ th: "โอกาสทะลุ (T)", en: "Transmission (T)" },
+  stat_reflection:  { th: "โอกาสสะท้อน (R)", en: "Reflection (R)" },
+  stat_correlation: { th: "ผลตรงกัน", en: "Results match" },
+  stat_trials:      { th: "จำนวนครั้ง", en: "Trials" },
+  stat_alive:       { th: "แมวเป็น", en: "Alive" },
+  stat_dead:        { th: "แมวตาย", en: "Dead" },
+
+  // Canvas labels
+  lbl_source:       { th: "แหล่งกำเนิด", en: "Source" },
+  lbl_double_slit:  { th: "ช่องคู่", en: "Double slit" },
+  lbl_screen:       { th: "ฉากรับ", en: "Screen" },
+  lbl_pos_space:    { th: "ปริภูมิตำแหน่ง  |ψ(x)|²", en: "Position space  |ψ(x)|²" },
+  lbl_mom_space:    { th: "ปริภูมิโมเมนตัม  |ψ(p)|²", en: "Momentum space  |ψ(p)|²" },
+  lbl_incoming:     { th: "คลื่นเข้า", en: "Incoming" },
+  lbl_barrier:      { th: "กำแพงพลังงาน", en: "Energy barrier" },
+  lbl_transmitted:  { th: "ทะลุออก", en: "Transmitted" },
+  lbl_reflected:    { th: "สะท้อนกลับ", en: "Reflected" },
+  lbl_ent_source:   { th: "แหล่งพัวพัน", en: "Entangled source" },
+  lbl_detector:     { th: "เครื่องวัด", en: "Detector" },
+  lbl_atom:         { th: "อะตอม", en: "Atom" },
+  lbl_poison:       { th: "สารพิษ", en: "Poison" },
+  lbl_prob_same:    { th: "โอกาสตรงกัน (ทฤษฎี)", en: "Match odds (theory)" },
+  cat_alive:        { th: "เป็น", en: "Alive" },
+  cat_dead:         { th: "ตาย", en: "Dead" },
+  cat_super:        { th: "ซ้อนทับ", en: "Superposition" },
+
+  schr_idle:  { th: "กด “เริ่มการทดลอง” เพื่อปิดฝากล่อง", en: "Press Set up experiment to seal the box" },
+  schr_super: { th: "แมวกำลังซ้อนทับ เป็น + ตาย …", en: "The cat is in superposition: alive + dead …" },
+  schr_alive: { th: "เปิดกล่อง — แมวยังเป็นอยู่! 🎉", en: "Box opened — the cat is alive! 🎉" },
+  schr_dead:  { th: "เปิดกล่อง — แมวตายแล้ว …", en: "Box opened — the cat did not make it …" },
+
+  // Sim hints
+  hint_slit:      { th: "กดยิงอนุภาค แล้วดูลายแทรกสอดค่อย ๆ ปรากฏ", en: "Fire particles and watch the interference pattern build" },
+  hint_bloch:     { th: "ลากบนทรงกลมเพื่อหมุนสถานะ", en: "Drag on the sphere to rotate the state" },
+  hint_uncertainty:{ th: "เลื่อนแถบความกว้าง แล้วดูอีกกราฟตอบสนอง", en: "Slide the width and watch the other curve react" },
+  hint_tunnel:    { th: "ปรับกำแพงแล้วกดยิงกลุ่มคลื่น", en: "Adjust the wall, then fire the wave packet" },
+  hint_entangle:  { th: "ตั้งมุมแล้วกดวัดผลหลาย ๆ ครั้ง", en: "Set the angles, then measure many times" },
+  hint_schrodinger:{ th: "เริ่มการทดลอง แล้วค่อยเปิดกล่อง", en: "Set it up, then open the box" },
+
+  // Footer
+  credits_note: { th: "โครงการ วมว. · มหาวิทยาลัยบูรพา — สร้างขึ้นเพื่อจุดประกายความสนใจในวิทยาศาสตร์ควอนตัม", en: "SCIUS · Burapha University — built to spark curiosity in quantum science" },
+  role_dev:     { th: "นักพัฒนา", en: "Developer" },
+  role_advisor: { th: "อาจารย์ที่ปรึกษา", en: "Advisor" },
+
+  // Toasts
+  toast_lang:     { th: "เปลี่ยนเป็นภาษาไทยแล้ว", en: "Switched to English" },
+  toast_sound_on: { th: "เปิดเสียงแล้ว", en: "Sound on" },
+  toast_sound_off:{ th: "ปิดเสียงแล้ว", en: "Sound off" },
+  toast_done:     { th: "ปลดล็อกความสำเร็จ! 🌟", en: "Topic completed! 🌟" }
+};
+
+const TOPIC_META = {
+  1: { icon: "🌊", key: "t1" },
+  2: { icon: "⚛️", key: "t2" },
+  3: { icon: "📈", key: "t3" },
+  4: { icon: "🚀", key: "t4" },
+  5: { icon: "🔗", key: "t5" },
+  6: { icon: "🐈", key: "t6" }
+};
+
+const QUIZ = {
+  1: { correct: "c" }, 2: { correct: "c" }, 3: { correct: "c" },
+  4: { correct: "b" }, 5: { correct: "a" }, 6: { correct: "c" }
+};
+
+/* ============================================================
+   2. GLOBAL STATE
+   ============================================================ */
+let lang = localStorage.getItem('qx_lang') || 'th';
+let soundOn = localStorage.getItem('qx_sound') !== 'false';
+let currentTopic = 0;
+let progress = JSON.parse(localStorage.getItem('qx_progress') || '{}');
+
+let audioCtx = null;
+const buffers = {};
+let continuousTimer = null;
+
+function t(key) {
+  const e = I18N[key];
+  return e ? (e[lang] || e.en) : key;
+}
+
+/* ============================================================
+   3. INITIALIZATION
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  buildLabHome();   // replaces buildHome() — new narrative lab screen
+  buildTopics();
+  injectPuzzleUI(); // adds puzzle goal strips + overlays to each topic page
+  buildBackground();
+  initAudio();
+  setupCanvases();
+  applyLanguage();
+  applySoundUI();
+  syncPuzzleStateFromProgress(); // re-solve any already-completed stations
+
+  // resume audio on first gesture (browsers block autoplay)
+  const resume = () => {
+    if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+    window.removeEventListener('pointerdown', resume);
+    window.removeEventListener('keydown', resume);
+  };
+  window.addEventListener('pointerdown', resume);
+  window.addEventListener('keydown', resume);
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(redrawCurrent);
+  }
+});
+
+/* ── Sync already-solved stations from localStorage ──────── */
+function syncPuzzleStateFromProgress() {
+  for (let i = 1; i <= 6; i++) {
+    if (progress[i]) PUZZLE[i].solved = true;
+  }
+  updateLabProgress();
+}
+
+/* ============================================================
+   4. AUDIO SYSTEM (procedural, preloaded buffers)
+   ============================================================ */
+function initAudio() {
+  try {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    buffers.click    = tone([[900, 0], [1200, 0.04]], 0.06, 0.22, 'sine');
+    buffers.hover    = tone([[1400, 0]], 0.03, 0.10, 'sine');
+    buffers.particle = noiseBurst(0.18, 0.28);
+    buffers.prepare  = sweep(320, 880, 0.35, 0.30);
+    buffers.measure  = sweep(820, 260, 0.35, 0.28);
+    buffers.success  = arpeggio([523, 659, 784, 1046], 0.5, 0.24);
+    buffers.error    = tone([[200, 0], [150, 0.2]], 0.3, 0.24, 'triangle');
+    buffers.collision= tone([[420, 0], [180, 0.12]], 0.16, 0.24, 'square');
+    buffers.discover = arpeggio([659, 880, 1174], 0.55, 0.26);
+    buffers.nav      = sweep(500, 760, 0.18, 0.16);
+  } catch (e) {
+    console.warn('Web Audio unavailable:', e);
+  }
+}
+
+function tone(freqPts, dur, vol, type) {
+  const sr = audioCtx.sampleRate, len = Math.floor(sr * dur);
+  const buf = audioCtx.createBuffer(1, len, sr), d = buf.getChannelData(0);
+  for (let i = 0; i < len; i++) {
+    const time = i / sr, prog = time / dur;
+    let f = freqPts[0][1] === undefined ? freqPts[0][0] : interpFreq(freqPts, prog);
+    let s = type === 'square' ? Math.sign(Math.sin(2*Math.PI*f*time))
+          : type === 'triangle' ? 2*Math.abs(2*(time*f % 1)-1)-1
+          : Math.sin(2*Math.PI*f*time);
+    d[i] = s * Math.exp(-time*8) * vol;
+  }
+  return buf;
+}
+function interpFreq(pts, prog) {
+  for (let i = 0; i < pts.length-1; i++) {
+    if (prog >= pts[i][1] && prog <= pts[i+1][1]) {
+      const local = (prog-pts[i][1])/(pts[i+1][1]-pts[i][1]);
+      return pts[i][0] + (pts[i+1][0]-pts[i][0])*local;
+    }
+  }
+  return pts[pts.length-1][0];
+}
+function sweep(f0, f1, dur, vol) {
+  const sr = audioCtx.sampleRate, len = Math.floor(sr*dur);
+  const buf = audioCtx.createBuffer(1, len, sr), d = buf.getChannelData(0);
+  for (let i = 0; i < len; i++) {
+    const time = i/sr, prog = time/dur, f = f0 + (f1-f0)*prog;
+    d[i] = Math.sin(2*Math.PI*f*time) * Math.sin(Math.PI*prog) * vol;
+  }
+  return buf;
+}
+function noiseBurst(dur, vol) {
+  const sr = audioCtx.sampleRate, len = Math.floor(sr*dur);
+  const buf = audioCtx.createBuffer(1, len, sr), d = buf.getChannelData(0);
+  for (let i = 0; i < len; i++) {
+    const time = i/sr, f = 260 + Math.random()*520;
+    d[i] = (Math.sin(2*Math.PI*f*time) + (Math.random()*2-1)*0.4) * Math.exp(-time*16) * vol;
+  }
+  return buf;
+}
+function arpeggio(notes, dur, vol) {
+  const sr = audioCtx.sampleRate, len = Math.floor(sr*dur);
+  const buf = audioCtx.createBuffer(1, len, sr), d = buf.getChannelData(0);
+  const step = dur/notes.length;
+  for (let i = 0; i < len; i++) {
+    const time = i/sr, idx = Math.min(notes.length-1, Math.floor(time/step));
+    const nt = time - idx*step;
+    d[i] = Math.sin(2*Math.PI*notes[idx]*nt) * Math.exp(-nt*7) * vol;
+  }
+  return buf;
+}
+
+function play(name) {
+  if (!soundOn || !audioCtx || !buffers[name]) return;
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  const src = audioCtx.createBufferSource();
+  src.buffer = buffers[name];
+  const g = audioCtx.createGain();
+  g.gain.value = 1;
+  src.connect(g).connect(audioCtx.destination);
+  src.start();
+}
+
+function toggleSound() {
+  soundOn = !soundOn;
+  localStorage.setItem('qx_sound', soundOn);
+  applySoundUI();
+  if (soundOn) play('click');
+  toast(soundOn ? t('toast_sound_on') : t('toast_sound_off'));
+}
+function applySoundUI() {
+  const btn = document.getElementById('soundBtn');
+  btn.classList.toggle('active', soundOn);
+  document.getElementById('soundOn').style.display = soundOn ? 'block' : 'none';
+  document.getElementById('soundOff').style.display = soundOn ? 'none' : 'block';
+  btn.setAttribute('aria-pressed', soundOn);
+}
+
+/* ============================================================
+   5. LANGUAGE
+   ============================================================ */
+function toggleLanguage() {
+  lang = lang === 'th' ? 'en' : 'th';
+  localStorage.setItem('qx_lang', lang);
+  applyLanguage();
+  play('nav');
+  toast(t('toast_lang'));
+}
+
+function applyLanguage() {
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    el.textContent = t(el.getAttribute('data-i18n'));
+  });
+  document.getElementById('langBtn').querySelector('span').textContent = lang === 'th' ? 'EN' : 'TH';
+  // header title
+  if (currentTopic) {
+    document.getElementById('headerTitle').textContent = t(TOPIC_META[currentTopic].key + '_title');
+  }
+  // game page bilingual elements
+  document.querySelector('.game-page-header-number')?.setAttribute('data-i18n', 'game_eyebrow');
+  const gp = document.getElementById('gamePage');
+  if (gp) {
+    const h = gp.querySelector('.game-page-header-number');
+    if (h) h.textContent = t('game_eyebrow');
+    const ht = gp.querySelector('.game-page-header-title');
+    if (ht) ht.textContent = t('game_title');
+    const hd = gp.querySelector('.game-page-header-desc');
+    if (hd) hd.textContent = t('game_desc');
+    const menu = gp.querySelector('.game-title');
+    if (menu) menu.textContent = t('game_menu_title');
+    const sub = gp.querySelector('.game-subtitle');
+    if (sub) sub.textContent = t('game_menu_sub');
+    const tag = gp.querySelector('.game-tagline');
+    if (tag) tag.textContent = t('game_tagline');
+    const start = gp.querySelector('.game-start-btn');
+    if (start) start.textContent = t('game_start');
+    const howTitle = gp.querySelector('.game-how-title');
+    if (howTitle) howTitle.textContent = t('game_how_title');
+    const howItems = gp.querySelectorAll('.game-how-text');
+    const howTexts = [t('game_how_move'), t('game_how_split'), t('game_how_coh')];
+    howItems.forEach((el, i) => { if (howTexts[i]) el.innerHTML = howTexts[i]; });
+    const goTitle = gp.querySelector('.go-title');
+    if (goTitle) goTitle.textContent = t('game_over_title');
+    const goSub = gp.querySelector('.go-sub');
+    if (goSub) goSub.textContent = t('game_over_sub');
+    const goRetry = gp.querySelector('.go-retry');
+    if (goRetry) goRetry.textContent = t('game_retry');
+    // physics strip
+    const chip = gp.querySelector('.chip');
+    if (chip) chip.textContent = t('game_physics');
+    const physNote = gp.querySelector('.challenge-strip span:last-child');
+    if (physNote) physNote.textContent = t('game_phys_note');
+  }
+  renderProgress();
+  redrawCurrent();
+}
+
+/* ============================================================
+   6. NAVIGATION
+   ============================================================ */
+function stopAnimations() {
+  S3.playing = false; cancelAnimationFrame(S3.raf);
+  cancelAnimationFrame(S4.raf);
+  cancelAnimationFrame(S5.raf);
+  cancelAnimationFrame(S6.raf);
+  const b = document.getElementById('playBtn3');
+  if (b) { b.querySelector('span').textContent = t('btn_play'); b.classList.remove('pressed'); }
+}
+
+function goHome() {
+  stopContinuous();
+  stopAnimations();
+  if (typeof QR !== 'undefined' && QR.raf) cancelAnimationFrame(QR.raf);
+  currentTopic = 0;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('homePage').classList.add('active');
+  document.getElementById('headerTitle').textContent = '';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  play('nav');
+  if (typeof buildLabHome === 'function') buildLabHome();
+}
+
+function openTopic(id) {
+  stopContinuous();
+  stopAnimations();
+  // Station 4 is Qubit Runner — redirect to game page
+  if (id === 4) { openGame(); return; }
+  currentTopic = id;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('topic' + id + 'Page').classList.add('active');
+  document.getElementById('headerTitle').textContent = t(TOPIC_META[id].key + '_title');
+  window.scrollTo({ top: 0, behavior: 'auto' });
+  play('nav');
+  requestAnimationFrame(() => { resizeCanvas(id); drawTopic(id); });
+}
+
+function openGame() {
+  stopContinuous();
+  stopAnimations();
+  currentTopic = 0;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('gamePage').classList.add('active');
+  document.getElementById('headerTitle').textContent = t('game_title');
+  window.scrollTo({ top: 0, behavior: 'auto' });
+  play('nav');
+  // resize and refresh game
+  requestAnimationFrame(() => {
+    if (QR.resize) QR.resize();
+    updateGameMenu();
+    QR.showMenu();
+  });
+}
+
+function updateGameMenu() {
+  const el = document.getElementById('menuHighScore');
+  if (el && QR.highScore > 0) {
+    el.textContent = 'BEST: ' + QR.highScore;
+  }
+}
+
+function arcadeGlow(e, el) {
+  const r = el.getBoundingClientRect();
+  el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+  el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+}
+
+/* ============================================================
+   7. BACKGROUND PARTICLES
+   ============================================================ */
+function buildBackground() {
+  const c = document.getElementById('bgParticles');
+  const colors = ['var(--cyan)', 'var(--violet)', 'var(--blue)'];
+  for (let i = 0; i < 34; i++) {
+    const p = document.createElement('div');
+    p.className = 'bg-particle';
+    p.style.left = Math.random()*100 + '%';
+    p.style.top = Math.random()*100 + '%';
+    p.style.animationDelay = Math.random()*22 + 's';
+    p.style.animationDuration = (16 + Math.random()*12) + 's';
+    p.style.background = colors[i % 3];
+    p.style.boxShadow = '0 0 8px currentColor';
+    c.appendChild(p);
+  }
+}
+
+/* ============================================================
+   8. PROGRESS
+   ============================================================ */
+function markComplete(id) {
+  if (progress[id]) return;
+  progress[id] = true;
+  localStorage.setItem('qx_progress', JSON.stringify(progress));
+  renderProgress();
+  toast(t('toast_done'));
+}
+function renderProgress() {
+  for (let i = 1; i <= 6; i++) {
+    const badge = document.getElementById('status' + i);
+    if (badge) badge.classList.toggle('done', !!progress[i]);
+  }
+  const done = Object.keys(progress).filter(k => progress[k]).length;
+  const el = document.getElementById('progressSummary');
+  if (el) el.textContent = t('progress_summary') + ': ' + done + '/6';
+}
+
+/* ============================================================
+   9. HOME + TOPIC PAGE BUILDERS
+   ============================================================ */
+function buildHome() {
+  const grid = document.getElementById('topicGrid');
+  let html = '';
+  for (let i = 1; i <= 6; i++) {
+    const m = TOPIC_META[i];
+    const rec = i === 1
+      ? '<span class="badge" data-i18n="badge_recommended"></span>'
+      : '<span class="topic-status" id="status' + i + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>';
+    // topic 1 also needs a status marker; place it after badge
+    const statusForOne = i === 1
+      ? '<span class="topic-status" id="status1" style="margin-left:8px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>'
+      : '';
+    html += `
+      <button class="topic-card" onclick="openTopic(${i})" onmousemove="cardGlow(event,this)" onpointerenter="play('hover')">
+        <div class="topic-card-head">
+          <div class="topic-icon">${m.icon}</div>
+          <div style="display:flex;align-items:center;gap:8px">${rec}${statusForOne}</div>
+        </div>
+        <div class="topic-number">0${i} / QUANTUM</div>
+        <div class="topic-title" data-i18n="${m.key}_title"></div>
+        <div class="topic-desc" data-i18n="${m.key}_desc"></div>
+      </button>`;
+  }
+  grid.innerHTML = html;
+}
+
+function cardGlow(e, el) {
+  const r = el.getBoundingClientRect();
+  el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+  el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+}
+
+const TOPIC_CONFIG = {
+  1: {
+    canvas: 'sim1',
+    controls: [
+      { id: 'slitSep', label: 'ctl_slit_sep', min: 20, max: 100, val: 55, unit: '' },
+      { id: 'energy', label: 'ctl_energy', min: 10, max: 100, val: 55, unit: '' }
+    ],
+    buttons: [
+      { fn: 'fireParticle1()', cls: 'btn-primary', label: 'btn_fire', sound: 'particle', icon: 'plus' },
+      { fn: 'toggleContinuous1(this)', cls: 'btn-violet', label: 'btn_continuous', id: 'contBtn1', icon: 'play' },
+      { fn: 'toggleWaveView1(this)', cls: 'btn-secondary', label: 'btn_wave_view', id: 'waveBtn1', icon: 'wave' },
+      { fn: 'resetTopic(1)', cls: 'btn-secondary', label: 'btn_reset', icon: 'reset' }
+    ],
+    stats: [ { id: 'stParticles', label: 'stat_particles', val: '0' } ],
+    hint: 'hint_slit'
+  },
+  2: {
+    canvas: 'sim2',
+    controls: [
+      { id: 'theta', label: 'ctl_theta', min: 0, max: 180, val: 45, unit: '°' },
+      { id: 'phi', label: 'ctl_phi', min: 0, max: 360, val: 30, unit: '°' }
+    ],
+    buttons: [
+      { fn: 'measure2()', cls: 'btn-primary', label: 'btn_measure', sound: 'measure', icon: 'search' },
+      { fn: 'resetTopic(2)', cls: 'btn-secondary', label: 'btn_reset', icon: 'reset' }
+    ],
+    stats: [
+      { id: 'stUp', label: 'stat_spin_up', val: '0' },
+      { id: 'stDown', label: 'stat_spin_down', val: '0' },
+      { id: 'stMeas', label: 'stat_measurements', val: '0' }
+    ],
+    hint: 'hint_bloch'
+  },
+  3: {
+    canvas: 'sim3',
+    controls: [
+      { id: 'pwidth', label: 'ctl_width', min: 12, max: 100, val: 50, unit: '' },
+      { id: 'tspeed', label: 'ctl_speed', min: 1, max: 5, val: 2, unit: '×' }
+    ],
+    buttons: [
+      { fn: 'togglePlay3(this)', cls: 'btn-primary', label: 'btn_play', id: 'playBtn3', icon: 'play' },
+      { fn: 'resetTopic(3)', cls: 'btn-secondary', label: 'btn_reset', icon: 'reset' }
+    ],
+    stats: [
+      { id: 'stDx', label: 'stat_dx', val: '0.71' },
+      { id: 'stDp', label: 'stat_dp', val: '0.71' },
+      { id: 'stProd', label: 'stat_product', val: '0.50' }
+    ],
+    hint: 'hint_uncertainty'
+  },
+  4: {
+    canvas: 'sim4',
+    controls: [
+      { id: 'bheight', label: 'ctl_barrier_h', min: 20, max: 100, val: 60, unit: '' },
+      { id: 'bwidth', label: 'ctl_barrier_w', min: 10, max: 80, val: 30, unit: '' }
+    ],
+    buttons: [
+      { fn: 'fireWave4()', cls: 'btn-primary', label: 'btn_fire_wave', sound: 'particle', icon: 'plus' },
+      { fn: 'resetTopic(4)', cls: 'btn-secondary', label: 'btn_reset', icon: 'reset' }
+    ],
+    stats: [
+      { id: 'stT', label: 'stat_transmission', val: '0%' },
+      { id: 'stR', label: 'stat_reflection', val: '100%' }
+    ],
+    hint: 'hint_tunnel'
+  },
+  5: {
+    canvas: 'sim5',
+    controls: [
+      { id: 'angA', label: 'ctl_angle_a', min: 0, max: 180, val: 0, unit: '°' },
+      { id: 'angB', label: 'ctl_angle_b', min: 0, max: 180, val: 0, unit: '°' }
+    ],
+    buttons: [
+      { fn: 'measureEnt5()', cls: 'btn-primary', label: 'btn_measure', sound: 'measure', icon: 'search' },
+      { fn: 'measureBatch5()', cls: 'btn-violet', label: 'btn_run_many', sound: 'prepare', icon: 'bolt' },
+      { fn: 'resetTopic(5)', cls: 'btn-secondary', label: 'btn_reset', icon: 'reset' }
+    ],
+    stats: [
+      { id: 'stCorr', label: 'stat_correlation', val: '—' },
+      { id: 'stTrials', label: 'stat_trials', val: '0' }
+    ],
+    hint: 'hint_entangle'
+  },
+  6: {
+    canvas: 'sim6',
+    controls: [
+      { id: 'waitT', label: 'ctl_wait', min: 1, max: 10, val: 3, unit: '' }
+    ],
+    buttons: [
+      { fn: 'prepareCat6()', cls: 'btn-violet', label: 'btn_prepare_exp', sound: 'prepare', icon: 'bolt' },
+      { fn: 'openBox6()', cls: 'btn-primary', label: 'btn_open_box', sound: 'measure', icon: 'eye' },
+      { fn: 'resetTopic(6)', cls: 'btn-secondary', label: 'btn_reset', icon: 'reset' }
+    ],
+    stats: [
+      { id: 'stAlive', label: 'stat_alive', val: '0' },
+      { id: 'stDead', label: 'stat_dead', val: '0' },
+      { id: 'stTotal', label: 'stat_trials', val: '0' }
+    ],
+    hint: 'hint_schrodinger'
+  }
+};
+
+const ICONS = {
+  plus: '<circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/>',
+  play: '<polygon points="6 4 20 12 6 20 6 4"/>',
+  reset: '<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>',
+  search: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>',
+  bolt: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+  eye: '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>',
+  wave: '<path d="M2 12c2-4 4-4 6 0s4 4 6 0 4-4 6 0"/>',
+  back: '<path d="M19 12H5M12 19l-7-7 7-7"/>'
+};
+
+function svg(name) {
+  return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + (ICONS[name] || '') + '</svg>';
+}
+
+function buildTopics() {
+  const host = document.getElementById('topicsHost');
+  let out = '';
+  for (let i = 1; i <= 6; i++) {
+    const cfg = TOPIC_CONFIG[i];
+    const m = TOPIC_META[i];
+
+    const controls = cfg.controls.map(c => `
+      <div class="control-group">
+        <div class="control-label">
+          <span data-i18n="${c.label}"></span>
+          <span class="control-value" id="${c.id}Val">${c.val}${c.unit}</span>
+        </div>
+        <input type="range" class="slider" id="${c.id}" min="${c.min}" max="${c.max}" value="${c.val}"
+          oninput="onSlider(${i}, this)" aria-label="${t(c.label)}">
+      </div>`).join('');
+
+    const buttons = cfg.buttons.map(b => `
+      <button class="btn ${b.cls}" ${b.id ? 'id="' + b.id + '"' : ''} onclick="${b.sound ? "play('" + b.sound + "');" : ''}${b.fn}">
+        ${svg(b.icon)}<span data-i18n="${b.label}"></span>
+      </button>`).join('');
+
+    const stats = cfg.stats.map(s => `
+      <div class="stat-item">
+        <div class="stat-value" id="${s.id}">${s.val}</div>
+        <div class="stat-label" data-i18n="${s.label}"></div>
+      </div>`).join('');
+
+    out += `
+      <div class="page" id="topic${i}Page">
+        <div class="topic-page">
+          <button class="back-btn" onclick="goHome()">${svg('back')}<span data-i18n="nav_back"></span></button>
+          <div class="topic-header">
+            <div class="topic-header-number">0${i} / ${m.key.toUpperCase()}</div>
+            <h1 class="topic-header-title" data-i18n="${m.key}_title"></h1>
+            <p class="topic-header-desc" data-i18n="${m.key}_intro"></p>
+          </div>
+          <div class="simulation-container">
+            <div class="challenge-strip">
+              <span class="chip" data-i18n="challenge_chip"></span>
+              <span data-i18n="${m.key}_challenge"></span>
+            </div>
+            <div class="sim-canvas-wrap">
+              <canvas id="${cfg.canvas}"></canvas>
+              <div class="sim-hint" data-i18n="${cfg.hint}"></div>
+            </div>
+            <div class="controls-panel">${controls}</div>
+            <div class="btn-group">${buttons}</div>
+            <div class="stats-panel">${stats}</div>
+          </div>
+          <div class="quiz-section">
+            <div class="quiz-tag" data-i18n="predict_tag"></div>
+            <h3 class="quiz-question" data-i18n="${m.key}_q"></h3>
+            <div class="quiz-options">
+              <button class="quiz-option" onclick="answer(${i},'a',this)"><span data-i18n="${m.key}_a"></span></button>
+              <button class="quiz-option" onclick="answer(${i},'b',this)"><span data-i18n="${m.key}_b"></span></button>
+              <button class="quiz-option" onclick="answer(${i},'c',this)"><span data-i18n="${m.key}_c"></span></button>
+            </div>
+            <div id="feedback${i}"></div>
+          </div>
+        </div>
+      </div>`;
+  }
+  host.innerHTML = out;
+}
+
+function onSlider(topic, el) {
+  const cfg = TOPIC_CONFIG[topic];
+  const c = cfg.controls.find(x => x.id === el.id);
+  document.getElementById(el.id + 'Val').textContent = el.value + (c ? c.unit : '');
+  play('hover');
+  // live updates
+  if (topic === 1) drawSlit();
+  if (topic === 2) drawBloch();
+  if (topic === 3) updateUncertainty();
+  if (topic === 4) drawTunnel();
+  if (topic === 5) drawEntangle();
+}
+
+/* ============================================================
+   10. QUIZ
+   ============================================================ */
+function answer(topic, choice, btn) {
+  const opts = btn.parentElement.querySelectorAll('.quiz-option');
+  opts.forEach(o => o.disabled = true);
+  const correct = QUIZ[topic].correct;
+  const fb = document.getElementById('feedback' + topic);
+  const m = TOPIC_META[topic];
+
+  if (choice === correct) {
+    btn.classList.add('correct');
+    fb.innerHTML = '<div class="quiz-feedback correct"><strong>' + t('correct_label') +
+      '</strong><span class="body" data-i18n="' + m.key + '_explain">' + t(m.key + '_explain') + '</span></div>';
+    play('success');
+    confetti();
+    markComplete(topic);
+  } else {
+    btn.classList.add('incorrect');
+    // reveal correct one
+    opts.forEach(o => {
+      if (o.getAttribute('onclick').includes("'" + correct + "'")) o.classList.add('correct');
+    });
+    fb.innerHTML = '<div class="quiz-feedback incorrect"><strong>' + t('incorrect_label') +
+      '</strong><span class="body" data-i18n="' + m.key + '_explain">' + t(m.key + '_explain') + '</span></div>';
+    play('error');
+  }
+}
+
+/* ============================================================
+   11. CANVAS HELPERS (high-DPI)
+   ============================================================ */
+const CV = {};   // per-canvas {canvas, ctx, w, h}
+
+function setupCanvases() {
+  for (let i = 1; i <= 6; i++) prepCanvas('sim' + i);
+}
+function prepCanvas(id) {
+  const canvas = document.getElementById(id);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  CV[id] = { canvas, ctx, w: 0, h: 0 };
+  sizeCanvas(id);
+}
+function sizeCanvas(id) {
+  const o = CV[id];
+  if (!o) return;
+  const rect = o.canvas.getBoundingClientRect();
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const w = Math.max(rect.width, 10), h = Math.max(rect.height, 10);
+  o.canvas.width = Math.floor(w * dpr);
+  o.canvas.height = Math.floor(h * dpr);
+  o.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  o.w = w; o.h = h;
+}
+function resizeCanvas(topic) { sizeCanvas('sim' + topic); }
+
+function drawTopic(id) {
+  switch (id) {
+    case 1: drawSlit(); break;
+    case 2: drawBloch(); break;
+    case 3: drawUncertainty(); break;
+    case 4: drawTunnel(); break;
+    case 5: drawEntangle(); break;
+    case 6: drawCatBox(); break;
+  }
+}
+function redrawCurrent() {
+  if (currentTopic) { sizeCanvas('sim' + currentTopic); drawTopic(currentTopic); }
+}
+function val(id) { const e = document.getElementById(id); return e ? parseFloat(e.value) : 0; }
+
+/* small drawing utils */
+function glowDot(ctx, x, y, r, color, glow) {
+  const g = ctx.createRadialGradient(x, y, 0, x, y, r * 3);
+  g.addColorStop(0, color);
+  g.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = g;
+  ctx.beginPath(); ctx.arc(x, y, r * 3, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = color;
+  ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+}
+function label(ctx, text, x, y, color, size, align) {
+  ctx.fillStyle = color || '#9aa6c8';
+  ctx.font = (size || 12) + 'px Inter, Kanit, sans-serif';
+  ctx.textAlign = align || 'left';
+  ctx.fillText(text, x, y);
+  ctx.textAlign = 'left';
+}
+
+/* ============================================================
+   12. TOPIC 1 — DOUBLE SLIT
+   ============================================================ */
+const S1 = { hits: [], waveView: false, anim: null };
+
+function drawSlit() {
+  const o = CV.sim1; if (!o) return;
+  const { ctx, w, h } = o;
+  ctx.clearRect(0, 0, w, h);
+  ctx.fillStyle = '#06060f'; ctx.fillRect(0, 0, w, h);
+
+  if (typeof checkStation1Match === 'function') checkStation1Match();
+
+  const wallX = w * 0.34;
+  const screenX = w * 0.82;
+  const cy = h / 2;
+  const sep = val('slitSep');
+  const energy = val('energy');
+  const lambda = (120 - energy) * 0.55 + 6;
+
+  // source glow
+  glowDot(ctx, w * 0.08, cy, 5, 'rgba(34,224,255,0.9)', true);
+  label(ctx, t('lbl_source'), w * 0.02, cy - 18, '#9aa6c8', 12);
+
+  // beam lines to slits
+  ctx.strokeStyle = 'rgba(34,224,255,0.15)'; ctx.lineWidth = 1;
+  [cy - sep/2, cy + sep/2].forEach(sy => {
+    ctx.beginPath(); ctx.moveTo(w*0.08, cy); ctx.lineTo(wallX, sy); ctx.stroke();
+  });
+
+  // wall with two slits
+  const slitH = 12;
+  ctx.fillStyle = '#1b2145';
+  ctx.fillRect(wallX - 7, 0, 14, cy - sep/2 - slitH/2);
+  ctx.fillRect(wallX - 7, cy - sep/2 + slitH/2, 14, sep - slitH);
+  ctx.fillRect(wallX - 7, cy + sep/2 + slitH/2, 14, h - (cy + sep/2 + slitH/2));
+  label(ctx, t('lbl_double_slit'), wallX - 34, 22, '#9aa6c8', 12);
+
+  // wave view overlay (intensity curve on screen)
+  if (S1.waveView) {
+    ctx.beginPath();
+    for (let y = 8; y < h - 8; y += 2) {
+      const I = intensity1(y, cy, sep, lambda, wallX, screenX, h);
+      const x = screenX + 10 + I * 46;
+      if (y === 8) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.strokeStyle = 'rgba(155,123,255,0.85)'; ctx.lineWidth = 2; ctx.stroke();
+    // interference bands (soft)
+    for (let y = 8; y < h - 8; y += 2) {
+      const I = intensity1(y, cy, sep, lambda, wallX, screenX, h);
+      ctx.fillStyle = 'rgba(34,224,255,' + (I * 0.16) + ')';
+      ctx.fillRect(screenX + 8, y, 8, 2);
+    }
+  }
+
+  // detection screen
+  ctx.fillStyle = '#0c1330';
+  ctx.fillRect(screenX + 8, 8, 10, h - 16);
+  ctx.strokeStyle = 'rgba(150,175,255,0.25)'; ctx.strokeRect(screenX + 8, 8, 10, h - 16);
+  label(ctx, t('lbl_screen'), screenX - 8, 22, '#9aa6c8', 12);
+
+  // accumulated hits
+  S1.hits.forEach(hy => {
+    ctx.fillStyle = 'rgba(34,224,255,0.85)';
+    ctx.fillRect(screenX + 8, hy - 1, 10, 2.4);
+  });
+
+  // in-flight particle
+  if (S1.fly) {
+    glowDot(ctx, S1.fly.x, S1.fly.y, 4, 'rgba(120,240,255,1)', true);
+  }
+}
+
+function intensity1(y, cy, sep, lambda, wallX, screenX, h) {
+  const D = screenX - wallX;
+  const r1 = Math.hypot(D, y - (cy - sep/2));
+  const r2 = Math.hypot(D, y - (cy + sep/2));
+  const phase = 2 * Math.PI * (r2 - r1) / lambda;
+  const interf = Math.cos(phase / 2) ** 2;
+  const envelope = Math.exp(-(((y - cy) / (h * 0.34)) ** 2));
+  return interf * envelope;
+}
+
+function sampleHit1() {
+  const o = CV.sim1; const { w, h } = o;
+  const cy = h / 2, sep = val('slitSep'), energy = val('energy');
+  const lambda = (120 - energy) * 0.55 + 6;
+  const wallX = w * 0.34, screenX = w * 0.82;
+  // rejection sampling on intensity
+  for (let k = 0; k < 60; k++) {
+    const y = 10 + Math.random() * (h - 20);
+    const I = intensity1(y, cy, sep, lambda, wallX, screenX, h);
+    if (Math.random() < I) return y;
+  }
+  return cy + (Math.random() - 0.5) * h * 0.5;
+}
+
+function fireParticle1(animate) {
+  const o = CV.sim1; if (!o) return;
+  const { w, h } = o;
+  const hy = sampleHit1();
+  const cy = h / 2, sep = val('slitSep');
+  const wallX = w * 0.34, screenX = w * 0.82;
+  const slitY = Math.random() < 0.5 ? cy - sep/2 : cy + sep/2;
+
+  if (animate === false) {
+    S1.hits.push(hy);
+    document.getElementById('stParticles').textContent = S1.hits.length;
+    drawSlit();
+    return;
+  }
+
+  // animate: source -> slit -> screen
+  const path = [
+    { x: w * 0.08, y: cy },
+    { x: wallX, y: slitY },
+    { x: screenX + 12, y: hy }
+  ];
+  let t0 = 0;
+  cancelAnimationFrame(S1.fly && S1.fly.raf);
+  const step = () => {
+    t0 += 0.06;
+    const seg = t0 < 0.5 ? 0 : 1;
+    const local = seg === 0 ? t0 / 0.5 : (t0 - 0.5) / 0.5;
+    const a = path[seg], b = path[seg + 1];
+    S1.fly = { x: a.x + (b.x - a.x) * local, y: a.y + (b.y - a.y) * local };
+    drawSlit();
+    if (t0 < 1) { S1.fly.raf = requestAnimationFrame(step); }
+    else {
+      S1.fly = null;
+      S1.hits.push(hy);
+      document.getElementById('stParticles').textContent = S1.hits.length;
+      play('collision');
+      drawSlit();
+    }
+  };
+  step();
+}
+
+function toggleContinuous1(btn) {
+  if (continuousTimer) { stopContinuous(); btn.querySelector('span').textContent = t('btn_continuous'); btn.classList.remove('pressed'); return; }
+  btn.querySelector('span').textContent = t('btn_continuous_stop');
+  btn.classList.add('pressed');
+  continuousTimer = setInterval(() => {
+    fireParticle1(false);
+    if (S1.hits.length % 12 === 0) play('particle');
+  }, 55);
+}
+function stopContinuous() {
+  if (continuousTimer) { clearInterval(continuousTimer); continuousTimer = null; }
+  const b = document.getElementById('contBtn1');
+  if (b) { b.querySelector('span').textContent = t('btn_continuous'); b.classList.remove('pressed'); }
+}
+function toggleWaveView1(btn) {
+  S1.waveView = !S1.waveView;
+  btn.querySelector('span').textContent = S1.waveView ? t('btn_wave_view_off') : t('btn_wave_view');
+  btn.classList.toggle('pressed', S1.waveView);
+  play('click');
+  drawSlit();
+}
+
+/* ============================================================
+   13. TOPIC 2 — BLOCH SPHERE / SUPERPOSITION
+   ============================================================ */
+const S2 = { up: 0, down: 0, collapse: null };
+
+function drawBloch() {
+  const o = CV.sim2; if (!o) return;
+  const { ctx, w, h } = o;
+  ctx.clearRect(0, 0, w, h);
+  ctx.fillStyle = '#06060f'; ctx.fillRect(0, 0, w, h);
+
+  const cx = w * 0.36, cy = h * 0.5, R = Math.min(w * 0.34, h * 0.4);
+  const theta = val('theta') * Math.PI / 180;
+  const phi = val('phi') * Math.PI / 180;
+
+  // sphere
+  const sg = ctx.createRadialGradient(cx - R*0.3, cy - R*0.3, R*0.2, cx, cy, R);
+  sg.addColorStop(0, 'rgba(34,224,255,0.10)');
+  sg.addColorStop(1, 'rgba(10,14,34,0.5)');
+  ctx.fillStyle = sg;
+  ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI*2); ctx.fill();
+  ctx.strokeStyle = 'rgba(34,224,255,0.35)'; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI*2); ctx.stroke();
+
+  // equator + meridian ellipses
+  ctx.strokeStyle = 'rgba(155,123,255,0.3)';
+  ctx.beginPath(); ctx.ellipse(cx, cy, R, R*0.32, 0, 0, Math.PI*2); ctx.stroke();
+  ctx.strokeStyle = 'rgba(150,175,255,0.18)';
+  ctx.beginPath(); ctx.ellipse(cx, cy, R*0.32, R, 0, 0, Math.PI*2); ctx.stroke();
+
+  // axis
+  ctx.strokeStyle = 'rgba(150,175,255,0.35)'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(cx, cy - R - 16); ctx.lineTo(cx, cy + R + 16); ctx.stroke();
+  label(ctx, '|0⟩', cx, cy - R - 22, '#eef3ff', 15, 'center');
+  label(ctx, '|1⟩', cx, cy + R + 34, '#eef3ff', 15, 'center');
+
+  // state vector (project 3D to 2D with slight perspective)
+  const sx = Math.sin(theta) * Math.cos(phi);
+  const sy = Math.sin(theta) * Math.sin(phi);
+  const sz = Math.cos(theta);
+  const px = cx + sx * R;
+  const py = cy - sz * R + sy * R * 0.32;
+
+  ctx.strokeStyle = '#22e0ff'; ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(px, py); ctx.stroke();
+  glowDot(ctx, px, py, 6, 'rgba(120,240,255,1)', true);
+
+  // arrowhead
+  const ang = Math.atan2(py - cy, px - cx);
+  ctx.fillStyle = '#22e0ff';
+  ctx.beginPath();
+  ctx.moveTo(px, py);
+  ctx.lineTo(px - 11*Math.cos(ang - 0.4), py - 11*Math.sin(ang - 0.4));
+  ctx.lineTo(px - 11*Math.cos(ang + 0.4), py - 11*Math.sin(ang + 0.4));
+  ctx.closePath(); ctx.fill();
+
+  // probability bars on the right
+  const p0 = Math.cos(theta/2) ** 2;
+  const p1 = 1 - p0;
+  const bx = w * 0.76, bw = w * 0.16, top = cy - R, barH = 26;
+  drawProbBar(ctx, bx, top, bw, barH, p0, '|0⟩', '#34e08a');
+  drawProbBar(ctx, bx, top + 44, bw, barH, p1, '|1⟩', '#ff6b7d');
+
+  // histogram of measured results
+  const total = S2.up + S2.down;
+  label(ctx, t('stat_measurements'), bx, top + 108, '#9aa6c8', 12);
+  const hgY = top + 120, hgH = 70;
+  const upFrac = total ? S2.up / total : 0;
+  ctx.fillStyle = 'rgba(52,224,138,0.75)';
+  ctx.fillRect(bx, hgY + hgH*(1-upFrac), bw/2 - 4, hgH*upFrac);
+  ctx.fillStyle = 'rgba(255,107,125,0.75)';
+  ctx.fillRect(bx + bw/2 + 4, hgY + hgH*(1-(1-upFrac)*(total?1:0)), bw/2 - 4, hgH*(total? (S2.down/total):0));
+  ctx.strokeStyle = 'rgba(150,175,255,0.2)';
+  ctx.strokeRect(bx, hgY, bw/2 - 4, hgH);
+  ctx.strokeRect(bx + bw/2 + 4, hgY, bw/2 - 4, hgH);
+
+  // collapse flash
+  if (S2.collapse) {
+    ctx.strokeStyle = S2.collapse.result === 'up' ? 'rgba(52,224,138,' + S2.collapse.a + ')' : 'rgba(255,107,125,' + S2.collapse.a + ')';
+    ctx.lineWidth = 4;
+    const ty = S2.collapse.result === 'up' ? cy - R : cy + R;
+    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx, ty); ctx.stroke();
+  }
+}
+
+function drawProbBar(ctx, x, y, wBar, hBar, frac, tag, color) {
+  ctx.fillStyle = 'rgba(255,255,255,0.05)';
+  ctx.fillRect(x, y, wBar, hBar);
+  ctx.fillStyle = color;
+  ctx.fillRect(x, y, wBar * frac, hBar);
+  label(ctx, tag, x - 26, y + hBar - 8, '#eef3ff', 13);
+  label(ctx, (frac*100).toFixed(0) + '%', x + wBar + 6, y + hBar - 8, '#9aa6c8', 12);
+}
+
+function measure2() {
+  const o = CV.sim2; if (!o) return;
+  const theta = val('theta') * Math.PI / 180;
+  const p0 = Math.cos(theta/2) ** 2;
+  const result = Math.random() < p0 ? 'up' : 'down';
+  if (result === 'up') S2.up++; else S2.down++;
+  document.getElementById('stUp').textContent = S2.up;
+  document.getElementById('stDown').textContent = S2.down;
+  document.getElementById('stMeas').textContent = S2.up + S2.down;
+  play(result === 'up' ? 'success' : 'collision');
+
+  // animate collapse flash
+  S2.collapse = { result, a: 1 };
+  const fade = () => {
+    if (!S2.collapse) return;
+    S2.collapse.a -= 0.04;
+    drawBloch();
+    if (S2.collapse.a > 0) requestAnimationFrame(fade);
+    else { S2.collapse = null; drawBloch(); }
+  };
+  fade();
+}
+
+// drag to rotate
+function initBlochDrag() {
+  const o = CV.sim2; if (!o) return;
+  const canvas = o.canvas;
+  let dragging = false, lastX, lastY;
+  const down = e => { dragging = true; const p = pointer(e, canvas); lastX = p.x; lastY = p.y; };
+  const move = e => {
+    if (!dragging) return;
+    const p = pointer(e, canvas);
+    const dx = p.x - lastX, dy = p.y - lastY;
+    lastX = p.x; lastY = p.y;
+    const phiEl = document.getElementById('phi'), thEl = document.getElementById('theta');
+    let phi = (parseFloat(phiEl.value) + dx) % 360; if (phi < 0) phi += 360;
+    let th = Math.max(0, Math.min(180, parseFloat(thEl.value) + dy));
+    phiEl.value = phi.toFixed(0); thEl.value = th.toFixed(0);
+    document.getElementById('phiVal').textContent = phi.toFixed(0) + '°';
+    document.getElementById('thetaVal').textContent = th.toFixed(0) + '°';
+    drawBloch();
+  };
+  const up = () => dragging = false;
+  canvas.addEventListener('pointerdown', down);
+  window.addEventListener('pointermove', move);
+  window.addEventListener('pointerup', up);
+}
+function pointer(e, canvas) {
+  const r = canvas.getBoundingClientRect();
+  return { x: e.clientX - r.left, y: e.clientY - r.top };
+}
+
+/* ============================================================
+   14. TOPIC 3 — UNCERTAINTY
+   ============================================================ */
+const S3 = { playing: false, time: 0, raf: null };
+
+function sigmaX() { return 0.25 + (val('pwidth') / 100) * 1.6; }  // 0.25 .. 1.85
+
+function updateUncertainty() {
+  const sx0 = sigmaX();
+  const sp = 0.5 / sx0;                       // minimum-uncertainty at t=0 (ħ=1)
+  const sx = sx0 * Math.sqrt(1 + (S3.time) ** 2);
+  const prod = sx * sp;
+  document.getElementById('stDx').textContent = sx.toFixed(2);
+  document.getElementById('stDp').textContent = sp.toFixed(2);
+  document.getElementById('stProd').textContent = prod.toFixed(2);
+  drawUncertainty();
+  if (typeof checkStation3Spec === 'function') checkStation3Spec();
+}
+
+function drawUncertainty() {
+  const o = CV.sim3; if (!o) return;
+  const { ctx, w, h } = o;
+  ctx.clearRect(0, 0, w, h);
+  ctx.fillStyle = '#06060f'; ctx.fillRect(0, 0, w, h);
+
+  const sx0 = sigmaX();
+  const sp = 0.5 / sx0;
+  const sx = sx0 * Math.sqrt(1 + (S3.time) ** 2);
+
+  const midY = h / 2;
+  // dividers
+  ctx.strokeStyle = 'rgba(150,175,255,0.12)';
+  ctx.beginPath(); ctx.moveTo(0, midY); ctx.lineTo(w, midY); ctx.stroke();
+
+  // position space (top)
+  drawGaussianPanel(ctx, 0, 8, w, midY - 16, sx, '#22e0ff', t('lbl_pos_space'), 1.9);
+  // momentum space (bottom)
+  drawGaussianPanel(ctx, 0, midY + 8, w, midY - 16, sp, '#9b7bff', t('lbl_mom_space'), 1.9);
+
+  // Heisenberg readout
+  const prod = (sx * sp).toFixed(2);
+  ctx.font = '15px JetBrains Mono, monospace';
+  ctx.fillStyle = prod <= 0.51 ? '#34e08a' : '#22e0ff';
+  ctx.textAlign = 'right';
+  ctx.fillText('Δx·Δp = ' + prod + '  ≥  0.50', w - 16, 24);
+  ctx.textAlign = 'left';
+}
+
+function drawGaussianPanel(ctx, x, y, pw, ph, sigma, color, title, refSigma) {
+  label(ctx, title, x + 14, y + 18, '#9aa6c8', 12);
+  const cx = x + pw / 2, baseY = y + ph - 10;
+  const amp = ph - 34;
+  // normalize width visually: bigger sigma -> wider, shorter
+  const widthScale = pw * 0.42;
+  ctx.beginPath();
+  for (let i = 0; i <= pw; i += 2) {
+    const rel = (i - pw/2) / widthScale;
+    const g = Math.exp(-(rel*rel) / (2 * (sigma/refSigma) ** 2));
+    const yy = baseY - g * amp;
+    if (i === 0) ctx.moveTo(x + i, yy); else ctx.lineTo(x + i, yy);
+  }
+  ctx.lineTo(x + pw, baseY); ctx.lineTo(x, baseY); ctx.closePath();
+  ctx.fillStyle = hexA(color, 0.28);
+  ctx.fill();
+  ctx.strokeStyle = color; ctx.lineWidth = 2; ctx.stroke();
+
+  // width arrows
+  const half = widthScale * (sigma / refSigma);
+  ctx.strokeStyle = hexA(color, 0.6); ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(cx - half, baseY + 4); ctx.lineTo(cx + half, baseY + 4); ctx.stroke();
+}
+function hexA(hex, a) {
+  const h = hex.replace('#','');
+  const r = parseInt(h.substr(0,2),16), g = parseInt(h.substr(2,2),16), b = parseInt(h.substr(4,2),16);
+  return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
+}
+
+function togglePlay3(btn) {
+  S3.playing = !S3.playing;
+  btn.querySelector('span').textContent = S3.playing ? t('btn_pause') : t('btn_play');
+  btn.classList.toggle('pressed', S3.playing);
+  play('click');
+  if (S3.playing) loop3(); else cancelAnimationFrame(S3.raf);
+}
+function loop3() {
+  if (!S3.playing) return;
+  S3.time += 0.012 * val('tspeed');
+  if (S3.time > 3) S3.time = 0;
+  updateUncertainty();
+  S3.raf = requestAnimationFrame(loop3);
+}
+
+/* ============================================================
+   15. TOPIC 4 — TUNNELING
+   ============================================================ */
+const S4 = { packet: null, raf: null, T: 0, R: 1 };
+
+function drawTunnel() {
+  const o = CV.sim4; if (!o) return;
+  const { ctx, w, h } = o;
+  ctx.clearRect(0, 0, w, h);
+  ctx.fillStyle = '#06060f'; ctx.fillRect(0, 0, w, h);
+
+  const bh = val('bheight'), bw = val('bwidth');
+  const barrierX = w * 0.5 - (bw * w / 200);
+  const barrierW = bw * w / 100;
+  const barrierPix = (bh / 100) * (h * 0.6);
+  const baseY = h * 0.78;
+
+  // ground line
+  ctx.strokeStyle = 'rgba(150,175,255,0.2)'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(0, baseY); ctx.lineTo(w, baseY); ctx.stroke();
+
+  // barrier
+  const bg = ctx.createLinearGradient(0, baseY - barrierPix, 0, baseY);
+  bg.addColorStop(0, 'rgba(155,123,255,0.65)');
+  bg.addColorStop(1, 'rgba(155,123,255,0.2)');
+  ctx.fillStyle = bg;
+  ctx.fillRect(barrierX, baseY - barrierPix, barrierW, barrierPix);
+  ctx.strokeStyle = 'rgba(155,123,255,0.8)';
+  ctx.strokeRect(barrierX, baseY - barrierPix, barrierW, barrierPix);
+  label(ctx, t('lbl_barrier'), barrierX + barrierW/2, baseY - barrierPix - 10, '#c4b5ff', 12, 'center');
+
+  // energy line of the particle (fixed, below barrier top)
+  const eY = baseY - h * 0.32;
+  ctx.strokeStyle = 'rgba(34,224,255,0.5)'; ctx.setLineDash([6,5]);
+  ctx.beginPath(); ctx.moveTo(0, eY); ctx.lineTo(w, eY); ctx.stroke();
+  ctx.setLineDash([]);
+  label(ctx, 'E', 6, eY - 6, 'rgba(34,224,255,0.8)', 12);
+
+  // packet
+  const p = S4.packet;
+  if (p) {
+    drawPacket(ctx, w, h, baseY, p, barrierX, barrierW);
+  } else {
+    label(ctx, t('lbl_incoming'), w*0.12, eY - 14, '#9aa6c8', 12);
+  }
+
+  // readouts
+  label(ctx, t('lbl_reflected') + ': ' + (S4.R*100).toFixed(0) + '%', w*0.04, 26, '#ff9db0', 13);
+  ctx.textAlign = 'right';
+  label(ctx, t('lbl_transmitted') + ': ' + (S4.T*100).toFixed(0) + '%', w - 16, 26, '#34e08a', 13, 'right');
+  ctx.textAlign = 'left';
+}
+
+function drawPacket(ctx, w, h, baseY, p, barrierX, barrierW) {
+  const amp = h * 0.16;
+  const drawGaussianWave = (center, scale, color) => {
+    if (scale <= 0.01) return;
+    ctx.beginPath();
+    for (let x = 0; x <= w; x += 2) {
+      const rel = (x - center) / 34;
+      const env = Math.exp(-rel*rel) * scale;
+      const carrier = Math.cos(rel * 6);
+      const y = baseY - h*0.32 - env * carrier * amp;
+      if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.strokeStyle = color; ctx.lineWidth = 2; ctx.stroke();
+  };
+
+  if (p.phase === 'incoming') {
+    drawGaussianWave(p.x, 1, 'rgba(34,224,255,0.95)');
+  } else {
+    // reflected (moving left) + transmitted (moving right)
+    drawGaussianWave(p.reflX, Math.sqrt(S4.R), 'rgba(255,107,125,0.9)');
+    drawGaussianWave(p.transX, Math.sqrt(S4.T), 'rgba(52,224,138,0.95)');
+  }
+}
+
+function fireWave4() {
+  const o = CV.sim4; if (!o) return;
+  const { w } = o;
+  const bh = val('bheight'), bw = val('bwidth');
+  // pedagogical tunneling: T ≈ exp(-2κL), scaled for visible & engaging results
+  const kappa = 0.015 + (bh / 100) * 0.055;
+  S4.T = Math.min(0.95, Math.max(0.004, Math.exp(-kappa * bw * 2.2)));
+  S4.R = 1 - S4.T;
+  document.getElementById('stT').textContent = (S4.T*100).toFixed(0) + '%';
+  document.getElementById('stR').textContent = (S4.R*100).toFixed(0) + '%';
+
+  const barrierX = w * 0.5 - (bw * w / 200);
+  const barrierW = bw * w / 100;
+  const barrierCenter = barrierX + barrierW/2;
+  S4.packet = { phase: 'incoming', x: w * 0.12, reflX: barrierCenter, transX: barrierCenter, barrierCenter };
+  cancelAnimationFrame(S4.raf);
+
+  let collided = false;
+  const anim = () => {
+    const p = S4.packet; if (!p) return;
+    if (p.phase === 'incoming') {
+      p.x += 4;
+      if (p.x >= p.barrierCenter) {
+        p.phase = 'split';
+        p.reflX = p.barrierCenter;
+        p.transX = p.barrierCenter;
+        if (!collided) { play('collision'); collided = true; }
+      }
+    } else {
+      p.reflX -= 4;
+      p.transX += 4;
+    }
+    drawTunnel();
+    const done = p.phase === 'split' && (p.transX > CV.sim4.w + 40 && p.reflX < -40);
+    if (!done) S4.raf = requestAnimationFrame(anim);
+  };
+  anim();
+}
+
+/* ============================================================
+   16. TOPIC 5 — ENTANGLEMENT (Bell Φ+)
+   ============================================================ */
+const S5 = { trials: 0, same: 0, flight: null, lastA: null, lastB: null, raf: null };
+
+function matchProb5() {
+  const da = (val('angA') - val('angB')) * Math.PI / 180;
+  return Math.cos(da / 2) ** 2;   // Φ+ : same-result probability
+}
+
+function drawEntangle() {
+  const o = CV.sim5; if (!o) return;
+  const { ctx, w, h } = o;
+  ctx.clearRect(0, 0, w, h);
+  ctx.fillStyle = '#06060f'; ctx.fillRect(0, 0, w, h);
+
+  const cx = w/2, cy = h*0.42;
+  const ax = w*0.16, bx = w*0.84;
+
+  // link lines
+  ctx.strokeStyle = 'rgba(34,224,255,0.2)'; ctx.setLineDash([5,6]); ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(ax, cy); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(bx, cy); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // source
+  glowDot(ctx, cx, cy, 10, 'rgba(155,123,255,0.9)', true);
+  label(ctx, t('lbl_ent_source'), cx, cy - 24, '#c4b5ff', 12, 'center');
+
+  // detectors
+  drawDetector5(ctx, ax, cy, 'A', val('angA'), S5.lastA);
+  drawDetector5(ctx, bx, cy, 'B', val('angB'), S5.lastB);
+
+  // in-flight particles
+  if (S5.flight) {
+    glowDot(ctx, S5.flight.ax, cy, 6, 'rgba(120,240,255,1)');
+    glowDot(ctx, S5.flight.bx, cy, 6, 'rgba(120,240,255,1)');
+  }
+
+  // theory curve of match probability vs angle difference
+  const gx = w*0.14, gy = h*0.72, gw = w*0.72, gh = h*0.2;
+  ctx.strokeStyle = 'rgba(150,175,255,0.25)';
+  ctx.strokeRect(gx, gy, gw, gh);
+  label(ctx, t('lbl_prob_same'), gx, gy - 8, '#9aa6c8', 11);
+  ctx.beginPath();
+  for (let i = 0; i <= gw; i += 2) {
+    const dd = (i / gw) * 180 * Math.PI / 180;
+    const pv = Math.cos(dd/2) ** 2;
+    const yy = gy + gh - pv * gh;
+    if (i === 0) ctx.moveTo(gx + i, yy); else ctx.lineTo(gx + i, yy);
+  }
+  ctx.strokeStyle = 'rgba(34,224,255,0.7)'; ctx.lineWidth = 2; ctx.stroke();
+  // current angle-diff marker
+  const diff = Math.abs(val('angA') - val('angB'));
+  const mxp = gx + (diff/180)*gw;
+  ctx.strokeStyle = 'rgba(255,107,125,0.8)';
+  ctx.beginPath(); ctx.moveTo(mxp, gy); ctx.lineTo(mxp, gy+gh); ctx.stroke();
+  // measured point
+  if (S5.trials > 0) {
+    const meas = S5.same / S5.trials;
+    glowDot(ctx, mxp, gy + gh - meas*gh, 4, 'rgba(52,224,138,1)');
+  }
+  label(ctx, 'Δθ = ' + diff.toFixed(0) + '°', mxp + 6, gy + 14, '#ff9db0', 11);
+}
+
+function drawDetector5(ctx, x, y, tag, angle, result) {
+  ctx.beginPath(); ctx.arc(x, y, 30, 0, Math.PI*2);
+  ctx.fillStyle = 'rgba(34,224,255,0.08)';
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(34,224,255,0.6)'; ctx.lineWidth = 2; ctx.stroke();
+  const rad = angle * Math.PI / 180;
+  ctx.strokeStyle = '#9b7bff'; ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(x - Math.cos(rad)*34, y - Math.sin(rad)*34);
+  ctx.lineTo(x + Math.cos(rad)*34, y + Math.sin(rad)*34);
+  ctx.stroke();
+  if (result) {
+    ctx.fillStyle = result === 'up' ? '#34e08a' : '#ff6b7d';
+    ctx.beginPath(); ctx.arc(x, y, 9, 0, Math.PI*2); ctx.fill();
+    label(ctx, result === 'up' ? '↑' : '↓', x, y + 5, '#06121a', 14, 'center');
+  }
+  label(ctx, t('lbl_detector') + ' ' + tag, x, y + 50, '#eef3ff', 13, 'center');
+  label(ctx, angle.toFixed(0) + '°', x, y + 68, '#9aa6c8', 12, 'center');
+}
+
+function doMeasure5() {
+  const pSame = matchProb5();
+  const a = Math.random() < 0.5 ? 'up' : 'down';
+  const same = Math.random() < pSame;
+  const b = same ? a : (a === 'up' ? 'down' : 'up');
+  S5.lastA = a; S5.lastB = b;
+  S5.trials++;
+  if (a === b) S5.same++;
+  document.getElementById('stTrials').textContent = S5.trials;
+  document.getElementById('stCorr').textContent = (S5.same / S5.trials * 100).toFixed(0) + '%';
+}
+
+function measureEnt5() {
+  const o = CV.sim5; if (!o) return;
+  const { w } = o;
+  const cx = w/2, ax = w*0.16, bx = w*0.84;
+  S5.flight = { ax: cx, bx: cx };
+  cancelAnimationFrame(S5.raf);
+  let tt = 0;
+  const anim = () => {
+    tt += 0.06;
+    S5.flight.ax = cx + (ax - cx) * tt;
+    S5.flight.bx = cx + (bx - cx) * tt;
+    drawEntangle();
+    if (tt < 1) S5.raf = requestAnimationFrame(anim);
+    else { S5.flight = null; doMeasure5(); play('measure'); drawEntangle(); }
+  };
+  anim();
+}
+
+function measureBatch5() {
+  play('prepare');
+  let n = 0;
+  const iv = setInterval(() => {
+    doMeasure5(); n++;
+    drawEntangle();
+    if (n % 8 === 0) play('particle');
+    if (n >= 40) {
+      clearInterval(iv);
+      play('discover');
+      const corrPct = S5.trials > 0 ? parseFloat((S5.same / S5.trials * 100).toFixed(0)) : 0;
+      if (typeof checkStation5Bell === 'function') checkStation5Bell(S5.trials, corrPct);
+    }
+  }, 40);
+}
+
+/* ============================================================
+   17. TOPIC 6 — SCHRÖDINGER'S CAT
+   ============================================================ */
+const S6 = { state: 'idle', alive: 0, dead: 0, result: null, pulse: 0, raf: null };
+
+function drawCatBox() {
+  const o = CV.sim6; if (!o) return;
+  const { ctx, w, h } = o;
+  ctx.clearRect(0, 0, w, h);
+  ctx.fillStyle = '#06060f'; ctx.fillRect(0, 0, w, h);
+
+  const bx = w*0.28, by = h*0.2, bw = w*0.44, bh = h*0.56;
+
+  // box
+  ctx.strokeStyle = 'rgba(150,175,255,0.5)'; ctx.lineWidth = 3;
+  ctx.strokeRect(bx, by, bw, bh);
+  // lid (open when result)
+  if (S6.state === 'result') {
+    ctx.strokeStyle = 'rgba(34,224,255,0.6)';
+    ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(bx + bw*0.5, by - h*0.12); ctx.lineTo(bx + bw, by); ctx.stroke();
+  }
+
+  // atom
+  const atomX = bx + bw*0.24, atomY = by + bh*0.24;
+  const pulse = S6.state === 'prepared' ? (Math.sin(S6.pulse)*0.5+0.5) : 0.2;
+  glowDot(ctx, atomX, atomY, 8 + pulse*4, 'rgba(155,123,255,' + (0.5+pulse*0.5) + ')');
+  label(ctx, t('lbl_atom'), atomX, atomY + 30, '#c4b5ff', 11, 'center');
+
+  // poison
+  const pX = bx + bw*0.72, pY = by + bh*0.2;
+  const released = S6.state === 'result' && S6.result === 'dead';
+  ctx.fillStyle = released ? 'rgba(255,107,125,0.7)' : 'rgba(52,224,138,0.5)';
+  ctx.fillRect(pX - 10, pY, 20, 34);
+  ctx.strokeStyle = 'rgba(255,255,255,0.3)'; ctx.strokeRect(pX - 10, pY, 20, 34);
+  label(ctx, t('lbl_poison'), pX, pY + 50, '#9aa6c8', 11, 'center');
+
+  // cat
+  const catX = bx + bw*0.5, catY = by + bh*0.72;
+  if (S6.state === 'idle') drawCat(ctx, catX, catY, 'alive', 1);
+  else if (S6.state === 'prepared') drawSuperCat(ctx, catX, catY);
+  else drawCat(ctx, catX, catY, S6.result, 1);
+
+  // status text
+  let key = 'schr_idle';
+  if (S6.state === 'prepared') key = 'schr_super';
+  else if (S6.state === 'result') key = S6.result === 'alive' ? 'schr_alive' : 'schr_dead';
+  ctx.fillStyle = '#22e0ff';
+  ctx.font = '15px Inter, Kanit, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(t(key), w/2, h - 18);
+  ctx.textAlign = 'left';
+}
+
+function drawCat(ctx, x, y, mood, alpha) {
+  const color = mood === 'alive' ? '#34e08a' : '#ff6b7d';
+  ctx.globalAlpha = alpha;
+  ctx.fillStyle = color;
+  // body
+  ctx.beginPath(); ctx.arc(x, y, 26, 0, Math.PI*2); ctx.fill();
+  // ears
+  ctx.beginPath(); ctx.moveTo(x-22,y-14); ctx.lineTo(x-30,y-38); ctx.lineTo(x-8,y-22); ctx.closePath(); ctx.fill();
+  ctx.beginPath(); ctx.moveTo(x+22,y-14); ctx.lineTo(x+30,y-38); ctx.lineTo(x+8,y-22); ctx.closePath(); ctx.fill();
+  // eyes
+  ctx.fillStyle = '#06121a';
+  if (mood === 'alive') {
+    ctx.beginPath(); ctx.arc(x-9,y-4,3.4,0,Math.PI*2); ctx.arc(x+9,y-4,3.4,0,Math.PI*2); ctx.fill();
+  } else {
+    ctx.lineWidth = 2.4; ctx.strokeStyle = '#06121a';
+    ctx.beginPath();
+    ctx.moveTo(x-12,y-7); ctx.lineTo(x-6,y-1); ctx.moveTo(x-6,y-7); ctx.lineTo(x-12,y-1);
+    ctx.moveTo(x+6,y-7); ctx.lineTo(x+12,y-1); ctx.moveTo(x+12,y-7); ctx.lineTo(x+6,y-1);
+    ctx.stroke();
+  }
+  ctx.globalAlpha = 1;
+  label(ctx, t(mood === 'alive' ? 'cat_alive' : 'cat_dead'), x, y + 46, color, 13, 'center');
+}
+
+function drawSuperCat(ctx, x, y) {
+  drawCat(ctx, x - 22, y, 'alive', 0.55);
+  drawCat(ctx, x + 22, y, 'dead', 0.55);
+  ctx.fillStyle = '#9b7bff';
+  ctx.font = '13px Inter, Kanit, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('50% / 50%', x, y + 66);
+  ctx.fillText(t('cat_super'), x, y - 44);
+  ctx.textAlign = 'left';
+}
+
+function prepareCat6() {
+  S6.state = 'prepared';
+  S6.result = null;
+  animateSuper6();
+}
+function animateSuper6() {
+  cancelAnimationFrame(S6.raf);
+  const loop = () => {
+    if (S6.state !== 'prepared') return;
+    S6.pulse += 0.12;
+    drawCatBox();
+    S6.raf = requestAnimationFrame(loop);
+  };
+  loop();
+}
+function openBox6() {
+  if (S6.state !== 'prepared') { toast(lang==='th' ? 'กด “เริ่มการทดลอง” ก่อนนะ' : 'Set up the experiment first'); return; }
+  cancelAnimationFrame(S6.raf);
+  const waitT = val('waitT');
+  const pDead = 1 - Math.pow(0.5, waitT / 3);   // half-life = 3s
+  const dead = Math.random() < pDead;
+  S6.result = dead ? 'dead' : 'alive';
+  S6.state = 'result';
+  if (dead) { S6.dead++; play('error'); }
+  else { S6.alive++; play('discover'); confetti(); }
+  document.getElementById('stAlive').textContent = S6.alive;
+  document.getElementById('stDead').textContent = S6.dead;
+  document.getElementById('stTotal').textContent = S6.alive + S6.dead;
+  drawCatBox();
+  if (typeof logStation6Open === 'function') logStation6Open(!dead, waitT);
+}
+
+/* ============================================================
+   18. RESET
+   ============================================================ */
+function resetTopic(id) {
+  play('click');
+  switch (id) {
+    case 1:
+      stopContinuous(); S1.hits = []; S1.fly = null;
+      document.getElementById('stParticles').textContent = '0';
+      drawSlit(); break;
+    case 2:
+      S2.up = 0; S2.down = 0; S2.collapse = null;
+      document.getElementById('stUp').textContent = '0';
+      document.getElementById('stDown').textContent = '0';
+      document.getElementById('stMeas').textContent = '0';
+      drawBloch(); break;
+    case 3:
+      S3.playing = false; S3.time = 0;
+      cancelAnimationFrame(S3.raf);
+      { const b = document.getElementById('playBtn3'); b.querySelector('span').textContent = t('btn_play'); b.classList.remove('pressed'); }
+      updateUncertainty(); break;
+    case 4:
+      S4.packet = null; S4.T = 0; S4.R = 1;
+      cancelAnimationFrame(S4.raf);
+      document.getElementById('stT').textContent = '0%';
+      document.getElementById('stR').textContent = '100%';
+      drawTunnel(); break;
+    case 5:
+      S5.trials = 0; S5.same = 0; S5.lastA = null; S5.lastB = null; S5.flight = null;
+      cancelAnimationFrame(S5.raf);
+      document.getElementById('stTrials').textContent = '0';
+      document.getElementById('stCorr').textContent = '—';
+      drawEntangle(); break;
+    case 6:
+      S6.state = 'idle'; S6.alive = 0; S6.dead = 0; S6.result = null;
+      cancelAnimationFrame(S6.raf);
+      document.getElementById('stAlive').textContent = '0';
+      document.getElementById('stDead').textContent = '0';
+      document.getElementById('stTotal').textContent = '0';
+      drawCatBox(); break;
+  }
+}
+
+/* ============================================================
+   19. EFFECTS
+   ============================================================ */
+function confetti() {
+  const colors = ['#22e0ff', '#9b7bff', '#34e08a', '#eef3ff', '#4c86ff'];
+  const c = document.createElement('div');
+  c.className = 'confetti';
+  for (let i = 0; i < 34; i++) {
+    const p = document.createElement('div');
+    p.className = 'confetti-piece';
+    p.style.background = colors[i % colors.length];
+    p.style.left = (48 + (Math.random()-0.5)*44) + '%';
+    p.style.top = '38%';
+    p.style.setProperty('transform', 'translateX(' + (Math.random()-0.5)*260 + 'px)');
+    p.style.animationDelay = (Math.random()*0.25) + 's';
+    p.style.animationDuration = (0.9 + Math.random()*0.7) + 's';
+    c.appendChild(p);
+  }
+  document.body.appendChild(c);
+  setTimeout(() => c.remove(), 1800);
+}
+
+let toastTimer = null;
+function toast(msg) {
+  let el = document.getElementById('toast');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'toast'; el.className = 'toast';
+    document.body.appendChild(el);
+  }
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 1900);
+}
+
+/* ============================================================
+   20. RESIZE
+   ============================================================ */
+let resizeTimer = null;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    for (let i = 1; i <= 6; i++) sizeCanvas('sim' + i);
+    redrawCurrent();
+  }, 150);
+});
+
+// init drag after canvases exist
+window.addEventListener('load', () => {
+  initBlochDrag();
+  // draw all once so returning to a topic is instant
+  drawSlit(); drawBloch(); updateUncertainty(); drawTunnel(); drawEntangle(); drawCatBox();
+});
