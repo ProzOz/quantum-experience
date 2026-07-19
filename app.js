@@ -1,6 +1,7 @@
 /* ============================================================
    Quantum Experience — SCIUS BUU
    Interactive quantum-science learning platform
+   lab.js extends with the Quantum Lab redesign.
    ============================================================ */
 
 'use strict';
@@ -17,6 +18,7 @@ const I18N = {
   home_subtitle:    { th: "สัมผัสโลกของอนุภาคที่เล็กที่สุด ทดลองด้วยตัวเอง แล้วค้นพบว่าทำไมควอนตัมถึงพลิกทุกอย่างที่เรารู้จัก", en: "Step into the world of the tiniest particles. Run the experiments yourself and discover why the quantum world breaks all the rules." },
   home_hint:        { th: "เลือกหัวข้อไหนก่อนก็ได้ ไม่ต้องเรียงลำดับ", en: "Explore any topic in any order — it is all up to you" },
   home_topics_label:{ th: "หกการทดลองควอนตัม", en: "Six Quantum Experiments" },
+  home_topics_label7:{ th: "เจ็ดสถานีควอนตัม", en: "Seven Quantum Stations" },
   badge_recommended:{ th: "แนะนำให้เริ่มที่นี่", en: "Best place to start" },
   progress_summary: { th: "ทำสำเร็จแล้ว", en: "Completed" },
 
@@ -190,6 +192,17 @@ const I18N = {
   cat_dead:         { th: "ตาย", en: "Dead" },
   cat_super:        { th: "ซ้อนทับ", en: "Superposition" },
 
+  // Station 7 — Circuit Builder
+  t7_title:   { th: "เครื่องสร้างวงจรควอนตัม", en: "Quantum Circuit Builder" },
+  t7_desc:    { th: "สร้างอัลกอริทึมการค้นหาของ Grover ด้วยตัวเอง", en: "Build Grover's search algorithm from scratch." },
+  t7_intro:   { th: "ลากเกตวางบนสายวงจร รันการจำลอง แล้วขยายความน่าจะเป็นของสถานะเป้าหมาย |2⟩", en: "Drag gates onto circuit wires, run the simulation, and amplify the target state |2⟩ probability." },
+  t7_challenge:{ th: "สร้างวงจรให้ |2⟩ ได้ความน่าจะเป็นเกิน 75%", en: "Build a circuit that gives |2⟩ above 75% probability." },
+  t7_q:       { th: "ทายดู: อัลกอริทึมของ Grover มีประสิทธิภาพเหนือกว่าการค้นหาแบบดั้งเดิมกี่เท่า?", en: "Predict: how much faster is Grover's algorithm than classical search?" },
+  t7_a:       { th: "เร็วกว่า 2 เท่า", en: "2× faster" },
+  t7_b:       { th: "เร็วกว่า √N เท่า", en: "√N times faster" },
+  t7_c:       { th: "เร็วกว่า N เท่า", en: "N times faster" },
+  t7_explain: { th: "Grover ค้นหาด้วยความเร็ว O(√N) แทนที่จะเป็น O(N) สำหรับ N รายการ นี่คือการเร่งควอนตัมที่เรียกว่า quadratic speedup", en: "Grover searches in O(√N) vs O(N) for classical — that is a quantum quadratic speedup." },
+
   schr_idle:  { th: "กด “เริ่มการทดลอง” เพื่อปิดฝากล่อง", en: "Press Set up experiment to seal the box" },
   schr_super: { th: "แมวกำลังซ้อนทับ เป็น + ตาย …", en: "The cat is in superposition: alive + dead …" },
   schr_alive: { th: "เปิดกล่อง — แมวยังเป็นอยู่! 🎉", en: "Box opened — the cat is alive! 🎉" },
@@ -221,12 +234,14 @@ const TOPIC_META = {
   3: { icon: "📈", key: "t3" },
   4: { icon: "🚀", key: "t4" },
   5: { icon: "🔗", key: "t5" },
-  6: { icon: "🐈", key: "t6" }
+  6: { icon: "🐈", key: "t6" },
+  7: { icon: "⚡", key: "t7" },
 };
 
 const QUIZ = {
   1: { correct: "c" }, 2: { correct: "c" }, 3: { correct: "c" },
-  4: { correct: "b" }, 5: { correct: "a" }, 6: { correct: "c" }
+  4: { correct: "b" }, 5: { correct: "a" }, 6: { correct: "c" },
+  7: { correct: "b" },
 };
 
 /* ============================================================
@@ -276,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* ── Sync already-solved stations from localStorage ──────── */
 function syncPuzzleStateFromProgress() {
-  for (let i = 1; i <= 6; i++) {
+  for (let i = 1; i <= 7; i++) {
     if (progress[i]) PUZZLE[i].solved = true;
   }
   updateLabProgress();
@@ -497,6 +512,19 @@ function openGame() {
   });
 }
 
+function openCircuitPuzzle() {
+  stopContinuous();
+  stopAnimations();
+  currentTopic = 0;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('circuitPage').classList.add('active');
+  document.getElementById('headerTitle').textContent = t('t7_title');
+  window.scrollTo({ top: 0, behavior: 'auto' });
+  play('nav');
+  if (typeof initCircuit7 === 'function') initCircuit7();
+  applyLanguage();
+}
+
 function updateGameMenu() {
   const el = document.getElementById('menuHighScore');
   if (el && QR.highScore > 0) {
@@ -540,13 +568,13 @@ function markComplete(id) {
   toast(t('toast_done'));
 }
 function renderProgress() {
-  for (let i = 1; i <= 6; i++) {
+  for (let i = 1; i <= 7; i++) {
     const badge = document.getElementById('status' + i);
     if (badge) badge.classList.toggle('done', !!progress[i]);
   }
   const done = Object.keys(progress).filter(k => progress[k]).length;
   const el = document.getElementById('progressSummary');
-  if (el) el.textContent = t('progress_summary') + ': ' + done + '/6';
+  if (el) el.textContent = t('progress_summary') + ': ' + done + '/7';
 }
 
 /* ============================================================
@@ -1635,6 +1663,125 @@ function openBox6() {
   document.getElementById('stTotal').textContent = S6.alive + S6.dead;
   drawCatBox();
   if (typeof logStation6Open === 'function') logStation6Open(!dead, waitT);
+}
+
+/* ============================================================
+   21. SECRET DEBUG PANEL
+   Click the logo 7 times quickly, or press ↑↑↓↓←→←→BA
+   ============================================================ */
+let debugClickCount = 0;
+let debugClickTimer = null;
+
+function debugUnlock() {
+  const panel = document.getElementById('debugPanel');
+  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+}
+
+function debugClose() {
+  document.getElementById('debugPanel').style.display = 'none';
+}
+
+function debugRepairAll() {
+  // Reset all simulation states
+  S1.hits = []; S1.fly = null; S1.waveView = false;
+  stopContinuous();
+  document.getElementById('stParticles') && (document.getElementById('stParticles').textContent = '0');
+  drawSlit();
+
+  S2.up = 0; S2.down = 0; S2.collapse = null;
+  document.getElementById('stUp') && (document.getElementById('stUp').textContent = '0');
+  document.getElementById('stDown') && (document.getElementById('stDown').textContent = '0');
+  document.getElementById('stMeas') && (document.getElementById('stMeas').textContent = '0');
+  drawBloch();
+
+  S3.playing = false; S3.time = 0;
+  cancelAnimationFrame(S3.raf);
+  const pb3 = document.getElementById('playBtn3');
+  if (pb3) { pb3.querySelector('span').textContent = t('btn_play'); pb3.classList.remove('pressed'); }
+  updateUncertainty();
+
+  S4.packet = null; S4.T = 0; S4.R = 1;
+  cancelAnimationFrame(S4.raf);
+  document.getElementById('stT') && (document.getElementById('stT').textContent = '0%');
+  document.getElementById('stR') && (document.getElementById('stR').textContent = '100%');
+  drawTunnel();
+
+  S5.trials = 0; S5.same = 0; S5.lastA = null; S5.lastB = null; S5.flight = null;
+  cancelAnimationFrame(S5.raf);
+  document.getElementById('stTrials') && (document.getElementById('stTrials').textContent = '0');
+  document.getElementById('stCorr') && (document.getElementById('stCorr').textContent = '—');
+  drawEntangle();
+
+  S6.state = 'idle'; S6.alive = 0; S6.dead = 0; S6.result = null;
+  cancelAnimationFrame(S6.raf);
+  document.getElementById('stAlive') && (document.getElementById('stAlive').textContent = '0');
+  document.getElementById('stDead') && (document.getElementById('stDead').textContent = '0');
+  document.getElementById('stTotal') && (document.getElementById('stTotal').textContent = '0');
+  drawCatBox();
+
+  // Reset sliders to defaults
+  const defaults = { slitSep:55, energy:55, theta:45, phi:30, pwidth:50, tspeed:2, bheight:60, bwidth:30, angA:0, angB:0, waitT:3 };
+  for (const [id, val] of Object.entries(defaults)) {
+    const el = document.getElementById(id);
+    if (el) { el.value = val; el.dispatchEvent(new Event('input')); }
+  }
+
+  toast('🔧 All simulations repaired!');
+}
+
+function debugUnlockAll() {
+  progress = {};
+  for (let i = 1; i <= 7; i++) progress[i] = true;
+  localStorage.setItem('qx_progress', JSON.stringify(progress));
+  localStorage.setItem('qx_grover', JSON.stringify({ unlocked: true }));
+  renderProgress();
+  debugClose();
+  toast('🔓 All 7 stations + Quantum Core unlocked!');
+}
+
+function debugUnlockGrover() {
+  localStorage.setItem('qx_grover', JSON.stringify({ unlocked: true }));
+  debugClose();
+  // Refresh the core panel
+  if (typeof renderLabHome === 'function') renderLabHome();
+  toast('⚡ Quantum Core unlocked! Click it to play.');
+}
+
+function debugCompleteGrover() {
+  // Simulate winning Grover — set progress and max out circuit puzzle
+  if (typeof completeGrover === 'function') completeGrover();
+  debugClose();
+  toast('🏆 Grover complete! You found |2⟩ with 100% probability.');
+}
+
+// Konami-style: ↑↑↓↓←→←→BA
+const KONAMI = [38,38,40,40,37,39,37,39,66,65];
+let konamiIndex = 0;
+document.addEventListener('keydown', (e) => {
+  if (e.keyCode === KONAMI[konamiIndex]) {
+    konamiIndex++;
+    if (konamiIndex === KONAMI.length) {
+      konamiIndex = 0;
+      debugUnlock();
+    }
+  } else {
+    konamiIndex = e.keyCode === KONAMI[0] ? 1 : 0;
+  }
+});
+
+// Logo click 7 times fast
+const logoBtn = document.querySelector('.logo');
+if (logoBtn) {
+  logoBtn.addEventListener('click', () => {
+    clearTimeout(debugClickTimer);
+    debugClickCount++;
+    if (debugClickCount >= 7) {
+      debugClickCount = 0;
+      debugUnlock();
+    } else {
+      debugClickTimer = setTimeout(() => { debugClickCount = 0; }, 1200);
+    }
+  });
 }
 
 /* ============================================================

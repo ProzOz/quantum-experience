@@ -48,6 +48,13 @@ const STATIONS = [
     goal: { th: 'เปิดกล่อง 5 ครั้ง สังเกตรูปแบบการยุบตัว', en: 'Open the box 5× and complete the observation log' },
     goalIcon: '⏱️',
   },
+  {
+    id: 7, icon: '⚡',
+    name: { th: 'สถานีที่ 7: วงจรควอนตัม', en: 'Station 7: Circuit Puzzle' },
+    tagline: { th: 'ประกอบวงจรควอนตัมด้วยการลากเกต', en: 'Build quantum circuits by dragging gates onto qubits' },
+    goal: { th: 'แก้ 5 ด่านปริศนาวงจรควอนตัม', en: 'Solve all 5 quantum circuit puzzle levels' },
+    goalIcon: '🔌',
+  },
 ];
 
 /* ── Puzzle state per station ─────────────────────────────── */
@@ -89,6 +96,10 @@ const PUZZLE = {
     log: [],
     solved: false,
   },
+  // Station 7: Quantum Circuit Puzzle
+  7: {
+    solved: false,
+  },
 };
 
 /* ── Build new home page ──────────────────────────────────── */
@@ -100,9 +111,10 @@ function buildLabHome() {
 
   let stationCards = STATIONS.map(s => {
     const solved = PUZZLE[s.id].solved;
+    const onclick = s.id === 7 ? 'openCircuitPuzzle()' : `openTopic(${s.id})`;
     return `
     <button class="station-card${solved ? ' online' : ''}"
-      onclick="openTopic(${s.id})"
+      onclick="${onclick}"
       onmousemove="stationGlow(event,this)"
       onpointerenter="play('hover')"
       aria-label="${s.name[lang]}">
@@ -121,27 +133,27 @@ function buildLabHome() {
     </button>`;
   }).join('');
 
-  const coreUnlocked = doneCount === 6;
+  const coreUnlocked = doneCount === 7;
   const coreClass = coreUnlocked ? 'quantum-core-panel unlocked' : 'quantum-core-panel';
   const coreCursor = coreUnlocked ? '' : 'style="cursor:not-allowed"';
-  const pct = Math.round(doneCount / 6 * 100);
+  const pct = Math.round(doneCount / 7 * 100);
 
   page.innerHTML = `
   <div class="lab-home">
     <div class="lab-alert">
       <span class="lab-alert-dot"></span>
-      QUANTUM FACILITY — ${doneCount === 6 ? 'ALL STATIONS NOMINAL' : 'CRITICAL FAILURE — ' + (6 - doneCount) + ' STATION' + (6 - doneCount === 1 ? '' : 'S') + ' OFFLINE'}
+      QUANTUM FACILITY — ${doneCount === 7 ? 'ALL STATIONS NOMINAL' : 'CRITICAL FAILURE — ' + (7 - doneCount) + ' STATION' + (7 - doneCount === 1 ? '' : 'S') + ' OFFLINE'}
     </div>
 
     <h1 class="lab-title">
       <div class="lab-title-line1">QUANTUM</div>
-      <div class="lab-title-line2">${doneCount === 6 ? 'CORE ONLINE' : 'LAB EMERGENCY'}</div>
+      <div class="lab-title-line2">${doneCount === 7 ? 'FULLY ONLINE' : 'LAB EMERGENCY'}</div>
     </h1>
 
     <p class="lab-subtitle">
-      ${doneCount === 6
-        ? `<span class="hl">All 6 stations are back online.</span> The Quantum Core is ready — witness why quantum beats classical.`
-        : `The lab's <span class="hl">quantum core has failed</span>. Six research stations are offline. Repair each one to restore power — then see something no classical computer can match.`
+      ${doneCount === 7
+        ? `<span class="hl">All 7 stations are back online.</span> The Quantum Core is ready — witness why quantum beats classical.`
+        : `The lab's <span class="hl">quantum core has failed</span>. Seven research stations are offline. Repair each one to restore power — then see something no classical computer can match.`
       }
     </p>
 
@@ -155,13 +167,13 @@ function buildLabHome() {
         <div class="core-desc">
           ${coreUnlocked
             ? 'The core is online. Watch a quantum computer search a database in 1 query — a classical computer takes 2.5.'
-            : 'Restore all 6 stations to unlock the final demonstration. See the quantum advantage live.'}
+            : 'Restore all 7 stations to unlock the final demonstration. See the quantum advantage live.'}
         </div>
         <div class="core-progress">
           <div class="core-progress-bar-wrap">
             <div class="core-progress-bar" id="coreProgressBar" style="width:${pct}%"></div>
           </div>
-          <div class="core-progress-label" id="coreProgressLabel">${doneCount}/6 STATIONS</div>
+          <div class="core-progress-label" id="coreProgressLabel">${doneCount}/7 STATIONS</div>
         </div>
       </div>
       ${coreUnlocked ? '<button class="core-cta" onclick="event.stopPropagation();openQuantumCore()">LAUNCH →</button>' : ''}
@@ -237,8 +249,46 @@ function showPuzzleSuccess(id) {
   confetti();
   // Update progress
   PUZZLE[id].solved = true;
+  // Sync to app.js progress state
+  if (typeof progress !== 'undefined') { progress[id] = true; localStorage.setItem('qx_progress', JSON.stringify(progress)); }
+  if (typeof renderProgress === 'function') renderProgress();
+  if (typeof toast === 'function') toast(t('toast_done'));
   markComplete(id);
   updateLabProgress();
+}
+
+/* ── Wrapper compatible with app.js ───────────────────────── */
+function markCompleteApp(id) {
+  // Called by lab.js showPuzzleSuccess to update app.js progress
+  if (typeof progress !== 'undefined') { progress[id] = true; localStorage.setItem('qx_progress', JSON.stringify(progress)); }
+  if (typeof renderProgress === 'function') renderProgress();
+  if (typeof toast === 'function') toast(t('toast_done'));
+}
+
+/* ── Circuit puzzle navigation ─────────────────────────────── */
+function openCircuitPuzzle() {
+  stopContinuous();
+  stopAnimations();
+  currentTopic = 7;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('circuitPage').classList.add('active');
+  document.getElementById('headerTitle').textContent = t('st7_name');
+  window.scrollTo({ top: 0, behavior: 'auto' });
+  play('nav');
+  requestAnimationFrame(() => {
+    if (typeof initCircuit7 === 'function') initCircuit7();
+  });
+}
+
+/* ── Station completion (called by circuit.js) ────────────── */
+function markStationSolved(id) {
+  if (PUZZLE[id] && !PUZZLE[id].solved) {
+    PUZZLE[id].solved = true;
+    markComplete(id);
+    updateLabProgress();
+    confetti();
+    play('success');
+  }
 }
 
 function dismissPuzzle(id) {
@@ -250,17 +300,20 @@ function updateLabProgress() {
   const done = STATIONS.filter(s => PUZZLE[s.id].solved).length;
   const bar = document.getElementById('coreProgressBar');
   const lbl = document.getElementById('coreProgressLabel');
-  if (bar) bar.style.width = Math.round(done / 6 * 100) + '%';
-  if (lbl) lbl.textContent = done + '/6 STATIONS';
+  if (bar) bar.style.width = Math.round(done / 7 * 100) + '%';
+  if (lbl) lbl.textContent = done + '/7 STATIONS';
 
-  // Update station cards
+  // Update station cards (handle both openTopic and openCircuitPuzzle)
   for (const s of STATIONS) {
-    const card = document.querySelector(`[onclick="openTopic(${s.id})"]`);
+    const sel = s.id === 7
+      ? `[onclick="openCircuitPuzzle()"]`
+      : `[onclick="openTopic(${s.id})"]`;
+    const card = document.querySelector(sel);
     if (card && PUZZLE[s.id].solved) card.classList.add('online');
   }
 
   // Unlock core
-  if (done === 6) {
+  if (done === 7) {
     const panel = document.getElementById('corePanel');
     if (panel) {
       panel.classList.add('unlocked');
