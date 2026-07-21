@@ -117,6 +117,8 @@ const LAB_I18N = {
   mission:       { th: 'เป้าหมายภารกิจ', en: 'MISSION OBJECTIVE' },
   online:        { th: 'ออนไลน์', en: 'ONLINE' },
   offline:       { th: 'ออฟไลน์', en: 'OFFLINE' },
+  play_btn:      { th: 'เล่นเลย', en: 'PLAY' },
+  replay_btn:    { th: 'ผ่านแล้ว · เล่นซ้ำ', en: 'DONE · Replay' },
   restored_t:    { th: 'ซ่อมสถานีสำเร็จ!', en: 'STATION RESTORED' },
   restored_d:    { th: (n) => `${n} กลับมาออนไลน์แล้ว แกนควอนตัมแข็งแกร่งขึ้น`, en: (n) => `${n} is back online. The quantum core grows stronger.` },
   btn_review:    { th: 'ดูการทดลองต่อ →', en: 'Review simulation →' },
@@ -153,6 +155,7 @@ function buildLabHome() {
       <span class="station-icon">${s.icon}</span>
       <div class="station-name">${s.name[lang]}</div>
       <div class="station-tagline">${s.tagline[lang]}</div>
+      <div class="station-play">${solved ? '✔ ' + LT('replay_btn') : '▶ ' + LT('play_btn')}</div>
       <div class="station-done-ring">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
           <path d="M20 6L9 17l-5-5"/>

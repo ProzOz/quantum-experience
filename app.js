@@ -137,7 +137,7 @@ const I18N = {
   // Game page
   game_eyebrow:     { th: "ARCADE · ควอนตัม", en: "ARCADE · QUANTUM" },
   game_title:       { th: "Qubit Runner", en: "Qubit Runner" },
-  game_desc:        { th: "คุณคืออนุภาคควอนตัมวิ่งฝ่าแถบกำแพงพลังงาน กดค้าง SPACE เพื่อแยกตัวเป็นซ้อนทับ — ลอยทะลุกำแพง แล้วยุบกลับมารอด ทำได้ไกลแค่ไหนก่อนที่จักรวาลจะวัดคุณ?", en: "You are a quantum particle dashing through a barrier field. Hold SPACE to split into superposition — phase through walls, then collapse back to survive. How far can you run before the universe measures you?" },
+  game_desc:        { th: "คุณคืออนุภาคควอนตัม กด SPACE ค้างเพื่อแยกร่างทะลุกำแพง วิ่งให้ไกลที่สุด!", en: "You're a quantum particle. Hold SPACE to split and phase through walls. Run as far as you can!" },
   game_menu_title:  { th: "QUBIT RUNNER", en: "QUBIT RUNNER" },
   game_menu_sub:    { th: "คุณคืออนุภาคควอนตัม วิ่งเลย!", en: "You are a quantum particle. Run." },
   game_tagline:     { th: "กด SPACE ค้างเพื่อแยกตัว · หลบกำแพง · รอดชีวิต", en: "Hold SPACE to split · Dodge barriers · Survive" },

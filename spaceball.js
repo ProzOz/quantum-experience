@@ -225,14 +225,8 @@
                     font-family:monospace;text-shadow:0 0 6px ${CFG.hurtColor}">~_~</div>
       `;
     } else if (state === 'shocked') {
-      html = `
-        <div style="position:absolute;top:${sz*0.27}px;left:${sz*0.20}px;width:${sz*0.17}px;height:${sz*0.17}px;
-                    background:${CFG.pink1};border-radius:50%;opacity:0.85"></div>
-        <div style="position:absolute;top:${sz*0.27}px;right:${sz*0.20}px;width:${sz*0.17}px;height:${sz*0.17}px;
-                    background:${CFG.pink1};border-radius:50%;opacity:0.85"></div>
-        <div style="position:absolute;bottom:${sz*0.20}px;left:50%;transform:translateX(-50%);
-                    width:${sz*0.22}px;height:${sz*0.22}px;
-                    border:3px solid ${CFG.pink1};border-radius:50%;background:transparent;opacity:0.8"></div>
+      const ex = `position:absolute;top:${sz*0.27}px;left:${sz*0.20}px;width:${sz*0.17}px;height:${sz*0.17}px;
+                  border-radius:50%;opacity:0;pointer-events:none`;
       `;
     }
 

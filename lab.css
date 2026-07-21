@@ -79,8 +79,8 @@ body {
     font-family: var(--font-body);
     background: var(--bg-primary);
     color: var(--text-primary);
-    line-height: 1.6;
-    font-size: 16px;
+    line-height: 1.65;
+    font-size: 17px;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -295,6 +295,34 @@ main {
     font-size: 1.02rem;
     color: var(--text-secondary);
     line-height: 1.5;
+    margin-bottom: var(--space-md);
+}
+
+/* PLAY affordance — makes each card read as a game level */
+.station-play {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 8px 16px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, var(--quantum-blue), var(--quantum-purple));
+    color: #fff;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.station-card:hover .station-play {
+    transform: translateX(3px);
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+}
+
+.station-card.online .station-play {
+    background: #ecfdf5;
+    color: #059669;
+    border: 1px solid #a7f3d0;
 }
 
 /* Done ring */
