@@ -1,0 +1,518 @@
+/* ============================================================
+   Entangle Together — Co-op Bell Challenge styles
+   Page chrome is light theme; the play area is a dark
+   "instrument screen" with fixed bright colors inside.
+   ============================================================ */
+
+#coopPage {
+  padding: 0 clamp(16px, 3vw, 32px) 40px;
+}
+
+.coop-page-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.coop-header {
+  text-align: center;
+  margin-bottom: 24px;
+  padding-top: 8px;
+}
+
+.coop-header-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 3px;
+  color: var(--violet);
+  margin-bottom: 10px;
+}
+
+.coop-header-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  font-weight: 800;
+  background: linear-gradient(125deg, var(--violet), var(--blue));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 12px;
+  line-height: 1.15;
+}
+
+.coop-header-desc {
+  color: var(--text-secondary);
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.8;
+  font-size: 1rem;
+}
+
+/* ── Viewport (dark screen) ── */
+.coop-viewport {
+  background: var(--bg-deep);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(15, 16, 36, 0.25), inset 0 0 40px rgba(0, 0, 0, 0.5);
+}
+
+#coopWrap {
+  width: 100%;
+  height: clamp(380px, 52vw, 560px);
+  position: relative;
+}
+
+#coopCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+}
+
+/* ── HUD (inside viewport, over canvas) ── */
+.coop-hud {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  pointer-events: none;
+  z-index: 5;
+  gap: 10px;
+}
+
+.coop-hud-pips {
+  display: flex;
+  gap: 5px;
+}
+
+.coop-pip {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(170, 190, 255, 0.35);
+  background: transparent;
+  transition: all 0.25s;
+}
+
+.coop-pip.filled {
+  background: #34e08a;
+  border-color: #34e08a;
+  box-shadow: 0 0 8px rgba(52, 224, 138, 0.7);
+}
+
+.coop-hud-right {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: #8e9ac0;
+}
+
+.coop-hud-streak {
+  color: #ffb347;
+  font-weight: 600;
+}
+
+/* ── Goal card ── */
+.coop-goal {
+  position: absolute;
+  top: 52px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  pointer-events: none;
+  text-align: center;
+  padding: 8px 22px;
+  border-radius: 12px;
+  border: 1px solid rgba(170, 190, 255, 0.25);
+  background: rgba(10, 12, 32, 0.85);
+  backdrop-filter: blur(6px);
+  transition: opacity 0.25s, transform 0.25s;
+}
+
+.coop-goal.match { border-color: rgba(52, 224, 138, 0.6); }
+.coop-goal.anti  { border-color: rgba(255, 107, 125, 0.6); }
+.coop-goal.hidden { opacity: 0; transform: translateX(-50%) translateY(-8px); }
+
+.coop-goal-tag {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 2px;
+  color: #8e9ac0;
+  margin-bottom: 2px;
+}
+
+.coop-goal-text {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.coop-goal.match .coop-goal-text { color: #34e08a; }
+.coop-goal.anti  .coop-goal-text { color: #ff6b7d; }
+
+.coop-goal-sub {
+  font-size: 0.72rem;
+  color: #c8d0ee;
+  margin-top: 2px;
+}
+
+/* ── Probability meter ── */
+.coop-meter {
+  position: absolute;
+  bottom: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(300px, 60%);
+  z-index: 5;
+  pointer-events: none;
+  text-align: center;
+}
+
+.coop-meter-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: #8e9ac0;
+  margin-bottom: 4px;
+}
+
+.coop-meter-track {
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  position: relative;
+}
+
+.coop-meter-fill {
+  height: 100%;
+  width: 50%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #22e0ff, #b09aff);
+  transition: width 0.12s linear, background 0.2s;
+}
+
+.coop-meter-fill.good { background: linear-gradient(90deg, #34e08a, #22e0ff); }
+
+.coop-meter-mark {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 3px;
+  border-radius: 2px;
+  background: #ffb347;
+  box-shadow: 0 0 8px rgba(255, 179, 71, 0.8);
+  transform: translateX(-50%);
+}
+
+/* ── Overlays (menu / game over) ── */
+.coop-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(6, 6, 16, 0.92);
+  backdrop-filter: blur(8px);
+  z-index: 10;
+  text-align: center;
+  gap: 10px;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.coop-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(1.7rem, 4.5vw, 2.8rem);
+  font-weight: 800;
+  background: linear-gradient(125deg, #b09aff 0%, #ffffff 45%, #22e0ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 2px;
+  filter: drop-shadow(0 0 20px rgba(176, 154, 255, 0.3));
+}
+
+.coop-subtitle {
+  font-size: 0.95rem;
+  color: #c8d0ee;
+  max-width: 480px;
+  line-height: 1.6;
+}
+
+.coop-mode-btns {
+  display: flex;
+  gap: 12px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.coop-mode-btn {
+  padding: 14px 30px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #fff;
+  transition: transform 0.15s, box-shadow 0.2s;
+}
+
+.coop-mode-btn.two {
+  background: linear-gradient(135deg, #b09aff, #6a5cff);
+  box-shadow: 0 6px 26px rgba(176, 154, 255, 0.4);
+}
+
+.coop-mode-btn.ai {
+  background: linear-gradient(135deg, #22d3ee, #3b82f6);
+  box-shadow: 0 6px 26px rgba(34, 211, 238, 0.35);
+}
+
+.coop-mode-btn:hover { transform: translateY(-2px) scale(1.03); }
+
+/* Controls legend */
+.coop-legend {
+  display: flex;
+  gap: 18px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.coop-legend-col {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(170, 190, 255, 0.16);
+  border-radius: 14px;
+  padding: 14px 20px;
+  min-width: 200px;
+  text-align: left;
+}
+
+.coop-legend-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.coop-legend-col.p1 .coop-legend-title { color: #22e0ff; }
+.coop-legend-col.p2 .coop-legend-title { color: #ffb347; }
+
+.coop-legend-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.82rem;
+  color: #c8d0ee;
+  padding: 3px 0;
+}
+
+.coop-key {
+  display: inline-grid;
+  place-items: center;
+  min-width: 26px;
+  height: 24px;
+  padding: 0 6px;
+  border-radius: 6px;
+  border: 1px solid rgba(170, 190, 255, 0.35);
+  background: rgba(255, 255, 255, 0.06);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: #f0f4ff;
+}
+
+/* Game-over stats */
+.coop-stats {
+  display: flex;
+  gap: 22px;
+  margin: 10px 0 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.coop-stat {
+  text-align: center;
+}
+
+.coop-stat-value {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: #22e0ff;
+}
+
+.coop-stat-label {
+  font-size: 0.72rem;
+  color: #8e9ac0;
+  margin-top: 2px;
+}
+
+.coop-over-title-win {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(1.6rem, 4vw, 2.5rem);
+  font-weight: 800;
+  color: #34e08a;
+  letter-spacing: 2px;
+  text-shadow: 0 0 30px rgba(52, 224, 138, 0.5);
+}
+
+.coop-over-title-lose {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(1.6rem, 4vw, 2.5rem);
+  font-weight: 800;
+  color: #ff6b7d;
+  letter-spacing: 2px;
+  text-shadow: 0 0 30px rgba(255, 107, 125, 0.4);
+}
+
+/* ── Touch controls ── */
+.coop-touch {
+  position: absolute;
+  bottom: 10px;
+  z-index: 6;
+  display: flex;
+  gap: 8px;
+}
+
+.coop-touch.p1 { left: 10px; }
+.coop-touch.p2 { right: 10px; }
+
+.coop-touch-btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid rgba(170, 190, 255, 0.35);
+  background: rgba(10, 12, 32, 0.75);
+  color: #f0f4ff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  user-select: none;
+  touch-action: none;
+}
+
+.coop-touch-btn:active {
+  background: rgba(34, 224, 255, 0.25);
+  border-color: #22e0ff;
+}
+
+/* ── Home page banner ── */
+.coop-banner {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto var(--space-2xl, 48px);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 22px 28px;
+  border-radius: 16px;
+  border: 2px solid #c4b5fd;
+  background: linear-gradient(135deg, #f5f3ff, #eff6ff);
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+
+.coop-banner:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(124, 58, 237, 0.15);
+  border-color: #8b5cf6;
+}
+
+.coop-banner-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+  display: grid;
+  place-items: center;
+  font-size: 1.6rem;
+  flex-shrink: 0;
+  color: #fff;
+}
+
+.coop-banner-content { flex: 1; }
+
+.coop-banner-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #7c3aed;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.coop-banner-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary, #1f2937);
+  margin-bottom: 3px;
+}
+
+.coop-banner-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary, #4b5563);
+}
+
+.coop-banner-play {
+  flex-shrink: 0;
+  font-size: 1.6rem;
+  color: #7c3aed;
+}
+
+/* ── Physics strip under viewport ── */
+.coop-physics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.coop-physics-card {
+  background: var(--bg-card, #fff);
+  border: 1px solid var(--line, #e5e7eb);
+  border-radius: 14px;
+  padding: 18px 20px;
+}
+
+.coop-physics-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.8rem;
+  margin-bottom: 6px;
+}
+
+.coop-physics-text {
+  font-size: 0.88rem;
+  color: var(--text-secondary, #4b5563);
+  line-height: 1.6;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  #coopWrap { height: clamp(340px, 90vw, 480px); }
+  .coop-legend { gap: 10px; }
+  .coop-legend-col { min-width: 150px; padding: 10px 14px; }
+  .coop-banner { flex-direction: column; text-align: center; }
+  .coop-banner-content { text-align: center; }
+  .coop-meter { bottom: 70px; width: 55%; }
+
+  /* Compact goal card so it doesn't cover the play field */
+  .coop-goal {
+    top: 50px;
+    width: max-content;
+    max-width: 88%;
+    padding: 6px 14px;
+  }
+  .coop-goal-text { font-size: 0.9rem; }
+  .coop-goal-sub { font-size: 0.66rem; }
+  .coop-goal-tag { display: none; }
+}

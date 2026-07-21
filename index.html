@@ -10,10 +10,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Kanit:wght@300;400;500;600;700&family=Orbitron:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="game.css">
-  <link rel="stylesheet" href="lab.css">
-  <link rel="stylesheet" href="circuit.css">
+  <link rel="stylesheet" href="styles.css?v=2">
+  <link rel="stylesheet" href="game.css?v=2">
+  <link rel="stylesheet" href="lab.css?v=2">
+  <link rel="stylesheet" href="circuit.css?v=2">
+  <link rel="stylesheet" href="coop.css?v=5">
 </head>
 <body>
   <div class="bg-cosmos"></div>
@@ -62,6 +63,9 @@
 
     <!-- Station 7: Quantum Circuit Puzzle — injected by circuit.js -->
     <section class="page" id="circuitPage"></section>
+
+    <!-- Bonus: Entangle Together co-op — injected by coop.js -->
+    <section class="page" id="coopPage"></section>
 
     <!-- Topic pages injected here by app.js -->
     <div id="topicsHost"></div>
@@ -174,10 +178,11 @@
     </div>
   </div>
 
-  <script src="app.js"></script>
-  <script src="lab.js"></script>
-  <script src="circuit.js"></script>
-  <script src="game.js"></script>
-  <script src="spaceball.js"></script>
+  <script src="app.js?v=3"></script>
+  <script src="lab.js?v=2"></script>
+  <script src="circuit.js?v=2"></script>
+  <script src="coop.js?v=6"></script>
+  <script src="game.js?v=2"></script>
+  <script src="spaceball.js?v=2"></script>
 </body>
 </html>

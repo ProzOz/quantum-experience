@@ -883,14 +883,22 @@ footer {
     transform: translateY(-2px);
 }
 
-.grover-item.target-selected {
+.grover-item.target-selected,
+.grover-item.target {
     border-color: var(--quantum-purple);
     background: #F5F3FF;
 }
 
-.grover-item.winner {
+.grover-item.winner,
+.grover-item.found {
     border-color: var(--success);
     background: #ECFDF5;
+}
+
+.grover-item.searched-classical {
+    border-color: var(--offline);
+    background: #F3F4F6;
+    opacity: 0.75;
 }
 
 .grover-amp-bar {

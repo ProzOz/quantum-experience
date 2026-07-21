@@ -217,8 +217,17 @@ function renderCircuit() {
   const page = document.getElementById('circuitPage');
   if (!page) return;
   page.innerHTML = buildCircuitHTML();
+  // Localize any data-i18n slots (renderCircuit runs outside applyLanguage too)
+  if (typeof t === 'function') {
+    page.querySelectorAll('[data-i18n]').forEach(el => {
+      el.textContent = t(el.getAttribute('data-i18n'));
+    });
+  }
   attachCircuitEvents();
 }
+
+// Tiny helper: pick th/en based on the current UI language
+function c7(th, en) { return (typeof lang !== 'undefined' && lang === 'th') ? th : en; }
 
 function buildCircuitHTML() {
   const hasGates = CIRCUIT.wires.some(w => w.length > 0);
@@ -240,7 +249,7 @@ function buildCircuitHTML() {
         <div class="wire-track" id="wireTrack${qi}" data-qubit="${qi}"
              ondragover="onWireDragOver(event)" ondragleave="onWireDragLeave(event)"
              ondrop="onWireDrop(event,${qi})">
-          ${slots || '<span style="color:var(--text-dim);font-size:0.78rem;padding-left:8px;opacity:0.5">Drop gates here</span>'}
+          ${slots || `<span style="color:var(--text-dim);font-size:0.78rem;padding-left:8px;opacity:0.7">${c7('ลากเกตมาวางตรงนี้', 'Drop gates here')}</span>`}
         </div>
       </div>`;
   }).join('');
@@ -265,13 +274,14 @@ function buildCircuitHTML() {
     }).join('')
     : '';
 
+  const pctNow = CIRCUIT.probs ? (CIRCUIT.probs[TARGET_STATE] * 100).toFixed(1) : '0';
   const resultHTML = CIRCUIT.hasRun
     ? CIRCUIT.success
       ? `<div class="circuit-result success">
-           <span>✅</span> <strong>|2⟩ reached ${(CIRCUIT.probs[TARGET_STATE] * 100).toFixed(1)}% — Quantum Core Unlocked!</strong>
+           <span>✅</span> <strong>${c7(`|2⟩ ถึง ${pctNow}% แล้ว — ปลดล็อกแกนควอนตัม!`, `|2⟩ reached ${pctNow}% — Quantum Core Unlocked!`)}</strong>
          </div>`
       : `<div class="circuit-result error">
-           <span>⚠️</span> |2⟩ probability is ${(CIRCUIT.probs[TARGET_STATE] * 100).toFixed(1)}% — need ${(SUCCESS_THRESHOLD * 100).toFixed(0)}%+
+           <span>⚠️</span> ${c7(`ความน่าจะเป็นของ |2⟩ อยู่ที่ ${pctNow}% — ต้องได้ ${(SUCCESS_THRESHOLD * 100).toFixed(0)}% ขึ้นไป`, `|2⟩ probability is ${pctNow}% — need ${(SUCCESS_THRESHOLD * 100).toFixed(0)}%+`)}
          </div>`
     : '';
 
@@ -288,7 +298,10 @@ function buildCircuitHTML() {
         </p>
         <div class="circuit-objective">
           <span>🎯</span>
-          <span>Target: find <strong>${TARGET_LABEL}</strong> (binary 010) — get probability above <strong>${(SUCCESS_THRESHOLD * 100).toFixed(0)}%</strong></span>
+          <span>${c7(
+            `เป้าหมาย: ค้นหา <strong>${TARGET_LABEL}</strong> (ไบนารี 010) — ทำความน่าจะเป็นให้เกิน <strong>${(SUCCESS_THRESHOLD * 100).toFixed(0)}%</strong>`,
+            `Target: find <strong>${TARGET_LABEL}</strong> (binary 010) — get probability above <strong>${(SUCCESS_THRESHOLD * 100).toFixed(0)}%</strong>`
+          )}</span>
         </div>
       </div>
 
@@ -313,7 +326,7 @@ function buildCircuitHTML() {
           </div>
           <div class="palette-actions">
             <button class="circuit-reset-btn" onclick="resetCircuit7()" style="width:100%;justify-content:center">
-              Reset
+              ${c7('เริ่มใหม่', 'Reset')}
             </button>
           </div>
         </div>
@@ -330,13 +343,13 @@ function buildCircuitHTML() {
             <div class="circuit-output-label">OUTPUT PROBABILITIES</div>
             <div class="prob-bars" id="probBars">
               ${probBars || `<div style="color:var(--text-dim);font-size:0.88rem;text-align:center;padding:20px 0">
-                Drop gates and press <strong>Run Circuit</strong> to see probabilities
+                ${c7('วางเกตแล้วกด <strong>รันวงจร</strong> เพื่อดูความน่าจะเป็น', 'Drop gates and press <strong>Run Circuit</strong> to see probabilities')}
               </div>`}
             </div>
             ${CIRCUIT.hasRun ? `
             <div class="target-marker">
               <div class="target-marker-dot"></div>
-              <span>Target <strong>${TARGET_LABEL}</strong> — need ≥<span class="target-marker-val">${(SUCCESS_THRESHOLD * 100).toFixed(0)}%</span></span>
+              <span>${c7(`เป้าหมาย <strong>${TARGET_LABEL}</strong> — ต้องได้ ≥`, `Target <strong>${TARGET_LABEL}</strong> — need ≥`)}<span class="target-marker-val">${(SUCCESS_THRESHOLD * 100).toFixed(0)}%</span></span>
             </div>` : ''}
           </div>
 
@@ -350,7 +363,7 @@ function buildCircuitHTML() {
             </div>
             <div class="circuit-action-btns">
               <button class="circuit-run-btn" onclick="runCircuit7()">
-                Run Circuit ▶
+                ${c7('รันวงจร ▶', 'Run Circuit ▶')}
               </button>
             </div>
           </div>
@@ -371,10 +384,14 @@ function buildCircuitHTML() {
 
 function buildHintHTML() {
   const hints = [
-    'Grover\'s algorithm starts by putting all qubits into <strong>superposition</strong> using Hadamard gates.',
-    'The Oracle <strong>marks</strong> the target state |2⟩ (binary 010) by flipping its phase.',
-    'The Diffusion operator <strong>amplifies</strong> the marked state\'s amplitude while suppressing others.',
-    'Try: H on Q0, Q1, Q2 → Oracle → Diffusion → Measure.',
+    c7('อัลกอริทึมของ Grover เริ่มจากทำให้ทุกคิวบิตอยู่ใน <strong>superposition</strong> ด้วยเกต Hadamard (H)',
+       'Grover\'s algorithm starts by putting all qubits into <strong>superposition</strong> using Hadamard gates.'),
+    c7('Oracle จะ<strong>ทำเครื่องหมาย</strong>สถานะเป้าหมาย |2⟩ (ไบนารี 010) ด้วยการกลับเฟส',
+       'The Oracle <strong>marks</strong> the target state |2⟩ (binary 010) by flipping its phase.'),
+    c7('ตัวดำเนินการ Diffusion จะ<strong>ขยาย</strong>แอมพลิจูดของสถานะที่ถูกทำเครื่องหมาย และกดสถานะอื่นลง',
+       'The Diffusion operator <strong>amplifies</strong> the marked state\'s amplitude while suppressing others.'),
+    c7('ลองนี่: H บน Q0, Q1, Q2 → Oracle → Diffusion → Measure',
+       'Try: H on Q0, Q1, Q2 → Oracle → Diffusion → Measure.'),
   ];
 
   if (CIRCUIT.hintLevel === 0) return '';
@@ -382,9 +399,11 @@ function buildHintHTML() {
   const hint = hints[Math.min(CIRCUIT.hintLevel - 1, hints.length - 1)];
   return `
     <div class="circuit-hint-panel" id="hintPanel">
-      <div class="hint-title">HINT ${CIRCUIT.hintLevel}</div>
+      <div class="hint-title">${c7('คำใบ้', 'HINT')} ${CIRCUIT.hintLevel}</div>
       <div class="hint-text">${hint}</div>
-      <div class="hint-step">${CIRCUIT.hintLevel < hints.length ? `${hints.length - CIRCUIT.hintLevel} hints remaining` : 'Last hint shown'}</div>
+      <div class="hint-step">${CIRCUIT.hintLevel < hints.length
+        ? c7(`เหลืออีก ${hints.length - CIRCUIT.hintLevel} คำใบ้`, `${hints.length - CIRCUIT.hintLevel} hints remaining`)
+        : c7('คำใบ้สุดท้ายแล้ว', 'Last hint shown')}</div>
     </div>`;
 }
 
@@ -469,10 +488,8 @@ function removeCircuitGate(qubit, slot) {
 function runCircuit7() {
   play('prepare');
 
-  // Animate bars filling up
-  if (!CIRCUIT.hasRun) {
-    runCircuit();
-  }
+  // Always recompute from the current gate layout
+  runCircuit();
 
   // Re-render to show new probabilities
   renderCircuit();
@@ -523,22 +540,23 @@ function showCircuitSuccess() {
     <div style="font-family:'Orbitron',sans-serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;
                 background:linear-gradient(125deg,#34e08a,#22e0ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;
                 filter:drop-shadow(0 0 20px rgba(52,224,138,0.4))">
-      CIRCUIT SUCCESSFUL
+      ${c7('สร้างวงจรสำเร็จ!', 'CIRCUIT SUCCESSFUL')}
     </div>
-    <div style="color:var(--text-secondary);font-size:1rem;max-width:480px;line-height:1.7">
-      You've built Grover's Search algorithm. The |2⟩ state now has
-      <strong style="color:var(--success)">${(CIRCUIT.probs[TARGET_STATE] * 100).toFixed(1)}%</strong>
-      probability — a quadratic speedup over classical search.
+    <div style="color:#c8d0ee;font-size:1rem;max-width:480px;line-height:1.7">
+      ${c7(
+        `คุณสร้างอัลกอริทึมการค้นหาของ Grover สำเร็จแล้ว ตอนนี้สถานะ |2⟩ มีความน่าจะเป็น <strong style="color:#34e08a">${(CIRCUIT.probs[TARGET_STATE] * 100).toFixed(1)}%</strong> — เร็วกว่าการค้นหาแบบทั่วไปแบบ quadratic speedup`,
+        `You've built Grover's Search algorithm. The |2⟩ state now has <strong style="color:#34e08a">${(CIRCUIT.probs[TARGET_STATE] * 100).toFixed(1)}%</strong> probability — a quadratic speedup over classical search.`
+      )}
     </div>
-    <div style="color:var(--text-dim);font-size:0.88rem;margin-top:4px">
-      The Quantum Core is now fully unlocked.
+    <div style="color:#8e9ac0;font-size:0.88rem;margin-top:4px">
+      ${c7('ปลดล็อกแกนควอนตัมเรียบร้อยแล้ว', 'The Quantum Core is now fully unlocked.')}
     </div>
     <button onclick="dismissCircuitSuccess()" style="
       margin-top:16px;padding:12px 32px;background:linear-gradient(135deg,#34e08a,#22e0ff);
       color:#fff;font-family:'Orbitron',sans-serif;font-size:0.85rem;font-weight:600;
       letter-spacing:1.5px;border:none;border-radius:999px;cursor:pointer;
       box-shadow:0 4px 24px rgba(52,224,138,0.35);transition:all 0.2s">
-      Back to Lab
+      ${c7('กลับห้องแล็บ', 'Back to Lab')}
     </button>
   `;
   document.body.appendChild(overlay);
@@ -633,30 +651,6 @@ function attachCircuitEvents() {
       }
     });
   });
-}
-
-/* ── I18N for station 7 ───────────────────────────────────── */
-function circuitI18N(lang) {
-  const map = {
-    c7_title: {
-      th: 'เครื่องสร้างวงจรควอนตัม',
-      en: 'Quantum Circuit Builder',
-    },
-    c7_intro: {
-      th: 'สร้างอัลกอริทึมการค้นหาของ Grover ด้วยตัวเอง ลากเกตวางบนสายวงจร รันการจำลอง แล้วขยายความน่าจะเป็นของสถานะเป้าหมาย',
-      en: 'Build Grover\'s search algorithm from scratch. Drag gates onto the circuit wires, run the simulation, and amplify the probability of finding the target state.',
-    },
-    c7_challenge: {
-      th: `สร้างอัลกอริทึมของ Grover: เริ่มจาก superposition ด้วย H gate → ใส่ oracle → รัน diffusion ให้ |2⟩ ได้ความน่าจะเป็นเกิน ${(SUCCESS_THRESHOLD * 100).toFixed(0)}%`,
-      en: `Build Grover's algorithm: initialize superposition, apply oracle, run diffusion. Find |2⟩ with probability above ${(SUCCESS_THRESHOLD * 100).toFixed(0)}%.`,
-    },
-    c7_hint_btn: {
-      th: 'เปิดเฉลย',
-      en: 'Hint',
-    },
-  };
-  const e = map[arguments.length > 1 ? arguments[1] : 'c7_title'];
-  return e ? (e[lang] || e.en) : '';
 }
 
 /* ── Initialize ────────────────────────────────────────────── */

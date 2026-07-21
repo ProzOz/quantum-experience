@@ -25,7 +25,7 @@
   font-family: 'Orbitron', sans-serif;
   font-size: clamp(1.8rem, 4.5vw, 2.8rem);
   font-weight: 700;
-  background: linear-gradient(125deg, var(--cyan-soft), #fff 50%, var(--violet));
+  background: linear-gradient(125deg, var(--blue), var(--violet));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -41,14 +41,15 @@
   line-height: 1.8;
 }
 
-/* Game viewport */
+/* Game viewport — deliberately dark "arcade screen" on the light page.
+   Everything inside the overlays uses fixed light colors, not theme vars. */
 .game-viewport {
   background: var(--bg-deep);
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   position: relative;
   overflow: hidden;
-  box-shadow: 0 0 60px rgba(34, 224, 255, 0.08), inset 0 0 40px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 40px rgba(15, 16, 36, 0.25), inset 0 0 40px rgba(0, 0, 0, 0.5);
 }
 
 #gameWrap {
@@ -94,7 +95,7 @@
   font-family: 'Orbitron', sans-serif;
   font-size: clamp(2rem, 5vw, 3.2rem);
   font-weight: 800;
-  background: linear-gradient(125deg, var(--cyan) 0%, #ffffff 40%, var(--violet) 100%);
+  background: linear-gradient(125deg, #22e0ff 0%, #ffffff 40%, #b09aff 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -105,7 +106,7 @@
 
 .game-subtitle {
   font-size: 1rem;
-  color: var(--text-secondary);
+  color: #c8d0ee;
   margin-bottom: 20px;
   font-style: italic;
 }
@@ -113,7 +114,7 @@
 .game-tagline {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.78rem;
-  color: var(--text-dim);
+  color: #8e9ac0;
   margin-bottom: 8px;
   letter-spacing: 0.5px;
 }
@@ -121,7 +122,7 @@
 .game-start-btn {
   margin-top: 16px;
   padding: 14px 40px;
-  background: linear-gradient(135deg, var(--cyan), var(--blue));
+  background: linear-gradient(135deg, #22d3ee, #3b82f6);
   color: #fff;
   font-family: 'Orbitron', sans-serif;
   font-size: 0.95rem;
@@ -148,7 +149,7 @@
 .game-highscore {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.8rem;
-  color: var(--violet);
+  color: #b09aff;
   margin-top: 14px;
   opacity: 0.8;
 }
@@ -160,7 +161,7 @@
   margin-top: 28px;
   padding: 20px 28px;
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--line);
+  border: 1px solid rgba(170, 190, 255, 0.16);
   border-radius: var(--radius-md);
   max-width: 340px;
 }
@@ -169,7 +170,7 @@
   font-family: 'Orbitron', sans-serif;
   font-size: 0.7rem;
   letter-spacing: 3px;
-  color: var(--cyan);
+  color: #22e0ff;
   margin-bottom: 4px;
 }
 
@@ -178,7 +179,7 @@
   align-items: center;
   gap: 12px;
   font-size: 0.88rem;
-  color: var(--text-secondary);
+  color: #c8d0ee;
   text-align: left;
 }
 
@@ -195,7 +196,7 @@
 }
 
 .game-how-text strong {
-  color: var(--text-primary);
+  color: #f0f4ff;
   font-weight: 600;
 }
 
@@ -204,14 +205,14 @@
   font-family: 'Orbitron', sans-serif;
   font-size: clamp(1.6rem, 4vw, 2.4rem);
   font-weight: 800;
-  color: var(--error);
+  color: #ff6b7d;
   letter-spacing: 2px;
   text-shadow: 0 0 30px rgba(255, 107, 125, 0.4);
 }
 
 .go-sub {
   font-size: 0.9rem;
-  color: var(--text-secondary);
+  color: #c8d0ee;
   margin-bottom: 16px;
 }
 
@@ -219,7 +220,7 @@
   font-family: 'Orbitron', sans-serif;
   font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: 800;
-  color: var(--cyan);
+  color: #22e0ff;
   text-shadow: 0 0 30px rgba(34, 224, 255, 0.5);
   line-height: 1;
 }
@@ -227,7 +228,7 @@
 .go-best {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.82rem;
-  color: var(--violet);
+  color: #b09aff;
   margin-top: 6px;
   opacity: 0.8;
 }
@@ -236,7 +237,7 @@
   font-family: 'Orbitron', sans-serif;
   font-size: 0.75rem;
   letter-spacing: 2px;
-  color: var(--success);
+  color: #34e08a;
   margin-top: 10px;
   animation: record-flash 0.8s ease-in-out infinite alternate;
 }
@@ -250,11 +251,11 @@
   margin-top: 20px;
   padding: 12px 32px;
   background: rgba(255, 255, 255, 0.05);
-  color: var(--text-primary);
+  color: #f0f4ff;
   font-family: 'Inter', sans-serif;
   font-size: 0.9rem;
   font-weight: 600;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(170, 190, 255, 0.3);
   border-radius: 999px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -262,7 +263,7 @@
 }
 
 .go-retry:hover {
-  border-color: var(--cyan);
+  border-color: #22e0ff;
   background: rgba(34, 224, 255, 0.08);
   transform: translateY(-1px);
 }

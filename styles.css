@@ -10,23 +10,25 @@
 }
 
 :root {
-    --bg-deep: #0b0b1c;
-    --bg-mid: #111128;
-    --bg-card: rgba(16, 18, 42, 0.82);
-    --glass: rgba(10, 12, 32, 0.90);
-    --cyan: #22e0ff;
-    --cyan-soft: #8af0ff;
-    --violet: #b09aff;
-    --blue: #6aadff;
-    --glow-cyan: rgba(34, 224, 255, 0.55);
-    --glow-violet: rgba(176, 154, 255, 0.55);
-    --text-primary: #f0f4ff;
-    --text-secondary: #c8d0ee;
-    --text-dim: #a0aac8;
-    --success: #4dea9a;
-    --gold: #ffb347;
-    --error: #ff7a8a;
-    --line: rgba(170, 190, 255, 0.16);
+    /* Light "Brilliant-style" theme — dark values kept only for
+       instrument screens (sim canvases, game viewport) */
+    --bg-deep: #0f1024;
+    --bg-mid: #f0f2f5;
+    --bg-card: #ffffff;
+    --glass: rgba(255, 255, 255, 0.94);
+    --cyan: #0891b2;
+    --cyan-soft: #06b6d4;
+    --violet: #7c3aed;
+    --blue: #2563eb;
+    --glow-cyan: rgba(8, 145, 178, 0.20);
+    --glow-violet: rgba(124, 58, 237, 0.20);
+    --text-primary: #1f2937;
+    --text-secondary: #4b5563;
+    --text-dim: #6b7280;
+    --success: #10b981;
+    --gold: #b45309;
+    --error: #dc2626;
+    --line: #e5e7eb;
     --font-display: 'Orbitron', 'Kanit', sans-serif;
     --font-body: 'Inter', 'Kanit', sans-serif;
     --font-thai: 'Kanit', sans-serif;
@@ -34,7 +36,7 @@
     --radius-lg: 22px;
     --radius-md: 14px;
     --radius-sm: 10px;
-    --shadow-glow: 0 14px 56px rgba(34, 224, 255, 0.22);
+    --shadow-glow: 0 10px 30px rgba(37, 99, 235, 0.15);
 }
 
 html { scroll-behavior: smooth; }
@@ -64,17 +66,17 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Cosmic background layers */
+/* Cosmic background layers (soft pastel tints on light theme) */
 .bg-cosmos {
     position: fixed;
     inset: 0;
     z-index: 0;
     pointer-events: none;
     background:
-        radial-gradient(1200px 700px at 15% -10%, rgba(76, 134, 255, 0.14), transparent 60%),
-        radial-gradient(1000px 800px at 100% 0%, rgba(155, 123, 255, 0.12), transparent 55%),
-        radial-gradient(900px 900px at 50% 120%, rgba(34, 224, 255, 0.10), transparent 55%),
-        var(--bg-deep);
+        radial-gradient(1200px 700px at 15% -10%, rgba(59, 130, 246, 0.06), transparent 60%),
+        radial-gradient(1000px 800px at 100% 0%, rgba(139, 92, 246, 0.05), transparent 55%),
+        radial-gradient(900px 900px at 50% 120%, rgba(6, 182, 212, 0.05), transparent 55%),
+        #fafbfc;
 }
 
 .bg-particles {
@@ -253,7 +255,7 @@ main {
     transform: translateX(-50%);
     width: min(680px, 90vw);
     height: 360px;
-    background: radial-gradient(ellipse at center, rgba(34, 224, 255, 0.16), transparent 70%);
+    background: radial-gradient(ellipse at center, rgba(37, 99, 235, 0.08), transparent 70%);
     pointer-events: none;
     filter: blur(20px);
 }
@@ -274,13 +276,12 @@ main {
     font-size: clamp(2.4rem, 7vw, 4.8rem);
     font-weight: 800;
     line-height: 1.02;
-    background: linear-gradient(125deg, var(--cyan-soft) 0%, #ffffff 40%, var(--violet) 100%);
+    background: linear-gradient(125deg, var(--blue) 0%, var(--violet) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     letter-spacing: 2px;
     margin-bottom: 24px;
-    filter: drop-shadow(0 0 30px rgba(34, 224, 255, 0.2));
 }
 
 .hero-subtitle {
@@ -302,7 +303,7 @@ main {
     padding: 8px 16px;
     border-radius: 999px;
     margin-bottom: 48px;
-    background: rgba(255, 255, 255, 0.02);
+    background: #f9fafb;
 }
 
 .hero-hint svg { width: 16px; height: 16px; color: var(--cyan); }
@@ -394,9 +395,9 @@ main {
     letter-spacing: 0.5px;
     padding: 5px 10px;
     border-radius: 999px;
-    background: linear-gradient(135deg, rgba(52, 224, 138, 0.2), rgba(34, 224, 255, 0.2));
-    border: 1px solid rgba(52, 224, 138, 0.4);
-    color: var(--success);
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    color: #047857;
     white-space: nowrap;
 }
 
@@ -493,13 +494,12 @@ main {
     font-family: var(--font-display);
     font-size: clamp(1.8rem, 4.5vw, 2.8rem);
     font-weight: 700;
-    background: linear-gradient(125deg, var(--cyan-soft), #fff 50%, var(--violet));
+    background: linear-gradient(125deg, var(--blue), var(--violet));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 18px;
     line-height: 1.15;
-    filter: drop-shadow(0 0 20px rgba(34, 224, 255, 0.15));
 }
 
 .topic-header-desc {
@@ -572,7 +572,7 @@ main {
     bottom: 12px;
     left: 12px;
     font-size: 0.78rem;
-    color: var(--text-dim);
+    color: #b6c2e2; /* sits on the dark sim canvas */
     background: rgba(7, 7, 16, 0.7);
     padding: 5px 10px;
     border-radius: 6px;
@@ -726,7 +726,6 @@ html[lang="th"] .btn { font-family: var(--font-thai); font-weight: 600; }
     font-weight: 700;
     color: var(--cyan);
     line-height: 1.1;
-    text-shadow: 0 0 18px rgba(34, 224, 255, 0.3);
 }
 
 .stat-label {
@@ -849,7 +848,6 @@ footer {
     letter-spacing: 3px;
     color: var(--cyan);
     margin-bottom: 20px;
-    text-shadow: 0 0 16px rgba(34, 224, 255, 0.3);
 }
 
 .credits-list {
@@ -899,7 +897,7 @@ footer {
     opacity: 0;
     transition: all 0.3s ease;
     pointer-events: none;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
@@ -1056,9 +1054,9 @@ button:focus-visible, a:focus-visible, .quiz-option:focus-visible, .slider:focus
     outline-offset: 2px;
 }
 
-::selection { background: var(--cyan); color: #06121a; }
+::selection { background: var(--cyan); color: #ffffff; }
 
 ::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-track { background: var(--bg-deep); }
-::-webkit-scrollbar-thumb { background: rgba(150, 175, 255, 0.18); border-radius: 5px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(34, 224, 255, 0.35); }
+::-webkit-scrollbar-track { background: #f0f2f5; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }

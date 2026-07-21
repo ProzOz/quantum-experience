@@ -203,6 +203,12 @@ const I18N = {
   t7_c:       { th: "เร็วกว่า N เท่า", en: "N times faster" },
   t7_explain: { th: "Grover ค้นหาด้วยความเร็ว O(√N) แทนที่จะเป็น O(N) สำหรับ N รายการ นี่คือการเร่งควอนตัมที่เรียกว่า quadratic speedup", en: "Grover searches in O(√N) vs O(N) for classical — that is a quantum quadratic speedup." },
 
+  // Station 7 — circuit page UI
+  c7_title:    { th: "เครื่องสร้างวงจรควอนตัม", en: "Quantum Circuit Builder" },
+  c7_intro:    { th: "สร้างอัลกอริทึมการค้นหาของ Grover ด้วยตัวเอง ลากเกตวางบนสายวงจร รันการจำลอง แล้วขยายความน่าจะเป็นของสถานะเป้าหมาย", en: "Build Grover's search algorithm from scratch. Drag gates onto the circuit wires, run the simulation, and amplify the probability of finding the target state." },
+  c7_challenge:{ th: "สร้างอัลกอริทึมของ Grover: เริ่มจาก superposition ด้วย H gate → ใส่ Oracle → รัน Diffusion ให้ |2⟩ ได้ความน่าจะเป็นเกิน 75%", en: "Build Grover's algorithm: initialize superposition, apply the oracle, run diffusion. Find |2⟩ with probability above 75%." },
+  c7_hint_btn: { th: "ขอคำใบ้", en: "Hint" },
+
   schr_idle:  { th: "กด “เริ่มการทดลอง” เพื่อปิดฝากล่อง", en: "Press Set up experiment to seal the box" },
   schr_super: { th: "แมวกำลังซ้อนทับ เป็น + ตาย …", en: "The cat is in superposition: alive + dead …" },
   schr_alive: { th: "เปิดกล่อง — แมวยังเป็นอยู่! 🎉", en: "Box opened — the cat is alive! 🎉" },
@@ -294,7 +300,7 @@ function syncPuzzleStateFromProgress() {
   for (let i = 1; i <= 7; i++) {
     if (progress[i]) PUZZLE[i].solved = true;
   }
-  updateLabProgress();
+  updateLabProgress(true);
 }
 
 /* ============================================================
@@ -409,6 +415,26 @@ function toggleLanguage() {
 
 function applyLanguage() {
   document.documentElement.lang = lang;
+
+  // Rebuild pages whose text is generated in JS so they pick up the new language
+  if (typeof buildLabHome === 'function' &&
+      document.getElementById('homePage')?.classList.contains('active')) {
+    buildLabHome();
+  }
+  if (typeof renderCircuit === 'function' &&
+      document.getElementById('circuitPage')?.classList.contains('active')) {
+    renderCircuit();
+  }
+  if (typeof buildGroverPage === 'function' &&
+      document.getElementById('corePage')?.classList.contains('active')) {
+    buildGroverPage();
+  }
+  if (typeof refreshCoopLanguage === 'function' &&
+      document.getElementById('coopPage')?.classList.contains('active')) {
+    refreshCoopLanguage();
+  }
+  if (typeof updateLabGoalStrips === 'function') updateLabGoalStrips();
+
   document.querySelectorAll('[data-i18n]').forEach(el => {
     el.textContent = t(el.getAttribute('data-i18n'));
   });
@@ -472,6 +498,9 @@ function goHome() {
   stopContinuous();
   stopAnimations();
   if (typeof QR !== 'undefined' && QR.raf) cancelAnimationFrame(QR.raf);
+  // Bring the mascot back if a page (e.g. co-op) hid it
+  const ball = document.getElementById('ownerSpaceball');
+  if (ball) ball.style.display = '';
   currentTopic = 0;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('homePage').classList.add('active');
@@ -564,6 +593,9 @@ function markComplete(id) {
   if (progress[id]) return;
   progress[id] = true;
   localStorage.setItem('qx_progress', JSON.stringify(progress));
+  // Keep lab station state in sync so cards show ONLINE without a reload
+  if (typeof PUZZLE !== 'undefined' && PUZZLE[id]) PUZZLE[id].solved = true;
+  if (typeof updateLabProgress === 'function') updateLabProgress();
   renderProgress();
   toast(t('toast_done'));
 }
@@ -1163,6 +1195,7 @@ function measure2() {
   document.getElementById('stDown').textContent = S2.down;
   document.getElementById('stMeas').textContent = S2.up + S2.down;
   play(result === 'up' ? 'success' : 'collision');
+  if (typeof checkStation2Super === 'function') checkStation2Super();
 
   // animate collapse flash
   S2.collapse = { result, a: 1 };
@@ -1731,27 +1764,41 @@ function debugRepairAll() {
 
 function debugUnlockAll() {
   progress = {};
-  for (let i = 1; i <= 7; i++) progress[i] = true;
+  for (let i = 1; i <= 7; i++) {
+    progress[i] = true;
+    if (typeof PUZZLE !== 'undefined' && PUZZLE[i]) PUZZLE[i].solved = true;
+  }
   localStorage.setItem('qx_progress', JSON.stringify(progress));
-  localStorage.setItem('qx_grover', JSON.stringify({ unlocked: true }));
   renderProgress();
+  if (typeof buildLabHome === 'function' &&
+      document.getElementById('homePage')?.classList.contains('active')) {
+    buildLabHome();
+  }
+  if (typeof updateLabProgress === 'function') updateLabProgress(true);
   debugClose();
   toast('🔓 All 7 stations + Quantum Core unlocked!');
 }
 
 function debugUnlockGrover() {
-  localStorage.setItem('qx_grover', JSON.stringify({ unlocked: true }));
   debugClose();
-  // Refresh the core panel
-  if (typeof renderLabHome === 'function') renderLabHome();
-  toast('⚡ Quantum Core unlocked! Click it to play.');
+  // Jump straight into the Quantum Core demo, bypassing the lock
+  if (typeof openQuantumCore === 'function') openQuantumCore();
+  toast('⚡ Quantum Core opened!');
 }
 
 function debugCompleteGrover() {
-  // Simulate winning Grover — set progress and max out circuit puzzle
-  if (typeof completeGrover === 'function') completeGrover();
   debugClose();
-  toast('🏆 Grover complete! You found |2⟩ with 100% probability.');
+  // Auto-build the winning Grover circuit on station 7 and run it
+  if (typeof openCircuitPuzzle === 'function' && typeof CIRCUIT !== 'undefined') {
+    openCircuitPuzzle();
+    setTimeout(() => {
+      CIRCUIT.wires = [['H', 'ORACLE', 'DIFF', 'M'], ['H'], ['H']];
+      CIRCUIT.hasRun = false;
+      CIRCUIT.probs = null;
+      renderCircuit();
+      runCircuit7();
+    }, 150);
+  }
 }
 
 // Konami-style: ↑↑↓↓←→←→BA

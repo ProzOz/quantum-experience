@@ -47,16 +47,16 @@
   align-items: center;
   gap: 10px;
   padding: 10px 20px;
-  background: rgba(255, 210, 61, 0.08);
-  border: 1px solid rgba(255, 210, 61, 0.3);
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
   border-radius: 999px;
   font-size: 0.9rem;
-  color: #ffd23d;
+  color: #92400e;
 }
 
 .circuit-objective strong {
   font-family: 'JetBrains Mono', monospace;
-  color: #fff;
+  color: #78350f;
 }
 
 /* ── Main circuit builder layout ── */
@@ -104,7 +104,7 @@
 }
 
 .gate-item:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: #f3f4f6;
   border-color: var(--line);
 }
 
@@ -123,49 +123,49 @@
   font-size: 0.82rem;
   font-weight: 600;
   letter-spacing: 0.5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.10);
   transition: box-shadow 0.2s, transform 0.15s;
 }
 
 .gate-item:hover .gate-pill {
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
 }
 
 .gate-pill.hadamard {
-  background: linear-gradient(135deg, rgba(34, 224, 255, 0.25), rgba(34, 224, 255, 0.1));
-  border: 1px solid rgba(34, 224, 255, 0.5);
-  color: var(--cyan);
+  background: #ecfeff;
+  border: 1px solid #67e8f9;
+  color: #0e7490;
 }
 
 .gate-pill.pauli {
-  background: linear-gradient(135deg, rgba(255, 107, 125, 0.25), rgba(255, 107, 125, 0.1));
-  border: 1px solid rgba(255, 107, 125, 0.5);
-  color: #ff6b7d;
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  color: #dc2626;
 }
 
 .gate-pill.cnot {
-  background: linear-gradient(135deg, rgba(155, 123, 255, 0.25), rgba(155, 123, 255, 0.1));
-  border: 1px solid rgba(155, 123, 255, 0.5);
-  color: var(--violet);
+  background: #f5f3ff;
+  border: 1px solid #c4b5fd;
+  color: #7c3aed;
 }
 
 .gate-pill.oracle {
-  background: linear-gradient(135deg, rgba(255, 210, 61, 0.25), rgba(255, 210, 61, 0.1));
-  border: 1px solid rgba(255, 210, 61, 0.5);
-  color: #ffd23d;
+  background: #fffbeb;
+  border: 1px solid #fcd34d;
+  color: #b45309;
 }
 
 .gate-pill.diffusion {
-  background: linear-gradient(135deg, rgba(52, 224, 138, 0.25), rgba(52, 224, 138, 0.1));
-  border: 1px solid rgba(52, 224, 138, 0.5);
-  color: var(--success);
+  background: #ecfdf5;
+  border: 1px solid #6ee7b7;
+  color: #059669;
 }
 
 .gate-pill.measure {
-  background: linear-gradient(135deg, rgba(200, 210, 255, 0.2), rgba(200, 210, 255, 0.08));
-  border: 1px solid rgba(200, 210, 255, 0.4);
-  color: #c8d2ff;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  color: #475569;
 }
 
 .gate-name {
@@ -243,8 +243,8 @@
 .wire-track {
   flex: 1;
   height: 44px;
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
   border-radius: 10px;
   position: relative;
   display: flex;
@@ -257,8 +257,8 @@
 }
 
 .wire-track.drag-over {
-  border-color: rgba(34, 224, 255, 0.5);
-  background: rgba(34, 224, 255, 0.06);
+  border-color: #06b6d4;
+  background: #ecfeff;
 }
 
 .wire-line {
@@ -362,7 +362,7 @@
 
 .prob-track {
   height: 22px;
-  background: rgba(255, 255, 255, 0.04);
+  background: #f0f2f5;
   border-radius: 6px;
   overflow: hidden;
   position: relative;
@@ -381,15 +381,15 @@
 }
 
 .prob-bar.target-state {
-  background: linear-gradient(90deg, rgba(52, 224, 138, 0.5), rgba(52, 224, 138, 0.3));
+  background: linear-gradient(90deg, #10b981, #34d399);
 }
 
 .prob-bar.nontarget-high {
-  background: linear-gradient(90deg, rgba(255, 107, 125, 0.4), rgba(255, 107, 125, 0.2));
+  background: linear-gradient(90deg, #f87171, #fca5a5);
 }
 
 .prob-bar.default {
-  background: linear-gradient(90deg, rgba(34, 224, 255, 0.3), rgba(34, 224, 255, 0.15));
+  background: linear-gradient(90deg, #38bdf8, #7dd3fc);
 }
 
 .prob-pct {
@@ -442,7 +442,7 @@
 
 .circuit-hint-btn {
   padding: 10px 18px;
-  background: rgba(255, 255, 255, 0.04);
+  background: #f9fafb;
   color: var(--text-secondary);
   border: 1px solid var(--line);
   border-radius: 999px;
@@ -455,9 +455,9 @@
 }
 
 .circuit-hint-btn:hover {
-  border-color: rgba(255, 210, 61, 0.4);
-  color: #ffd23d;
-  background: rgba(255, 210, 61, 0.06);
+  border-color: #fcd34d;
+  color: #b45309;
+  background: #fffbeb;
 }
 
 .circuit-hint-panel {
@@ -466,10 +466,10 @@
   left: 0;
   width: 320px;
   background: var(--bg-card);
-  border: 1px solid rgba(255, 210, 61, 0.3);
+  border: 1px solid #fcd34d;
   border-radius: var(--radius-md);
   padding: 16px 18px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   z-index: 100;
   animation: hint-pop 0.2s ease-out;
 }
@@ -483,7 +483,7 @@
   font-family: 'Orbitron', sans-serif;
   font-size: 0.7rem;
   letter-spacing: 2px;
-  color: #ffd23d;
+  color: #b45309;
   margin-bottom: 10px;
 }
 
@@ -518,13 +518,13 @@
   border: none;
   border-radius: 999px;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(34, 224, 255, 0.3);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
   transition: all 0.2s;
 }
 
 .circuit-run-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 28px rgba(34, 224, 255, 0.45);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
 }
 
 .circuit-run-btn:disabled {
@@ -536,7 +536,7 @@
 
 .circuit-reset-btn {
   padding: 12px 20px;
-  background: rgba(255, 255, 255, 0.04);
+  background: #f9fafb;
   color: var(--text-secondary);
   font-size: 0.88rem;
   border: 1px solid var(--line);
@@ -546,9 +546,9 @@
 }
 
 .circuit-reset-btn:hover {
-  border-color: rgba(255, 107, 125, 0.4);
-  color: #ff6b7d;
-  background: rgba(255, 107, 125, 0.06);
+  border-color: #fca5a5;
+  color: #dc2626;
+  background: #fef2f2;
 }
 
 /* ── Result feedback ── */
@@ -569,15 +569,15 @@
 }
 
 .circuit-result.success {
-  background: rgba(52, 224, 138, 0.1);
-  border: 1px solid rgba(52, 224, 138, 0.3);
-  color: var(--success);
+  background: #ecfdf5;
+  border: 1px solid #6ee7b7;
+  color: #047857;
 }
 
 .circuit-result.error {
-  background: rgba(255, 107, 125, 0.08);
-  border: 1px solid rgba(255, 107, 125, 0.25);
-  color: #ff6b7d;
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  color: #dc2626;
 }
 
 /* ── Success state on bars ── */
