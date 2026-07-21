@@ -292,7 +292,7 @@ main {
 }
 
 .station-tagline {
-    font-size: 0.95rem;
+    font-size: 1.02rem;
     color: var(--text-secondary);
     line-height: 1.5;
 }
@@ -468,9 +468,9 @@ main {
 }
 
 .puzzle-goal-desc {
-    font-size: 1rem;
+    font-size: 1.12rem;
     color: #78350F;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .puzzle-goal-status {

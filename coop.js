@@ -14,8 +14,12 @@ const COOP_I18N = {
   banner_desc:   { th: 'คุมเครื่องวัดคนละฝั่ง ประสานมุมให้ตรงเป้า และช่วยกันสอยสปาย Eve', en: 'One detector each — coordinate your angles, hit the goal, and zap Eve the eavesdropper.' },
   header_number: { th: 'โหมดพิเศษ · ENTANGLEMENT', en: 'BONUS · ENTANGLEMENT' },
   header_title:  { th: 'Entangle Together', en: 'Entangle Together' },
-  header_desc:   { th: 'โฟตอนพัวพันคู่หนึ่งบินออกจากแหล่งกำเนิดไปหาเครื่องวัดสองฝั่ง ผลการวัด "ตรงกัน" ด้วยความน่าจะเป็น cos²(Δθ/2) — มันขึ้นกับ "มุมต่างระหว่างเครื่องวัด" เท่านั้น ทำงานเป็นทีมเพื่อพิสูจน์มัน!', en: 'Entangled photon pairs fly from one source to two detectors. The results agree with probability cos²(Δθ/2) — it depends only on the angle between your detectors. Work as a team to prove it!' },
-  menu_sub:      { th: 'ระบบควอนตัมเดียว ผู้เล่นสองคน — เก็บ 10 แต้มก่อนโฟตอนหมด', en: 'One quantum system, two players — score 10 points before the photon supply runs out.' },
+  header_desc:   { th: 'คุมเครื่องวัดคนละฝั่ง หมุนให้ตรงเป้า แล้วช่วยกันสอยสปาย Eve!', en: 'One detector each — aim together and zap Eve the spy!' },
+  menu_sub:      { th: 'เก็บ 10 แต้มก่อนโฟตอนหมด 20 คู่', en: 'Score 10 points before 20 photon pairs run out.' },
+  how_title:     { th: 'วิธีเล่น', en: 'HOW TO PLAY' },
+  how1:          { th: 'หมุนเครื่องวัดตามการ์ดเป้าหมายบนจอ', en: 'Rotate your detector to match the goal card' },
+  how2:          { th: 'ทำมิเตอร์ P ให้เขียว ก่อนวงแหวนนับถอยหลังหมด', en: 'Get the P meter green before the countdown ring ends' },
+  how3:          { th: 'Eve 🕵️ โผล่เมื่อไหร่ รีบกดยิงทันที!', en: 'When Eve 🕵️ appears — zap her fast!' },
   btn_2p:        { th: 'เล่น 2 คน', en: '2 PLAYERS' },
   btn_ai:        { th: 'เล่นกับ AI', en: 'PLAY WITH AI' },
   p1:            { th: 'ผู้เล่น 1 · เครื่องวัด A', en: 'PLAYER 1 · DETECTOR A' },
@@ -52,11 +56,11 @@ const COOP_I18N = {
   btn_again:     { th: 'เล่นอีกครั้ง', en: 'PLAY AGAIN' },
   btn_menu:      { th: 'กลับเมนู', en: 'MENU' },
   phys1_t:       { th: '🔗 ความพัวพัน', en: '🔗 Entanglement' },
-  phys1_d:       { th: 'โฟตอนสองตัวถูกสร้างเป็นสถานะเดียวกัน ผลการวัดจึงสัมพันธ์กันเสมอ ไม่ว่าจะอยู่ห่างกันแค่ไหน', en: 'The two photons are created as one shared state, so their measurement results stay correlated at any distance.' },
+  phys1_d:       { th: 'โฟตอนสองตัวคือสถานะเดียวกัน — ผลวัดจึงเชื่อมกันแม้อยู่ไกล', en: 'Two photons share one state — their results stay linked at any distance.' },
   phys2_t:       { th: '📐 กฎ cos²', en: '📐 The cos² law' },
-  phys2_d:       { th: 'ความน่าจะเป็นที่ผลตรงกันคือ cos²(Δθ/2) — ขึ้นกับมุมต่างเท่านั้น มุมเดียวกัน = ตรงกัน 100%, สวนทาง = ตรงข้าม 100%', en: 'The match probability is cos²(Δθ/2) — it depends only on the relative angle. Aligned = 100% match, opposite = 100% anti.' },
+  phys2_d:       { th: 'มุมเดียวกัน = ตรงกัน 100% · สวนทาง = ตรงข้าม 100% — สำคัญแค่ "มุมต่าง"', en: 'Aligned = 100% match · opposite = 100% anti. Only Δθ matters.' },
   phys3_t:       { th: '🕵️ ทำไม Eve ถึงพัง', en: '🕵️ Why Eve breaks it' },
-  phys3_d:       { th: 'การวัดคือการรบกวน — พอ Eve แอบวัดกลางทาง สถานะพัวพันจะยุบตัวและความสัมพันธ์หายทันที นี่คือหัวใจของการเข้ารหัสควอนตัม', en: 'Measurement disturbs — the moment Eve peeks mid-flight, the entangled state collapses and the correlation is gone. This is the heart of quantum cryptography.' },
+  phys3_d:       { th: 'แอบวัดกลางทาง = ความพัวพันสลายทันที — นี่คือหัวใจของการเข้ารหัสควอนตัม', en: 'Peeking mid-flight destroys entanglement — the heart of quantum cryptography.' },
   ai_name:       { th: 'AI คู่หู', en: 'AI PARTNER' },
   best_line:     { th: (b) => `สถิติดีสุด: ${b.score} แต้ม · สตรีค ×${b.streak}`, en: (b) => `BEST: ${b.score} pts · streak ×${b.streak}` },
 };
@@ -202,6 +206,12 @@ function renderCoopMenu() {
     <div class="coop-mode-btns">
       <button class="coop-mode-btn two" onclick="startCoop(false)">👥 ${CT('btn_2p')}</button>
       <button class="coop-mode-btn ai" onclick="startCoop(true)">🤖 ${CT('btn_ai')}</button>
+    </div>
+    <div class="coop-howto">
+      <div class="coop-howto-title">${CT('how_title')}</div>
+      <div class="coop-howto-step"><span class="coop-howto-num">1</span>${CT('how1')}</div>
+      <div class="coop-howto-step"><span class="coop-howto-num">2</span>${CT('how2')}</div>
+      <div class="coop-howto-step"><span class="coop-howto-num">3</span>${CT('how3')}</div>
     </div>
     <div class="coop-legend">
       <div class="coop-legend-col p1">

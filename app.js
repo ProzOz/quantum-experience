@@ -23,6 +23,30 @@ const I18N = {
   progress_summary: { th: "ทำสำเร็จแล้ว", en: "Completed" },
 
   challenge_chip:   { th: "ภารกิจ", en: "Challenge" },
+  howto_title:      { th: "วิธีเล่น", en: "HOW TO PLAY" },
+
+  // How-to steps (3 per station, short & action-first)
+  t1_how1: { th: "กด “ยิงรัว” แล้วดูจุดตกค่อย ๆ รวมเป็นลายแถบ", en: "Press Rapid fire — watch dots build into stripes" },
+  t1_how2: { th: "เลื่อน “ระยะห่างช่อง” และ “พลังงาน” ให้ลายเปลี่ยน", en: "Slide Slit separation & Energy to reshape the stripes" },
+  t1_how3: { th: "ทำ MATCH ให้ถึง 80% → สถานีซ่อมสำเร็จ!", en: "Reach MATCH 80% → station repaired!" },
+  t2_how1: { th: "เลื่อน θ ให้เป็น 90° (ลูกศรชี้แนวนอน = 50:50)", en: "Set θ to 90° (arrow flat = 50:50 odds)" },
+  t2_how2: { th: "กด “วัดผล” — ผลจะสุ่มออก 0 หรือ 1", en: "Press Measure — you randomly get 0 or 1" },
+  t2_how3: { th: "วัดครบ 10 ครั้งที่ θ=90° → ซ่อมสำเร็จ!", en: "Take 10 measurements at θ=90° → repaired!" },
+  t3_how1: { th: "เลื่อน “ความกว้างกลุ่มคลื่น” ไปทางซ้ายสุด ๆ", en: "Slide Wave packet width far to the left" },
+  t3_how2: { th: "ดูตัวเลข Δx กับ Δx·Δp ข้างล่างเปลี่ยนตาม", en: "Watch Δx and Δx·Δp update below" },
+  t3_how3: { th: "ทำ Δx < 0.60 โดยที่ Δx·Δp ≤ 0.55 → ซ่อมสำเร็จ!", en: "Get Δx < 0.60 with Δx·Δp ≤ 0.55 → repaired!" },
+  t4_how1: { th: "ใช้ ↑ ↓ เปลี่ยนเลน หลบกำแพง", en: "Use ↑ ↓ to switch lanes and dodge walls" },
+  t4_how2: { th: "กด SPACE ค้างเพื่อแยกร่างทะลุกำแพง", en: "Hold SPACE to split and phase through walls" },
+  t4_how3: { th: "ทำคะแนนให้ถึง 100 → ซ่อมสำเร็จ!", en: "Score 100+ → repaired!" },
+  t5_how1: { th: "ตั้งมุม A และ B ให้เท่ากัน (เช่น 0° กับ 0°)", en: "Set angles A and B the same (e.g. 0° and 0°)" },
+  t5_how2: { th: "กด “วัดรวด 40 ครั้ง”", en: "Press Run 40 trials" },
+  t5_how3: { th: "ผลตรงกันเกิน 80% → ซ่อมสำเร็จ!", en: "Match above 80% → repaired!" },
+  t6_how1: { th: "กด “เริ่มการทดลอง” เพื่อปิดกล่อง", en: "Press Set up experiment to seal the box" },
+  t6_how2: { th: "กด “เปิดกล่อง!” — ลุ้นแมวเป็นหรือตาย", en: "Press Open the box! — alive or dead?" },
+  t6_how3: { th: "เปิดครบ 5 ครั้ง → ซ่อมสำเร็จ!", en: "Open it 5 times → repaired!" },
+  c7_how1: { th: "ลากเกต H ไปวางบนสาย Q0, Q1 และ Q2", en: "Drag an H gate onto wires Q0, Q1 and Q2" },
+  c7_how2: { th: "วาง Oracle ต่อด้วย Diffusion บนสายไหนก็ได้", en: "Add Oracle, then Diffusion, on any wire" },
+  c7_how3: { th: "กด “รันวงจร” — ให้ |2⟩ ขึ้นเกิน 75%!", en: "Press Run Circuit — push |2⟩ above 75%!" },
   predict_tag:      { th: "ทายก่อนทดลอง", en: "Predict before you test" },
   correct_label:    { th: "ถูกต้อง! เยี่ยมมาก", en: "Correct! Nice work" },
   incorrect_label:  { th: "ยังไม่ใช่ ลองคิดใหม่นะ", en: "Not quite — here is why" },
@@ -205,8 +229,8 @@ const I18N = {
 
   // Station 7 — circuit page UI
   c7_title:    { th: "เครื่องสร้างวงจรควอนตัม", en: "Quantum Circuit Builder" },
-  c7_intro:    { th: "สร้างอัลกอริทึมการค้นหาของ Grover ด้วยตัวเอง ลากเกตวางบนสายวงจร รันการจำลอง แล้วขยายความน่าจะเป็นของสถานะเป้าหมาย", en: "Build Grover's search algorithm from scratch. Drag gates onto the circuit wires, run the simulation, and amplify the probability of finding the target state." },
-  c7_challenge:{ th: "สร้างอัลกอริทึมของ Grover: เริ่มจาก superposition ด้วย H gate → ใส่ Oracle → รัน Diffusion ให้ |2⟩ ได้ความน่าจะเป็นเกิน 75%", en: "Build Grover's algorithm: initialize superposition, apply the oracle, run diffusion. Find |2⟩ with probability above 75%." },
+  c7_intro:    { th: "ลากเกตมาต่อวงจร แล้วทำให้เครื่องหา |2⟩ เจอในครั้งเดียว", en: "Drag gates onto the wires and make the machine find |2⟩ in one shot." },
+  c7_challenge:{ th: "H ทั้ง 3 สาย → Oracle → Diffusion → รัน ให้ |2⟩ เกิน 75%", en: "H on all 3 wires → Oracle → Diffusion → Run. Get |2⟩ above 75%." },
   c7_hint_btn: { th: "ขอคำใบ้", en: "Hint" },
 
   schr_idle:  { th: "กด “เริ่มการทดลอง” เพื่อปิดฝากล่อง", en: "Press Set up experiment to seal the box" },
@@ -796,13 +820,17 @@ function buildTopics() {
           <div class="topic-header">
             <div class="topic-header-number">0${i} / ${m.key.toUpperCase()}</div>
             <h1 class="topic-header-title" data-i18n="${m.key}_title"></h1>
-            <p class="topic-header-desc" data-i18n="${m.key}_intro"></p>
+            <p class="topic-header-desc" data-i18n="${m.key}_desc"></p>
+          </div>
+          <div class="howto-strip">
+            <div class="howto-title" data-i18n="howto_title"></div>
+            <div class="howto-steps">
+              <div class="howto-step"><span class="howto-num">1</span><span class="howto-text" data-i18n="${m.key}_how1"></span></div>
+              <div class="howto-step"><span class="howto-num">2</span><span class="howto-text" data-i18n="${m.key}_how2"></span></div>
+              <div class="howto-step"><span class="howto-num">3</span><span class="howto-text" data-i18n="${m.key}_how3"></span></div>
+            </div>
           </div>
           <div class="simulation-container">
-            <div class="challenge-strip">
-              <span class="chip" data-i18n="challenge_chip"></span>
-              <span data-i18n="${m.key}_challenge"></span>
-            </div>
             <div class="sim-canvas-wrap">
               <canvas id="${cfg.canvas}"></canvas>
               <div class="sim-hint" data-i18n="${cfg.hint}"></div>

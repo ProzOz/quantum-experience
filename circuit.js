@@ -305,6 +305,15 @@ function buildCircuitHTML() {
         </div>
       </div>
 
+      <div class="howto-strip">
+        <div class="howto-title" data-i18n="howto_title">HOW TO PLAY</div>
+        <div class="howto-steps">
+          <div class="howto-step"><span class="howto-num">1</span><span class="howto-text" data-i18n="c7_how1"></span></div>
+          <div class="howto-step"><span class="howto-num">2</span><span class="howto-text" data-i18n="c7_how2"></span></div>
+          <div class="howto-step"><span class="howto-num">3</span><span class="howto-text" data-i18n="c7_how3"></span></div>
+        </div>
+      </div>
+
       ${resultHTML}
 
       <div class="circuit-builder">

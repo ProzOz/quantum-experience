@@ -107,8 +107,8 @@ const LAB_I18N = {
   alert_bad:     { th: (n) => `ระบบควอนตัม — ขัดข้องรุนแรง — ${n} สถานีออฟไลน์`, en: (n) => `QUANTUM FACILITY — CRITICAL FAILURE — ${n} STATION${n === 1 ? '' : 'S'} OFFLINE` },
   title_ok:      { th: 'ออนไลน์เต็มระบบ', en: 'FULLY ONLINE' },
   title_bad:     { th: 'ห้องแล็บฉุกเฉิน', en: 'LAB EMERGENCY' },
-  subtitle_ok:   { th: '<span class="hl">ทั้ง 7 สถานีกลับมาออนไลน์แล้ว</span> แกนควอนตัมพร้อมทำงาน — มาดูกันว่าทำไมควอนตัมถึงชนะคอมพิวเตอร์ทั่วไป', en: '<span class="hl">All 7 stations are back online.</span> The Quantum Core is ready — witness why quantum beats classical.' },
-  subtitle_bad:  { th: '<span class="hl">แกนควอนตัมของห้องแล็บล่ม</span> สถานีวิจัยทั้งเจ็ดออฟไลน์ ซ่อมทีละสถานีเพื่อกู้พลังงาน — แล้วพบกับสิ่งที่คอมพิวเตอร์ทั่วไปทำไม่ได้', en: "The lab's <span class=\"hl\">quantum core has failed</span>. Seven research stations are offline. Repair each one to restore power — then see something no classical computer can match." },
+  subtitle_ok:   { th: '<span class="hl">ครบ 7 สถานีแล้ว!</span> กดเข้าแกนควอนตัมเพื่อดูการทดลองสุดท้ายเลย', en: '<span class="hl">All 7 stations online!</span> Enter the Quantum Core for the final experiment.' },
+  subtitle_bad:  { th: '<span class="hl">แกนควอนตัมล่ม!</span> เล่นเกมซ่อมทั้ง 7 สถานีให้ครบ เพื่อปลดล็อกการทดลองสุดท้าย', en: '<span class="hl">The quantum core is down!</span> Beat all 7 station games to unlock the final experiment.' },
   core_label:    { th: 'แกนควอนตัม · การทดลองสุดท้าย', en: 'QUANTUM CORE · FINAL EXPERIMENT' },
   core_title:    { th: 'การค้นหาควอนตัมของ Grover', en: "Grover's Quantum Search" },
   core_ok:       { th: 'แกนออนไลน์แล้ว ดูควอนตัมคอมพิวเตอร์ค้นฐานข้อมูลใน 1 คิวรี — คอมพิวเตอร์ทั่วไปใช้เฉลี่ย 2.5', en: 'The core is online. Watch a quantum computer search a database in 1 query — a classical computer takes 2.5.' },
@@ -671,12 +671,12 @@ function renderGroverState() {
     </div>`).join('');
 
   const insights = [
-    { label: gv('01 · ซ้อนทับ', '01 · SUPERPOSITION'), text: gv('ควอนตัมคอมพิวเตอร์ตรวจ<b>ทั้ง 4 ไอเทมพร้อมกัน</b>ด้วย superposition — คลื่นของแอมพลิจูดความน่าจะเป็น', 'The quantum computer checks <b>all 4 items at once</b> using superposition — a wave of probability amplitudes.') },
-    { label: gv('02 · กลับเฟส', '02 · PHASE KICKBACK'), text: gv('<b>Oracle กลับเฟส</b>ของเป้าหมาย — เทคนิคควอนตัมที่ทำเครื่องหมายโดยไม่ต้องอ่านค่า', 'The <b>oracle flips the phase</b> of the target — a quantum trick that marks it without reading it.') },
-    { label: gv('03 · การแทรกสอด', '03 · INTERFERENCE'), text: gv('<b>แอมพลิจูดแทรกสอดกัน</b>เหมือนคลื่น — เป้าหมายโตขึ้น ส่วนอื่นหักล้างกัน หนึ่งรอบ Grover ก็พอสำหรับ N=4', '<b>Amplitudes interfere</b> like waves — the target grows, others cancel. One Grover iteration suffices for N=4.') },
-    { label: gv('04 · การยุบตัว', '04 · COLLAPSE'), text: gv('การวัดทำให้คลื่น<b>ยุบตัว</b>: เป้าหมายมีความน่าจะเป็น ~100% — เจอใน 1 คิวรี', 'Measurement <b>collapses</b> the wave: the target now has ~100% probability. Found in 1 query.') },
-    { label: gv('05 · ไม่มีทางลัด', '05 · NO SHORTCUT'), text: gv('คอมพิวเตอร์ทั่วไปไม่มีคลื่นให้ขยาย — ต้อง<b>ตรวจทีละไอเทม</b> เฉลี่ย N/2 = 2.5 คิวรี', 'A classical computer has no wave to amplify — it must <b>check items one by one</b>. Average: N/2 = 2.5 queries.') },
-    { label: gv('06 · ความได้เปรียบ', '06 · THE ADVANTAGE'), text: gv('สำหรับ N ไอเทม ควอนตัมใช้ <b>√N คิวรี</b> แต่คลาสสิกใช้ N/2 — ฐานข้อมูลยิ่งใหญ่ ช่องว่างยิ่งมหาศาล', 'For N items, quantum needs <b>√N queries</b>, classical needs N/2. For large databases, this gap is enormous.') },
+    { label: gv('01 · ซ้อนทับ', '01 · SUPERPOSITION'), text: gv('ควอนตัมตรวจ<b>ทั้ง 4 ไอเทมพร้อมกัน</b>', 'Quantum checks <b>all 4 items at once</b>.') },
+    { label: gv('02 · กลับเฟส', '02 · PHASE KICKBACK'), text: gv('Oracle <b>ทำเครื่องหมายเป้าหมาย</b>โดยไม่ต้องอ่านค่า', 'The oracle <b>marks the target</b> without reading it.') },
+    { label: gv('03 · การแทรกสอด', '03 · INTERFERENCE'), text: gv('คลื่นแทรกสอด — <b>เป้าหมายโตขึ้น</b> ตัวอื่นหักล้างหาย', 'Waves interfere — <b>the target grows</b>, the rest cancel.') },
+    { label: gv('04 · การยุบตัว', '04 · COLLAPSE'), text: gv('วัดปุ๊บ เจอเป้าหมาย <b>ใน 1 คิวรีเดียว</b>', 'Measure — target found <b>in just 1 query</b>.') },
+    { label: gv('05 · ไม่มีทางลัด', '05 · NO SHORTCUT'), text: gv('คลาสสิกต้อง<b>เปิดดูทีละอัน</b> เฉลี่ย 2.5 ครั้ง', 'Classical must <b>check one by one</b> — 2.5 on average.') },
+    { label: gv('06 · ความได้เปรียบ', '06 · THE ADVANTAGE'), text: gv('ยิ่งฐานข้อมูลใหญ่ ควอนตัมยิ่งทิ้งห่าง (<b>√N</b> ต่อ N/2)', 'The bigger the database, the bigger the gap (<b>√N</b> vs N/2).') },
   ].map((ins, i) => `
     <div class="core-insight-item" id="insight${i}">
       <div class="core-insight-num">${ins.label}</div>
@@ -757,8 +757,8 @@ function renderGroverState() {
                   color:var(--cyan);margin-bottom:12px">${gv('บทสรุป', 'THE TAKEAWAY')}</div>
       <p style="color:var(--text-secondary);max-width:620px;margin:0 auto;line-height:1.8;font-size:0.95rem">
         ${gv(
-          'ทุกปรากฏการณ์ที่คุณซ่อมในแล็บนี้ — ซ้อนทับ การแทรกสอด พัวพัน การทะลุ การยุบตัว — คือ<strong style="color:var(--text-primary)">เครื่องมือของควอนตัมคอมพิวเตอร์</strong> ไม่มีสิ่งเหล่านี้ อัลกอริทึม Grover ก็เกิดขึ้นไม่ได้ แต่เมื่อมีครบ ทุกอย่างก็เปลี่ยนไป',
-          "Every phenomenon you fixed in this lab — superposition, interference, entanglement, tunneling, collapse — is a <strong style=\"color:var(--text-primary)\">tool quantum computers use</strong>. Without them, Grover's algorithm is impossible. With them, it changes everything."
+          'ทุกสถานีที่คุณซ่อม คือ<strong style="color:var(--text-primary)">เครื่องมือจริงของควอนตัมคอมพิวเตอร์</strong> — และคุณเพิ่งใช้มันครบทุกชิ้น',
+          "Every station you repaired is a <strong style=\"color:var(--text-primary)\">real tool of quantum computing</strong> — and you just used them all."
         )}
       </p>
     </div>
