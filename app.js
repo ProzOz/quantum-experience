@@ -293,13 +293,22 @@ const I18N = {
 };
 
 const TOPIC_META = {
-  1: { icon: "🌊", key: "t1" },
-  2: { icon: "⚛️", key: "t2" },
-  3: { icon: "📈", key: "t3" },
-  4: { icon: "🚀", key: "t4" },
-  5: { icon: "🔗", key: "t5" },
-  6: { icon: "🐈", key: "t6" },
-  7: { icon: "⚡", key: "t7" },
+  1: { icon: "🌊", key: "t1", name: { th: 'สถานีที่ 1: ทวิภาพ', en: 'Station 1: Duality' } },
+  2: { icon: "⚛️", key: "t2", name: { th: 'สถานีที่ 2: ซ้อนทับ', en: 'Station 2: Superposition' } },
+  3: { icon: "📈", key: "t3", name: { th: 'สถานีที่ 3: ความไม่แน่นอน', en: 'Station 3: Uncertainty' } },
+  4: { icon: "🚀", key: "t4", name: { th: 'สถานีที่ 4: การผ่านคลื่น', en: 'Station 4: Tunneling' } },
+  5: { icon: "🔗", key: "t5", name: { th: 'สถานีที่ 5: พัวพัน', en: 'Station 5: Entanglement' } },
+  6: { icon: "🐈", key: "t6", name: { th: 'สถานีที่ 6: แมวของชเรอดิงเจอร์', en: "Station 6: Schrödinger's Cat" } },
+  7: { icon: "⚡", key: "t7", name: { th: 'สถานีที่ 7: อัลกอริทึมของโกรเวอร์', en: "Station 7: Grover's Algorithm" } },
+};
+
+const STATION_LEARNED = {
+  1: { th: 'แสงเป็นได้ทั้งคลื่นและอนุภาค — การแทรกสอดพิสูจน์ธรรมชาติคลื่นของมัน', en: 'Light is both wave and particle — interference proves its wave nature' },
+  2: { th: 'ควอนตัมคิวบิตสามารถอยู่ในสถานะซ้อนทับหieleาง |0⟩ และ |1⟩ พร้อมกัน', en: 'A quantum qubit can exist in superposition of both |0⟩ and |1⟩ simultaneously' },
+  3: { th: 'ยิ่งรู้ตำแหน่งแน่นอนมาก ยิ่งไม่รู้โมเมนตัมแน่นอน — หลักความไม่แน่นอนของไฮเซนเบิร์ก', en: 'The more precisely you know position, the less you know momentum — Heisenberg uncertainty principle' },
+  4: { th: 'อนุภาคสามารถผ่านกำแพงศักย์ได้แม้พลังงานน้อยกว่า — การทำให้คลื่นรั่วไหล', en: 'Particles can tunnel through barriers even with less energy — wave function leakage' },
+  5: { th: 'คู่ควอนตัมพัวพันกันโดยไม่มีการเชื่อมต่อทางกายภาพ — การวัดหนึ่งมิติมีผลต่ออีกมิติทันที', en: 'Quantum pairs are entangled without physical connection — measuring one instantly affects the other' },
+  6: { th: 'การสังเกตทำให้คลื่นคอลลาปส์ — จนกว่าจะสังเกต ทุกสถานะเป็นจริงพร้อมกัน', en: 'Observation causes wavefunction collapse — until measured, all states exist simultaneously' },
 };
 
 const QUIZ = {
@@ -929,11 +938,9 @@ function answer(topic, choice, btn) {
     confetti();
     markComplete(topic);
 
-    // Create and show success overlay directly
-    const s = STATIONS.find(x => x.id === topic);
-    if (s) {
-      showSuccessOverlay(s);
-    }
+    // Create and show success overlay directly using local station data
+    const s = { id: topic, key: TOPIC_META[topic].key, name: TOPIC_META[topic].name };
+    showSuccessOverlay(s);
   } else {
     btn.classList.add('incorrect');
     // reveal correct one
@@ -952,7 +959,6 @@ function showSuccessOverlay(s) {
   if (existing) existing.remove();
 
   const learned = STATION_LEARNED[s.id]?.[lang] || '';
-  const theoryImage = STATION_THEORY_IMAGES?.[s.id] || '';
 
   const overlay = document.createElement('div');
   overlay.id = 'stationSuccessOverlay';
@@ -968,11 +974,13 @@ function showSuccessOverlay(s) {
     animation: fadeIn 0.4s ease-out;
   `;
 
+  const stationName = s.name?.[lang] || TOPIC_META[s.id]?.name?.[lang] || s.key || 'Station ' + s.id;
+  const stationIcon = TOPIC_META[s.id]?.icon || '✨';
+
   overlay.innerHTML = `
     <style>
       @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
       @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-      @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.7; } }
       .success-content {
         background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
         border: 2px solid #34e08a;
@@ -1026,14 +1034,6 @@ function showSuccessOverlay(s) {
         line-height: 1.7;
         margin: 0;
       }
-      .success-theory {
-        margin-bottom: 24px;
-      }
-      .success-theory img {
-        max-width: 100%;
-        border-radius: 12px;
-        border: 1px solid #333;
-      }
       .success-actions {
         display: flex;
         flex-direction: column;
@@ -1064,30 +1064,24 @@ function showSuccessOverlay(s) {
       .success-btn:hover { filter: brightness(1.1); }
     </style>
     <div class="success-content">
-      <div class="success-icon">🎉</div>
-      <div class="success-title">${LT('restored_t')}</div>
-      <div class="success-station">${s.name[lang]}</div>
+      <div class="success-icon">${stationIcon}</div>
+      <div class="success-title">${lang === 'th' ? 'สถานีกู้คืนแล้ว!' : 'STATION RESTORED!'}</div>
+      <div class="success-station">${stationName}</div>
 
       <div class="success-learned">
         <div class="success-learned-title">
           <span>📚</span>
-          <span>${LT('summary_learned')}</span>
+          <span>${lang === 'th' ? 'สิ่งที่ได้เรียนรู้' : 'What You Learned'}</span>
         </div>
         <p>${learned}</p>
       </div>
 
-      ${theoryImage ? `
-      <div class="success-theory">
-        <img src="${theoryImage}" alt="${s.name[lang]} diagram" loading="lazy">
-      </div>
-      ` : ''}
-
       <div class="success-actions">
         <button class="success-btn success-btn-primary" onclick="dismissSuccessOverlay()">
-          ${LT('summary_continue')}
+          ${lang === 'th' ? 'เล่นต่อ' : 'Continue Playing'}
         </button>
         <button class="success-btn success-btn-secondary" onclick="goHome(); dismissSuccessOverlay();">
-          ${LT('summary_back_lab')}
+          ${lang === 'th' ? 'กลับห้องทดลอง' : 'Back to Lab'}
         </button>
       </div>
     </div>
