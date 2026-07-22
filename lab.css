@@ -874,7 +874,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 200;
+    z-index: 1100;
     animation: fadeIn 0.3s;
 }
 
