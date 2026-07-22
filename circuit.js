@@ -200,7 +200,15 @@ function runCircuit() {
   CIRCUIT.state = s;
   CIRCUIT.probs = s.map(x => cMag2(x));
   CIRCUIT.hasRun = true;
-  CIRCUIT.success = CIRCUIT.probs[TARGET_STATE] >= SUCCESS_THRESHOLD;
+  // A valid Grover solution must (a) hit the target probability AND
+  // (b) actually be built from Grover's ingredients — at least one Oracle and
+  // one Diffusion gate. Otherwise a single X gate could deterministically
+  // produce |2⟩ and bypass the whole algorithm.
+  const allGates = CIRCUIT.wires.flat();
+  const usedOracle = allGates.includes('ORACLE');
+  const usedDiffusion = allGates.includes('DIFF');
+  CIRCUIT.success = CIRCUIT.probs[TARGET_STATE] >= SUCCESS_THRESHOLD
+    && usedOracle && usedDiffusion;
 }
 
 /* ── Rendering ─────────────────────────────────────────────── */
@@ -271,9 +279,22 @@ function buildCircuitHTML() {
       ? `<div class="circuit-result success">
            <span>✅</span> <strong>${c7(`|2⟩ ถึง ${pctNow}% แล้ว — ปลดล็อกแกนควอนตัม!`, `|2⟩ reached ${pctNow}% — Quantum Core Unlocked!`)}</strong>
          </div>`
-      : `<div class="circuit-result error">
-           <span>⚠️</span> ${c7(`ความน่าจะเป็นของ |2⟩ อยู่ที่ ${pctNow}% — ต้องได้ ${(SUCCESS_THRESHOLD * 100).toFixed(0)}% ขึ้นไป`, `|2⟩ probability is ${pctNow}% — need ${(SUCCESS_THRESHOLD * 100).toFixed(0)}%+`)}
-         </div>`
+      : (() => {
+          const g = CIRCUIT.wires.flat();
+          const hitProb = CIRCUIT.probs && CIRCUIT.probs[TARGET_STATE] >= SUCCESS_THRESHOLD;
+          // Probability is high enough but the circuit isn't actually Grover's.
+          if (hitProb && (!g.includes('ORACLE') || !g.includes('DIFF'))) {
+            return `<div class="circuit-result error">
+               <span>⚠️</span> ${c7(
+                 `|2⟩ ถึง ${pctNow}% แล้ว แต่นี่ยังไม่ใช่ Grover — ต้องใช้ทั้ง Oracle และ Diffusion`,
+                 `|2⟩ hit ${pctNow}%, but that's not Grover's algorithm — you must use both an Oracle and a Diffusion gate.`
+               )}
+             </div>`;
+          }
+          return `<div class="circuit-result error">
+               <span>⚠️</span> ${c7(`ความน่าจะเป็นของ |2⟩ อยู่ที่ ${pctNow}% — ต้องได้ ${(SUCCESS_THRESHOLD * 100).toFixed(0)}% ขึ้นไป`, `|2⟩ probability is ${pctNow}% — need ${(SUCCESS_THRESHOLD * 100).toFixed(0)}%+`)}
+             </div>`;
+        })()
     : '';
 
   const hintHTML = buildHintHTML();
@@ -499,14 +520,19 @@ function runCircuit7() {
   // Re-render to show new probabilities
   renderCircuit();
 
-  // Animate bars
-  setTimeout(() => {
-    document.querySelectorAll('.prob-bar').forEach((bar, i) => {
+  // Animate bars from 0 → final. Snap to 0 first (no transition), then on the
+  // next frame set the real width so the CSS transition actually plays.
+  const bars = document.querySelectorAll('.prob-bar');
+  bars.forEach(bar => { bar.style.transition = 'none'; bar.style.width = '0%'; });
+  // Force reflow so the 0-width start is committed before we animate.
+  void document.body.offsetWidth;
+  requestAnimationFrame(() => {
+    bars.forEach((bar, i) => {
       bar.style.transition = 'width 0.6s cubic-bezier(0.22,1,0.36,1)';
       const p = CIRCUIT.probs[i];
       bar.style.width = Math.max(p * 100, p > 0 ? 3 : 0) + '%';
     });
-  }, 50);
+  });
 
   if (CIRCUIT.success) {
     setTimeout(() => {
