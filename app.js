@@ -928,6 +928,8 @@ function answer(topic, choice, btn) {
     play('success');
     confetti();
     markComplete(topic);
+    // Show puzzle success overlay for stations 1-6
+    if (typeof showPuzzleSuccess === 'function') showPuzzleSuccess(topic);
   } else {
     btn.classList.add('incorrect');
     // reveal correct one
