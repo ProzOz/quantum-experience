@@ -760,14 +760,14 @@ function renderGroverState() {
     <div class="core-insight">${insights}</div>
 
     <div style="text-align:center;margin-top:40px;padding:28px;
-                border:1px solid var(--line);border-radius:var(--radius-lg);
-                background:#f9fafb">
+                border:1px solid var(--border-light, var(--line));border-radius:var(--radius-lg);
+                background:var(--bg-card);box-shadow:0 0 30px rgba(212,165,116,0.06)">
       <div style="font-family:'Orbitron',sans-serif;font-size:0.72rem;letter-spacing:3px;
-                  color:var(--cyan);margin-bottom:12px">${gv('บทสรุป', 'THE TAKEAWAY')}</div>
+                  color:var(--gold);margin-bottom:12px">${gv('บทสรุป', 'THE TAKEAWAY')}</div>
       <p style="color:var(--text-secondary);max-width:620px;margin:0 auto;line-height:1.8;font-size:0.95rem">
         ${gv(
-          'ทุกสถานีที่คุณซ่อม คือ<strong style="color:var(--text-primary)">เครื่องมือจริงของควอนตัมคอมพิวเตอร์</strong> — และคุณเพิ่งใช้มันครบทุกชิ้น',
-          "Every station you repaired is a <strong style=\"color:var(--text-primary)\">real tool of quantum computing</strong> — and you just used them all."
+          'ทุกสถานีที่คุณซ่อม คือ<strong style="color:var(--text-primary)">เครื่องมือจริงของควอนตัมคอมพิวเตอร์</strong> และคุณเพิ่งใช้มันครบทุกชิ้น',
+          "Every station you repaired is a <strong style=\"color:var(--text-primary)\">real tool of quantum computing</strong>, and you just used them all."
         )}
       </p>
     </div>

@@ -119,7 +119,8 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 clamp(16px, 3vw, 32px);
+    /* Respect notch/safe-area on landscape + notched phones (viewport-fit=cover) */
+    padding: 0 calc(clamp(16px, 3vw, 32px) + env(safe-area-inset-right)) 0 calc(clamp(16px, 3vw, 32px) + env(safe-area-inset-left));
     gap: 16px;
 }
 
