@@ -27,60 +27,60 @@ const I18N = {
 
   // How-to steps (3 per station, short & action-first)
   // Station 1 how-to (expanded)
-  t1_how1_title: { th: “ขั้นที่ 1: ยิงอนุภาคผ่านช่องคู่”, en: “Step 1: Fire particles through the double slits” },
-  t1_how1: { th: “กดปุ่ม 'ยิงรัว' แล้วสังเกตจุดที่อนุภาคตกบนฉาก จุดแต่ละจุดดูเหมือนตกแบบสุ่ม แต่พอยิงไปเรื่อยๆ จะเห็นลายแถบสว่าง-มืดปรากฏขึ้น! นี่คือหลักฐานว่าแสงเป็นคลื่นด้วย”, en: “Press 'Rapid fire' and watch particles hit the screen. Each dot looks random, but as you fire more, bright and dark bands appear! This proves light behaves as a wave.” },
-  t1_how2_title: { th: “ขั้นที่ 2: ทดลองปรับช่องและพลังงาน”, en: “Step 2: Experiment with slit and energy settings” },
-  t1_how2: { th: “ลองเลื่อน 'ระยะห่างช่อง' และ 'พลังงาน' ดูว่าลายแทรกสอดเปลี่ยนแค่ไหน ช่องห่างกันมาก → แถบถี่ ช่องใกล้กัน → แถบห่าง พลังงานสูง → ความยาวคลื่นสั้น → แถบถี่”, en: “Try sliding 'Slit separation' and 'Energy'. Wider slits = wider bands. Higher energy = shorter wavelength = narrower bands. Notice how the pattern changes!” },
-  t1_how3_title: { th: “ขั้นที่ 3: ทำให้ลายตรงกับเป้าหมาย”, en: “Step 3: Match your pattern to the target” },
-  t1_how3: { th: “ระบบจะสร้างลายเป้าหมายให้คุณ (แถบทฤษฎี) ปรับช่องและพลังงานจนลายของคุณตรงกับเป้าหมายอย่างน้อย 80% ยิ่งตรงมาก ยิ่งเข้าใจหลักการ!”, en: “The system creates a target pattern (theoretical bands). Adjust slit and energy until your pattern matches at least 80%. The better you match, the more you understand the principle!” },
+  t1_how1_title: { th: "ขั้นที่ 1: ยิงอนุภาคผ่านช่องคู่", en: "Step 1: Fire particles through the double slits" },
+  t1_how1: { th: "กดปุ่ม 'ยิงรัว' แล้วสังเกตจุดที่อนุภาคตกบนฉาก จุดแต่ละจุดดูเหมือนตกแบบสุ่ม แต่พอยิงไปเรื่อยๆ จะเห็นลายแถบสว่าง-มืดปรากฏขึ้น! นี่คือหลักฐานว่าแสงเป็นคลื่นด้วย", en: "Press 'Rapid fire' and watch particles hit the screen. Each dot looks random, but as you fire more, bright and dark bands appear! This proves light behaves as a wave." },
+  t1_how2_title: { th: "ขั้นที่ 2: ทดลองปรับช่องและพลังงาน", en: "Step 2: Experiment with slit and energy settings" },
+  t1_how2: { th: "ลองเลื่อน 'ระยะห่างช่อง' และ 'พลังงาน' ดูว่าลายแทรกสอดเปลี่ยนแค่ไหน ช่องห่างกันมาก → แถบถี่ ช่องใกล้กัน → แถบห่าง พลังงานสูง → ความยาวคลื่นสั้น → แถบถี่", en: "Try sliding 'Slit separation' and 'Energy'. Wider slits = wider bands. Higher energy = shorter wavelength = narrower bands. Notice how the pattern changes!" },
+  t1_how3_title: { th: "ขั้นที่ 3: ทำให้ลายตรงกับเป้าหมาย", en: "Step 3: Match your pattern to the target" },
+  t1_how3: { th: "ระบบจะสร้างลายเป้าหมายให้คุณ (แถบทฤษฎี) ปรับช่องและพลังงานจนลายของคุณตรงกับเป้าหมายอย่างน้อย 80% ยิ่งตรงมาก ยิ่งเข้าใจหลักการ!", en: "The system creates a target pattern (theoretical bands). Adjust slit and energy until your pattern matches at least 80%. The better you match, the more you understand the principle!" },
 
   // Station 2 how-to (expanded)
-  t2_how1_title: { th: “ขั้นที่ 1: ตั้งค่ามุม θ = 90°”, en: “Step 1: Set the angle θ = 90°” },
-  t2_how1: { th: “เลื่อน 'มุม θ' ให้เป็น 90° สังเกตว่าลูกศรชี้ไปทางขวาสุด (แนวนอน) นี่คือจุดที่ความน่าจะเป็นของ 0 และ 1 เท่ากันพอดี (50:50)”, en: “Slide 'Angle θ' to 90°. Notice the arrow points fully horizontal - this is where the probability of 0 and 1 are exactly equal (50:50)” },
-  t2_how2_title: { th: “ขั้นที่ 2: วัดผลและสังเกตความสุ่ม”, en: “Step 2: Measure and observe randomness” },
-  t2_how2: { th: “กดปุ่ม 'วัดผล' ผลจะออกมาเป็น 0 หรือ 1 แบบสุ่ม! แม้ว่าจะตั้งมุมเดียวกันทุกครั้ง ผลลัพธ์ก็ไม่เหมือนกัน นี่คือธรรมชาติของควอนตัม”, en: “Press 'Measure'. The result will be 0 or 1 randomly! Even though you set the same angle every time, the result is always different. This is the nature of quantum!” },
-  t2_how3_title: { th: “ขั้นที่ 3: ทำซ้ำจนซ่อมสำเร็จ”, en: “Step 3: Repeat until station is repaired” },
-  t2_how3: { th: “วัดผลครบ 10 ครั้งที่ θ=90° เพื่อพิสูจน์ว่าสถานะซ้อนทับทำให้ผลลัพธ์สุ่ม สถานีจะซ่อมสำเร็จเมื่อทำเสร็จ!”, en: “Take 10 measurements at θ=90° to prove superposition makes results random. The station will be repaired when complete!” },
+  t2_how1_title: { th: "ขั้นที่ 1: ตั้งค่ามุม θ = 90°", en: "Step 1: Set the angle θ = 90°" },
+  t2_how1: { th: "เลื่อน 'มุม θ' ให้เป็น 90° สังเกตว่าลูกศรชี้ไปทางขวาสุด (แนวนอน) นี่คือจุดที่ความน่าจะเป็นของ 0 และ 1 เท่ากันพอดี (50:50)", en: "Slide 'Angle θ' to 90°. Notice the arrow points fully horizontal - this is where the probability of 0 and 1 are exactly equal (50:50)" },
+  t2_how2_title: { th: "ขั้นที่ 2: วัดผลและสังเกตความสุ่ม", en: "Step 2: Measure and observe randomness" },
+  t2_how2: { th: "กดปุ่ม 'วัดผล' ผลจะออกมาเป็น 0 หรือ 1 แบบสุ่ม! แม้ว่าจะตั้งมุมเดียวกันทุกครั้ง ผลลัพธ์ก็ไม่เหมือนกัน นี่คือธรรมชาติของควอนตัม", en: "Press 'Measure'. The result will be 0 or 1 randomly! Even though you set the same angle every time, the result is always different. This is the nature of quantum!" },
+  t2_how3_title: { th: "ขั้นที่ 3: ทำซ้ำจนซ่อมสำเร็จ", en: "Step 3: Repeat until station is repaired" },
+  t2_how3: { th: "วัดผลครบ 10 ครั้งที่ θ=90° เพื่อพิสูจน์ว่าสถานะซ้อนทับทำให้ผลลัพธ์สุ่ม สถานีจะซ่อมสำเร็จเมื่อทำเสร็จ!", en: "Take 10 measurements at θ=90° to prove superposition makes results random. The station will be repaired when complete!" },
 
   // Station 3 how-to (expanded)
-  t3_how1_title: { th: “ขั้นที่ 1: บีบความกว้างกลุ่มคลื่นให้แคบ”, en: “Step 1: Squeeze the wave packet narrower” },
-  t3_how1: { th: “เลื่อน 'ความกว้างกลุ่มคลื่น' ไปทางซ้ายสุดเท่าที่จะทำได้ สังเกตว่าภาพที่ได้ยิ่งคมขึ้น (Δx ลดลง) แต่ตัวเลข Δx·Δp ก็จะเพิ่มขึ้นด้วย”, en: “Slide 'Wave packet width' as far left as possible. Notice the image gets sharper (Δx decreases) but the Δx·Δp number also increases” },
-  t3_how2_title: { th: “ขั้นที่ 2: สังเกตหลักความไม่แน่นอน”, en: “Step 2: Observe the uncertainty principle” },
-  t3_how2: { th: “พยายามทำให้ Δx ต่ำที่สุด โดยรักษา Δx·Δp ไม่ให้เกิน 0.55 ยิ่งตำแหน่งแม่น (Δx ต่ำ) ยิ่งไม่รู้โมเมนตัม (Δp สูง) นี่คือ Heisenberg's Uncertainty Principle!”, en: “Try to make Δx as low as possible while keeping Δx·Δp ≤ 0.55. The more precise the position (low Δx), the less you know momentum (high Δp). This is Heisenberg's Uncertainty Principle!” },
-  t3_how3_title: { th: “ขั้นที่ 3: ซ่อมสถานี”, en: “Step 3: Repair the station” },
-  t3_how3: { th: “ทำให้ Δx < 0.60 โดยที่ Δx·Δp ≤ 0.55 สถานีจะซ่อมสำเร็จเมื่อทำได้ตามเงื่อนไขนี้!”, en: “Get Δx < 0.60 while keeping Δx·Δp ≤ 0.55. The station repairs when you meet both conditions!” },
+  t3_how1_title: { th: "ขั้นที่ 1: บีบความกว้างกลุ่มคลื่นให้แคบ", en: "Step 1: Squeeze the wave packet narrower" },
+  t3_how1: { th: "เลื่อน 'ความกว้างกลุ่มคลื่น' ไปทางซ้ายสุดเท่าที่จะทำได้ สังเกตว่าภาพที่ได้ยิ่งคมขึ้น (Δx ลดลง) แต่ตัวเลข Δx·Δp ก็จะเพิ่มขึ้นด้วย", en: "Slide 'Wave packet width' as far left as possible. Notice the image gets sharper (Δx decreases) but the Δx·Δp number also increases" },
+  t3_how2_title: { th: "ขั้นที่ 2: สังเกตหลักความไม่แน่นอน", en: "Step 2: Observe the uncertainty principle" },
+  t3_how2: { th: "พยายามทำให้ Δx ต่ำที่สุด โดยรักษา Δx·Δp ไม่ให้เกิน 0.55 ยิ่งตำแหน่งแม่น (Δx ต่ำ) ยิ่งไม่รู้โมเมนตัม (Δp สูง) นี่คือ Heisenberg's Uncertainty Principle!", en: "Try to make Δx as low as possible while keeping Δx·Δp ≤ 0.55. The more precise the position (low Δx), the less you know momentum (high Δp). This is Heisenberg's Uncertainty Principle!" },
+  t3_how3_title: { th: "ขั้นที่ 3: ซ่อมสถานี", en: "Step 3: Repair the station" },
+  t3_how3: { th: "ทำให้ Δx < 0.60 โดยที่ Δx·Δp ≤ 0.55 สถานีจะซ่อมสำเร็จเมื่อทำได้ตามเงื่อนไขนี้!", en: "Get Δx < 0.60 while keeping Δx·Δp ≤ 0.55. The station repairs when you meet both conditions!" },
 
   // Station 4 how-to (expanded)
-  t4_how1_title: { th: “ขั้นที่ 1: เล่นเกม Qubit Runner”, en: “Step 1: Play the Qubit Runner game” },
-  t4_how1: { th: “ใช้ปุ่ม ↑ ↓ บนคีย์บอร์ดเพื่อเปลี่ยนเลน หลบกำแพงที่ขวางทาง! คุณควบคุมอนุภาคที่กำลังวิ่งผ่านสนามพลังงาน”, en: “Use ↑ ↓ arrow keys to switch lanes. Dodge the walls blocking your path! You're controlling a particle running through an energy field.” },
-  t4_how2_title: { th: “ขั้นที่ 2: ใช้พลัง Quantum Tunneling”, en: “Step 2: Use Quantum Tunneling power” },
-  t4_how2: { th: “กด SPACE ค้างไว้เมื่อเจอกำแพงสูงเกินกว่าจะข้ามได้ อนุภาคจะ 'ทะลุ' ผ่านกำแพงไปได้! นี่คือ Quantum Tunneling - ปรากฏการณ์ที่ฟิสิกส์คลาสสิกอธิบายไม่ได้”, en: “Hold SPACE when you hit a wall too high to jump over. The particle will 'phase through' the barrier! This is Quantum Tunneling - a phenomenon classical physics can't explain.” },
-  t4_how3_title: { th: “ขั้นที่ 3: ทำคะแนนให้ถึง 100”, en: “Step 3: Score 100+ points” },
-  t4_how3: { th: “ทำคะแนนให้ถึง 100 เพื่อซ่อมสถานีให้สำเร็จ ยิ่งทำได้เร็ว ยิ่งเก่ง! อย่าลืมใช้การทะลุเมื่อจำเป็น”, en: “Score 100+ points to successfully repair the station. The faster you do it, the better! Don't forget to use tunneling when needed.” },
+  t4_how1_title: { th: "ขั้นที่ 1: เล่นเกม Qubit Runner", en: "Step 1: Play the Qubit Runner game" },
+  t4_how1: { th: "ใช้ปุ่ม ↑ ↓ บนคีย์บอร์ดเพื่อเปลี่ยนเลน หลบกำแพงที่ขวางทาง! คุณควบคุมอนุภาคที่กำลังวิ่งผ่านสนามพลังงาน", en: "Use ↑ ↓ arrow keys to switch lanes. Dodge the walls blocking your path! You're controlling a particle running through an energy field." },
+  t4_how2_title: { th: "ขั้นที่ 2: ใช้พลัง Quantum Tunneling", en: "Step 2: Use Quantum Tunneling power" },
+  t4_how2: { th: "กด SPACE ค้างไว้เมื่อเจอกำแพงสูงเกินกว่าจะข้ามได้ อนุภาคจะ 'ทะลุ' ผ่านกำแพงไปได้! นี่คือ Quantum Tunneling - ปรากฏการณ์ที่ฟิสิกส์คลาสสิกอธิบายไม่ได้", en: "Hold SPACE when you hit a wall too high to jump over. The particle will 'phase through' the barrier! This is Quantum Tunneling - a phenomenon classical physics can't explain." },
+  t4_how3_title: { th: "ขั้นที่ 3: ทำคะแนนให้ถึง 100", en: "Step 3: Score 100+ points" },
+  t4_how3: { th: "ทำคะแนนให้ถึง 100 เพื่อซ่อมสถานีให้สำเร็จ ยิ่งทำได้เร็ว ยิ่งเก่ง! อย่าลืมใช้การทะลุเมื่อจำเป็น", en: "Score 100+ points to successfully repair the station. The faster you do it, the better! Don't forget to use tunneling when needed." },
 
   // Station 5 how-to (expanded)
-  t5_how1_title: { th: “ขั้นที่ 1: ตั้งมุมตรวจวัด”, en: “Step 1: Set measurement angles” },
-  t5_how1: { th: “ตั้งมุม A และ B ให้เท่ากัน เช่น 0° กับ 0° หรือ 45° กับ 45° มุมที่เท่ากันจะทำให้การวัดของเราวัดได้ผลลัพธ์ที่เป็นไปได้มากที่สุด”, en: “Set angles A and B the same, like 0° and 0°, or 45° and 45°. Equal angles let our measurements get the most possible outcomes.” },
-  t5_how2_title: { th: “ขั้นที่ 2: ทำการทดลอง 40 ครั้ง”, en: “Step 2: Run 40 trials” },
-  t5_how2: { th: “กดปุ่ม 'วัดรวด 40 ครั้ง' เพื่อทำการทดลองพัวพันควอนตัม ผลลัพธ์จะแสดงว่าอนุภาคพัวพันมีความเชื่อมโยงกันจริงๆ ไม่ใช่แคมแรนดอม”, en: “Press 'Run 40 trials' to conduct the quantum entanglement experiment. The results will show that entangled particles are truly connected - not just random chance.” },
-  t5_how3_title: { th: “ขั้นที่ 3: พิสูจน์การละเมิดอสมการเบลล์”, en: “Step 3: Prove Bell inequality violation” },
-  t5_how3: { th: “เมื่อผลตรงกันเกิน 80% แสดงว่าคุณพิสูจน์ว่าการพัวพันเชิงควอนตัมเป็นเรื่องจริง และ Einstein ผิดที่เรียกมันว่า 'การกระทำระยะไกลที่น่ากลัว'”, en: “When matching exceeds 80%, you prove quantum entanglement is real. Einstein was wrong when he called it 'spooky action at a distance'!” },
+  t5_how1_title: { th: "ขั้นที่ 1: ตั้งมุมตรวจวัด", en: "Step 1: Set measurement angles" },
+  t5_how1: { th: "ตั้งมุม A และ B ให้เท่ากัน เช่น 0° กับ 0° หรือ 45° กับ 45° มุมที่เท่ากันจะทำให้การวัดของเราวัดได้ผลลัพธ์ที่เป็นไปได้มากที่สุด", en: "Set angles A and B the same, like 0° and 0°, or 45° and 45°. Equal angles let our measurements get the most possible outcomes." },
+  t5_how2_title: { th: "ขั้นที่ 2: ทำการทดลอง 40 ครั้ง", en: "Step 2: Run 40 trials" },
+  t5_how2: { th: "กดปุ่ม 'วัดรวด 40 ครั้ง' เพื่อทำการทดลองพัวพันควอนตัม ผลลัพธ์จะแสดงว่าอนุภาคพัวพันมีความเชื่อมโยงกันจริงๆ ไม่ใช่แคมแรนดอม", en: "Press 'Run 40 trials' to conduct the quantum entanglement experiment. The results will show that entangled particles are truly connected - not just random chance." },
+  t5_how3_title: { th: "ขั้นที่ 3: พิสูจน์การละเมิดอสมการเบลล์", en: "Step 3: Prove Bell inequality violation" },
+  t5_how3: { th: "เมื่อผลตรงกันเกิน 80% แสดงว่าคุณพิสูจน์ว่าการพัวพันเชิงควอนตัมเป็นเรื่องจริง และ Einstein ผิดที่เรียกมันว่า 'การกระทำระยะไกลที่น่ากลัว'", en: "When matching exceeds 80%, you prove quantum entanglement is real. Einstein was wrong when he called it 'spooky action at a distance'!" },
 
   // Station 6 how-to (expanded)
-  t6_how1_title: { th: “ขั้นที่ 1: เริ่มการทดลอง”, en: “Step 1: Start the experiment” },
-  t6_how1: { th: “กดปุ่ม 'เริ่มการทดลอง' เพื่อปิดกล่องและเริ่มนับเวลา ก่อนเปิดกล่อง แมวอยู่ในสถานะซ้อนทับ 'เป็น+ตาย' พร้อมกัน!”, en: “Press 'Set up experiment' to seal the box and start the timer. Before opening, the cat is in superposition 'alive + dead' simultaneously!” },
-  t6_how2_title: { th: “ขั้นที่ 2: เปิดกล่องและสังเกต”, en: “Step 2: Open the box and observe” },
-  t6_how2: { th: “กดปุ่ม 'เปิดกล่อง!' ครั้งแรก - แมวจะเป็นหรือตาย? คุณไม่มีทางรู้ล่วงหน้าได้ นี่คือการวัดที่ทำให้สถานะยุบลงจากซ้อนทับเป็นคำตอบเดียว”, en: “Press 'Open the box!' for the first time - is the cat alive or dead? You can never know in advance. This is measurement collapsing the superposition into a single answer.” },
-  t6_how3_title: { th: “ขั้นที่ 3: ทำซ้ำและซ่อมสถานี”, en: “Step 3: Repeat and repair the station” },
-  t6_how3: { th: “เปิดกล่องครบ 5 ครั้งแล้วสังเกตรูปแบบการยุบตัว สถานีจะซ่อมสำเร็จเมื่อทำเสร็จ - คุณได้เรียนรู้ว่าการวัดเปลี่ยนความเป็นไปได้เป็นความจริง!”, en: “Open the box 5 times and observe the collapse patterns. The station repairs when complete - you've learned that measurement changes possibilities into reality!” },
+  t6_how1_title: { th: "ขั้นที่ 1: เริ่มการทดลอง", en: "Step 1: Start the experiment" },
+  t6_how1: { th: "กดปุ่ม 'เริ่มการทดลอง' เพื่อปิดกล่องและเริ่มนับเวลา ก่อนเปิดกล่อง แมวอยู่ในสถานะซ้อนทับ 'เป็น+ตาย' พร้อมกัน!", en: "Press 'Set up experiment' to seal the box and start the timer. Before opening, the cat is in superposition 'alive + dead' simultaneously!" },
+  t6_how2_title: { th: "ขั้นที่ 2: เปิดกล่องและสังเกต", en: "Step 2: Open the box and observe" },
+  t6_how2: { th: "กดปุ่ม 'เปิดกล่อง!' ครั้งแรก - แมวจะเป็นหรือตาย? คุณไม่มีทางรู้ล่วงหน้าได้ นี่คือการวัดที่ทำให้สถานะยุบลงจากซ้อนทับเป็นคำตอบเดียว", en: "Press 'Open the box!' for the first time - is the cat alive or dead? You can never know in advance. This is measurement collapsing the superposition into a single answer." },
+  t6_how3_title: { th: "ขั้นที่ 3: ทำซ้ำและซ่อมสถานี", en: "Step 3: Repeat and repair the station" },
+  t6_how3: { th: "เปิดกล่องครบ 5 ครั้งแล้วสังเกตรูปแบบการยุบตัว สถานีจะซ่อมสำเร็จเมื่อทำเสร็จ - คุณได้เรียนรู้ว่าการวัดเปลี่ยนความเป็นไปได้เป็นความจริง!", en: "Open the box 5 times and observe the collapse patterns. The station repairs when complete - you've learned that measurement changes possibilities into reality!" },
 
   // Circuit (Station 7) how-to (expanded)
-  c7_how1_title: { th: “ขั้นที่ 1: สร้าง Superposition ด้วย H Gate”, en: “Step 1: Create Superposition with H Gate” },
-  c7_how1: { th: “ลากเกต H (Hadamard) ไปวางบนสาย Q0, Q1 และ Q2 เกต H จะทำให้แต่ละคิวบิตอยู่ในสถานะซ้อนทับ 0 และ 1 พร้อมกัน ซึ่งเป็นพื้นฐานของ Grover's Algorithm”, en: “Drag H (Hadamard) gates onto wires Q0, Q1 and Q2. H gates create superposition - each qubit becomes both 0 and 1 simultaneously. This is the foundation of Grover's Algorithm.” },
-  c7_how2_title: { th: “ขั้นที่ 2: เพิ่ม Oracle และ Diffusion”, en: “Step 2: Add Oracle and Diffusion operators” },
-  c7_how2: { th: “วาง Oracle ต่อจาก H Gate บนสายใดก็ได้ Oracle จะ 'ทำเครื่องหมาย' สถานะเป้าหมาย แล้วตามด้วย Diffusion ซึ่งจะ 'ขยาย' ความน่าจะเป็นของสถานะที่ถูกทำเครื่องหมาย”, en: “Place Oracle after the H Gate on any wire. Oracle 'marks' the target state. Then add Diffusion which 'amplifies' the probability of the marked state.” },
-  c7_how3_title: { th: “ขั้นที่ 3: รันวงจรและดูผล”, en: “Step 3: Run circuit and see results” },
-  c7_how3: { th: “กดปุ่ม 'รันวงจร' เพื่อดูการกระจายความน่าจะเป็น เป้าหมายคือให้ |2⟩ ได้ความน่าจะเป็น ≥ 75% ถ้าต่ำกว่านี้ ลองปรับตำแหน่งเกตดู!”, en: “Press 'Run Circuit' to see probability distribution. The goal is to get |2⟩ probability ≥ 75%. If it's lower, try adjusting the gate positions!” },
+  c7_how1_title: { th: "ขั้นที่ 1: สร้าง Superposition ด้วย H Gate", en: "Step 1: Create Superposition with H Gate" },
+  c7_how1: { th: "ลากเกต H (Hadamard) ไปวางบนสาย Q0, Q1 และ Q2 เกต H จะทำให้แต่ละคิวบิตอยู่ในสถานะซ้อนทับ 0 และ 1 พร้อมกัน ซึ่งเป็นพื้นฐานของ Grover's Algorithm", en: "Drag H (Hadamard) gates onto wires Q0, Q1 and Q2. H gates create superposition - each qubit becomes both 0 and 1 simultaneously. This is the foundation of Grover's Algorithm." },
+  c7_how2_title: { th: "ขั้นที่ 2: เพิ่ม Oracle และ Diffusion", en: "Step 2: Add Oracle and Diffusion operators" },
+  c7_how2: { th: "วาง Oracle ต่อจาก H Gate บนสายใดก็ได้ Oracle จะ 'ทำเครื่องหมาย' สถานะเป้าหมาย แล้วตามด้วย Diffusion ซึ่งจะ 'ขยาย' ความน่าจะเป็นของสถานะที่ถูกทำเครื่องหมาย", en: "Place Oracle after the H Gate on any wire. Oracle 'marks' the target state. Then add Diffusion which 'amplifies' the probability of the marked state." },
+  c7_how3_title: { th: "ขั้นที่ 3: รันวงจรและดูผล", en: "Step 3: Run circuit and see results" },
+  c7_how3: { th: "กดปุ่ม 'รันวงจร' เพื่อดูการกระจายความน่าจะเป็น เป้าหมายคือให้ |2⟩ ได้ความน่าจะเป็น ≥ 75% ถ้าต่ำกว่านี้ ลองปรับตำแหน่งเกตดู!", en: "Press 'Run Circuit' to see probability distribution. The goal is to get |2⟩ probability ≥ 75%. If it's lower, try adjusting the gate positions!" },
   predict_tag:      { th: "ทายก่อนทดลอง", en: "Predict before you test" },
   correct_label:    { th: "ถูกต้อง! เยี่ยมมาก", en: "Correct! Nice work" },
   incorrect_label:  { th: "ยังไม่ใช่ ลองคิดใหม่นะ", en: "Not quite — here is why" },
@@ -116,7 +116,7 @@ const I18N = {
   // Topic 2
   t2_title:   { th: "การซ้อนทับเชิงควอนตัม", en: "Quantum Superposition" },
   t2_desc:    { th: "คิวบิตอยู่ได้หลายสถานะพร้อมกัน จนกว่าจะถูกวัด", en: "A qubit can be many states at once — until it is measured." },
-  t2_intro:   { th: "ลูกศรบนทรงกลมบลอคคือสถานะของคิวบิต ลากหมุนดูได้เลย ยิ่งลูกศรเอียง โอกาสวัดได้ 0 หรือ 1 ก็เปลี่ยนไป กด “วัดผล” แล้วดูมันยุบลงเป็นคำตอบเดียว", en: "The arrow on the Bloch sphere is the qubit’s state — drag to spin it. Its tilt sets the odds of measuring 0 or 1. Hit Measure and watch it collapse to a single answer." },
+  t2_intro:   { th: "ลูกศรบนทรงกลมบลอคคือสถานะของคิวบิต ลากหมุนดูได้เลย ยิ่งลูกศรเอียง โอกาสวัดได้ 0 หรือ 1 ก็เปลี่ยนไป กด 'วัดผล' แล้วดูมันยุบลงเป็นคำตอบเดียว", en: "The arrow on the Bloch sphere is the qubit's state — drag to spin it. Its tilt sets the odds of measuring 0 or 1. Hit Measure and watch it collapse to a single answer." },
   t2_challenge:{ th: "ตั้ง θ ให้ได้ 50:50 แล้ววัดสัก 20 ครั้ง ผลออกมาใกล้ครึ่ง–ครึ่งไหม?", en: "Set θ for a 50:50 split, measure 20 times — does it land near half and half?" },
   t2_q:       { th: "ทายดู: ถ้าตั้งลูกศรที่ θ = 90° (แนวระนาบ) ผลการวัดจะเป็นอย่างไร?", en: "Predict: with the arrow at θ = 90° (on the equator), what will measurements give?" },
   t2_a:       { th: "ได้ 0 (สปินขึ้น) ทุกครั้ง", en: "Always 0 (spin up)" },
@@ -127,8 +127,8 @@ const I18N = {
   // Topic 3
   t3_title:   { th: "หลักความไม่แน่นอน", en: "The Uncertainty Principle" },
   t3_desc:    { th: "ยิ่งรู้ตำแหน่งแม่นเท่าไร ก็ยิ่งไม่รู้ความเร็ว", en: "The better you know position, the less you know momentum." },
-  t3_intro:   { th: "กราฟบนคือความน่าจะเป็นของ “ตำแหน่ง” กราฟล่างคือของ “โมเมนตัม” ลองบีบอันหนึ่งให้แคบ อีกอันจะกว้างขึ้นทันที ผลคูณ Δx × Δp ไม่มีทางต่ำกว่า ħ/2 เลย", en: "The top curve is the spread of position; the bottom is momentum. Squeeze one narrow and the other widens instantly. The product Δx × Δp can never drop below ħ/2." },
-  t3_challenge:{ th: "ลองทำให้ Δx เล็กที่สุด แล้วดูว่า Δp พุ่งขึ้นแค่ไหน กด “เล่น” เพื่อดูกลุ่มคลื่นบานออกตามเวลา", en: "Make Δx as small as you can and watch Δp shoot up. Press Play to see the packet spread over time." },
+  t3_intro:   { th: "กราฟบนคือความน่าจะเป็นของ 'ตำแหน่ง' กราฟล่างคือของ 'โมเมนตัม' ลองบีบอันหนึ่งให้แคบ อีกอันจะกว้างขึ้นทันที ผลคูณ Δx × Δp ไม่มีทางต่ำกว่า ħ/2 เลย", en: "The top curve is the spread of position; the bottom is momentum. Squeeze one narrow and the other widens instantly. The product Δx × Δp can never drop below ħ/2." },
+  t3_challenge:{ th: "ลองทำให้ Δx เล็กที่สุด แล้วดูว่า Δp พุ่งขึ้นแค่ไหน กด 'เล่น' เพื่อดูกลุ่มคลื่นบานออกตามเวลา", en: "Make Δx as small as you can and watch Δp shoot up. Press Play to see the packet spread over time." },
   t3_q:       { th: "ทายดู: เราทำให้ Δx × Δp เท่ากับ 0 ได้ไหม?", en: "Predict: can we make Δx × Δp equal to zero?" },
   t3_a:       { th: "ได้ ถ้าวัดตำแหน่งให้เป๊ะ (Δx = 0)", en: "Yes — pin position exactly (Δx = 0)" },
   t3_b:       { th: "ได้ ถ้าวัดโมเมนตัมให้เป๊ะ (Δp = 0)", en: "Yes — pin momentum exactly (Δp = 0)" },
@@ -138,9 +138,9 @@ const I18N = {
   // Topic 4
   t4_title:   { th: "การทะลุอุโมงค์ควอนตัม", en: "Quantum Tunneling" },
   t4_desc:    { th: "อนุภาคผ่านกำแพงพลังงานที่โดยปกติมันข้ามไม่ได้", en: "Particles slip through energy walls they could never climb." },
-  t4_intro:   { th: "ยิงกลุ่มคลื่นเข้าใส่กำแพงพลังงาน ตามฟิสิกส์ปกติมันควรเด้งกลับหมด แต่ควอนตัมกลับมีบางส่วน “ทะลุ” ออกไปอีกฝั่งได้ ลองปรับกำแพงดูว่าโอกาสทะลุเปลี่ยนแค่ไหน", en: "Fire a wave packet at an energy wall. Classically it should bounce straight back — yet a slice of it tunnels through to the far side. Tune the wall and watch the odds change." },
+  t4_intro:   { th: "ยิงกลุ่มคลื่นเข้าใส่กำแพงพลังงาน ตามฟิสิกส์ปกติมันควรเด้งกลับหมด แต่ควอนตัมกลับมีบางส่วน 'ทะลุ' ออกไปอีกฝั่งได้ ลองปรับกำแพงดูว่าโอกาสทะลุเปลี่ยนแค่ไหน", en: "Fire a wave packet at an energy wall. Classically it should bounce straight back — yet a slice of it tunnels through to the far side. Tune the wall and watch the odds change." },
   t4_challenge:{ th: "ลองทำให้กำแพงบางและเตี้ยที่สุด แล้วดูว่าโอกาสทะลุขึ้นไปได้สูงแค่ไหน", en: "Make the wall as thin and low as possible and see how high the tunneling odds climb." },
-  t4_q:       { th: "ทายดู: ถ้าเพิ่ม “ความสูงกำแพง” โอกาสทะลุจะเป็นอย่างไร?", en: "Predict: if you raise the wall height, what happens to the tunneling odds?" },
+  t4_q:       { th: "ทายดู: ถ้าเพิ่ม 'ความสูงกำแพง' โอกาสทะลุจะเป็นอย่างไร?", en: "Predict: if you raise the wall height, what happens to the tunneling odds?" },
   t4_a:       { th: "สูงขึ้น ทะลุง่ายขึ้น", en: "They rise — easier to tunnel" },
   t4_b:       { th: "ต่ำลง ทะลุยากขึ้น", en: "They fall — harder to tunnel" },
   t4_c:       { th: "เท่าเดิม ไม่เกี่ยวกัน", en: "No change — unrelated" },
@@ -155,12 +155,12 @@ const I18N = {
   t5_a:       { th: "ตรงกันทุกครั้ง (100%)", en: "Identical every time (100%)" },
   t5_b:       { th: "ตรงข้ามกันทุกครั้ง", en: "Opposite every time" },
   t5_c:       { th: "สุ่มไม่มีความสัมพันธ์", en: "Random and unrelated" },
-  t5_explain: { th: "เมื่อมุมเท่ากัน ผลของ A และ B จะตรงกันทุกครั้ง ทั้งที่แต่ละตัวออกมาแบบสุ่ม ความสัมพันธ์ที่แน่นขนาดนี้เองที่คลาสสิกอธิบายไม่ได้ นี่คือหัวใจของทฤษฎีบทเบลล์", en: "At equal angles A and B match every single time, even though each result is random on its own. That perfect link is what classical physics cannot explain — the heart of Bell’s theorem." },
+  t5_explain: { th: "เมื่อมุมเท่ากัน ผลของ A และ B จะตรงกันทุกครั้ง ทั้งที่แต่ละตัวออกมาแบบสุ่ม ความสัมพันธ์ที่แน่นขนาดนี้เองที่คลาสสิกอธิบายไม่ได้ นี่คือหัวใจของทฤษฎีบทเบลล์", en: "At equal angles A and B match every single time, even though each result is random on its own. That perfect link is what classical physics cannot explain — the heart of Bell's theorem." },
 
   // Topic 6
-  t6_title:   { th: "แมวของชเรอดิงเงอร์", en: "Schrödinger’s Cat" },
+  t6_title:   { th: "แมวของชเรอดิงเงอร์", en: "Schrödinger's Cat" },
   t6_desc:    { th: "ก่อนเปิดกล่อง แมวเป็นทั้งเป็นและตายพร้อมกัน", en: "Before you look, the cat is alive and dead at once." },
-  t6_intro:   { th: "แมวอยู่ในกล่องปิดสนิทกับอะตอมกัมมันตรังสี ถ้าอะตอมสลาย สารพิษจะถูกปล่อย ตราบใดที่ยังไม่เปิด แมวจึงอยู่ในสถานะซ้อนทับ “เป็น+ตาย” การเปิดกล่องคือการวัดที่ทำให้มันกลายเป็นคำตอบเดียว", en: "A cat sits in a sealed box with a radioactive atom. If the atom decays, poison is released. Until you open it, the cat is in a superposition of alive and dead — opening the box is the measurement that forces one answer." },
+  t6_intro:   { th: "แมวอยู่ในกล่องปิดสนิทกับอะตอมกัมมันตรังสี ถ้าอะตอมสลาย สารพิษจะถูกปล่อย ตราบใดที่ยังไม่เปิด แมวจึงอยู่ในสถานะซ้อนทับ 'เป็น+ตาย' การเปิดกล่องคือการวัดที่ทำให้มันกลายเป็นคำตอบเดียว", en: "A cat sits in a sealed box with a radioactive atom. If the atom decays, poison is released. Until you open it, the cat is in a superposition of alive and dead — opening the box is the measurement that forces one answer." },
   t6_challenge:{ th: "ทดลองเปิดกล่องหลาย ๆ รอบ แล้วดูว่าอัตราส่วนเป็น:ตาย เข้าใกล้ที่ทฤษฎีทำนายไหม", en: "Open the box many times and check whether the alive:dead ratio matches the prediction." },
   t6_q:       { th: "ทายดู: ก่อนเปิดกล่อง แมวอยู่ในสถานะใด?", en: "Predict: before the box is opened, what state is the cat in?" },
   t6_a:       { th: "เป็นอย่างเดียว", en: "Alive only" },
@@ -267,7 +267,7 @@ const I18N = {
   c7_challenge:{ th: "H ทั้ง 3 สาย → Oracle → Diffusion → รัน ให้ |2⟩ เกิน 75%", en: "H on all 3 wires → Oracle → Diffusion → Run. Get |2⟩ above 75%." },
   c7_hint_btn: { th: "ขอคำใบ้", en: "Hint" },
 
-  schr_idle:  { th: "กด “เริ่มการทดลอง” เพื่อปิดฝากล่อง", en: "Press Set up experiment to seal the box" },
+  schr_idle:  { th: "กด 'เริ่มการทดลอง' เพื่อปิดฝากล่อง", en: "Press Set up experiment to seal the box" },
   schr_super: { th: "แมวกำลังซ้อนทับ เป็น + ตาย …", en: "The cat is in superposition: alive + dead …" },
   schr_alive: { th: "เปิดกล่อง — แมวยังเป็นอยู่! 🎉", en: "Box opened — the cat is alive! 🎉" },
   schr_dead:  { th: "เปิดกล่อง — แมวตายแล้ว …", en: "Box opened — the cat did not make it …" },
@@ -1753,7 +1753,7 @@ function animateSuper6() {
   loop();
 }
 function openBox6() {
-  if (S6.state !== 'prepared') { toast(lang==='th' ? 'กด “เริ่มการทดลอง” ก่อนนะ' : 'Set up the experiment first'); return; }
+  if (S6.state !== 'prepared') { toast(lang==='th' ? 'กด "เริ่มการทดลอง" ก่อนนะ' : 'Set up the experiment first'); return; }
   cancelAnimationFrame(S6.raf);
   const waitT = val('waitT');
   const pDead = 1 - Math.pow(0.5, waitT / 3);   // half-life = 3s
