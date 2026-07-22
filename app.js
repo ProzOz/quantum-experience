@@ -293,13 +293,22 @@ const I18N = {
 };
 
 const TOPIC_META = {
-  1: { icon: "🌊", key: "t1" },
-  2: { icon: "⚛️", key: "t2" },
-  3: { icon: "📈", key: "t3" },
-  4: { icon: "🚀", key: "t4" },
-  5: { icon: "🔗", key: "t5" },
-  6: { icon: "🐈", key: "t6" },
-  7: { icon: "⚡", key: "t7" },
+  1: { icon: "🌊", key: "t1", name: { th: 'สถานีที่ 1: ทวิภาพ', en: 'Station 1: Duality' } },
+  2: { icon: "⚛️", key: "t2", name: { th: 'สถานีที่ 2: ซ้อนทับ', en: 'Station 2: Superposition' } },
+  3: { icon: "📈", key: "t3", name: { th: 'สถานีที่ 3: ความไม่แน่นอน', en: 'Station 3: Uncertainty' } },
+  4: { icon: "🚀", key: "t4", name: { th: 'สถานีที่ 4: การผ่านคลื่น', en: 'Station 4: Tunneling' } },
+  5: { icon: "🔗", key: "t5", name: { th: 'สถานีที่ 5: พัวพัน', en: 'Station 5: Entanglement' } },
+  6: { icon: "🐈", key: "t6", name: { th: 'สถานีที่ 6: แมวของชเรอดิงเจอร์', en: "Station 6: Schrödinger's Cat" } },
+  7: { icon: "⚡", key: "t7", name: { th: 'สถานีที่ 7: อัลกอริทึมของโกรเวอร์', en: "Station 7: Grover's Algorithm" } },
+};
+
+const STATION_LEARNED = {
+  1: { th: 'แสงเป็นได้ทั้งคลื่นและอนุภาค — การแทรกสอดพิสูจน์ธรรมชาติคลื่นของมัน', en: 'Light is both wave and particle — interference proves its wave nature' },
+  2: { th: 'ควอนตัมคิวบิตสามารถอยู่ในสถานะซ้อนทับระหว่าง |0⟩ และ |1⟩ พร้อมกัน', en: 'A quantum qubit can exist in superposition of both |0⟩ and |1⟩ simultaneously' },
+  3: { th: 'ยิ่งรู้ตำแหน่งแน่นอนมาก ยิ่งไม่รู้โมเมนตัมแน่นอน — หลักความไม่แน่นอนของไฮเซนเบิร์ก', en: 'The more precisely you know position, the less you know momentum — Heisenberg uncertainty principle' },
+  4: { th: 'อนุภาคสามารถผ่านกำแพงศักย์ได้แม้พลังงานน้อยกว่า — การทำให้คลื่นรั่วไหล', en: 'Particles can tunnel through barriers even with less energy — wave function leakage' },
+  5: { th: 'คู่ควอนตัมพัวพันกันโดยไม่มีการเชื่อมต่อทางกายภาพ — การวัดหนึ่งมิติมีผลต่ออีกมิติทันที', en: 'Quantum pairs are entangled without physical connection — measuring one instantly affects the other' },
+  6: { th: 'การสังเกตทำให้คลื่นคอลลาปส์ — จนกว่าจะสังเกต ทุกสถานะเป็นจริงพร้อมกัน', en: 'Observation causes wavefunction collapse — until measured, all states exist simultaneously' },
 };
 
 const QUIZ = {
@@ -952,7 +961,6 @@ function showSuccessOverlay(s) {
   if (existing) existing.remove();
 
   const learned = STATION_LEARNED[s.id]?.[lang] || '';
-  const theoryImage = STATION_THEORY_IMAGES?.[s.id] || '';
 
   const overlay = document.createElement('div');
   overlay.id = 'stationSuccessOverlay';
@@ -1075,12 +1083,6 @@ function showSuccessOverlay(s) {
         </div>
         <p>${learned}</p>
       </div>
-
-      ${theoryImage ? `
-      <div class="success-theory">
-        <img src="${theoryImage}" alt="${s.name[lang]} diagram" loading="lazy">
-      </div>
-      ` : ''}
 
       <div class="success-actions">
         <button class="success-btn success-btn-primary" onclick="dismissSuccessOverlay()">
