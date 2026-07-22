@@ -64,7 +64,7 @@ const PUZZLE = {
   3: { attempts: 0, solved: false },
   4: { scoreNeeded: 100, solved: false },
   5: { trialsNeeded: 40, solved: false },
-  6: { solved: false },
+  6: { opens: 0, opensNeeded: 5, log: [], solved: false },
   7: { solved: false },
 };
 

@@ -148,15 +148,6 @@ function applyDiffusion(state) {
   // |s⟩ = uniform superposition (all states equal amplitude)
   const N = NUM_STATES;
   const amp = 1 / Math.sqrt(N);
-  const newState = state.map(() => ({ re: 0, im: 0 }));
-  for (let i = 0; i < N; i++) {
-    for (let j = 0; j < N; j++) {
-      // newState[i] += 2*amp*amp * state[j] - (i===j ? state[j] : 0)
-      // = (2/N - 1) * state[i] + 2/N * sum_other(state)
-      // Optimized: new[i] = (2/N - 1) * state[i] + 2/N * (sum - state[i])
-      //           = 2/N * sum - 1/N * state[i]
-    }
-  }
   // Simplified: D|ψ⟩ = 2|s⟩⟨s|ψ⟩ - |ψ⟩
   // ⟨s|ψ⟩ = sum(amp * state[j]) for all j = amp * sum(state)
   let sumRe = 0, sumIm = 0;
@@ -165,11 +156,11 @@ function applyDiffusion(state) {
     sumIm += state[j].im;
   }
   const factor = 2 * amp;
-  const newState2 = state.map(x => ({
+  const newState = state.map(x => ({
     re: factor * amp * sumRe - x.re,
     im: factor * amp * sumIm - x.im,
   }));
-  return newState2;
+  return newState;
 }
 
 function applyMeasure(state) {
