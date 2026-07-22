@@ -288,6 +288,32 @@ main {
 }
 
 @keyframes blink { 50% { opacity: 0.5; } }
+/* Emergency alert pill — structured badge above the title */
+.lab-alert {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: var(--radius-full);
+    background: rgba(232, 121, 121, 0.10);
+    border: 1px solid rgba(232, 121, 121, 0.35);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--coral);
+    letter-spacing: 0.02em;
+    margin-bottom: var(--space-xl);
+    box-shadow: 0 0 24px rgba(232, 121, 121, 0.10);
+}
+
+.lab-alert-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--coral);
+    box-shadow: 0 0 8px var(--coral);
+    animation: blink 1s infinite;
+}
+
 .lab-title {
     font-size: clamp(2rem, 5vw, 3.5rem);
     font-weight: 800;
