@@ -1689,11 +1689,13 @@ footer {
 }
 
 /* Mobile: puzzle goal strip */
+@media (max-width: 640px) {
 .puzzle-goal-strip {
     flex-direction: column;
     text-align: center;
     gap: var(--space-sm);
     padding: var(--space-md);
+}
 }
 
 /* Mobile: stats panel */
