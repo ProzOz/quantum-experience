@@ -238,12 +238,15 @@ function stationGlow(e, el) {
 /* ── Puzzle goal strip injection ─────────────────────────── */
 // Called after buildTopics() — injects goal strip + puzzle overlay into each topic page
 function injectPuzzleUI() {
+  console.log('[DEBUG] injectPuzzleUI called');
   for (const s of STATIONS) {
     const page = document.getElementById('topic' + s.id + 'Page');
+    console.log('[DEBUG] Station', s.id, '- page found:', !!page);
     if (!page) continue;
 
     // Insert goal strip before simulation-container
     const simContainer = page.querySelector('.simulation-container');
+    console.log('[DEBUG] Station', s.id, '- simContainer found:', !!simContainer);
     if (simContainer) {
       const strip = document.createElement('div');
       strip.className = 'puzzle-goal-strip';
