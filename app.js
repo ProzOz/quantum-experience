@@ -928,8 +928,12 @@ function answer(topic, choice, btn) {
     play('success');
     confetti();
     markComplete(topic);
-    // Show puzzle success overlay for stations 1-6
-    if (typeof showPuzzleSuccess === 'function') showPuzzleSuccess(topic);
+
+    // Create and show success overlay directly
+    const s = STATIONS.find(x => x.id === topic);
+    if (s) {
+      showSuccessOverlay(s);
+    }
   } else {
     btn.classList.add('incorrect');
     // reveal correct one
@@ -940,6 +944,161 @@ function answer(topic, choice, btn) {
       '</strong><span class="body" data-i18n="' + m.key + '_explain">' + t(m.key + '_explain') + '</span></div>';
     play('error');
   }
+}
+
+function showSuccessOverlay(s) {
+  // Remove any existing overlay
+  const existing = document.getElementById('stationSuccessOverlay');
+  if (existing) existing.remove();
+
+  const learned = STATION_LEARNED[s.id]?.[lang] || '';
+  const theoryImage = STATION_THEORY_IMAGES?.[s.id] || '';
+
+  const overlay = document.createElement('div');
+  overlay.id = 'stationSuccessOverlay';
+  overlay.style.cssText = `
+    position: fixed;
+    inset: 0;
+    background: rgba(6, 6, 16, 0.92);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    animation: fadeIn 0.4s ease-out;
+  `;
+
+  overlay.innerHTML = `
+    <style>
+      @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+      @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+      @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.7; } }
+      .success-content {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        border: 2px solid #34e08a;
+        border-radius: 24px;
+        padding: 48px;
+        max-width: 560px;
+        width: 90%;
+        text-align: center;
+        box-shadow: 0 0 60px rgba(52, 224, 138, 0.3);
+        animation: fadeIn 0.5s ease-out;
+      }
+      .success-icon { font-size: 5rem; animation: bounce 0.6s ease-out; }
+      .success-title {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 2rem;
+        font-weight: 800;
+        color: #34e08a;
+        margin: 16px 0 8px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+      .success-station {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1rem;
+        color: #888;
+        margin-bottom: 24px;
+        letter-spacing: 1px;
+      }
+      .success-learned {
+        background: rgba(52, 224, 138, 0.1);
+        border: 1px solid #34e08a;
+        border-radius: 16px;
+        padding: 20px;
+        margin-bottom: 24px;
+        text-align: left;
+      }
+      .success-learned-title {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 0.85rem;
+        color: #34e08a;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .success-learned p {
+        color: #e0e0e0;
+        font-size: 1.05rem;
+        line-height: 1.7;
+        margin: 0;
+      }
+      .success-theory {
+        margin-bottom: 24px;
+      }
+      .success-theory img {
+        max-width: 100%;
+        border-radius: 12px;
+        border: 1px solid #333;
+      }
+      .success-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .success-btn {
+        padding: 16px 24px;
+        border: none;
+        border-radius: 12px;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .success-btn:active { transform: scale(0.97); }
+      .success-btn-primary {
+        background: linear-gradient(125deg, #22e0ff, #34e08a);
+        color: #0a0a14;
+      }
+      .success-btn-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        border: 1px solid #444;
+      }
+      .success-btn:hover { filter: brightness(1.1); }
+    </style>
+    <div class="success-content">
+      <div class="success-icon">🎉</div>
+      <div class="success-title">${LT('restored_t')}</div>
+      <div class="success-station">${s.name[lang]}</div>
+
+      <div class="success-learned">
+        <div class="success-learned-title">
+          <span>📚</span>
+          <span>${LT('summary_learned')}</span>
+        </div>
+        <p>${learned}</p>
+      </div>
+
+      ${theoryImage ? `
+      <div class="success-theory">
+        <img src="${theoryImage}" alt="${s.name[lang]} diagram" loading="lazy">
+      </div>
+      ` : ''}
+
+      <div class="success-actions">
+        <button class="success-btn success-btn-primary" onclick="dismissSuccessOverlay()">
+          ${LT('summary_continue')}
+        </button>
+        <button class="success-btn success-btn-secondary" onclick="goHome(); dismissSuccessOverlay();">
+          ${LT('summary_back_lab')}
+        </button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+}
+
+function dismissSuccessOverlay() {
+  const overlay = document.getElementById('stationSuccessOverlay');
+  if (overlay) overlay.remove();
 }
 
 /* ============================================================

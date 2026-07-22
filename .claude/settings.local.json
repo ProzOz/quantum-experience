@@ -18,7 +18,9 @@
       "Read(//c/Users/Admin/.agents/skills/find-skills/**)",
       "Bash(npx skills *)",
       "Bash(python *)",
-      "Bash(start index.html)"
+      "Bash(start index.html)",
+      "Bash(node -c C:/Users/Admin/Downloads/quan2/lab.js)",
+      "Bash(node -c C:/Users/Admin/Downloads/quan2/app.js)"
     ]
   }
 }
