@@ -305,6 +305,11 @@ function buildCircuitHTML() {
         </div>
       </div>
 
+      <div class="station-video-wrap">
+        <div class="station-video-label">${c7('🎬 วิดีโออธิบายแนวคิด', '🎬 CONCEPT EXPLAINER')}</div>
+        <video class="station-video" src="https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_110639_4f58e80d-d669-457a-8820-5a991742ab9e.mp4" controls playsinline preload="metadata" poster="https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_102133_8bcbef58-d72b-414d-bba0-cf960dde1255.png"></video>
+      </div>
+
       ${resultHTML}
 
       <div class="circuit-builder">

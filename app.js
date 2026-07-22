@@ -24,6 +24,7 @@ const I18N = {
 
   challenge_chip:   { th: "ภารกิจ", en: "Challenge" },
   howto_title:      { th: "วิธีเล่น", en: "HOW TO PLAY" },
+  video_label:      { th: "🎬 วิดีโออธิบายแนวคิด", en: "🎬 CONCEPT EXPLAINER" },
 
   // How-to steps (3 per station, short & action-first)
   t1_how1: { th: "กด “ยิงรัว” แล้วดูจุดตกค่อย ๆ รวมเป็นลายแถบ", en: "Press Rapid fire — watch dots build into stripes" },
@@ -785,6 +786,17 @@ function svg(name) {
   return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + (ICONS[name] || '') + '</svg>';
 }
 
+// Higgsfield-generated explainer videos (classroom-based), per station
+const STATION_VIDEOS = {
+  1: 'https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_104853_1e8fc765-0e24-4b8f-ba62-579f554aa9c6.mp4',
+  5: 'https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_105737_7f873eb4-d36d-4937-b523-d58a7ef039e4.mp4',
+};
+// Station illustration art (used as video poster + fallback)
+const STATION_ART = {
+  1: 'https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_100048_8000a702-38cd-441e-96a2-18a6c376b438.png',
+  5: 'https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_101532_1c7db88b-667b-4cd9-acad-c5c22a16e97d.png',
+};
+
 function buildTopics() {
   const host = document.getElementById('topicsHost');
   let out = '';
@@ -830,6 +842,11 @@ function buildTopics() {
               <div class="howto-step"><span class="howto-num">3</span><span class="howto-text" data-i18n="${m.key}_how3"></span></div>
             </div>
           </div>
+          ${STATION_VIDEOS[i] ? `
+          <div class="station-video-wrap">
+            <div class="station-video-label" data-i18n="video_label"></div>
+            <video class="station-video" src="${STATION_VIDEOS[i]}" controls playsinline preload="metadata" poster="${STATION_ART[i] || ''}"></video>
+          </div>` : ''}
           <div class="simulation-container">
             <div class="sim-canvas-wrap">
               <canvas id="${cfg.canvas}"></canvas>
