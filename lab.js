@@ -75,6 +75,9 @@ const STATION_THEORY = {
         <h3><span>💡</span> ความเป็นคู่ของคลื่น-อนุภาค</h3>
         <p>แสงและอนุภาคทุกชนิดมีธรรมชาติสองด้าน: เป็นได้ทั้งอนุภาค (จุด) และคลื่น (ลายแถบ) พร้อมกัน! นี่เรียกว่า Wave-Particle Duality ซึ่งเป็นหลักการพื้นฐานของกลศาสตร์ควอนตัม</p>
       </div>
+      <div class="theory-visual">
+        <img src="images/station1-theory.png" alt="Double-slit experiment diagram" class="theory-img" loading="lazy">
+      </div>
       <div class="theory-equation">
         <code>λ = h / p</code>
         <span>ความยาวคลื่นเดอบรอยล์ = ค่าคงที่พลังค์ / โมเมนตัม</span>
@@ -92,6 +95,9 @@ const STATION_THEORY = {
       <div class="theory-section">
         <h3><span>💡</span> Wave-Particle Duality</h3>
         <p>Light and all particles have a dual nature: they can behave as both particles (dots) and waves (interference patterns) simultaneously! This is called Wave-Particle Duality, a fundamental principle of quantum mechanics.</p>
+      </div>
+      <div class="theory-visual">
+        <img src="images/station1-theory.png" alt="Double-slit experiment diagram" class="theory-img" loading="lazy">
       </div>
       <div class="theory-equation">
         <code>λ = h / p</code>
@@ -113,6 +119,9 @@ const STATION_THEORY = {
         <h3><span>💡</span> การซ้อนทับเชิงควอนตัม (Superposition)</h3>
         <p>คิวบิต (qubit) สามารถอยู่ในสถานะ 0 และ 1 พร้อมกัน จนกว่าจะถูกวัด นี่คือหลักการ Superposition ที่ทำให้ควอนตัมคอมพิวเตอร์ทำงานได้เร็วกว่าคอมพิวเตอร์ปกติหลายเท่า</p>
       </div>
+      <div class="theory-visual">
+        <img src="images/station2-theory.png" alt="Bloch sphere diagram" class="theory-img" loading="lazy">
+      </div>
       <div class="theory-equation">
         <code>|ψ⟩ = α|0⟩ + β|1⟩</code>
         <span>สถานะคิวบิต = ความน่าจะเป็นของ 0 + ความน่าจะเป็นของ 1</span>
@@ -130,6 +139,9 @@ const STATION_THEORY = {
       <div class="theory-section">
         <h3><span>💡</span> Quantum Superposition</h3>
         <p>A qubit can exist in both 0 and 1 states simultaneously until measured. This is the Superposition principle that makes quantum computers exponentially faster than regular computers for certain problems.</p>
+      </div>
+      <div class="theory-visual">
+        <img src="images/station2-theory.png" alt="Bloch sphere diagram" class="theory-img" loading="lazy">
       </div>
       <div class="theory-equation">
         <code>|ψ⟩ = α|0⟩ + β|1⟩</code>
@@ -151,6 +163,9 @@ const STATION_THEORY = {
         <h3><span>💡</span> หลักความไม่แน่นอนของไฮเซนเบิร์ก</h3>
         <p>เราไม่สามารถรู้ตำแหน่งและโมเมนตัมของอนุภาคได้พร้อมกันอย่างแม่นยำ ยิ่งรู้อันหนึ่งแม่นเท่าไร อีกอันยิ่งไม่แน่นอน ผลคูณของความไม่แน่นอนทั้งสองมีขีดต่ำสุดเท่ากับ ħ/2</p>
       </div>
+      <div class="theory-visual">
+        <img src="images/station3-theory.png" alt="Heisenberg uncertainty diagram" class="theory-img" loading="lazy">
+      </div>
       <div class="theory-equation">
         <code>Δx · Δp ≥ ħ/2</code>
         <span>ความไม่แน่นอนของตำแหน่ง × ความไม่แน่นอนของโมเมนตัม ≥ ค่าคงที่</span>
@@ -168,6 +183,9 @@ const STATION_THEORY = {
       <div class="theory-section">
         <h3><span>💡</span> Heisenberg's Uncertainty Principle</h3>
         <p>We cannot know both position and momentum of a particle with perfect accuracy simultaneously. The more precisely you know one, the less you know the other. The product of uncertainties has a minimum value of ħ/2.</p>
+      </div>
+      <div class="theory-visual">
+        <img src="images/station3-theory.png" alt="Heisenberg uncertainty diagram" class="theory-img" loading="lazy">
       </div>
       <div class="theory-equation">
         <code>Δx · Δp ≥ ħ/2</code>
@@ -189,6 +207,9 @@ const STATION_THEORY = {
         <h3><span>💡</span> การทะลุอุโมงค์ควอนตัม (Quantum Tunneling)</h3>
         <p>อนุภาคมีความน่าจะเป็นที่จะ "ทะลุ" ผ่านกำแพงพลังงานที่มันไม่น่าจะข้ามได้ แม้ว่าฟิสิกส์คลาสสิกบอกว่าเป็นไปไม่ได้! ยิ่งกำแพงบางและต่ำ ยิ่งมีโอกาสทะลุสูง</p>
       </div>
+      <div class="theory-visual">
+        <img src="images/station4-theory.png" alt="Quantum tunneling diagram" class="theory-img" loading="lazy" onerror="this.style.display='none'">
+      </div>
       <div class="theory-equation">
         <code>T ≈ e^(-2κL)</code>
         <span>โอกาสทะลุ ≈ ลดลงแบบเอกซ์โพเนนเชียลตามความหนา</span>
@@ -206,6 +227,9 @@ const STATION_THEORY = {
       <div class="theory-section">
         <h3><span>💡</span> Quantum Tunneling</h3>
         <p>Particles have a probability to "tunnel through" energy barriers they classically shouldn't be able to cross! Even though classical physics says it's impossible. The thinner and lower the barrier, the higher the tunneling probability.</p>
+      </div>
+      <div class="theory-visual">
+        <img src="images/station4-theory.png" alt="Quantum tunneling diagram" class="theory-img" loading="lazy" onerror="this.style.display='none'">
       </div>
       <div class="theory-equation">
         <code>T ≈ e^(-2κL)</code>
@@ -227,6 +251,9 @@ const STATION_THEORY = {
         <h3><span>💡</span> การพัวพันเชิงควอนตัม (Quantum Entanglement)</h3>
         <p>เมื่ออนุภาคสองตัวพัวพันกัน สถานะของมันเชื่อมโยงกันทันที ไม่ว่าจะอยู่ห่างกันแค่ไหน การวัดอนุภาคหนึ่งจะกำหนดสถานะของอีกอันทันที นี่คือทฤษฎีบทเบลล์ที่พิสูจน์ว่าควอนตัมไม่ใช่ทฤษฎีแบบ "ตัวแปรซ่อน"</p>
       </div>
+      <div class="theory-visual">
+        <img src="images/station5-theory.png" alt="Quantum entanglement diagram" class="theory-img" loading="lazy" onerror="this.style.display='none'">
+      </div>
       <div class="theory-equation">
         <code>|Φ+⟩ = (|00⟩ + |11⟩) / √2</code>
         <span>สถานะ Bell พัวพัน - ทั้งสองเป็น 0 หรือทั้งสองเป็น 1</span>
@@ -244,6 +271,9 @@ const STATION_THEORY = {
       <div class="theory-section">
         <h3><span>💡</span> Quantum Entanglement</h3>
         <p>When two particles are entangled, their states are instantly connected regardless of distance. Measuring one particle instantly determines the other's state. Bell's theorem proves quantum mechanics is not a "hidden variable" theory.</p>
+      </div>
+      <div class="theory-visual">
+        <img src="images/station5-theory.png" alt="Quantum entanglement diagram" class="theory-img" loading="lazy" onerror="this.style.display='none'">
       </div>
       <div class="theory-equation">
         <code>|Φ+⟩ = (|00⟩ + |11⟩) / √2</code>
@@ -265,6 +295,9 @@ const STATION_THEORY = {
         <h3><span>💡</span> แมวของชเรอดิงเงอร์และปัญหาการวัด</h3>
         <p>ในการทดลองสมมติ แมวในกล่องอยู่ในสถานะซ้อนทับ "เป็น+ตาย" จนกว่าจะมีคนเปิดดู การเปิดกล่องคือ "การวัด" ที่ทำให้สถานะยุบลง คำถามคือ: ขอบเขตของการซ้อนทับอยู่ตรงไหน? ที่อนุภาคเดียว หรือถึงแมวด้วย?</p>
       </div>
+      <div class="theory-visual">
+        <img src="images/station6-theory.png" alt="Schrödinger's cat diagram" class="theory-img" loading="lazy" onerror="this.style.display='none'">
+      </div>
       <div class="theory-equation">
         <code>|ψ⟩ = (|แมวเป็น⟩ + |แมวตาย⟩) / √2</code>
         <span>สถานะซ้อนทับของแมว ก่อนการวัด</span>
@@ -282,6 +315,9 @@ const STATION_THEORY = {
       <div class="theory-section">
         <h3><span>💡</span> Schrödinger's Cat & The Measurement Problem</h3>
         <p>In the thought experiment, the cat is in superposition "alive + dead" until someone opens the box. Opening the box is the "measurement" that collapses the state. The question is: where is the boundary of superposition? At the particle, or up to the cat?</p>
+      </div>
+      <div class="theory-visual">
+        <img src="images/station6-theory.png" alt="Schrödinger's cat diagram" class="theory-img" loading="lazy" onerror="this.style.display='none'">
       </div>
       <div class="theory-equation">
         <code>|ψ⟩ = (|cat alive⟩ + |cat dead⟩) / √2</code>
@@ -303,6 +339,9 @@ const STATION_THEORY = {
         <h3><span>💡</span> อัลกอริทึมของ Grover และ Quadratic Speedup</h3>
         <p>Grover's algorithm ค้นหาข้อมูลใน O(√N) เท่า เทียบกับ O(N) ของการค้นหาแบบดั้งเดิม สำหรับฐานข้อมูล 4 รายการ ควอนตัมใช้แค่ 1 ครั้ง ขณะที่คลาสสิกใช้เฉลี่ย 2.5 ครั้ง นี่คือ "quadratic speedup" ที่ทำให้ควอนตัมทำงานเร็วขึ้นอย่างมาก</p>
       </div>
+      <div class="theory-visual">
+        <img src="images/station7-theory.png" alt="Grover's algorithm diagram" class="theory-img" loading="lazy" onerror="this.style.display='none'">
+      </div>
       <div class="theory-equation">
         <code>T_quantum = O(√N) vs T_classical = O(N)</code>
         <span>ควอนตัมเร็วกว่า √N เท่า สำหรับการค้นหา</span>
@@ -319,21 +358,56 @@ const STATION_THEORY = {
     en: `
       <div class="theory-section">
         <h3><span>💡</span> Grover's Algorithm & Quadratic Speedup</h3>
-        <p>Grover's algorithm searches in O(√N) time vs O(N) for classical search. For a 4-item database, quantum uses just 1 query while classical needs 2.5 on average. This "quadratic speedup" makes quantum dramatically faster for search problems.</p>
+        <p>Grover's algorithm searches in O(√N) vs O(N) for classical search. For a 4-item database, quantum needs only 1 query while classical takes 2.5 on average. This "quadratic speedup" makes quantum exponentially faster for large searches.</p>
+      </div>
+      <div class="theory-visual">
+        <img src="images/station7-theory.png" alt="Grover's algorithm diagram" class="theory-img" loading="lazy" onerror="this.style.display='none'">
       </div>
       <div class="theory-equation">
         <code>T_quantum = O(√N) vs T_classical = O(N)</code>
-        <span>Quantum √N times faster for search problems</span>
+        <span>Quantum is √N times faster for searching</span>
       </div>
       <div class="theory-applications">
         <h4><span>🌟</span> Real-World Applications</h4>
         <ul>
-          <li>Database search - √N times faster searching</li>
-          <li>Optimization - find optimal solutions faster</li>
-          <li>Cryptography - breaks RSA encryption faster (makes it obsolete)</li>
+          <li>Database search - search data √N times faster</li>
+          <li>Optimization problems - find best solutions faster</li>
+          <li>Cryptography - decode faster (makes RSA obsolete)</li>
         </ul>
       </div>
     `
+  }
+};
+
+/* ── What students learned per station ─────────────────────── */
+const STATION_LEARNED = {
+  1: {
+    th: "คุณได้เรียนรู้ว่าแสงและอนุภาคมีธรรมชาติสองด้าน — เป็นได้ทั้งคลื่นและอนุภาค การทดลองช่องคู่แสดงให้เห็นว่าจุดที่ตกแต่ละจุดดูสุ่ม แต่เมื่อรวมกันมากพอจะเกิดลายแทรกสอด สิ่งนี้พิสูจน์ว่าความยาวคลื่นเดอบรอยล์ λ = h/p ควบคุมพฤติกรรมของอนุภาค",
+    en: "You learned that light and particles have a dual nature — they can behave as both waves and particles. The double-slit experiment shows that while each landing point looks random, enough points together create an interference pattern. This proves the de Broglie wavelength λ = h/p governs particle behavior."
+  },
+  2: {
+    th: "คุณได้เรียนรู้ว่าคิวบิตสามารถอยู่ในสถานะซ้อนทับ |ψ⟩ = α|0⟩ + β|1⟩ ได้พร้อมกัน ยิ่งมุม θ ใกล้ 90° ความน่าจะเป็นของ 0 และ 1 ยิ่งเท่ากัน (50:50) แต่การวัดแต่ละครั้งให้ผลสุ่ม — นี่คือพลังของควอนตัม",
+    en: "You learned that a qubit can exist in superposition |ψ⟩ = α|0⟩ + β|1⟩ simultaneously. The closer θ is to 90°, the more equal the probability of 0 and 1 (50:50). But each measurement gives a random result — this is the power of quantum."
+  },
+  3: {
+    th: "คุณได้เรียนรู้หลักความไม่แน่นอนของไฮเซนเบิร์ก: Δx · Δp ≥ ħ/2 ยิ่งรู้ตำแหน่งแม่นเท่าไร (Δx ต่ำ) ยิ่งไม่รู้โมเมนตัมเท่านั้น (Δp สูง) ธรรมชาติกำหนดขีดต่ำสุดนี้ไว้ หลบเลี่ยงไม่ได้",
+    en: "You learned Heisenberg's uncertainty principle: Δx · Δp ≥ ħ/2. The more precisely you know position (low Δx), the less you know momentum (high Δp). Nature sets this minimum floor — there's no way around it."
+  },
+  4: {
+    th: "คุณได้เรียนรู้ว่าอนุภาคมีความน่าจะเป็นที่จะ 'ทะลุ' ผ่านกำแพงพลังงานที่มันไม่น่าจะข้ามได้! โอกาสทะลุ T ≈ e^(-2κL) ลดลงแบบเอกซ์โพเนนเชียลตามความหนาของกำแพง การทะลุอุโมงค์เป็นพื้นฐานของเทคโนโลยีมากมาย",
+    en: "You learned that particles have a probability to 'tunnel through' energy barriers they classically shouldn't cross! Tunneling probability T ≈ e^(-2κL) decreases exponentially with barrier thickness. Quantum tunneling is the foundation of many technologies."
+  },
+  5: {
+    th: "คุณได้เรียนรู้ว่าอนุภาคพัวพันมีสถานะที่เชื่อมโยงกัน |Φ+⟩ = (|00⟩ + |11⟩)/√2 ไม่ว่าจะอยู่ห่างกันแค่ไหน การวัดอนุภาคหนึ่งกำหนดสถานะของอีกอันทันที ทฤษฎีบทเบลล์พิสูจน์ว่าควอนตัมไม่ใช่ทฤษฎีแบบ 'ตัวแปรซ่อน'",
+    en: "You learned that entangled particles share a linked state |Φ+⟩ = (|00⟩ + |11⟩)/√2, no matter how far apart. Measuring one instantly determines the other's state. Bell's theorem proves quantum mechanics is not a 'hidden variable' theory."
+  },
+  6: {
+    th: "คุณได้เรียนรู้ว่าการวัดเปลี่ยนความเป็นไปได้เป็นความจริง ก่อนเปิดกล่อง แมวอยู่ในสถานะซ้อนทับ 'เป็น+ตาย' พร้อมกัน |ψ⟩ = (|แมวเป็น⟩ + |แมวตาย⟩)/√2 การเปิดกล่องคือ 'การวัด' ที่ทำให้สถานะยุบลงเป็นคำตอบเดียว",
+    en: "You learned that measurement changes possibilities into reality. Before opening the box, the cat is in superposition 'alive + dead' |ψ⟩ = (|cat alive⟩ + |cat dead⟩)/√2. Opening the box is the 'measurement' that collapses the state into a single answer."
+  },
+  7: {
+    th: "คุณได้เรียนรู้ว่าอัลกอริทึมของ Grover ใช้ superposition และ interference เพื่อค้นหาข้อมูลใน O(√N) แทน O(N) ควอนตัมค้นหาฐานข้อมูล 4 รายการใน 1 คิวรี ขณะที่คลาสสิกใช้เฉลี่ย 2.5 ครั้ง — นี่คือ quadratic speedup",
+    en: "You learned that Grover's algorithm uses superposition and interference to search in O(√N) instead of O(N). Quantum searches a 4-item database in 1 query while classical needs 2.5 on average — this is quadratic speedup."
   }
 };
 
@@ -378,6 +452,7 @@ const LAB_I18N = {
   summary_continue:     { th: 'เล่นต่อ →', en: 'Continue Playing →' },
   summary_theory_title: { th: 'ทฤษฎีเบื้องหลัง', en: 'Behind the Theory' },
   summary_applications: { th: 'การประยุกต์ใช้จริง', en: 'Real-World Applications' },
+  summary_watch_video:  { th: '▶ ดูวีดีโออธิบาย', en: '▶ Watch Explainers' },
 };
 function LT(key, arg) {
   const e = LAB_I18N[key];
@@ -548,9 +623,11 @@ function injectPuzzleUI() {
 
 function puzzleSuccessHTML(s) {
   const learned = STATION_LEARNED[s.id]?.[lang] || '';
+  const theoryImage = STATION_THEORY_IMAGES?.[s.id] || '';
+
   return `
     <div class="puzzle-inner summary-screen">
-      <div class="summary-icon">✅</div>
+      <div class="summary-icon">🎉</div>
       <div class="summary-title">${LT('restored_t')}</div>
       <div class="summary-station">${s.name[lang]}</div>
 
@@ -561,6 +638,12 @@ function puzzleSuccessHTML(s) {
           <span>${LT('summary_learned')}</span>
         </div>
         <p>${learned}</p>
+      </div>
+      ` : ''}
+
+      ${theoryImage ? `
+      <div class="summary-visual">
+        <img src="${theoryImage}" alt="${s.name[lang]}" class="summary-theory-img">
       </div>
       ` : ''}
 
