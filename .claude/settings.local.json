@@ -20,7 +20,17 @@
       "Bash(python *)",
       "Bash(start index.html)",
       "Bash(node -c C:/Users/Admin/Downloads/quan2/lab.js)",
-      "Bash(node -c C:/Users/Admin/Downloads/quan2/app.js)"
+      "Bash(node -c C:/Users/Admin/Downloads/quan2/app.js)",
+      "Bash(node -c C:/Users/Admin/Downloads/quan2/circuit.js)",
+      "Bash(node -c C:/Users/Admin/Downloads/quan2/coop.js)",
+      "Bash(node -c C:/Users/Admin/Downloads/quan2/game.js)",
+      "Bash(git revert *)",
+      "Bash(git fetch *)",
+      "Bash(node -c lab.js)",
+      "Bash(node -c game.js)",
+      "Bash(node -c circuit.js)",
+      "Bash(node -c coop.js)",
+      "Bash(node -c spaceball.js)"
     ]
   }
 }
