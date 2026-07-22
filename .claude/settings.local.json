@@ -4,7 +4,21 @@
       "Bash(dir \"C:\\\\Users\\\\USER\\\\Desktop\\\\quan2\")",
       "Bash(git add *)",
       "Bash(git commit *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(unzip *)",
+      "Bash(mkdir -p ~/.claude/skills)",
+      "Bash(cp -r \"C:\\\\Users\\\\Admin\\\\Downloads\\\\mobile-microsite\\\\mobile-microsite\" ~/.claude/skills/mobile-microsite)",
+      "Bash(ls -la *)",
+      "Bash(ls -la \"*\")",
+      "Bash(tail *)",
+      "Bash(git status *)",
+      "Bash(git log *)",
+      "Bash(git diff *)",
+      "Bash(git show *)",
+      "Read(//c/Users/Admin/.agents/skills/find-skills/**)",
+      "Bash(npx skills *)",
+      "Bash(python *)",
+      "Bash(start index.html)"
     ]
   }
 }

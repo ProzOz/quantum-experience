@@ -540,11 +540,31 @@ html[lang="th"] .howto-title { font-family: var(--font-thai); letter-spacing: 0.
 
 .howto-step {
     display: flex;
-    align-items: flex-start;
-    gap: 12px;
+    flex-direction: column;
+    gap: 8px;
     background: rgba(255, 255, 255, 0.75);
     border-radius: var(--radius-md);
-    padding: 12px 14px;
+    padding: 14px 16px;
+}
+
+.howto-step-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.howto-step-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.howto-step-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+    padding-left: 40px;
 }
 
 .howto-num {

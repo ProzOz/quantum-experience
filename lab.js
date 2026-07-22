@@ -57,6 +57,354 @@ const STATIONS = [
   },
 ];
 
+/* ── Station theory content ────────────────────────────────── */
+const STATION_THEORY = {
+  1: {
+    en: `
+      <div class="theory-section">
+        <h3>🔬 What is Wave-Particle Duality?</h3>
+        <p>Light and matter can behave as <strong>waves</strong> or <strong>particles</strong>, depending on how we measure them. This is called <em>wave-particle duality</em> — one of the most mind-bending ideas in physics.</p>
+        <p style="margin-top: 16px;">When light passes through two slits, it creates an <strong>interference pattern</strong> — alternating bands of light and dark. This is a wave property. But if we detect which slit each photon passes through, the interference pattern disappears!</p>
+      </div>
+
+      <div class="theory-equation">
+        <code>λ = h / p</code>
+        <span>de Broglie wavelength — momentum determines wave nature</span>
+      </div>
+
+      <div class="theory-section">
+        <h3>📊 Why Does the Pattern Form?</h3>
+        <p>When both slits are open, each photon passes through <em>both slits simultaneously</em> (superposition). The two wave paths interfere with each other — peaks add to peaks, creating bright bands; peaks cancel with troughs, creating dark bands.</p>
+        <p style="margin-top: 16px;">This isn't multiple photons hitting the screen at once — even <strong>single photons</strong> create the full interference pattern over time!</p>
+      </div>
+
+      <div class="theory-section">
+        <h3>🔭 Real-World Applications</h3>
+        <p><strong>Electron microscopes</strong> use this principle to see atoms. Since electrons have a much shorter wavelength than light, they can reveal details millions of times smaller than visible light can show.</p>
+        <p style="margin-top: 12px;"><strong>Quantum computing</strong> harnesses duality — qubits use superposition to explore many possibilities simultaneously.</p>
+      </div>
+
+      <div class="theory-diagram">
+        <div>
+          <div style="font-size: 3rem; margin-bottom: 12px;">🌊⬛⬛🌊</div>
+          <div style="font-size: 1.2rem; color: #6B7280;">Two slits create wave interference</div>
+        </div>
+      </div>
+    `,
+    th: `
+      <div class="theory-section">
+        <h3>🔬 ความเป็นคู่ของคลื่น-อนุภาค คืออะไร?</h3>
+        <p>แสงและสสาร สามารถ_condut ได้ทั้งในรูปของ <strong>คลื่น</strong> หรือ <strong>อนุภาค</strong> ขึ้นอยู่กับวิธีที่เราวัด นี่คือหลักการที่เรียกว่า <em>ความเป็นคู่ของคลื่น-อนุภาค</em></p>
+        <p style="margin-top: 16px;">เมื่อแสงผ่านช่องแคบสองช่อง มันจะสร้าง<strong>รูปแบบการแทรกสอด</strong> — แถบสลับกันระหว่างสว่างและมืด ซึ่งเป็นคุณสมบัติของคลื่น แต่ถ้าเราตรวจจับว่าโฟตอนผ่านช่องไหน รูปแบบการแทรกสอดก็จะหายไป!</p>
+      </div>
+
+      <div class="theory-equation">
+        <code>λ = h / p</code>
+        <span>ความยาวคลื่นเดอบรอยล์ — โมเมนตัมกำหนดธรรมชาติคลื่น</span>
+      </div>
+
+      <div class="theory-section">
+        <h3>📊 ทำไมรูปแบบนี้ถึงเกิดขึ้น?</h3>
+        <p>เมื่อเปิดช่องแคบทั้งสอง โฟตอนแต่ละตัวจะผ่าน<em>ช่องแคบทั้งสองพร้อมกัน</em> (superposition) เส้นทางคลื่นทั้งสองรบกวนซึ่งกันและกัน — ยอดเพิ่มกับยอด สร้างแถบสว่าง; ยอดหักล้างกับท้อง สร้างแถบมืด</p>
+        <p style="margin-top: 16px;">นี่ไม่ใช่โฟตอนหลายตัวกระทบหน้าจอพร้อมกัน — แม้<strong>โฟตอนเดี่ยว</strong>ก็สร้างรูปแบบการแทรกสอดเต็มรูปแบบได้!</p>
+      </div>
+
+      <div class="theory-section">
+        <h3>🔭 การประยุกต์ใช้ในโลกจริง</h3>
+        <p><strong>กล้องจุลทรรศน์อิเล็กตรอน</strong>ใช้หลักการนี้เพื่อมองเห็นอะตอม เนื่องจากอิเล็กตรอนมีความยาวคลื่นสั้นกว่าแสงมาก จึงสามารถแสดงรายละเอียดที่เล็กกว่าที่แสงมองเห็นได้หลายล้านเท่า</p>
+      </div>
+
+      <div class="theory-diagram">
+        <div>
+          <div style="font-size: 3rem; margin-bottom: 12px;">🌊⬛⬛🌊</div>
+          <div style="font-size: 1.2rem; color: #6B7280;">ช่องแคบสองช่องสร้างการแทรกสอดคลื่น</div>
+        </div>
+      </div>
+    `,
+  },
+  2: {
+    en: `
+      <div class="theory-section">
+        <h3>🔮 What is Superposition?</h3>
+        <p>A <strong>qubit</strong> (quantum bit) is like a regular computer bit, but instead of being just 0 or 1, it can be in a <em>combination</em> of both states at once. This is called <strong>superposition</strong>.</p>
+        <p style="margin-top: 16px;">Think of it like a spinning coin. While spinning, it's neither heads nor tails — it's in a superposition of both! Only when it stops (measures) does it become definitively heads or tails.</p>
+      </div>
+
+      <div class="theory-equation">
+        <code>|ψ⟩ = α|0⟩ + β|1⟩</code>
+        <span>Qubit state: α and β are probability amplitudes</span>
+      </div>
+
+      <div class="theory-section">
+        <h3>📐 The Bloch Sphere</h3>
+        <p>We can visualize any qubit state as a point on a sphere called the <strong>Bloch sphere</strong>. The angle θ (theta) controls the probability of measuring 0 or 1:</p>
+        <p style="margin-top: 12px;"><strong>|0⟩</strong> is at the north pole (θ = 0°)<br>
+        <strong>|1⟩</strong> is at the south pole (θ = 180°)<br>
+        <strong>50:50 balance</strong> is on the equator (θ = 90°)</p>
+      </div>
+
+      <div class="theory-section">
+        <h3>💻 Why Qubits Matter</h3>
+        <p>Classical computers process one calculation at a time. Quantum computers with qubits in superposition can explore <strong>multiple possibilities simultaneously</strong> — which is why quantum computers can be exponentially faster for certain problems.</p>
+      </div>
+    `,
+    th: `
+      <div class="theory-section">
+        <h3>🔮 Superposition คืออะไร?</h3>
+        <p><strong>Qubit</strong> (ควอนตัมบิต) เปรียบเสมือนบิตคอมพิวเตอร์ทั่วไป แต่แทนที่จะเป็นแค่ 0 หรือ 1 มันสามารถอยู่ใน<em>การรวมกัน</em>ของทั้งสองสถานะพร้อมกัน นี่เรียกว่า <strong>superposition</strong></p>
+        <p style="margin-top: 16px;">ลองนึกภาพเหรียญกำลังหมุน ขณะหมุน มันไม่ใช่ก้อยหรือหัว — มันอยู่ใน superposition ของทั้งสอง! จนกว่ามันจะหยุด (วัด) มันจะเป็นหัวหรือก้อยอย่างใดอย่างหนึ่งอย่างแน่นอน</p>
+      </div>
+
+      <div class="theory-equation">
+        <code>|ψ⟩ = α|0⟩ + β|1⟩</code>
+        <span>สถานะควอนตัม: α และ β คือ probability amplitudes</span>
+      </div>
+
+      <div class="theory-section">
+        <h3>📐 ทรงกลมบลอค</h3>
+        <p>เราสามารถแสดงสถานะควอนตัมใดๆ เป็นจุดบนทรงกลมที่เรียกว่า <strong>ทรงกลมบลอค</strong> มุม θ (ทีตา) ควบคุมความน่าจะเป็นในการวัด 0 หรือ 1:</p>
+        <p style="margin-top: 12px;"><strong>|0⟩</strong> อยู่ที่ขั้วเหนือ (θ = 0°)<br>
+        <strong>|1⟩</strong> อยู่ที่ขั้วใต้ (θ = 180°)<br>
+        <strong>สมดุล 50:50</strong> อยู่ที่เส้นศูนย์สูตร (θ = 90°)</p>
+      </div>
+
+      <div class="theory-section">
+        <h3>💻 ทำไม Qubits จึงสำคัญ</h3>
+        <p>คอมพิวเตอร์คลาสสิกประมวลผลทีละการคำนวณ คอมพิวเตอร์ควอนตัมที่มี qubits อยู่ใน superposition สามารถสำรวจ<strong>ความเป็นไปได้หลายอย่างพร้อมกัน</strong> — นี่คือเหตุผลว่าทำไมคอมพิวเตอร์ควอนตัมจึงเร็วกว่าสำหรับปัญหาบางอย่าง</p>
+      </div>
+    `,
+  },
+  3: {
+    en: `
+      <div class="theory-section">
+        <h3>📊 Heisenberg's Uncertainty Principle</h3>
+        <p>You can't simultaneously know a particle's <strong>exact position</strong> and <strong>exact momentum</strong> with perfect precision. The more precisely you know one, the less precisely you can know the other.</p>
+        <p style="margin-top: 16px;">This isn't a limitation of our instruments — it's a fundamental property of nature!</p>
+      </div>
+
+      <div class="theory-equation">
+        <code>Δx · Δp ≥ ℏ/2</code>
+        <span>Position uncertainty × Momentum uncertainty ≥ minimum</span>
+      </div>
+
+      <div class="theory-section">
+        <h3>🔬 Quantum Squeezing Explained</h3>
+        <p><strong>Quantum squeezing</strong> is a technique where we deliberately make one measurement less uncertain at the expense of making the other more uncertain. It's like squishing a circle into an ellipse — same area, different shape.</p>
+        <p style="margin-top: 16px;">In LIGO (gravitational wave detectors), scientists squeeze light to measure spacetime vibrations with incredible precision!</p>
+      </div>
+
+      <div class="theory-section">
+        <h3>📸 Real-World Applications</h3>
+        <p><strong>Gravitational wave detection</strong>: LIGO uses squeezed light to measure ripples in spacetime smaller than 1/10,000th the diameter of a proton!</p>
+        <p style="margin-top: 12px;"><strong>Quantum optics</strong>: Squeezed states are used in quantum cryptography and quantum sensing.</p>
+      </div>
+    `,
+    th: `
+      <div class="theory-section">
+        <h3>📊 หลักความไม่แน่นอนของไฮเซนเบิร์ก</h3>
+        <p>คุณไม่สามารถรู้<strong>ตำแหน่งที่แน่นอน</strong>และ<strong>โมเมนตัมที่แน่นอน</strong>ของอนุภาคพร้อมกันได้อย่างแม่นยำ ยิ่งคุณรู้อันหนึ่งแม่นยำเท่าไหร่ คุณก็ยิ่งรู้อีกอันน้อยลงเท่านั้น</p>
+        <p style="margin-top: 16px;">นี่ไม่ใช่ข้อจำกัดของเครื่องมือวัดของเรา — มันเป็นคุณสมบัติพื้นฐานของธรรมชาติ!</p>
+      </div>
+
+      <div class="theory-equation">
+        <code>Δx · Δp ≥ ℏ/2</code>
+        <span>ความไม่แน่นอนของตำแหน่ง × ความไม่แน่นอนของโมเมนตัม ≥ ค่าต่ำสุด</span>
+      </div>
+
+      <div class="theory-section">
+        <h3>🔬 อธิบายการบีบควอนตัม</h3>
+        <p><strong>Quantum squeezing</strong> เป็นเทคนิคที่เราจงใจทำให้การวัดหนึ่งมีความไม่แน่นอนน้อยลง โดยแลกกับการทำให้อีกอันมีความไม่แน่นอนมากขึ้น มันเหมือนกับบีบวงกลมเป็นวงรี — พื้นที่เท่าเดิม รูปร่างต่างกัน</p>
+        <p style="margin-top: 16px;">ใน LIGO (ตัวตรวจจับคลื่นความโน้มถ่วง) นักวิทยาศาสตร์ใช้แสงบีบเพื่อวัดการสั่นไหวของปริภูมิ-เวลาด้วยความแม่นยำที่น่าทึ่ง!</p>
+      </div>
+    `,
+  },
+  4: {
+    en: `
+      <div class="theory-section">
+        <h3>�穿越 barriers? How Quantum Tunneling Works</h3>
+        <p>In classical physics, a ball can't roll over a wall taller than its energy allows. But in quantum mechanics, particles have a small probability of <strong>appearing on the other side</strong> of a barrier — even when they shouldn't have enough energy!</p>
+        <p style="margin-top: 16px;">This is called <strong>quantum tunneling</strong>, and it's as strange as it sounds.</p>
+      </div>
+
+      <div class="theory-equation">
+        <code>P ≈ e^(-2γW)</code>
+        <span>Tunneling probability decreases exponentially with barrier width</span>
+      </div>
+
+      <div class="theory-section">
+        <h3>☀️ Why the Sun Shines</h3>
+        <p>Without quantum tunneling, the Sun couldn't produce light! Hydrogen nuclei in the Sun's core need to overcome their mutual electrical repulsion to fuse into helium. They don't have enough classical energy — but quantum tunneling lets them "tunnel through" the barrier anyway.</p>
+      </div>
+
+      <div class="theory-section">
+        <h3>🔧 Real-World Applications</h3>
+        <p><strong>Flash memory</strong>: Uses tunneling to trap electrons in floating gate transistors.</p>
+        <p style="margin-top: 12px;"><strong>Scanning tunneling microscopes</strong>: Can image individual atoms by measuring electrons that tunnel through the vacuum between tip and surface!</p>
+      </div>
+    `,
+    th: `
+      <div class="theory-section">
+        <h3>�穿越 กำแพง? Quantum Tunneling ทำงานอย่างไร</h3>
+        <p>ในฟิสิกส์คลาสสิก ลูกบอลไม่สามารถกลิ้งข้ามกำแพงที่สูงกว่าพลังงานที่มี แต่ในกลศาสตร์ควอนตัม อนุภาคมีความน่าจะเป็นเล็กน้อยที่จะ<strong>ปรากฏอยู่อีกด้านของกำแพง</strong> — แม้ว่าพวกมันไม่ควรมีพลังงานเพียงพอ!</p>
+        <p style="margin-top: 16px;">นี่เรียกว่า <strong>quantum tunneling</strong> และมันแปลกพอๆ กับที่ฟังดู</p>
+      </div>
+
+      <div class="theory-equation">
+        <code>P ≈ e^(-2γW)</code>
+        <span>ความน่าจะเป็นของการ tunnel ลดลงแบบ exponential ตามความกว้างของกำแพง</span>
+      </div>
+
+      <div class="theory-section">
+        <h3>☀️ ทำไมดวงอาทิตย์จึงส่องสว่าง</h3>
+        <p>หากไม่มี quantum tunneling ดวงอาทิตย์ไม่สามารถผลิตแสงได้! นิวเคลียสไฮโดรเจนในแกนกลางดวงอาทิตย์ต้องเอาชนะแรงผลักทางไฟฟ้าของกันและกันเพื่อหลอมรวมเป็นฮีเลียม พวกมันไม่มีพลังงานคลาสสิกเพียงพอ — แต่ quantum tunneling ช่วยให้พวกมัน "ผ่าน" กำแพงได้</p>
+      </div>
+    `,
+  },
+  5: {
+    en: `
+      <div class="theory-section">
+        <h3>🔗 What is Quantum Entanglement?</h3>
+        <p>When two particles become <strong>entangled</strong>, measuring one instantly affects what you'll measure for the other — no matter how far apart they are!</p>
+        <p style="margin-top: 16px;">Einstein called this "spooky action at a distance" and didn't believe it. But experiments have proven: entanglement is real.</p>
+      </div>
+
+      <div class="theory-equation">
+        <code>|Ψ⟩ = (|00⟩ + |11⟩)/√2</code>
+        <span>Bell state: measuring one qubit determines the other</span>
+      </div>
+
+      <div class="theory-section">
+        <h3>🧪 Bell's Theorem</h3>
+        <p><strong>Bell's theorem</strong> proves that no "hidden variables" can explain entanglement. If classical physics were correct, there would be a limit to how correlated entangled particles could be. Quantum mechanics predicts correlations that <em>exceed</em> that limit.</p>
+        <p style="margin-top: 16px;">In this station, you tested Bell's inequality. If the correlation exceeded the classical limit (CHSH > 2), you proved entanglement!</p>
+      </div>
+
+      <div class="theory-section">
+        <h3>🔐 Real-World Applications</h3>
+        <p><strong>Quantum cryptography</strong>: Any eavesdropping disturbs the entangled particles, alerting the users.</p>
+        <p style="margin-top: 12px;"><strong>Quantum teleportation</strong>: Entanglement can transfer quantum states between locations (not faster-than-light communication, but still magic!).</p>
+      </div>
+    `,
+    th: `
+      <div class="theory-section">
+        <h3>🔗 Quantum Entanglement คืออะไร?</h3>
+        <p>เมื่ออนุภาคสองตัว<strong>พัวพันกัน</strong> การวัดอันหนึ่งจะส่งผลต่อสิ่งที่คุณจะวัดสำหรับอีกอันทันที — ไม่ว่าพวกมันจะอยู่ห่างกันแค่ไหน!</p>
+        <p style="margin-top: 16px;">ไอน์สไตน์เรียกสิ่งนี้ว่า "การกระทำที่น่าสะพรึงในระยะไกล" และไม่เชื่อ แต่การทดลองพิสูจน์แล้วว่า: entanglement มีอยู่จริง</p>
+      </div>
+
+      <div class="theory-equation">
+        <code>|Ψ⟩ = (|00⟩ + |11⟩)/√2</code>
+        <span>สถานะเบลล์: การวัด qubit หนึ่งกำหนดอีกอัน</span>
+      </div>
+
+      <div class="theory-section">
+        <h3>🧪 ทฤษฎีบทเบลล์</h3>
+        <p><strong>ทฤษฎีบทเบลล์</strong>พิสูจน์ว่าไม่มี "ตัวแปรซ่อนเร้น" สามารถอธิบาย entanglement ได้ หากฟิสิกส์คลาสสิกถูกต้อง จะมีขีดจำกัดว่าอนุภาคพัวพันจะสัมพันธ์กันได้มากแค่ไหน กลศาสตร์ควอนตัมทำนายความสัมพันธ์ที่<em>เกิน</em>ขีดจำกัดนั้น</p>
+        <p style="margin-top: 16px;">ในสถานีนี้ คุณทดสอบ Bell's inequality หากความสัมพันธ์เกินขีดจำกัดคลาสสิก (CHSH > 2) คุณพิสูจน์ entanglement แล้ว!</p>
+      </div>
+    `,
+  },
+  6: {
+    en: `
+      <div class="theory-section">
+        <h3>📦 The Quantum Measurement Problem</h3>
+        <p>Before measurement, a quantum system exists in <strong>superposition</strong> — multiple states at once. But the moment you measure it, the wavefunction "<strong>collapses</strong>" to a single definite outcome.</p>
+        <p style="margin-top: 16px;">Why does measurement cause collapse? This is one of quantum mechanics' deepest mysteries — and physicists still debate it!</p>
+      </div>
+
+      <div class="theory-equation">
+        <code>|ψ⟩ → |measured⟩</code>
+        <span>Measurement collapses superposition into a definite state</span>
+      </div>
+
+      <div class="theory-section">
+        <h3>⏱️ Timing Matters: Decoherence</h3>
+        <p>Quantum states are fragile. Interaction with the environment (air molecules, heat, radiation) gradually destroys superposition through a process called <strong>decoherence</strong>. This is why quantum computers need extreme isolation and cooling.</p>
+        <p style="margin-top: 16px;">In this station, the cat's quantum state degraded over time — that's decoherence in action!</p>
+      </div>
+
+      <div class="theory-section">
+        <h3>🔍 Schrödinger's Cat</h3>
+        <p>Schrödinger proposed a thought experiment: a cat in a sealed box is both alive and dead (superposition) until observed. While extreme, it highlights how quantum effects don't obviously apply to everyday objects.</p>
+      </div>
+    `,
+    th: `
+      <div class="theory-section">
+        <h3>📦 ปัญหาการวัดควอนตัม</h3>
+        <p>ก่อนการวัด ระบบควอนตัมอยู่ใน<strong>superposition</strong> — หลายสถานะพร้อมกัน แต่ในทันทีที่คุณวัด คลื่น"<strong>ยุบตัว</strong>"ลงเป็นผลลัพธ์เดียวที่แน่นอน</p>
+        <p style="margin-top: 16px;">ทำไมการวัดถึงทำให้เกิดการยุบตัว? นี่คือหนึ่งในความลึกลับที่สุดของกลศาสตร์ควอนตัม — และนักฟิสิกส์ยังคงถกเถียงกัน!</p>
+      </div>
+
+      <div class="theory-equation">
+        <code>|ψ⟩ → |measured⟩</code>
+        <span>การวัดทำให้ superposition ยุบลงเป็นสถานะที่แน่นอน</span>
+      </div>
+
+      <div class="theory-section">
+        <h3>⏱️ จังหวะเวลาสำคัญ: Decoherence</h3>
+        <p>สถานะควอนตัมเปราะบาง การมีปฏิสัมพันธ์กับสภาพแวดล้อม (โมเลกุลอากาศ ความร้อน รังสี) ทำลาย superposition ทีละน้อยผ่านกระบวนการที่เรียกว่า <strong>decoherence</strong></p>
+        <p style="margin-top: 16px;">ในสถานีนี้ สถานะควอนตัมของแมวเสื่อมลงตามเวลา — นั่นคือ decoherence ในการทำงาน!</p>
+      </div>
+    `,
+  },
+  7: {
+    en: `
+      <div class="theory-section">
+        <h3>🔌 What is Grover's Algorithm?</h3>
+        <p><strong>Grover's search algorithm</strong> is one of the most important quantum algorithms. It can find a target item in an unsorted database <strong>much faster</strong> than classical computers.</p>
+        <p style="margin-top: 16px;">Classically, finding one item among N requires checking N/2 items on average. Grover's algorithm finds it in only <strong>√N steps</strong>!</p>
+      </div>
+
+      <div class="theory-equation">
+        <code>Speedup: O(N) → O(√N)</code>
+        <span>Quadratic speedup for unstructured search</span>
+      </div>
+
+      <div class="theory-section">
+        <h3>⚡ How Grover's Works</h3>
+        <p>Grover's algorithm has four key steps:</p>
+        <p style="margin-top: 12px;"><strong>1. Initialize</strong>: Put all qubits in superposition (H gates)<br>
+        <strong>2. Oracle</strong>: "Mark" the target state by flipping its phase<br>
+        <strong>3. Diffusion</strong>: Amplify the probability of the marked state<br>
+        <strong>4. Repeat</strong>: Oracle + Diffusion √N times<br>
+        <strong>5. Measure</strong>: The target state now has high probability!</p>
+      </div>
+
+      <div class="theory-section">
+        <h3>🏆 Why This Matters</h3>
+        <p>For a database with 1 billion items, classical search needs ~500 million checks. Grover's needs only ~31,623 iterations — a <strong>quadratic speedup</strong>!</p>
+        <p style="margin-top: 16px;">This is why quantum computers could revolutionize cryptography, optimization, and machine learning.</p>
+      </div>
+    `,
+    th: `
+      <div class="theory-section">
+        <h3>🔌 Grover's Algorithm คืออะไร?</h3>
+        <p><strong>Grover's search algorithm</strong> เป็นหนึ่งในอัลกอริทึมควอนตัมที่สำคัญที่สุด มันสามารถค้นหารายการเป้าหมายในฐานข้อมูลที่ไม่เรียง<strong>เร็วกว่า</strong>คอมพิวเตอร์คลาสสิกมาก</p>
+        <p style="margin-top: 16px;">แบบคลาสสิก การค้นหาหนึ่งรายการจาก N ต้องตรวจสอบ N/2 รายการโดยเฉลี่ย Grover's ค้นหาได้ในเพียง<strong>√N ขั้นตอน</strong>!</p>
+      </div>
+
+      <div class="theory-equation">
+        <code>ความเร็ว: O(N) → O(√N)</code>
+        <span>การเร่งความเร็วแบบ quadratic สำหรับการค้นหาแบบไม่มีโครงสร้าง</span>
+      </div>
+
+      <div class="theory-section">
+        <h3>⚡ Grover's ทำงานอย่างไร</h3>
+        <p>อัลกอริทึม Grover's มีสี่ขั้นตอนหลัก:</p>
+        <p style="margin-top: 12px;"><strong>1. เริ่มต้น</strong>: ทำให้ qubits ทั้งหมดอยู่ใน superposition (H gates)<br>
+        <strong>2. Oracle</strong>: "ทำเครื่องหมาย" สถานะเป้าหมายโดยพลิกเฟสของมัน<br>
+        <strong>3. Diffusion</strong>: ขยายความน่าจะเป็นของสถานะที่ทำเครื่องหมาย<br>
+        <strong>4. วัดผล</strong>: สถานะเป้าหมายตอนนี้มีความน่าจะเป็นสูง!</p>
+      </div>
+
+      <div class="theory-section">
+        <h3>🏆 ทำไมสิ่งนี้จึงสำคัญ</h3>
+        <p>สำหรับฐานข้อมูลที่มี 1 พันล้านรายการ การค้นหาแบบคลาสสิกต้องตรวจสอบ ~500 ล้านครั้ง Grover's ต้องการเพียง ~31,623 ครั้ง — <strong>ความเร็วแบบ quadratic</strong>!</p>
+      </div>
+    `,
+  },
+};
+
 /* ── Puzzle state per station ─────────────────────────────── */
 // Extends the existing `progress` object with puzzle metadata
 const PUZZLE = {
@@ -101,8 +449,321 @@ const PUZZLE = {
   },
 };
 
+/* ── Station-specific learned content (for summary screen) ─── */
+const STATION_LEARNED = {
+  1: {
+    th: 'เมื่อยิงอนุภาคแสงทีละตัวผ่านช่องคู่ จุดตกของมันดูสุ่ม แต่พอรวมกันมากๆ จะเกิดลายแทรกสอด! นี่คือหลักฐานว่าแสงมีธรรมชาติเป็นคลื่นด้วย',
+    en: 'when you fire light particles one by one through double slits, each dot looks random, but together they form an interference pattern - proving light behaves as a wave'
+  },
+  2: {
+    th: 'คิวบิตสามารถอยู่ในสถานะซ้อนทับได้พร้อมกันหลายสถานะ จนกว่าจะถูกวัด การวัดทำให้มันยุบลงเป็นคำตอบเดียว แต่ก่อนวัด มันอยู่ทุกที่พร้อมกัน!',
+    en: 'a qubit can exist in multiple states simultaneously (superposition) until measured, at which point it collapses to a single answer - but before measurement, it\'s everywhere at once!'
+  },
+  3: {
+    th: 'ยิ่งรู้ตำแหน่งแม่นเท่าไร ก็ยิ่งไม่รู้ความเร็ว นี่คือหลักความไม่แน่นอนของไฮเซนเบิร์ก ที่ธรรมชาติกำหนดไว้ - ปรับไม่ได้!',
+    en: 'the more precisely you know a particle\'s position, the less you know about its momentum - Heisenberg\'s uncertainty principle set by nature, and you can\'t beat it!'
+  },
+  4: {
+    th: 'อนุภาคสามารถ "ทะลุ" กำแพงพลังงานที่มันไม่น่าจะข้ามได้! ยิ่งกำแพงบางและต่ำ ยิ่งทะลุง่าย แต่กำแพงสูงและหนาก็ยังมีโอกาสทะลุได้เล็กน้อย',
+    en: 'particles can "tunnel through" energy barriers they classically shouldn\'t be able to cross! The thinner and lower the barrier, the easier to tunnel - but even tall barriers have a small chance'
+  },
+  5: {
+    th: 'อนุภาคพัวพันสองตัวมีผลลัพธ์เชื่อมโยงกันทันที ไม่ว่าจะอยู่ห่างกันแค่ไหน นี่คือสิ่งที่ไอน์สไตน์เรียก "การกระทำระยะไกลที่น่ากลัว" ซึ่งไม่สามารถอธิบายด้วยฟิสิกส์คลาสสิกได้',
+    en: 'two entangled particles have instantly correlated results no matter how far apart they are - what Einstein called "spooky action at a distance" which classical physics cannot explain'
+  },
+  6: {
+    th: 'ก่อนเปิดกล่องดู แมวอยู่ในสถานะซ้อนทับ "เป็น+ตาย" พร้อมกัน! การเปิดกล่องคือการวัดที่ทำให้สถานะยุบลงเป็นคำตอบเดียว',
+    en: 'before opening the box, the cat is in superposition of "alive + dead" at the same time! Opening the box is the measurement that collapses the state to a single answer'
+  },
+  7: {
+    th: 'อัลกอริทึมของ Grover ค้นหาข้อมูลเร็วกว่าวิธีดั้งเดิม √N เท่า เพราะใช้ประโยชน์จากซ้อนทับและการแทรกสอด สำหรับฐานข้อมูล 4 รายการ ควอนตัมใช้แค่ 1 ครั้ง ขณะที่คลาสสิกใช้เฉลี่ย 2.5 ครั้ง!',
+    en: 'Grover\'s algorithm searches databases √N times faster than classical methods using superposition and interference - for a 4-item database, quantum uses just 1 query while classical needs 2.5 on average!'
+  }
+};
+
+/* ── Station-specific theory content ──────────────────────── */
+const STATION_THEORY = {
+  1: {
+    th: `
+      <div class="theory-section">
+        <h3><span>💡</span> ความเป็นคู่ของคลื่น-อนุภาค</h3>
+        <p>แสงและอนุภาคทุกชนิดมีธรรมชาติสองด้าน: เป็นได้ทั้งอนุภาค (จุด) และคลื่น (ลายแถบ) พร้อมกัน! นี่เรียกว่า Wave-Particle Duality ซึ่งเป็นหลักการพื้นฐานของกลศาสตร์ควอนตัม</p>
+      </div>
+      <div class="theory-equation">
+        <code>λ = h / p</code>
+        <span>ความยาวคลื่นเดอบรอยล์ = ค่าคงที่พลังค์ / โมเมนตัม</span>
+      </div>
+      <div class="theory-applications">
+        <h4><span>🌟</span> การประยุกต์ใช้จริง</h4>
+        <ul>
+          <li>กล้องจุลทรรศน์อิเล็กตรอน (TEM) - ทำงานด้วยคุณสมบัติคลื่นของอิเล็กตรอน</li>
+          <li>เทคโนโลยี LCD และ LED - ใช้หลักการแทรกสอดของแสง</li>
+          <li>Holography (โฮโลแกรม) - การบันทึกภาพสามมิติ</li>
+        </ul>
+      </div>
+    `,
+    en: `
+      <div class="theory-section">
+        <h3><span>💡</span> Wave-Particle Duality</h3>
+        <p>Light and all particles have a dual nature: they can behave as both particles (dots) and waves (interference patterns) simultaneously! This is called Wave-Particle Duality, a fundamental principle of quantum mechanics.</p>
+      </div>
+      <div class="theory-equation">
+        <code>λ = h / p</code>
+        <span>de Broglie wavelength = Planck's constant / momentum</span>
+      </div>
+      <div class="theory-applications">
+        <h4><span>🌟</span> Real-World Applications</h4>
+        <ul>
+          <li>Transmission Electron Microscope (TEM) - uses electron wave properties</li>
+          <li>LCD and LED technology - uses light interference principles</li>
+          <li>Holography - 3D image recording technology</li>
+        </ul>
+      </div>
+    `
+  },
+  2: {
+    th: `
+      <div class="theory-section">
+        <h3><span>💡</span> การซ้อนทับเชิงควอนตัม (Superposition)</h3>
+        <p>คิวบิต (qubit) สามารถอยู่ในสถานะ 0 และ 1 พร้อมกัน จนกว่าจะถูกวัด นี่คือหลักการ Superposition ที่ทำให้ควอนตัมคอมพิวเตอร์ทำงานได้เร็วกว่าคอมพิวเตอร์ปกติหลายเท่า</p>
+      </div>
+      <div class="theory-equation">
+        <code>|ψ⟩ = α|0⟩ + β|1⟩</code>
+        <span>สถานะคิวบิต = ความน่าจะเป็นของ 0 + ความน่าจะเป็นของ 1</span>
+      </div>
+      <div class="theory-applications">
+        <h4><span>🌟</span> การประยุกต์ใช้จริง</h4>
+        <ul>
+          <li>ควอนตัมคอมพิวเตอร์ - ประมวลผลหลายเส้นทางพร้อมกัน</li>
+          <li>Quantum cryptography - การเข้ารหัสที่ไม่สามารถแฮ็กได้</li>
+          <li>Quantum sensors - เซ็นเซอร์ที่แม่นยำสูงมาก</li>
+        </ul>
+      </div>
+    `,
+    en: `
+      <div class="theory-section">
+        <h3><span>💡</span> Quantum Superposition</h3>
+        <p>A qubit can exist in both 0 and 1 states simultaneously until measured. This is the Superposition principle that makes quantum computers exponentially faster than regular computers for certain problems.</p>
+      </div>
+      <div class="theory-equation">
+        <code>|ψ⟩ = α|0⟩ + β|1⟩</code>
+        <span>Qubit state = probability amplitude of 0 + probability amplitude of 1</span>
+      </div>
+      <div class="theory-applications">
+        <h4><span>🌟</span> Real-World Applications</h4>
+        <ul>
+          <li>Quantum computers - process multiple paths simultaneously</li>
+          <li>Quantum cryptography - unhackable encryption</li>
+          <li>Quantum sensors - ultra-precise measurement devices</li>
+        </ul>
+      </div>
+    `
+  },
+  3: {
+    th: `
+      <div class="theory-section">
+        <h3><span>💡</span> หลักความไม่แน่นอนของไฮเซนเบิร์ก</h3>
+        <p>เราไม่สามารถรู้ตำแหน่งและโมเมนตัมของอนุภาคได้พร้อมกันอย่างแม่นยำ ยิ่งรู้อันหนึ่งแม่นเท่าไร อีกอันยิ่งไม่แน่นอน ผลคูณของความไม่แน่นอนทั้งสองมีขีดต่ำสุดเท่ากับ ħ/2</p>
+      </div>
+      <div class="theory-equation">
+        <code>Δx · Δp ≥ ħ/2</code>
+        <span>ความไม่แน่นอนของตำแหน่ง × ความไม่แน่นอนของโมเมนตัม ≥ ค่าคงที่</span>
+      </div>
+      <div class="theory-applications">
+        <h4><span>🌟</span> การประยุกต์ใช้จริง</h4>
+        <ul>
+          <li>Electron microscopy - ใช้หลักความไม่แน่นอนในการออกแบบ</li>
+          <li>Quantum computing - จำกัดความแม่นยำของการวัด</li>
+          <li>Medical imaging - MRI ใช้หลัก nuclear magnetic resonance</li>
+        </ul>
+      </div>
+    `,
+    en: `
+      <div class="theory-section">
+        <h3><span>💡</span> Heisenberg's Uncertainty Principle</h3>
+        <p>We cannot know both position and momentum of a particle with perfect accuracy simultaneously. The more precisely you know one, the less you know the other. The product of uncertainties has a minimum value of ħ/2.</p>
+      </div>
+      <div class="theory-equation">
+        <code>Δx · Δp ≥ ħ/2</code>
+        <span>Position uncertainty × Momentum uncertainty ≥ minimum constant</span>
+      </div>
+      <div class="theory-applications">
+        <h4><span>🌟</span> Real-World Applications</h4>
+        <ul>
+          <li>Electron microscopy - uses uncertainty in design optimization</li>
+          <li>Quantum computing - sets limits on measurement precision</li>
+          <li>Medical imaging - MRI uses nuclear magnetic resonance</li>
+        </ul>
+      </div>
+    `
+  },
+  4: {
+    th: `
+      <div class="theory-section">
+        <h3><span>💡</span> การทะลุอุโมงค์ควอนตัม (Quantum Tunneling)</h3>
+        <p>อนุภาคมีความน่าจะเป็นที่จะ "ทะลุ" ผ่านกำแพงพลังงานที่มันไม่น่าจะข้ามได้ แม้ว่าฟิสิกส์คลาสสิกบอกว่าเป็นไปไม่ได้! ยิ่งกำแพงบางและต่ำ ยิ่งมีโอกาสทะลุสูง</p>
+      </div>
+      <div class="theory-equation">
+        <code>T ≈ e^(-2κL)</code>
+        <span>โอกาสทะลุ ≈ ลดลงแบบเอกซ์โพเนนเชียลตามความหนา</span>
+      </div>
+      <div class="theory-applications">
+        <h4><span>🌟</span> การประยุกต์ใช้จริง</h4>
+        <ul>
+          <li>Flash memory (USB/SSD) - ใช้หลัก tunneling ในการเขียนข้อมูล</li>
+          <li>Scanning Tunneling Microscope (STM) - ถ่ายภาพอะตอม</li>
+          <li>การสันดาปในดวงอาทิตย์ - ทำให้ดาวฤกษ์เรืองแสงได้</li>
+        </ul>
+      </div>
+    `,
+    en: `
+      <div class="theory-section">
+        <h3><span>💡</span> Quantum Tunneling</h3>
+        <p>Particles have a probability to "tunnel through" energy barriers they classically shouldn't be able to cross! Even though classical physics says it's impossible. The thinner and lower the barrier, the higher the tunneling probability.</p>
+      </div>
+      <div class="theory-equation">
+        <code>T ≈ e^(-2κL)</code>
+        <span>Tunneling probability ≈ decreases exponentially with barrier thickness</span>
+      </div>
+      <div class="theory-applications">
+        <h4><span>🌟</span> Real-World Applications</h4>
+        <ul>
+          <li>Flash memory (USB/SSD) - uses tunneling to write data</li>
+          <li>Scanning Tunneling Microscope (STM) - images individual atoms</li>
+          <li>Solar fusion - enables stars to shine</li>
+        </ul>
+      </div>
+    `
+  },
+  5: {
+    th: `
+      <div class="theory-section">
+        <h3><span>💡</span> การพัวพันเชิงควอนตัม (Quantum Entanglement)</h3>
+        <p>เมื่ออนุภาคสองตัวพัวพันกัน สถานะของมันเชื่อมโยงกันทันที ไม่ว่าจะอยู่ห่างกันแค่ไหน การวัดอนุภาคหนึ่งจะกำหนดสถานะของอีกอันทันที นี่คือทฤษฎีบทเบลล์ที่พิสูจน์ว่าควอนตัมไม่ใช่ทฤษฎีแบบ "ตัวแปรซ่อน"</p>
+      </div>
+      <div class="theory-equation">
+        <code>|Φ+⟩ = (|00⟩ + |11⟩) / √2</code>
+        <span>สถานะ Bell พัวพัน - ทั้งสองเป็น 0 หรือทั้งสองเป็น 1</span>
+      </div>
+      <div class="theory-applications">
+        <h4><span>🌟</span> การประยุกต์ใช้จริง</h4>
+        <ul>
+          <li>Quantum teleportation - ส่งสถานะควอนตัมโดยไม่ต้องขนส่งอนุภาค</li>
+          <li>Quantum cryptography (QKD) - การสื่อสารที่ไม่สามารถดักฟังได้</li>
+          <li>Quantum computing - เชื่อมต่อ qubits หลายตัวเข้าด้วยกัน</li>
+        </ul>
+      </div>
+    `,
+    en: `
+      <div class="theory-section">
+        <h3><span>💡</span> Quantum Entanglement</h3>
+        <p>When two particles are entangled, their states are instantly connected regardless of distance. Measuring one particle instantly determines the other's state. Bell's theorem proves quantum mechanics is not a "hidden variable" theory.</p>
+      </div>
+      <div class="theory-equation">
+        <code>|Φ+⟩ = (|00⟩ + |11⟩) / √2</code>
+        <span>Bell state - both are 0 or both are 1 when measured</span>
+      </div>
+      <div class="theory-applications">
+        <h4><span>🌟</span> Real-World Applications</h4>
+        <ul>
+          <li>Quantum teleportation - transfer quantum states without moving particles</li>
+          <li>Quantum cryptography (QKD) - unhackable communication</li>
+          <li>Quantum computing - connect multiple qubits together</li>
+        </ul>
+      </div>
+    `
+  },
+  6: {
+    th: `
+      <div class="theory-section">
+        <h3><span>💡</span> แมวของชเรอดิงเงอร์และปัญหาการวัด</h3>
+        <p>ในการทดลองสมมติ แมวในกล่องอยู่ในสถานะซ้อนทับ "เป็น+ตาย" จนกว่าจะมีคนเปิดดู การเปิดกล่องคือ "การวัด" ที่ทำให้สถานะยุบลง คำถามคือ: ขอบเขตของการซ้อนทับอยู่ตรงไหน? ที่อนุภาคเดียว หรือถึงแมวด้วย?</p>
+      </div>
+      <div class="theory-equation">
+        <code>|ψ⟩ = (|แมวเป็น⟩ + |แมวตาย⟩) / √2</code>
+        <span>สถานะซ้อนทับของแมว ก่อนการวัด</span>
+      </div>
+      <div class="theory-applications">
+        <h4><span>🌟</span> การประยุกต์ใช้จริง</h4>
+        <ul>
+          <li>Decoherence research - ศึกษาว่าควอนตัมกลายเป็นคลาสสิกได้อย่างไร</li>
+          <li>Quantum error correction - แก้ไขความผิดพลาดในควอนตัมคอมพิวเตอร์</li>
+          <li>ไมโครสโคป - ความไม่แน่นอนในการวัดขนาดเล็ก</li>
+        </ul>
+      </div>
+    `,
+    en: `
+      <div class="theory-section">
+        <h3><span>💡</span> Schrödinger's Cat & The Measurement Problem</h3>
+        <p>In the thought experiment, the cat is in superposition "alive + dead" until someone opens the box. Opening the box is the "measurement" that collapses the state. The question is: where is the boundary of superposition? At the particle, or up to the cat?</p>
+      </div>
+      <div class="theory-equation">
+        <code>|ψ⟩ = (|cat alive⟩ + |cat dead⟩) / √2</code>
+        <span>Superposition state of the cat before measurement</span>
+      </div>
+      <div class="theory-applications">
+        <h4><span>🌟</span> Real-World Applications</h4>
+        <ul>
+          <li>Decoherence research - how quantum becomes classical</li>
+          <li>Quantum error correction - fixing errors in quantum computers</li>
+          <li>Microscopy - uncertainty in small-scale measurements</li>
+        </ul>
+      </div>
+    `
+  },
+  7: {
+    th: `
+      <div class="theory-section">
+        <h3><span>💡</span> อัลกอริทึมของ Grover และ Quadratic Speedup</h3>
+        <p>Grover's algorithm ค้นหาข้อมูลใน O(√N) เท่า เทียบกับ O(N) ของการค้นหาแบบดั้งเดิม สำหรับฐานข้อมูล 4 รายการ ควอนตัมใช้แค่ 1 ครั้ง ขณะที่คลาสสิกใช้เฉลี่ย 2.5 ครั้ง นี่คือ "quadratic speedup" ที่ทำให้ควอนตัมทำงานเร็วขึ้นอย่างมาก</p>
+      </div>
+      <div class="theory-equation">
+        <code>T_quantum = O(√N) vs T_classical = O(N)</code>
+        <span>ควอนตัมเร็วกว่า √N เท่า สำหรับการค้นหา</span>
+      </div>
+      <div class="theory-applications">
+        <h4><span>🌟</span> การประยุกต์ใช้จริง</h4>
+        <ul>
+          <li>Database search - ค้นหาข้อมูลเร็วขึ้น √N เท่า</li>
+          <li>Optimization problems - หาคำตอบที่ดีที่สุดเร็วขึ้น</li>
+          <li>Cryptography - ถอดรหัสเร็วขึ้น (ทำให้ RSA ล้าสมัยได้)</li>
+        </ul>
+      </div>
+    `,
+    en: `
+      <div class="theory-section">
+        <h3><span>💡</span> Grover's Algorithm & Quadratic Speedup</h3>
+        <p>Grover's algorithm searches in O(√N) time vs O(N) for classical search. For a 4-item database, quantum uses just 1 query while classical needs 2.5 on average. This "quadratic speedup" makes quantum dramatically faster for search problems.</p>
+      </div>
+      <div class="theory-equation">
+        <code>T_quantum = O(√N) vs T_classical = O(N)</code>
+        <span>Quantum √N times faster for search problems</span>
+      </div>
+      <div class="theory-applications">
+        <h4><span>🌟</span> Real-World Applications</h4>
+        <ul>
+          <li>Database search - √N times faster searching</li>
+          <li>Optimization - find optimal solutions faster</li>
+          <li>Cryptography - breaks RSA encryption faster (makes it obsolete)</li>
+        </ul>
+      </div>
+    `
+  }
+};
+
 /* ── Lab-only bilingual strings ───────────────────────────── */
 const LAB_I18N = {
+  // Mission briefing (replaces "CRITICAL FAILURE")
+  mission_badge:     { th: 'ผู้พิทักษ์ควอนตัม', en: 'Quantum Guardian' },
+  mission_welcome:   { th: 'ยินดีต้อนรับ, Quantum Guardian', en: 'Welcome, Quantum Guardian' },
+  mission_crisis:    { th: 'แกนพลังงานควอนตัมกำลังถูกคุกคาม!', en: 'The Quantum Core is under threat!' },
+  mission_damage:    { th: 'สถานีทั้ง 7 แห่งได้รับความเสียหาย', en: 'All 7 stations have been damaged' },
+  mission_hope:      { th: 'คุณคือหวังเดียวที่จะกอบกู้มันคืนมา', en: 'You are the only hope to restore them' },
+  mission_progress:  { th: 'ความคืบหน้า', en: 'Progress' },
+  mission_stations:  { th: 'สถานี', en: 'stations' },
+  mission_start:     { th: 'เริ่มภารกิจแรกของคุณ →', en: 'Start your first mission →' },
+
+  // Alert banners (legacy, kept for compatibility)
   alert_ok:      { th: 'ระบบควอนตัม — ทุกสถานีทำงานปกติ', en: 'QUANTUM FACILITY — ALL STATIONS NOMINAL' },
   alert_bad:     { th: (n) => `ระบบควอนตัม — ขัดข้องรุนแรง — ${n} สถานีออฟไลน์`, en: (n) => `QUANTUM FACILITY — CRITICAL FAILURE — ${n} STATION${n === 1 ? '' : 'S'} OFFLINE` },
   title_ok:      { th: 'ออนไลน์เต็มระบบ', en: 'FULLY ONLINE' },
@@ -119,11 +780,18 @@ const LAB_I18N = {
   offline:       { th: 'ออฟไลน์', en: 'OFFLINE' },
   play_btn:      { th: 'เล่นเลย', en: 'PLAY' },
   replay_btn:    { th: 'ผ่านแล้ว · เล่นซ้ำ', en: 'DONE · Replay' },
-  restored_t:    { th: 'ซ่อมสถานีสำเร็จ!', en: 'STATION RESTORED' },
+  restored_t:    { th: 'ซ่อมสถานีสำเร็จ!', en: 'STATION RESTORED!' },
   restored_d:    { th: (n) => `${n} กลับมาออนไลน์แล้ว แกนควอนตัมแข็งแกร่งขึ้น`, en: (n) => `${n} is back online. The quantum core grows stronger.` },
   btn_review:    { th: 'ดูการทดลองต่อ →', en: 'Review simulation →' },
   btn_back_lab:  { th: 'กลับห้องแล็บ', en: 'Back to lab' },
   core_unlocked: { th: '⚛️ ปลดล็อกแกนควอนตัมแล้ว!', en: '⚛️ Quantum Core unlocked!' },
+
+  // Summary screen
+  summary_learned:      { th: 'สิ่งที่คุณได้เรียนรู้', en: 'What You Learned' },
+  summary_theory:       { th: '📚 เรียนรู้ทฤษฎี', en: '📚 Learn the Theory' },
+  summary_continue:     { th: 'เล่นต่อ →', en: 'Continue Playing →' },
+  summary_theory_title: { th: 'ทฤษฎีเบื้องหลัง', en: 'Behind the Theory' },
+  summary_applications: { th: 'การประยุกต์ใช้จริง', en: 'Real-World Applications' },
 };
 function LT(key, arg) {
   const e = LAB_I18N[key];
@@ -138,6 +806,7 @@ function buildLabHome() {
   if (!page) return;
 
   const doneCount = Object.values(PUZZLE).filter(p => p.solved).length;
+  const pct = Math.round(doneCount / 7 * 100);
 
   let stationCards = STATIONS.map(s => {
     const solved = PUZZLE[s.id].solved;
@@ -167,23 +836,37 @@ function buildLabHome() {
   const coreUnlocked = doneCount === 7;
   const coreClass = coreUnlocked ? 'quantum-core-panel unlocked' : 'quantum-core-panel';
   const coreCursor = coreUnlocked ? '' : 'style="cursor:not-allowed"';
-  const pct = Math.round(doneCount / 7 * 100);
+
+  // Mission briefing for incomplete labs, celebration for complete
+  const missionSection = doneCount === 7 ? `
+    <div class="mission-complete">
+      <div class="mission-badge mission-badge-success">🏆 ${LT('title_ok')}</div>
+      <h2 class="mission-complete-title">${LT('subtitle_ok')}</h2>
+    </div>
+  ` : `
+    <div class="mission-briefing">
+      <div class="mission-badge">🛡️ ${LT('mission_badge')}</div>
+      <h1 class="mission-title">${LT('mission_welcome')}</h1>
+      <p class="mission-narrative">
+        <strong>${LT('mission_crisis')}</strong><br>
+        ${LT('mission_damage')}<br>
+        ${LT('mission_hope')}
+      </p>
+      <div class="mission-progress-wrap">
+        <div class="mission-progress-label">
+          <span>${LT('mission_progress')}</span>
+          <span>${doneCount}/7 ${LT('mission_stations')}</span>
+        </div>
+        <div class="mission-progress-bar">
+          <div class="mission-progress-fill" style="width:${pct}%"></div>
+        </div>
+      </div>
+    </div>
+  `;
 
   page.innerHTML = `
   <div class="lab-home">
-    <div class="lab-alert">
-      <span class="lab-alert-dot"></span>
-      ${doneCount === 7 ? LT('alert_ok') : LT('alert_bad', 7 - doneCount)}
-    </div>
-
-    <h1 class="lab-title">
-      <div class="lab-title-line1">QUANTUM</div>
-      <div class="lab-title-line2">${doneCount === 7 ? LT('title_ok') : LT('title_bad')}</div>
-    </h1>
-
-    <p class="lab-subtitle">
-      ${doneCount === 7 ? LT('subtitle_ok') : LT('subtitle_bad')}
-    </p>
+    ${missionSection}
 
     <div class="station-grid">${stationCards}</div>
 
@@ -278,13 +961,34 @@ function injectPuzzleUI() {
 }
 
 function puzzleSuccessHTML(s) {
+  const learned = STATION_LEARNED[s.id]?.[lang] || '';
   return `
-    <div class="puzzle-inner">
-      <div class="puzzle-icon">✅</div>
-      <div class="puzzle-title">${LT('restored_t')}</div>
-      <div class="puzzle-desc">${LT('restored_d', s.name[lang])}</div>
-      <button class="puzzle-btn puzzle-btn-secondary" onclick="dismissPuzzle(${s.id})">${LT('btn_review')}</button>
-      <button class="puzzle-btn puzzle-btn-primary" onclick="goHome()">${LT('btn_back_lab')}</button>
+    <div class="puzzle-inner summary-screen">
+      <div class="summary-icon">✅</div>
+      <div class="summary-title">${LT('restored_t')}</div>
+      <div class="summary-station">${s.name[lang]}</div>
+
+      ${learned ? `
+      <div class="summary-learned">
+        <div class="summary-learned-title">
+          <span>📚</span>
+          <span>${LT('summary_learned')}</span>
+        </div>
+        <p>${learned}</p>
+      </div>
+      ` : ''}
+
+      <div class="summary-actions">
+        <button class="summary-btn-theory" onclick="showTheoryPanel(${s.id})">
+          ${LT('summary_theory')}
+        </button>
+        <button class="puzzle-btn-secondary" onclick="dismissPuzzle(${s.id})">
+          ${LT('summary_continue')}
+        </button>
+        <button class="puzzle-btn-primary" onclick="goHome()">
+          ${LT('btn_back_lab')}
+        </button>
+      </div>
     </div>`;
 }
 
@@ -341,6 +1045,46 @@ function markStationSolved(id) {
 function dismissPuzzle(id) {
   const overlay = document.getElementById('puzzleOverlay' + id);
   if (overlay) overlay.classList.add('hidden');
+}
+
+/* ── Theory Panel ───────────────────────────────────────────── */
+function showTheoryPanel(stationId) {
+  const s = STATIONS.find(x => x.id === stationId);
+  const theory = STATION_THEORY[stationId]?.[lang] || '';
+
+  // Close the puzzle overlay first
+  dismissPuzzle(stationId);
+
+  // Create theory panel
+  const panel = document.createElement('div');
+  panel.className = 'theory-panel';
+  panel.id = 'theoryPanel';
+  panel.innerHTML = `
+    <div class="theory-content">
+      <div class="theory-header">
+        <div class="theory-title">
+          <span>🔬</span>
+          <span>${s.name[lang]}</span>
+        </div>
+        <button class="theory-close" onclick="closeTheoryPanel()">×</button>
+      </div>
+      <div class="theory-body">
+        ${theory}
+      </div>
+    </div>`;
+
+  document.body.appendChild(panel);
+  document.body.style.overflow = 'hidden';
+  play('nav');
+}
+
+function closeTheoryPanel() {
+  const panel = document.getElementById('theoryPanel');
+  if (panel) {
+    panel.remove();
+    document.body.style.overflow = '';
+  }
+  play('nav');
 }
 
 let coreUnlockToasted = false;
