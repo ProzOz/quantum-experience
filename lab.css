@@ -343,7 +343,7 @@ main {
     inset: 0;
     background-size: cover;
     background-position: center;
-    opacity: 0.12;
+    opacity: 0.35;
     transition: opacity 0.4s ease, transform 0.4s ease;
     z-index: 0;
 }
@@ -415,7 +415,7 @@ main {
 }
 
 .station-card:hover::before {
-    opacity: 0.18;
+    opacity: 0.5;
     transform: scale(1.05);
 }
 

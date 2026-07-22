@@ -144,6 +144,7 @@ function buildLabHome() {
     const onclick = s.id === 7 ? 'openCircuitPuzzle()' : `openTopic(${s.id})`;
     return `
     <button class="station-card${solved ? ' online' : ''}"
+      data-station="${s.id}"
       onclick="${onclick}"
       onmousemove="stationGlow(event,this)"
       onpointerenter="play('hover')"
