@@ -1,22 +1,29 @@
 /* ============================================================
-   Qubit Runner — Styles
+   Qubit Runner — Artistic Indie Theme
+   Dark cinematic mode with warm accents
    ============================================================ */
 
+/* ── Page wrapper ── */
 #gameSection {
   padding: 0 clamp(16px, 3vw, 32px) 28px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
+/* ── Page header ── */
 .game-page-header {
   text-align: center;
   margin-bottom: 28px;
+  padding: 32px 20px;
+  background: var(--bg-deep);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
 }
 
 .game-page-header-number {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.8rem;
-  color: var(--cyan);
+  font-size: 0.78rem;
+  color: var(--gold);
   letter-spacing: 3px;
   margin-bottom: 12px;
 }
@@ -25,12 +32,13 @@
   font-family: 'Orbitron', sans-serif;
   font-size: clamp(1.8rem, 4.5vw, 2.8rem);
   font-weight: 700;
-  background: linear-gradient(125deg, var(--blue), var(--violet));
+  background: linear-gradient(125deg, var(--coral), var(--gold));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 16px;
   line-height: 1.15;
+  filter: drop-shadow(0 2px 20px rgba(232, 121, 121, 0.2));
 }
 
 .game-page-header-desc {
@@ -41,15 +49,15 @@
   line-height: 1.8;
 }
 
-/* Game viewport — deliberately dark "arcade screen" on the light page.
-   Everything inside the overlays uses fixed light colors, not theme vars. */
+/* Game viewport — deliberately dark "arcade screen" (unchanged)
+   Everything inside uses fixed light colors, not theme vars. */
 .game-viewport {
   background: var(--bg-deep);
-  border: 1px solid var(--line);
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   position: relative;
   overflow: hidden;
-  box-shadow: 0 10px 40px rgba(15, 16, 36, 0.25), inset 0 0 40px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 0 60px rgba(0, 0, 0, 0.6);
 }
 
 #gameWrap {
@@ -66,7 +74,7 @@
   cursor: pointer;
 }
 
-/* Overlay panels (HTML, not canvas) */
+/* ── Overlay panels (HTML, not canvas) ── */
 #gameMenu,
 #gameOver {
   position: absolute;
@@ -75,9 +83,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(6, 6, 16, 0.92);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(11, 13, 20, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   z-index: 10;
   text-align: center;
   gap: 8px;
@@ -91,22 +99,23 @@
   display: none;
 }
 
+/* Game title */
 .game-title {
   font-family: 'Orbitron', sans-serif;
   font-size: clamp(2rem, 5vw, 3.2rem);
   font-weight: 800;
-  background: linear-gradient(125deg, #22e0ff 0%, #ffffff 40%, #b09aff 100%);
+  background: linear-gradient(125deg, var(--coral) 0%, #fff 40%, var(--gold) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: 3px;
-  filter: drop-shadow(0 0 20px rgba(34, 224, 255, 0.3));
+  filter: drop-shadow(0 0 20px rgba(232, 121, 121, 0.3));
   margin-bottom: 8px;
 }
 
 .game-subtitle {
   font-size: 1rem;
-  color: #c8d0ee;
+  color: var(--text-secondary);
   margin-bottom: 20px;
   font-style: italic;
 }
@@ -114,15 +123,16 @@
 .game-tagline {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.78rem;
-  color: #8e9ac0;
+  color: var(--purple);
   margin-bottom: 8px;
   letter-spacing: 0.5px;
 }
 
+/* Start button */
 .game-start-btn {
   margin-top: 16px;
   padding: 14px 40px;
-  background: linear-gradient(135deg, #22d3ee, #3b82f6);
+  background: linear-gradient(135deg, var(--coral), var(--gold));
   color: #fff;
   font-family: 'Orbitron', sans-serif;
   font-size: 0.95rem;
@@ -131,37 +141,38 @@
   border: none;
   border-radius: 999px;
   cursor: pointer;
-  box-shadow: 0 6px 28px rgba(34, 224, 255, 0.4);
+  box-shadow: 0 6px 28px rgba(232, 121, 121, 0.35);
   transition: transform 0.15s ease, box-shadow 0.2s ease;
-  animation: pulse-btn 2.5s ease-in-out infinite;
+  animation: pulse-btn-warm 2.5s ease-in-out infinite;
 }
 
 .game-start-btn:hover {
   transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 10px 40px rgba(34, 224, 255, 0.55);
+  box-shadow: 0 10px 40px rgba(232, 121, 121, 0.5);
 }
 
-@keyframes pulse-btn {
-  0%, 100% { box-shadow: 0 6px 28px rgba(34, 224, 255, 0.4); }
-  50% { box-shadow: 0 6px 40px rgba(34, 224, 255, 0.7), 0 0 60px rgba(34, 224, 255, 0.2); }
+@keyframes pulse-btn-warm {
+  0%, 100% { box-shadow: 0 6px 28px rgba(232, 121, 121, 0.35); }
+  50% { box-shadow: 0 6px 40px rgba(232, 121, 121, 0.6), 0 0 60px rgba(212, 165, 116, 0.2); }
 }
 
 .game-highscore {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.8rem;
-  color: #b09aff;
+  color: var(--purple);
   margin-top: 14px;
   opacity: 0.8;
 }
 
+/* How to play section */
 .game-how {
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-top: 28px;
   padding: 20px 28px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(170, 190, 255, 0.16);
+  background: rgba(139, 107, 174, 0.08);
+  border: 1px solid rgba(139, 107, 174, 0.2);
   border-radius: var(--radius-md);
   max-width: 340px;
 }
@@ -170,7 +181,7 @@
   font-family: 'Orbitron', sans-serif;
   font-size: 0.7rem;
   letter-spacing: 3px;
-  color: #22e0ff;
+  color: var(--gold);
   margin-bottom: 4px;
 }
 
@@ -179,7 +190,7 @@
   align-items: center;
   gap: 12px;
   font-size: 0.88rem;
-  color: #c8d0ee;
+  color: var(--text);
   text-align: left;
 }
 
@@ -188,31 +199,31 @@
   height: 32px;
   display: grid;
   place-items: center;
-  background: rgba(34, 224, 255, 0.1);
-  border: 1px solid rgba(34, 224, 255, 0.2);
+  background: rgba(212, 165, 116, 0.15);
+  border: 1px solid rgba(212, 165, 116, 0.25);
   border-radius: 8px;
   font-size: 0.85rem;
   flex-shrink: 0;
 }
 
 .game-how-text strong {
-  color: #f0f4ff;
+  color: var(--text);
   font-weight: 600;
 }
 
-/* Game over panel */
+/* ── Game over panel ── */
 .go-title {
   font-family: 'Orbitron', sans-serif;
   font-size: clamp(1.6rem, 4vw, 2.4rem);
   font-weight: 800;
-  color: #ff6b7d;
+  color: var(--coral);
   letter-spacing: 2px;
-  text-shadow: 0 0 30px rgba(255, 107, 125, 0.4);
+  text-shadow: 0 0 30px rgba(232, 121, 121, 0.4);
 }
 
 .go-sub {
   font-size: 0.9rem;
-  color: #c8d0ee;
+  color: var(--text-secondary);
   margin-bottom: 16px;
 }
 
@@ -220,15 +231,15 @@
   font-family: 'Orbitron', sans-serif;
   font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: 800;
-  color: #22e0ff;
-  text-shadow: 0 0 30px rgba(34, 224, 255, 0.5);
+  color: var(--gold);
+  text-shadow: 0 0 30px rgba(212, 165, 116, 0.5);
   line-height: 1;
 }
 
 .go-best {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.82rem;
-  color: #b09aff;
+  color: var(--purple);
   margin-top: 6px;
   opacity: 0.8;
 }
@@ -251,27 +262,27 @@
   margin-top: 20px;
   padding: 12px 32px;
   background: rgba(255, 255, 255, 0.05);
-  color: #f0f4ff;
+  color: var(--text);
   font-family: 'Inter', sans-serif;
   font-size: 0.9rem;
   font-weight: 600;
-  border: 1px solid rgba(170, 190, 255, 0.3);
+  border: 1px solid rgba(232, 121, 121, 0.3);
   border-radius: 999px;
   cursor: pointer;
   transition: all 0.2s ease;
-  animation: pulse-btn 2.5s ease-in-out infinite;
+  animation: pulse-btn-warm 2.5s ease-in-out infinite;
 }
 
 .go-retry:hover {
-  border-color: #22e0ff;
-  background: rgba(34, 224, 255, 0.08);
+  border-color: var(--coral);
+  background: rgba(232, 121, 121, 0.1);
   transform: translateY(-1px);
 }
 
-/* Quantum arcade card on home page */
+/* ── Quantum arcade card on home page ── */
 .arcade-card {
-  background: linear-gradient(135deg, rgba(34, 224, 255, 0.08), rgba(155, 123, 255, 0.08));
-  border: 1px solid rgba(34, 224, 255, 0.25);
+  background: linear-gradient(135deg, rgba(232, 121, 121, 0.08), rgba(212, 165, 116, 0.08));
+  border: 1px solid rgba(232, 121, 121, 0.25);
   border-radius: var(--radius-lg);
   padding: 32px 36px;
   display: flex;
@@ -282,6 +293,8 @@
   position: relative;
   overflow: hidden;
   margin-bottom: 28px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .arcade-card::before {
@@ -289,7 +302,7 @@
   position: absolute;
   inset: 0;
   background: radial-gradient(500px 300px at var(--mx, 50%) var(--my, 50%),
-    rgba(34, 224, 255, 0.12), transparent 70%);
+    rgba(232, 121, 121, 0.15), transparent 70%);
   opacity: 0;
   transition: opacity 0.3s;
   pointer-events: none;
@@ -297,8 +310,8 @@
 
 .arcade-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(34, 224, 255, 0.5);
-  box-shadow: 0 14px 56px rgba(34, 224, 255, 0.18);
+  border-color: rgba(232, 121, 121, 0.5);
+  box-shadow: 0 14px 56px rgba(232, 121, 121, 0.18), 0 0 40px rgba(212, 165, 116, 0.1);
 }
 
 .arcade-card:hover::before { opacity: 1; }
@@ -307,13 +320,13 @@
   width: 80px;
   height: 80px;
   border-radius: 20px;
-  background: linear-gradient(135deg, rgba(34, 224, 255, 0.2), rgba(155, 123, 255, 0.2));
-  border: 1px solid rgba(34, 224, 255, 0.3);
+  background: linear-gradient(135deg, rgba(232, 121, 121, 0.2), rgba(212, 165, 116, 0.2));
+  border: 1px solid rgba(232, 121, 121, 0.3);
   display: grid;
   place-items: center;
   font-size: 2.2rem;
   flex-shrink: 0;
-  box-shadow: 0 0 30px rgba(34, 224, 255, 0.15);
+  box-shadow: 0 0 30px rgba(232, 121, 121, 0.15);
 }
 
 .arcade-card-content {
@@ -324,7 +337,7 @@
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.7rem;
   letter-spacing: 3px;
-  color: var(--cyan);
+  color: var(--gold);
   margin-bottom: 8px;
   text-transform: uppercase;
 }
@@ -333,9 +346,9 @@
   font-family: 'Orbitron', sans-serif;
   font-size: 1.4rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--text);
   margin-bottom: 8px;
-  background: linear-gradient(125deg, var(--cyan-soft), #fff);
+  background: linear-gradient(125deg, var(--coral), var(--text));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -351,11 +364,11 @@
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--cyan), var(--blue));
+  background: linear-gradient(135deg, var(--coral), var(--gold));
   display: grid;
   place-items: center;
   flex-shrink: 0;
-  box-shadow: 0 4px 20px rgba(34, 224, 255, 0.4);
+  box-shadow: 0 4px 20px rgba(232, 121, 121, 0.4);
   transition: transform 0.2s ease;
 }
 
@@ -380,27 +393,35 @@
   letter-spacing: 2px;
   padding: 5px 12px;
   border-radius: 999px;
-  background: linear-gradient(135deg, rgba(52, 224, 138, 0.2), rgba(34, 224, 255, 0.2));
+  background: rgba(52, 224, 138, 0.15);
   border: 1px solid rgba(52, 224, 138, 0.4);
-  color: var(--success);
+  color: #34e08a;
 }
 
+/* ── Responsive ── */
 @media (max-width: 600px) {
   .arcade-card {
     flex-direction: column;
     text-align: center;
     padding: 24px;
   }
+
   .arcade-card-play {
     width: 44px;
     height: 44px;
   }
+
   .arcade-card-play svg {
     width: 18px;
     height: 18px;
   }
+
   /* Better mobile game header readability */
-  .game-page-header { padding: 24px 16px 32px; }
+  .game-page-header {
+    padding: 24px 16px 32px;
+    margin-bottom: 20px;
+  }
+
   .game-page-header-number { font-size: 0.75rem; letter-spacing: 3px; }
   .game-page-header-title { font-size: clamp(1.6rem, 6vw, 2.2rem); }
   .game-page-header-desc {
@@ -408,6 +429,7 @@
     line-height: 1.65;
     padding: 0 8px;
   }
+
   /* Better game menu readability */
   .game-title { font-size: clamp(1.8rem, 6vw, 2.5rem); }
   .game-subtitle { font-size: 1rem; }

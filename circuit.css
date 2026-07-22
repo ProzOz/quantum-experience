@@ -1,6 +1,22 @@
 /* ============================================================
    Station 7 — Quantum Circuit Builder Styles
+   Artistic Indie Theme: Dark cinematic with warm accents
    ============================================================ */
+
+/* ── CSS Variables (for this page) ── */
+:root {
+  --circuit-bg-deep: #0B0D14;
+  --circuit-bg-card: #1A1B24;
+  --circuit-coral: #E87979;
+  --circuit-gold: #D4A574;
+  --circuit-purple: #8B6BAE;
+  --circuit-text: #E6E2DC;
+  --circuit-text-secondary: #A8A5A0;
+  --circuit-border: #2A2B34;
+  --circuit-radius-lg: 20px;
+  --circuit-radius-md: 14px;
+  --circuit-radius-sm: 8px;
+}
 
 /* ── Circuit Page Layout ── */
 #circuitPage {
@@ -15,14 +31,17 @@
 .circuit-header {
   text-align: center;
   margin-bottom: 32px;
-  padding-top: 8px;
+  padding: 32px 20px;
+  background: var(--circuit-bg-deep);
+  border-radius: var(--circuit-radius-lg);
+  border: 1px solid var(--circuit-border);
 }
 
 .circuit-header-number {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.78rem;
   letter-spacing: 3px;
-  color: var(--cyan);
+  color: var(--circuit-gold);
   margin-bottom: 10px;
 }
 
@@ -30,12 +49,16 @@
   font-family: 'Orbitron', sans-serif;
   font-size: clamp(1.5rem, 3.5vw, 2.2rem);
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--circuit-text);
   margin-bottom: 12px;
+  background: linear-gradient(125deg, var(--circuit-coral), var(--circuit-gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .circuit-header-desc {
-  color: var(--text-secondary);
+  color: var(--circuit-text-secondary);
   max-width: 600px;
   margin: 0 auto 16px;
   line-height: 1.8;
@@ -47,16 +70,16 @@
   align-items: center;
   gap: 10px;
   padding: 10px 20px;
-  background: #fef3c7;
-  border: 1px solid #fcd34d;
+  background: rgba(212, 165, 116, 0.15);
+  border: 1px solid rgba(212, 165, 116, 0.35);
   border-radius: 999px;
   font-size: 0.9rem;
-  color: #92400e;
+  color: var(--circuit-gold);
 }
 
 .circuit-objective strong {
   font-family: 'JetBrains Mono', monospace;
-  color: #78350f;
+  color: var(--circuit-coral);
 }
 
 /* ── Main circuit builder layout ── */
@@ -69,24 +92,26 @@
 
 /* ── Gate Palette ── */
 .circuit-palette {
-  background: var(--bg-card);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
+  background: var(--circuit-bg-card);
+  border: 1px solid var(--circuit-border);
+  border-radius: var(--circuit-radius-lg);
   padding: 16px 12px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .palette-title {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.65rem;
   letter-spacing: 2px;
-  color: var(--text-dim);
+  color: var(--circuit-text-secondary);
   text-align: center;
   margin-bottom: 4px;
   padding-bottom: 8px;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--circuit-border);
 }
 
 .gate-item {
@@ -104,8 +129,8 @@
 }
 
 .gate-item:hover {
-  background: #f3f4f6;
-  border-color: var(--line);
+  background: rgba(232, 121, 121, 0.08);
+  border-color: rgba(232, 121, 121, 0.2);
 }
 
 .gate-item:active {
@@ -116,68 +141,69 @@
 .gate-pill {
   width: 52px;
   height: 36px;
-  border-radius: 8px;
+  border-radius: var(--circuit-radius-sm);
   display: grid;
   place-items: center;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.82rem;
   font-weight: 600;
   letter-spacing: 0.5px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.10);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   transition: box-shadow 0.2s, transform 0.15s;
 }
 
 .gate-item:hover .gate-pill {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
+/* Gate pill colors — dark backgrounds with warm borders */
 .gate-pill.hadamard {
-  background: #ecfeff;
-  border: 1px solid #67e8f9;
-  color: #0e7490;
+  background: rgba(103, 232, 249, 0.1);
+  border: 1px solid rgba(103, 232, 249, 0.4);
+  color: #67e8f9;
 }
 
 .gate-pill.pauli {
-  background: #fef2f2;
-  border: 1px solid #fca5a5;
-  color: #dc2626;
+  background: rgba(232, 121, 121, 0.15);
+  border: 1px solid rgba(232, 121, 121, 0.4);
+  color: var(--circuit-coral);
 }
 
 .gate-pill.cnot {
-  background: #f5f3ff;
-  border: 1px solid #c4b5fd;
-  color: #7c3aed;
+  background: rgba(139, 107, 174, 0.15);
+  border: 1px solid rgba(139, 107, 174, 0.4);
+  color: var(--circuit-purple);
 }
 
 .gate-pill.oracle {
-  background: #fffbeb;
-  border: 1px solid #fcd34d;
-  color: #b45309;
+  background: rgba(212, 165, 116, 0.15);
+  border: 1px solid rgba(212, 165, 116, 0.4);
+  color: var(--circuit-gold);
 }
 
 .gate-pill.diffusion {
-  background: #ecfdf5;
-  border: 1px solid #6ee7b7;
-  color: #059669;
+  background: rgba(52, 224, 138, 0.1);
+  border: 1px solid rgba(52, 224, 138, 0.35);
+  color: #34e08a;
 }
 
 .gate-pill.measure {
-  background: #f8fafc;
-  border: 1px solid #cbd5e1;
-  color: #475569;
+  background: rgba(230, 226, 220, 0.08);
+  border: 1px solid rgba(230, 226, 220, 0.2);
+  color: var(--circuit-text);
 }
 
 .gate-name {
   font-size: 0.68rem;
-  color: var(--text-dim);
+  color: var(--circuit-text-secondary);
   text-align: center;
   line-height: 1.2;
 }
 
 .palette-divider {
   height: 1px;
-  background: var(--line);
+  background: var(--circuit-border);
   margin: 4px 0;
 }
 
@@ -187,17 +213,19 @@
   flex-direction: column;
   gap: 8px;
   padding-top: 8px;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--circuit-border);
 }
 
 /* ── Circuit Canvas ── */
 .circuit-canvas-wrap {
-  background: var(--bg-card);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
+  background: var(--circuit-bg-card);
+  border: 1px solid var(--circuit-border);
+  border-radius: var(--circuit-radius-lg);
   padding: 20px 24px;
   position: relative;
   overflow: hidden;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .circuit-canvas-wrap::before {
@@ -205,7 +233,7 @@
   position: absolute;
   inset: 0;
   background: radial-gradient(300px 200px at 50% 50%,
-    rgba(34, 224, 255, 0.04), transparent 70%);
+    rgba(232, 121, 121, 0.06), transparent 70%);
   pointer-events: none;
 }
 
@@ -213,7 +241,7 @@
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.65rem;
   letter-spacing: 2px;
-  color: var(--text-dim);
+  color: var(--circuit-text-secondary);
   margin-bottom: 14px;
 }
 
@@ -233,7 +261,7 @@
 .wire-label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.78rem;
-  color: var(--text-dim);
+  color: var(--circuit-text-secondary);
   width: 32px;
   flex-shrink: 0;
   text-align: right;
@@ -243,8 +271,8 @@
 .wire-track {
   flex: 1;
   height: 44px;
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
+  background: rgba(42, 43, 52, 0.5);
+  border: 1px solid var(--circuit-border);
   border-radius: 10px;
   position: relative;
   display: flex;
@@ -257,8 +285,8 @@
 }
 
 .wire-track.drag-over {
-  border-color: #06b6d4;
-  background: #ecfeff;
+  border-color: var(--circuit-coral);
+  background: rgba(232, 121, 121, 0.08);
 }
 
 .wire-line {
@@ -267,7 +295,7 @@
   left: 42px;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, rgba(34, 224, 255, 0.2), rgba(155, 123, 255, 0.1));
+  background: linear-gradient(90deg, rgba(232, 121, 121, 0.25), rgba(212, 165, 116, 0.15));
   transform: translateY(-50%);
   pointer-events: none;
   z-index: 0;
@@ -278,7 +306,7 @@
 .circuit-gate {
   width: 44px;
   height: 36px;
-  border-radius: 8px;
+  border-radius: var(--circuit-radius-sm);
   display: grid;
   place-items: center;
   font-family: 'JetBrains Mono', monospace;
@@ -307,7 +335,7 @@
   right: -6px;
   width: 16px;
   height: 16px;
-  background: #ff6b7d;
+  background: var(--circuit-coral);
   border-radius: 50%;
   display: none;
   place-items: center;
@@ -316,7 +344,7 @@
   line-height: 1;
   cursor: pointer;
   z-index: 2;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.5);
 }
 
 .circuit-gate:hover .gate-remove {
@@ -325,18 +353,20 @@
 
 /* ── Probability Output ── */
 .circuit-output {
-  background: var(--bg-card);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
+  background: var(--circuit-bg-card);
+  border: 1px solid var(--circuit-border);
+  border-radius: var(--circuit-radius-lg);
   padding: 20px 24px;
   margin-bottom: 20px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .circuit-output-label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.65rem;
   letter-spacing: 2px;
-  color: var(--text-dim);
+  color: var(--circuit-text-secondary);
   margin-bottom: 16px;
 }
 
@@ -356,13 +386,13 @@
 .prob-state-label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.8rem;
-  color: var(--text-secondary);
+  color: var(--circuit-text-secondary);
   text-align: right;
 }
 
 .prob-track {
   height: 22px;
-  background: #f0f2f5;
+  background: rgba(42, 43, 52, 0.6);
   border-radius: 6px;
   overflow: hidden;
   position: relative;
@@ -381,26 +411,26 @@
 }
 
 .prob-bar.target-state {
-  background: linear-gradient(90deg, #10b981, #34d399);
+  background: linear-gradient(90deg, var(--circuit-coral), var(--circuit-gold));
 }
 
 .prob-bar.nontarget-high {
-  background: linear-gradient(90deg, #f87171, #fca5a5);
+  background: linear-gradient(90deg, rgba(232, 121, 121, 0.6), rgba(232, 121, 121, 0.4));
 }
 
 .prob-bar.default {
-  background: linear-gradient(90deg, #38bdf8, #7dd3fc);
+  background: linear-gradient(90deg, var(--circuit-purple), rgba(139, 107, 174, 0.6));
 }
 
 .prob-pct {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.78rem;
-  color: var(--text-secondary);
+  color: var(--circuit-text-secondary);
   text-align: right;
 }
 
 .prob-pct.above-target {
-  color: var(--success);
+  color: #34e08a;
   font-weight: 600;
 }
 
@@ -410,19 +440,19 @@
   gap: 6px;
   margin-top: 12px;
   font-size: 0.8rem;
-  color: var(--text-dim);
+  color: var(--circuit-text-secondary);
 }
 
 .target-marker-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--success);
+  background: var(--circuit-coral);
 }
 
 .target-marker-val {
   font-family: 'JetBrains Mono', monospace;
-  color: var(--success);
+  color: var(--circuit-coral);
   font-weight: 600;
 }
 
@@ -442,9 +472,9 @@
 
 .circuit-hint-btn {
   padding: 10px 18px;
-  background: #f9fafb;
-  color: var(--text-secondary);
-  border: 1px solid var(--line);
+  background: rgba(212, 165, 116, 0.1);
+  color: var(--circuit-gold);
+  border: 1px solid rgba(212, 165, 116, 0.3);
   border-radius: 999px;
   font-size: 0.88rem;
   cursor: pointer;
@@ -455,9 +485,8 @@
 }
 
 .circuit-hint-btn:hover {
-  border-color: #fcd34d;
-  color: #b45309;
-  background: #fffbeb;
+  border-color: var(--circuit-gold);
+  background: rgba(212, 165, 116, 0.15);
 }
 
 .circuit-hint-panel {
@@ -465,11 +494,11 @@
   bottom: calc(100% + 10px);
   left: 0;
   width: 320px;
-  background: var(--bg-card);
-  border: 1px solid #fcd34d;
-  border-radius: var(--radius-md);
+  background: var(--circuit-bg-card);
+  border: 1px solid rgba(212, 165, 116, 0.4);
+  border-radius: var(--circuit-radius-md);
   padding: 16px 18px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   z-index: 100;
   animation: hint-pop 0.2s ease-out;
 }
@@ -483,20 +512,20 @@
   font-family: 'Orbitron', sans-serif;
   font-size: 0.7rem;
   letter-spacing: 2px;
-  color: #b45309;
+  color: var(--circuit-gold);
   margin-bottom: 10px;
 }
 
 .hint-text {
   font-size: 0.88rem;
-  color: var(--text-secondary);
+  color: var(--circuit-text);
   line-height: 1.6;
 }
 
 .hint-step {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.7rem;
-  color: var(--text-dim);
+  color: var(--circuit-text-secondary);
   margin-top: 8px;
 }
 
@@ -506,10 +535,10 @@
   flex-wrap: wrap;
 }
 
-/* ── Run button ── */
+/* ── Run button — warm coral gradient ── */
 .circuit-run-btn {
   padding: 12px 28px;
-  background: linear-gradient(135deg, var(--cyan), var(--blue));
+  background: linear-gradient(135deg, var(--circuit-coral), var(--circuit-gold));
   color: #fff;
   font-family: 'Orbitron', sans-serif;
   font-size: 0.82rem;
@@ -518,13 +547,13 @@
   border: none;
   border-radius: 999px;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+  box-shadow: 0 4px 14px rgba(232, 121, 121, 0.3);
   transition: all 0.2s;
 }
 
 .circuit-run-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+  box-shadow: 0 6px 20px rgba(232, 121, 121, 0.4);
 }
 
 .circuit-run-btn:disabled {
@@ -536,25 +565,25 @@
 
 .circuit-reset-btn {
   padding: 12px 20px;
-  background: #f9fafb;
-  color: var(--text-secondary);
+  background: rgba(230, 226, 220, 0.05);
+  color: var(--circuit-text-secondary);
   font-size: 0.88rem;
-  border: 1px solid var(--line);
+  border: 1px solid var(--circuit-border);
   border-radius: 999px;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .circuit-reset-btn:hover {
-  border-color: #fca5a5;
-  color: #dc2626;
-  background: #fef2f2;
+  border-color: var(--circuit-coral);
+  color: var(--circuit-coral);
+  background: rgba(232, 121, 121, 0.08);
 }
 
 /* ── Result feedback ── */
 .circuit-result {
   padding: 14px 18px;
-  border-radius: var(--radius-md);
+  border-radius: var(--circuit-radius-md);
   font-size: 0.9rem;
   display: flex;
   align-items: center;
@@ -569,15 +598,15 @@
 }
 
 .circuit-result.success {
-  background: #ecfdf5;
-  border: 1px solid #6ee7b7;
-  color: #047857;
+  background: rgba(52, 224, 138, 0.1);
+  border: 1px solid rgba(52, 224, 138, 0.35);
+  color: #34e08a;
 }
 
 .circuit-result.error {
-  background: #fef2f2;
-  border: 1px solid #fca5a5;
-  color: #dc2626;
+  background: rgba(232, 121, 121, 0.1);
+  border: 1px solid rgba(232, 121, 121, 0.35);
+  color: var(--circuit-coral);
 }
 
 /* ── Success state on bars ── */
@@ -586,9 +615,9 @@
 }
 
 @keyframes bar-success {
-  0%   { box-shadow: 0 0 0 0 rgba(52, 224, 138, 0.6); }
-  70%  { box-shadow: 0 0 0 10px rgba(52, 224, 138, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(52, 224, 138, 0); }
+  0%   { box-shadow: 0 0 0 0 rgba(232, 121, 121, 0.6); }
+  70%  { box-shadow: 0 0 0 10px rgba(232, 121, 121, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(232, 121, 121, 0); }
 }
 
 /* ── Gate drag ghost ── */
@@ -682,9 +711,9 @@
     transform: translateX(-50%);
     width: 10px;
     height: 10px;
-    background: var(--bg-card);
-    border-right: 1px solid rgba(255, 210, 61, 0.3);
-    border-bottom: 1px solid rgba(255, 210, 61, 0.3);
+    background: var(--circuit-bg-card);
+    border-right: 1px solid rgba(212, 165, 116, 0.3);
+    border-bottom: 1px solid rgba(212, 165, 116, 0.3);
     transform: translateX(-50%) rotate(45deg);
   }
 }
