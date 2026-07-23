@@ -52,6 +52,7 @@ const CHAT_NODES = {
     ],
     replies: [
       { th: 'ส่งให้เพื่อน 🔗', en: 'send to a friend 🔗', action: 'entangle' },
+      { th: 'ทำไมตรงข้ามกันเป๊ะ 🧠', en: 'why the exact opposite? 🧠', action: 'why:entanglement' },
       { th: 'เริ่มใหม่ 🔄', en: 'restart 🔄', next: 'start', action: 'reset' },
     ],
   },
@@ -65,6 +66,7 @@ const CHAT_NODES = {
       { th: 'นี่แหละความพัวพันของจริง ไม่ใช่มายากล', en: "that's REAL entanglement. not a magic trick." },
     ],
     replies: [
+      { th: 'ทำไมตรงข้ามกันเป๊ะ 🧠', en: 'why the exact opposite? 🧠', action: 'why:entanglement' },
       { th: 'หลอนอ่ะ 😳 ขอลองเองบ้าง', en: 'creepy 😳 lemme try myself', next: 'start', action: 'reset' },
       { th: 'ส่งต่อให้เพื่อนอีกคน 🔗', en: 'pass it on 🔗', action: 'entangle' },
     ],
