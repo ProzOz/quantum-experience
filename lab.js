@@ -17,14 +17,14 @@ const STATIONS = [
     id: 2, icon: '⚛️',
     name: { th: 'สถานีที่ 2: ซ้อนทับ', en: 'Station 2: Superposition' },
     tagline: { th: 'ปรับคิวบิตให้สมดุล 50:50 แล้ววัดซ้ำ', en: 'Balance the qubit 50:50 and measure it' },
-    goal: { th: 'ตั้ง θ = 90° (สมดุล 50:50) แล้ววัดให้ครบ 10 ครั้ง', en: 'Set θ = 90° (a 50:50 split) and take 10 measurements' },
+    goal: { th: 'เอียงลูกศรให้นอนราบ (สมดุล 50:50) แล้ววัดให้ครบ 10 ครั้ง', en: 'Tilt the arrow flat (a 50:50 split) and measure 10 times' },
     goalIcon: '🔍',
   },
   {
     id: 3, icon: '📈',
     name: { th: 'สถานีที่ 3: ความไม่แน่นอน', en: 'Station 3: Uncertainty' },
     tagline: { th: 'บีบกลุ่มคลื่นให้คมที่สุดเท่าที่ธรรมชาติยอม', en: 'Squeeze the wave packet as sharp as nature allows' },
-    goal: { th: 'ทำให้ Δx < 0.60 โดยที่ Δx·Δp ≤ 0.55 (บีบความกว้างให้แคบ)', en: 'Get Δx < 0.60 while keeping Δx·Δp ≤ 0.55 (narrow the width)' },
+    goal: { th: 'บีบความมั่วตำแหน่งให้ชัด — แต่โกงพื้นของธรรมชาติไม่ได้', en: "Squeeze the position blur sharp — but you can't cheat nature's floor" },
     goalIcon: '📸',
   },
   {
@@ -37,14 +37,14 @@ const STATIONS = [
   {
     id: 5, icon: '🔗',
     name: { th: 'สถานีที่ 5: พัวพัน', en: 'Station 5: Entanglement' },
-    tagline: { th: 'จับสปายด้วยทฤษฎีบทเบลล์', en: 'Catch the eavesdropper using Bell inequality' },
-    goal: { th: 'วัด 40 คู่ พิสูจน์ว่าผลละเมิดขอบเขตคลาสสิก', en: 'Run 40 trials and prove Bell inequality violation' },
+    tagline: { th: 'จับสปายด้วยการเอาชนะขีดจำกัดแบบคลาสสิก', en: 'Catch the eavesdropper by beating the classical limit' },
+    goal: { th: 'วัด 40 คู่ แล้วเอาชนะขีดจำกัดแบบคลาสสิกให้ได้', en: 'Run 40 trials and beat the classical limit' },
     goalIcon: '🕵️',
   },
   {
     id: 6, icon: '🐈',
     name: { th: 'สถานีที่ 6: การยุบตัว', en: 'Station 6: Collapse' },
-    tagline: { th: 'หาหน้าต่างวัดที่ดีที่สุดก่อน decoherence', en: 'Find the optimal measurement window before decoherence' },
+    tagline: { th: 'เปิดกล่องแล้วดู “เป็นทั้งสองอย่าง” สแนปเหลือคำตอบเดียว', en: "Open the box and watch 'both at once' snap to one answer" },
     goal: { th: 'เปิดกล่อง 5 ครั้ง สังเกตรูปแบบการยุบตัว', en: 'Open the box 5× and complete the observation log' },
     goalIcon: '⏱️',
   },
@@ -52,7 +52,7 @@ const STATIONS = [
     id: 7, icon: '⚡',
     name: { th: 'สถานีที่ 7: วงจรควอนตัม', en: 'Station 7: Circuit Puzzle' },
     tagline: { th: 'ประกอบวงจรควอนตัมด้วยการลากเกต', en: 'Build quantum circuits by dragging gates onto qubits' },
-    goal: { th: 'สร้างวงจร Grover ให้ |2⟩ ได้ความน่าจะเป็น ≥ 75%', en: "Build Grover's circuit — get |2⟩ probability ≥ 75%" },
+    goal: { th: 'สร้างวงจร Grover ดันกล่อง #2 ให้เกิน 75%', en: "Build Grover's circuit — push box #2 above 75%" },
     goalIcon: '🔌',
   },
 ];
@@ -108,7 +108,7 @@ const LAB_I18N = {
   title_ok:      { th: 'ออนไลน์เต็มระบบ', en: 'FULLY ONLINE' },
   title_bad:     { th: 'ห้องแล็บฉุกเฉิน', en: 'LAB EMERGENCY' },
   subtitle_ok:   { th: '<span class="hl">ครบ 7 สถานีแล้ว!</span> กดเข้าแกนควอนตัมเพื่อดูการทดลองสุดท้ายเลย', en: '<span class="hl">All 7 stations online!</span> Enter the Quantum Core for the final experiment.' },
-  subtitle_bad:  { th: '<span class="hl">แกนควอนตัมล่ม!</span> เล่นเกมซ่อมทั้ง 7 สถานีให้ครบ เพื่อปลดล็อกการทดลองสุดท้าย', en: '<span class="hl">The quantum core is down!</span> Beat all 7 station games to unlock the final experiment.' },
+  subtitle_bad:  { th: 'เล่นเกมซ่อมทั้ง 7 สถานีให้ครบ เพื่อปลดล็อกการทดลองสุดท้าย', en: 'Beat all 7 station games to unlock the final experiment.' },
   core_label:    { th: 'แกนควอนตัม · การทดลองสุดท้าย', en: 'QUANTUM CORE · FINAL EXPERIMENT' },
   core_title:    { th: 'การค้นหาควอนตัมของ Grover', en: "Grover's Quantum Search" },
   core_ok:       { th: 'แกนออนไลน์แล้ว ดูควอนตัมคอมพิวเตอร์ค้นฐานข้อมูลใน 1 คิวรี — คอมพิวเตอร์ทั่วไปใช้เฉลี่ย 2.5', en: 'The core is online. Watch a quantum computer search a database in 1 query — a classical computer takes 2.5.' },
@@ -172,32 +172,32 @@ function buildLabHome() {
 
   page.innerHTML = `
   <div class="lab-home">
-    <div class="lab-alert">
-      <span class="lab-alert-dot"></span>
-      ${doneCount === 7 ? LT('alert_ok') : LT('alert_bad', 7 - doneCount)}
+    <div class="mission-briefing">
+      ${doneCount === 7 ? '' : `
+      <div class="emergency-badge" role="img" aria-label="Emergency">
+        <span class="emergency-cross">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3h5v6h6v5h-6v6h-5v-6h-6V9h6z"/></svg>
+        </span>
+        <span class="emergency-word">EMERGENCY</span>
+      </div>`}
+      <h1 class="mission-title">
+        QUANTUM EXPERIENCE
+      </h1>
+      <p class="mission-narrative">
+        ${doneCount === 7 ? LT('subtitle_ok') : LT('subtitle_bad')}
+      </p>
+      <div class="mission-progress-wrap">
+        <div class="mission-progress-label">
+          <span>${lang === 'th' ? 'ความคืบหน้า' : 'PROGRESS'}</span>
+          <span>${doneCount}/7 ${LT('stations_unit')}</span>
+        </div>
+        <div class="mission-progress-bar">
+          <div class="mission-progress-fill" style="width:${pct}%"></div>
+        </div>
+      </div>
     </div>
 
-    <h1 class="lab-title">
-      <div class="lab-title-line1">QUANTUM</div>
-      <div class="lab-title-line2">${doneCount === 7 ? LT('title_ok') : LT('title_bad')}</div>
-    </h1>
-
-    <p class="lab-subtitle">
-      ${doneCount === 7 ? LT('subtitle_ok') : LT('subtitle_bad')}
-    </p>
-
     <div class="station-grid">${stationCards}</div>
-
-    ${typeof CT === 'function' ? `
-    <button class="coop-banner" onclick="openCoop()" onpointerenter="play('hover')">
-      <div class="coop-banner-icon">👥</div>
-      <div class="coop-banner-content">
-        <div class="coop-banner-label">${CT('banner_label')}</div>
-        <div class="coop-banner-title">${CT('banner_title')}</div>
-        <div class="coop-banner-desc">${CT('banner_desc')}</div>
-      </div>
-      <div class="coop-banner-play">▶</div>
-    </button>` : ''}
 
     <div class="${coreClass}" id="corePanel" onclick="${coreUnlocked ? 'openQuantumCore()' : ''}" ${coreCursor}>
       <div class="core-lock-icon">${coreUnlocked ? '⚛️' : '🔒'}</div>
@@ -216,6 +216,17 @@ function buildLabHome() {
       </div>
       ${coreUnlocked ? '<button class="core-cta" onclick="event.stopPropagation();openQuantumCore()">LAUNCH →</button>' : ''}
     </div>
+
+    ${typeof CT === 'function' ? `
+    <button class="coop-banner" onclick="openCoop()" onpointerenter="play('hover')">
+      <div class="coop-banner-icon">👥</div>
+      <div class="coop-banner-content">
+        <div class="coop-banner-label">${CT('banner_label')}</div>
+        <div class="coop-banner-title">${CT('banner_title')}</div>
+        <div class="coop-banner-desc">${CT('banner_desc')}</div>
+      </div>
+      <div class="coop-banner-play">▶</div>
+    </button>` : ''}
   </div>`;
 }
 
@@ -419,7 +430,7 @@ function checkStation2Super() {
 
   const statusEl = document.getElementById('goalStatus2');
   if (statusEl) {
-    statusEl.textContent = `${p.balancedCount}/${p.balancedNeeded} @ θ=90°`;
+    statusEl.textContent = `${p.balancedCount}/${p.balancedNeeded} @ 50:50`;
     statusEl.className = 'puzzle-goal-status' + (p.balancedCount >= p.balancedNeeded ? ' ok' : '');
   }
 
@@ -443,7 +454,7 @@ function checkStation3Spec() {
   const statusEl = document.getElementById('goalStatus3');
   if (statusEl) {
     const ok = prod <= 0.55 && dx < 0.60;
-    statusEl.textContent = `Δx = ${dx.toFixed(2)} · Δx·Δp = ${prod.toFixed(2)}`;
+    statusEl.textContent = `${lang === 'th' ? 'ความมั่วตำแหน่ง' : 'blur'} ${dx.toFixed(2)} · ${lang === 'th' ? 'ผลคูณ' : 'product'} ${prod.toFixed(2)} (${lang === 'th' ? 'พื้น' : 'floor'} 0.50)`;
     statusEl.className = 'puzzle-goal-status' + (ok ? ' ok' : '');
     if (ok) showPuzzleSuccess(3);
   }
@@ -593,8 +604,8 @@ function runClassicalComparison() {
   lightInsight(4); // tunneling analogy (classical has no shortcut)
 
   const winMsg = (n) => lang === 'th'
-    ? `ควอนตัม: 1 คิวรี · คลาสสิก: ${n} คิวรี — ควอนตัมชนะ!`
-    : `Quantum: 1 query · Classical: ${n} queries. Quantum wins.`;
+    ? `ควอนตัม: 1 ครั้ง · คลาสสิก: ${n} ครั้ง — ควอนตัมชนะขาด จบข่าว`
+    : `Quantum: 1 look · Classical: ${n} looks — quantum wins, no cap.`;
 
   const tick = () => {
     if (steps >= order.length) {
@@ -676,11 +687,11 @@ function renderGroverState() {
 
   const insights = [
     { label: gv('01 · ซ้อนทับ', '01 · SUPERPOSITION'), text: gv('ควอนตัมตรวจ<b>ทั้ง 4 ไอเทมพร้อมกัน</b>', 'Quantum checks <b>all 4 items at once</b>.') },
-    { label: gv('02 · กลับเฟส', '02 · PHASE KICKBACK'), text: gv('Oracle <b>ทำเครื่องหมายเป้าหมาย</b>โดยไม่ต้องอ่านค่า', 'The oracle <b>marks the target</b> without reading it.') },
+    { label: gv('02 · ทำเครื่องหมาย', '02 · MARK IT'), text: gv('Oracle <b>ทำเครื่องหมายกล่องเป้าหมาย</b> โดยไม่ต้องเปิดดู', 'The oracle <b>marks the target box</b> — without ever opening it.') },
     { label: gv('03 · การแทรกสอด', '03 · INTERFERENCE'), text: gv('คลื่นแทรกสอด — <b>เป้าหมายโตขึ้น</b> ตัวอื่นหักล้างหาย', 'Waves interfere — <b>the target grows</b>, the rest cancel.') },
     { label: gv('04 · การยุบตัว', '04 · COLLAPSE'), text: gv('วัดปุ๊บ เจอเป้าหมาย <b>ใน 1 คิวรีเดียว</b>', 'Measure — target found <b>in just 1 query</b>.') },
     { label: gv('05 · ไม่มีทางลัด', '05 · NO SHORTCUT'), text: gv('คลาสสิกต้อง<b>เปิดดูทีละอัน</b> เฉลี่ย 2.5 ครั้ง', 'Classical must <b>check one by one</b> — 2.5 on average.') },
-    { label: gv('06 · ความได้เปรียบ', '06 · THE ADVANTAGE'), text: gv('ยิ่งฐานข้อมูลใหญ่ ควอนตัมยิ่งทิ้งห่าง (<b>√N</b> ต่อ N/2)', 'The bigger the database, the bigger the gap (<b>√N</b> vs N/2).') },
+    { label: gv('06 · ความได้เปรียบ', '06 · THE ADVANTAGE'), text: gv('ยิ่งกองใหญ่ ควอนตัมยิ่งทิ้งห่าง — เปิดราว <b>√N</b> ครั้ง แทนที่จะครึ่งกอง', 'The bigger the pile, the more quantum wins — about <b>√N</b> looks instead of half the pile.') },
   ].map((ins, i) => `
     <div class="core-insight-item" id="insight${i}">
       <div class="core-insight-num">${ins.label}</div>
@@ -713,11 +724,6 @@ function renderGroverState() {
           'A quantum computer searches a 4-item database in <strong style="color:var(--cyan)">1 query</strong>. A classical computer takes <strong style="color:var(--gold)">2.5 on average</strong>. Pick the hidden item and watch both algorithms race.'
         )}
       </p>
-    </div>
-
-    <div class="station-video-wrap" style="max-width:900px;margin:0 auto 28px">
-      <div class="station-video-label">${gv('🎬 แกนควอนตัมออนไลน์', '🎬 QUANTUM CORE ONLINE')}</div>
-      <video class="station-video" src="https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_104333_c1ccbfff-2a9e-4da2-bbc1-1ec71bd03977.mp4" controls playsinline preload="metadata" poster="https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_100242_f63c22ab-d800-4a9a-b8fc-cbb262bd39e8.png"></video>
     </div>
 
     <div class="core-phase">

@@ -264,7 +264,7 @@ function buildCircuitHTML() {
       else if (isHigh && CIRCUIT.hasRun) cls = 'nontarget-high';
       return `
         <div class="prob-row">
-          <div class="prob-state-label">|${i}⟩</div>
+          <div class="prob-state-label">#${i}</div>
           <div class="prob-track">
             <div class="prob-bar ${cls}" style="width:${Math.max(p * 100, p > 0 ? 3 : 0)}%"></div>
           </div>
@@ -277,7 +277,7 @@ function buildCircuitHTML() {
   const resultHTML = CIRCUIT.hasRun
     ? CIRCUIT.success
       ? `<div class="circuit-result success">
-           <span>✅</span> <strong>${c7(`|2⟩ ถึง ${pctNow}% แล้ว — ปลดล็อกแกนควอนตัม!`, `|2⟩ reached ${pctNow}% — Quantum Core Unlocked!`)}</strong>
+           <span>✅</span> <strong>${c7(`กล่อง #2 พุ่งถึง ${pctNow}% — ปลดล็อกแกนควอนตัม! ปังมาก`, `Box #2 hit ${pctNow}% — Quantum Core unlocked! We're so back.`)}</strong>
          </div>`
       : (() => {
           const g = CIRCUIT.wires.flat();
@@ -286,13 +286,13 @@ function buildCircuitHTML() {
           if (hitProb && (!g.includes('ORACLE') || !g.includes('DIFF'))) {
             return `<div class="circuit-result error">
                <span>⚠️</span> ${c7(
-                 `|2⟩ ถึง ${pctNow}% แล้ว แต่นี่ยังไม่ใช่ Grover — ต้องใช้ทั้ง Oracle และ Diffusion`,
-                 `|2⟩ hit ${pctNow}%, but that's not Grover's algorithm — you must use both an Oracle and a Diffusion gate.`
+                 `กล่อง #2 ถึง ${pctNow}% แล้วก็จริง แต่นี่ยังไม่ใช่ Grover — ต้องใส่ทั้ง Oracle และ Diffusion`,
+                 `Box #2 hit ${pctNow}%, but that's not Grover's algorithm yet — you need both an Oracle and a Diffusion gate.`
                )}
              </div>`;
           }
           return `<div class="circuit-result error">
-               <span>⚠️</span> ${c7(`ความน่าจะเป็นของ |2⟩ อยู่ที่ ${pctNow}% — ต้องได้ ${(SUCCESS_THRESHOLD * 100).toFixed(0)}% ขึ้นไป`, `|2⟩ probability is ${pctNow}% — need ${(SUCCESS_THRESHOLD * 100).toFixed(0)}%+`)}
+               <span>⚠️</span> ${c7(`ความน่าจะเป็นของกล่อง #2 อยู่ที่ ${pctNow}% — ต้องดันให้ถึง ${(SUCCESS_THRESHOLD * 100).toFixed(0)}% ขึ้นไป`, `Box #2 is at ${pctNow}% — you need to push it to ${(SUCCESS_THRESHOLD * 100).toFixed(0)}%+`)}
              </div>`;
         })()
     : '';
@@ -311,8 +311,8 @@ function buildCircuitHTML() {
         <div class="circuit-objective">
           <span>🎯</span>
           <span>${c7(
-            `เป้าหมาย: ค้นหา <strong>${TARGET_LABEL}</strong> (ไบนารี 010) — ทำความน่าจะเป็นให้เกิน <strong>${(SUCCESS_THRESHOLD * 100).toFixed(0)}%</strong>`,
-            `Target: find <strong>${TARGET_LABEL}</strong> (binary 010) — get probability above <strong>${(SUCCESS_THRESHOLD * 100).toFixed(0)}%</strong>`
+            `เป้าหมาย: หา <strong>กล่อง #2 จาก 8</strong> (ก็คือ ${TARGET_LABEL} แพตเทิร์น 010) — ดันความน่าจะเป็นให้เกิน <strong>${(SUCCESS_THRESHOLD * 100).toFixed(0)}%</strong>`,
+            `Target: find <strong>box #2 of 8</strong> (that's ${TARGET_LABEL}, pattern 010) — push its probability above <strong>${(SUCCESS_THRESHOLD * 100).toFixed(0)}%</strong>`
           )}</span>
         </div>
       </div>
@@ -324,11 +324,6 @@ function buildCircuitHTML() {
           <div class="howto-step"><span class="howto-num">2</span><span class="howto-text" data-i18n="c7_how2"></span></div>
           <div class="howto-step"><span class="howto-num">3</span><span class="howto-text" data-i18n="c7_how3"></span></div>
         </div>
-      </div>
-
-      <div class="station-video-wrap">
-        <div class="station-video-label">${c7('🎬 วิดีโออธิบายแนวคิด', '🎬 CONCEPT EXPLAINER')}</div>
-        <video class="station-video" src="https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_110639_4f58e80d-d669-457a-8820-5a991742ab9e.mp4" controls playsinline preload="metadata" poster="https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_102133_8bcbef58-d72b-414d-bba0-cf960dde1255.png"></video>
       </div>
 
       ${resultHTML}
@@ -375,7 +370,7 @@ function buildCircuitHTML() {
             ${CIRCUIT.hasRun ? `
             <div class="target-marker">
               <div class="target-marker-dot"></div>
-              <span>${c7(`เป้าหมาย <strong>${TARGET_LABEL}</strong> — ต้องได้ ≥`, `Target <strong>${TARGET_LABEL}</strong> — need ≥`)}<span class="target-marker-val">${(SUCCESS_THRESHOLD * 100).toFixed(0)}%</span></span>
+              <span>${c7(`เป้าหมาย <strong>กล่อง #2</strong> — ต้องได้ ≥`, `Target <strong>box #2</strong> — need ≥`)}<span class="target-marker-val">${(SUCCESS_THRESHOLD * 100).toFixed(0)}%</span></span>
             </div>` : ''}
           </div>
 
@@ -410,14 +405,14 @@ function buildCircuitHTML() {
 
 function buildHintHTML() {
   const hints = [
-    c7('อัลกอริทึมของ Grover เริ่มจากทำให้ทุกคิวบิตอยู่ใน <strong>superposition</strong> ด้วยเกต Hadamard (H)',
-       'Grover\'s algorithm starts by putting all qubits into <strong>superposition</strong> using Hadamard gates.'),
-    c7('Oracle จะ<strong>ทำเครื่องหมาย</strong>สถานะเป้าหมาย |2⟩ (ไบนารี 010) ด้วยการกลับเฟส',
-       'The Oracle <strong>marks</strong> the target state |2⟩ (binary 010) by flipping its phase.'),
-    c7('ตัวดำเนินการ Diffusion จะ<strong>ขยาย</strong>แอมพลิจูดของสถานะที่ถูกทำเครื่องหมาย และกดสถานะอื่นลง',
-       'The Diffusion operator <strong>amplifies</strong> the marked state\'s amplitude while suppressing others.'),
-    c7('ลองนี่: H บน Q0, Q1, Q2 → Oracle → Diffusion → Measure',
-       'Try: H on Q0, Q1, Q2 → Oracle → Diffusion → Measure.'),
+    c7('เริ่มจากใส่เกต <strong>H</strong> ทุกสายก่อน เพื่อให้ทั้ง 8 กล่องมีโอกาสเท่ากัน (นี่คือ <strong>superposition</strong>)',
+       'Start by putting an <strong>H</strong> gate on every wire — that gives all 8 boxes an equal shot (this is <strong>superposition</strong>).'),
+    c7('Oracle คือตัว<strong>ทำเครื่องหมาย</strong>กล่อง #2 โดยพลิกลูกศรของมันให้ชี้กลับด้าน (ยังไม่ได้เปิดดูนะ)',
+       'The Oracle <strong>marks</strong> box #2 by flipping its arrow backwards — without ever opening it.'),
+    c7('Diffusion คือตัว<strong>สะท้อนลูกศรทุกอันรอบ ๆ ค่าเฉลี่ย</strong> — กล่องที่ถูกทำเครื่องหมายจะพุ่งขึ้น ตัวอื่นหดลง',
+       'Diffusion <strong>reflects every arrow about the average</strong> — the marked box shoots up while the rest sink.'),
+    c7('สูตรลัด: H ทั้ง Q0, Q1, Q2 → Oracle → Diffusion → Measure',
+       'The recipe: H on Q0, Q1, Q2 → Oracle → Diffusion → Measure.'),
   ];
 
   if (CIRCUIT.hintLevel === 0) return '';
@@ -575,8 +570,8 @@ function showCircuitSuccess() {
     </div>
     <div style="color:#c8d0ee;font-size:1rem;max-width:480px;line-height:1.7">
       ${c7(
-        `คุณสร้างอัลกอริทึมการค้นหาของ Grover สำเร็จแล้ว ตอนนี้สถานะ |2⟩ มีความน่าจะเป็น <strong style="color:#34e08a">${(CIRCUIT.probs[TARGET_STATE] * 100).toFixed(1)}%</strong> — เร็วกว่าการค้นหาแบบทั่วไปแบบ quadratic speedup`,
-        `You've built Grover's Search algorithm. The |2⟩ state now has <strong style="color:#34e08a">${(CIRCUIT.probs[TARGET_STATE] * 100).toFixed(1)}%</strong> probability — a quadratic speedup over classical search.`
+        `คุณสร้าง Grover ขึ้นมาเองกับมือ! ตอนนี้กล่อง #2 อยู่ที่ <strong style="color:#34e08a">${(CIRCUIT.probs[TARGET_STATE] * 100).toFixed(1)}%</strong> — เครื่องเจอในราว 1 ครั้ง แทนที่จะเปิด ~4 ครั้ง นี่แหละการเร่งแบบ √N (quadratic speedup) จึ้งไปอีก`,
+        `You built Grover's Search from scratch! Box #2 is now at <strong style="color:#34e08a">${(CIRCUIT.probs[TARGET_STATE] * 100).toFixed(1)}%</strong> — the machine finds it in ~1 look instead of ~4. That's a √N 'quadratic' speedup, no cap.`
       )}
     </div>
     <div style="color:#8e9ac0;font-size:0.88rem;margin-top:4px">

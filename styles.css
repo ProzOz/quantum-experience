@@ -199,9 +199,12 @@ header {
 .toggle-btn.active {
     background: linear-gradient(135deg, var(--coral-soft), var(--purple-soft));
     border-color: rgba(232, 121, 121, 0.5);
+    color: var(--coral);
 }
 
-.toggle-btn svg { width: 22px; height: 22px; }
+/* Icons render at full strength (the button already carries opacity via bg) */
+.toggle-btn svg { width: 22px; height: 22px; opacity: 1; color: var(--text); }
+.toggle-btn.active svg { color: var(--coral); }
 
 .lang-btn {
     font-family: var(--font-display);
@@ -209,11 +212,11 @@ header {
     font-weight: 700;
     letter-spacing: 1.5px;
     color: var(--text);
-    opacity: 0.9;
-    transition: opacity 0.2s;
+    opacity: 1;
+    transition: color 0.2s, opacity 0.2s;
 }
 
-.lang-btn:hover { opacity: 1; }
+.lang-btn:hover { opacity: 1; color: var(--coral); }
 
 /* ============================================================
    Layout
@@ -1134,6 +1137,11 @@ footer {
 
 @media (max-width: 480px) {
     body { font-size: 16px; }
+
+    /* Header: drop the wordmark so the 44px sound/lang touch targets never clip.
+       The gold SCIUS logo mark stays as branding. */
+    .logo-text { display: none; }
+    header { gap: 10px; }
 
     .hero-title { font-size: clamp(1.8rem, 9vw, 2.4rem); }
     .hero-subtitle { font-size: 1rem; }
