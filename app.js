@@ -547,7 +547,10 @@ function openTopic(id) {
   document.getElementById('headerTitle').textContent = t(TOPIC_META[id].key + '_title');
   window.scrollTo({ top: 0, behavior: 'auto' });
   play('nav');
-  requestAnimationFrame(() => { resizeCanvas(id); drawTopic(id); });
+  requestAnimationFrame(() => {
+    resizeCanvas(id); drawTopic(id);
+    if (typeof refreshGoalStripSolved === 'function') refreshGoalStripSolved(id);
+  });
 }
 
 function openGame() {

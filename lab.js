@@ -246,6 +246,18 @@ function updateLabGoalStrips() {
     if (desc) desc.textContent = s.goal[lang];
     const label = document.getElementById('goalLabel' + s.id);
     if (label) label.textContent = LT('mission');
+    refreshGoalStripSolved(s.id);
+  }
+}
+
+// Show the "restored" state in a station's objective box (the sim's own check
+// functions early-return once solved, so nothing else repaints it on re-entry).
+function refreshGoalStripSolved(id) {
+  if (typeof PUZZLE === 'undefined' || !PUZZLE[id] || !PUZZLE[id].solved) return;
+  const st = document.getElementById('goalStatus' + id);
+  if (st) {
+    st.textContent = (typeof lang !== 'undefined' && lang === 'th') ? '✔ ซ่อมสำเร็จแล้ว' : '✔ RESTORED';
+    st.className = 'puzzle-goal-status ok';
   }
 }
 

@@ -73,3 +73,58 @@
 @media (prefers-reduced-motion: reduce) {
   .fx-alert, .fx-scan, .fx-hazard, .station-card .station-status-dot { animation: none; }
 }
+
+/* ============================================================
+   DIAL IT UP — a real containment breach
+   ============================================================ */
+main { padding-top: 96px !important; }
+
+/* scrolling alert ticker under the header */
+.fx-ticker {
+  position: fixed; top: 64px; left: 0; right: 0; height: 28px; z-index: 90;
+  background: linear-gradient(90deg, rgba(24,6,9,0.96), rgba(36,8,11,0.96));
+  border-top: 1px solid rgba(255,45,60,0.45);
+  border-bottom: 1px solid rgba(255,45,60,0.45);
+  box-shadow: 0 4px 22px rgba(255,45,60,0.28);
+  overflow: hidden; display: flex; align-items: center;
+  pointer-events: none;
+}
+.fx-ticker-track {
+  white-space: nowrap;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 2px;
+  color: #ff6b78;
+  animation: fx-ticker-scroll 30s linear infinite;
+  will-change: transform;
+}
+@keyframes fx-ticker-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* hazard stripe now sits just under the ticker */
+.fx-hazard { top: 92px; }
+
+/* stronger red breach vignette */
+.fx-alert { box-shadow: inset 0 0 195px rgba(255,45,60,0.36), inset 0 0 66px rgba(255,45,60,0.2); }
+
+/* glitchy mission title — occasional RGB split */
+.mission-title { animation: fx-glitch 4.5s steps(1, end) infinite; }
+@keyframes fx-glitch {
+  0%, 90%, 100% { text-shadow: 0 0 20px rgba(53,224,255,0.35), 0 0 46px rgba(255,45,60,0.22); transform: translate(0,0); }
+  91% { text-shadow: -2px 0 #ff2d3c, 2px 0 #35e0ff; transform: translate(1px,-1px); }
+  93% { text-shadow: 2px 0 #ff2d3c, -2px 0 #35e0ff; transform: translate(-2px,1px); }
+  95% { text-shadow: -1px 0 #ff2d3c, 1px 0 #35e0ff; transform: translate(1px,0); }
+  97% { text-shadow: 0 0 20px rgba(53,224,255,0.35); transform: translate(0,1px); }
+}
+
+/* CCTV facility-feed tag (the classroom video reads as a security cam) */
+.fx-cam {
+  position: fixed; bottom: 14px; left: 14px; z-index: 58; pointer-events: none;
+  font-family: var(--font-mono, monospace); font-size: 0.62rem; letter-spacing: 1.5px;
+  color: rgba(255,140,150,0.72);
+}
+.fx-cam .rec { color: #ff2d3c; animation: fx-rec 1.1s steps(1, end) infinite; }
+@keyframes fx-rec { 0%,49% { opacity: 1; } 50%,100% { opacity: 0.12; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-ticker-track, .mission-title, .fx-cam .rec { animation: none; }
+}
+@media (max-width: 480px) { .fx-ticker-track { font-size: 0.64rem; } }
