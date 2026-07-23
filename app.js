@@ -635,7 +635,7 @@ function renderProgress() {
   }
   const done = Object.keys(progress).filter(k => progress[k]).length;
   const el = document.getElementById('progressSummary');
-  if (el) el.textContent = t('progress_summary') + ': ' + done + '/7';
+  if (el) el.textContent = t('progress_summary') + ': ' + done + '/' + (typeof STATIONS !== 'undefined' ? STATIONS.length : 7);
 }
 
 /* ============================================================

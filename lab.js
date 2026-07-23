@@ -21,36 +21,15 @@ const STATIONS = [
     goalIcon: '🔍',
   },
   {
-    id: 3, icon: '📈',
-    name: { th: 'สถานีที่ 3: ความไม่แน่นอน', en: 'Station 3: Uncertainty' },
-    tagline: { th: 'บีบกลุ่มคลื่นให้คมที่สุดเท่าที่ธรรมชาติยอม', en: 'Squeeze the wave packet as sharp as nature allows' },
-    goal: { th: 'บีบความมั่วตำแหน่งให้ชัด — แต่โกงพื้นของธรรมชาติไม่ได้', en: "Squeeze the position blur sharp — but you can't cheat nature's floor" },
-    goalIcon: '📸',
-  },
-  {
     id: 4, icon: '🚀',
-    name: { th: 'สถานีที่ 4: การทะลุ', en: 'Station 4: Tunneling' },
+    name: { th: 'สถานีที่ 3: การทะลุ', en: 'Station 3: Tunneling' },
     tagline: { th: 'นำทางอนุภาคผ่านสนามกำแพง', en: 'Navigate a particle through the barrier field' },
     goal: { th: 'เล่น Qubit Runner และทำคะแนนให้ถึง 100', en: 'Play Qubit Runner and score 100+' },
     goalIcon: '🎮',
   },
   {
-    id: 5, icon: '🔗',
-    name: { th: 'สถานีที่ 5: พัวพัน', en: 'Station 5: Entanglement' },
-    tagline: { th: 'จับสปายด้วยการเอาชนะขีดจำกัดแบบคลาสสิก', en: 'Catch the eavesdropper by beating the classical limit' },
-    goal: { th: 'วัด 40 คู่ แล้วเอาชนะขีดจำกัดแบบคลาสสิกให้ได้', en: 'Run 40 trials and beat the classical limit' },
-    goalIcon: '🕵️',
-  },
-  {
-    id: 6, icon: '🐈',
-    name: { th: 'สถานีที่ 6: การยุบตัว', en: 'Station 6: Collapse' },
-    tagline: { th: 'เปิดกล่องแล้วดู “เป็นทั้งสองอย่าง” สแนปเหลือคำตอบเดียว', en: "Open the box and watch 'both at once' snap to one answer" },
-    goal: { th: 'เปิดกล่อง 5 ครั้ง สังเกตรูปแบบการยุบตัว', en: 'Open the box 5× and complete the observation log' },
-    goalIcon: '⏱️',
-  },
-  {
     id: 7, icon: '⚡',
-    name: { th: 'สถานีที่ 7: วงจรควอนตัม', en: 'Station 7: Circuit Puzzle' },
+    name: { th: 'สถานีที่ 4: วงจรควอนตัม', en: 'Station 4: Circuit Puzzle' },
     tagline: { th: 'ประกอบวงจรควอนตัมด้วยการลากเกต', en: 'Build quantum circuits by dragging gates onto qubits' },
     goal: { th: 'สร้างวงจร Grover ดันกล่อง #2 ให้เกิน 75%', en: "Build Grover's circuit — push box #2 above 75%" },
     goalIcon: '🔌',
@@ -107,12 +86,12 @@ const LAB_I18N = {
   alert_bad:     { th: (n) => `ระบบควอนตัม — ขัดข้องรุนแรง — ${n} สถานีออฟไลน์`, en: (n) => `QUANTUM FACILITY — CRITICAL FAILURE — ${n} STATION${n === 1 ? '' : 'S'} OFFLINE` },
   title_ok:      { th: 'ออนไลน์เต็มระบบ', en: 'FULLY ONLINE' },
   title_bad:     { th: 'ห้องแล็บฉุกเฉิน', en: 'LAB EMERGENCY' },
-  subtitle_ok:   { th: '<span class="hl">ครบ 7 สถานีแล้ว!</span> กดเข้าแกนควอนตัมเพื่อดูการทดลองสุดท้ายเลย', en: '<span class="hl">All 7 stations online!</span> Enter the Quantum Core for the final experiment.' },
-  subtitle_bad:  { th: 'เล่นเกมซ่อมทั้ง 7 สถานีให้ครบ เพื่อปลดล็อกการทดลองสุดท้าย', en: 'Beat all 7 station games to unlock the final experiment.' },
+  subtitle_ok:   { th: '<span class="hl">ครบทุกสถานีแล้ว!</span> กดเข้าแกนควอนตัมเพื่อดูการทดลองสุดท้ายเลย', en: '<span class="hl">All stations online!</span> Enter the Quantum Core for the final experiment.' },
+  subtitle_bad:  { th: 'ซ่อมทุกสถานีให้ครบ เพื่อปลดล็อกการทดลองสุดท้าย', en: 'Beat every station to unlock the final experiment.' },
   core_label:    { th: 'แกนควอนตัม · การทดลองสุดท้าย', en: 'QUANTUM CORE · FINAL EXPERIMENT' },
   core_title:    { th: 'การค้นหาควอนตัมของ Grover', en: "Grover's Quantum Search" },
   core_ok:       { th: 'แกนออนไลน์แล้ว ดูควอนตัมคอมพิวเตอร์ค้นฐานข้อมูลใน 1 คิวรี — คอมพิวเตอร์ทั่วไปใช้เฉลี่ย 2.5', en: 'The core is online. Watch a quantum computer search a database in 1 query — a classical computer takes 2.5.' },
-  core_bad:      { th: 'กู้ทั้ง 7 สถานีเพื่อปลดล็อกการสาธิตสุดท้าย และชมความได้เปรียบของควอนตัมแบบสด ๆ', en: 'Restore all 7 stations to unlock the final demonstration. See the quantum advantage live.' },
+  core_bad:      { th: 'กู้ทุกสถานีเพื่อปลดล็อกการสาธิตสุดท้าย และชมความได้เปรียบของควอนตัมแบบสด ๆ', en: 'Restore all stations to unlock the final demonstration. See the quantum advantage live.' },
   stations_unit: { th: 'สถานี', en: 'STATIONS' },
   mission:       { th: 'เป้าหมายภารกิจ', en: 'MISSION OBJECTIVE' },
   online:        { th: 'ออนไลน์', en: 'ONLINE' },
@@ -137,9 +116,10 @@ function buildLabHome() {
   const page = document.getElementById('homePage');
   if (!page) return;
 
-  const doneCount = Object.values(PUZZLE).filter(p => p.solved).length;
+  const doneCount = STATIONS.filter(s => PUZZLE[s.id].solved).length;
+  const total = STATIONS.length;
 
-  let stationCards = STATIONS.map(s => {
+  let stationCards = STATIONS.map((s, i) => {
     const solved = PUZZLE[s.id].solved;
     const onclick = s.id === 7 ? 'openCircuitPuzzle()' : `openTopic(${s.id})`;
     return `
@@ -151,7 +131,7 @@ function buildLabHome() {
       aria-label="${s.name[lang]}">
       <div class="station-number">
         <span class="station-status-dot"></span>
-        STATION-0${s.id} · ${solved ? LT('online') : LT('offline')}
+        STATION-0${i + 1} · ${solved ? LT('online') : LT('offline')}
       </div>
       <span class="station-icon">${s.icon}</span>
       <div class="station-name">${s.name[lang]}</div>
@@ -165,10 +145,10 @@ function buildLabHome() {
     </button>`;
   }).join('');
 
-  const coreUnlocked = doneCount === 7;
+  const coreUnlocked = doneCount === total;
   const coreClass = coreUnlocked ? 'quantum-core-panel unlocked' : 'quantum-core-panel';
   const coreCursor = coreUnlocked ? '' : 'style="cursor:not-allowed"';
-  const pct = Math.round(doneCount / 7 * 100);
+  const pct = Math.round(doneCount / total * 100);
 
   page.innerHTML = `
   <div class="lab-home">
@@ -198,7 +178,7 @@ function buildLabHome() {
       <div class="mission-progress-wrap">
         <div class="mission-progress-label">
           <span>${lang === 'th' ? 'ความคืบหน้า' : 'PROGRESS'}</span>
-          <span>${doneCount}/7 ${LT('stations_unit')}</span>
+          <span>${doneCount}/${total} ${LT('stations_unit')}</span>
         </div>
         <div class="mission-progress-bar">
           <div class="mission-progress-fill" style="width:${pct}%"></div>
@@ -220,7 +200,7 @@ function buildLabHome() {
           <div class="core-progress-bar-wrap">
             <div class="core-progress-bar" id="coreProgressBar" style="width:${pct}%"></div>
           </div>
-          <div class="core-progress-label" id="coreProgressLabel">${doneCount}/7 ${LT('stations_unit')}</div>
+          <div class="core-progress-label" id="coreProgressLabel">${doneCount}/${total} ${LT('stations_unit')}</div>
         </div>
       </div>
       ${coreUnlocked ? '<button class="core-cta" onclick="event.stopPropagation();openQuantumCore()">LAUNCH →</button>' : ''}
@@ -382,8 +362,8 @@ function updateLabProgress(silent) {
   const done = STATIONS.filter(s => PUZZLE[s.id].solved).length;
   const bar = document.getElementById('coreProgressBar');
   const lbl = document.getElementById('coreProgressLabel');
-  if (bar) bar.style.width = Math.round(done / 7 * 100) + '%';
-  if (lbl) lbl.textContent = done + '/7 ' + LT('stations_unit');
+  if (bar) bar.style.width = Math.round(done / STATIONS.length * 100) + '%';
+  if (lbl) lbl.textContent = done + '/' + STATIONS.length + ' ' + LT('stations_unit');
 
   // Update station cards (handle both openTopic and openCircuitPuzzle)
   for (const s of STATIONS) {
@@ -395,7 +375,7 @@ function updateLabProgress(silent) {
   }
 
   // Unlock core
-  if (done === 7) {
+  if (done === STATIONS.length) {
     const panel = document.getElementById('corePanel');
     if (panel) {
       panel.classList.add('unlocked');
