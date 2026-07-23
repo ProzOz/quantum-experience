@@ -183,14 +183,6 @@ function buildLabHome() {
       <button class="core-cta" onclick="event.stopPropagation();openQuantumCore()">LAUNCH →</button>
     </div>
 
-    <button class="lab-toggle" id="labToggle" onclick="toggleLabSection()">
-      <span>${lang === 'th' ? '🔬 อยากรู้ว่ามันทำงานยังไงจริง ๆ?' : '🔬 wanna see how it actually works?'}</span>
-      <span class="lab-toggle-meta">${doneCount}/${total} <span class="lab-chevron" id="labChevron">▾</span></span>
-    </button>
-    <div class="lab-section" id="labSection" hidden>
-      <div class="station-grid">${stationCards}</div>
-    </div>
-
     ${typeof CT === 'function' ? `
     <button class="coop-banner" onclick="openCoop()" onpointerenter="play('hover')">
       <div class="coop-banner-icon">👥</div>

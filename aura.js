@@ -35,6 +35,7 @@ const AURA = {
   measured: null,   // 0 | 1
   twin: null,       // {seed, outcome} if opened from a friend's link
   spinning: false,
+  streak: 0,
 };
 
 // today's date as an integer seed (YYYYMMDD) — same for everyone today
@@ -51,6 +52,24 @@ function auraDateLabel() {
 }
 
 function auraLang(th, en) { return (typeof lang !== 'undefined' && lang === 'th') ? th : en; }
+
+// daily streak (localStorage) — the reason to come back tomorrow
+function auraStreakInfo() {
+  let d = {};
+  try { d = JSON.parse(localStorage.getItem('qx_aura_streak') || '{}'); } catch (e) {}
+  return { count: d.count || 0, last: d.last || 0 };
+}
+function auraBumpStreak() {
+  const today = auraDailySeed();
+  let d = {};
+  try { d = JSON.parse(localStorage.getItem('qx_aura_streak') || '{}'); } catch (e) {}
+  if (d.last === today) return d.count || 1;                    // already counted today
+  const y = new Date(new Date().getTime() - 86400000);
+  const yseed = y.getFullYear() * 10000 + (y.getMonth() + 1) * 100 + y.getDate();
+  const count = (d.last === yseed) ? (d.count || 0) + 1 : 1;    // continue vs reset
+  localStorage.setItem('qx_aura_streak', JSON.stringify({ last: today, count }));
+  return count;
+}
 
 /* ── Caption pools (bilingual, teen slang) ───────────────────
    Keyed by outcome + whether the outcome was expected (>=50%) or an upset. */
@@ -99,6 +118,7 @@ function openAura() {
   AURA.p0 = Math.cos(AURA.theta * Math.PI / 360) ** 2;
   AURA.measured = null;
   AURA.spinning = false;
+  AURA.streak = auraStreakInfo().count;
   renderAura();
 }
 
@@ -126,6 +146,7 @@ function renderAura() {
       <button class="aura-back" onclick="auraGoHome()" aria-label="back">✕</button>
       <div class="aura-eyebrow">${auraLang('ควอนตัมออร่าประจำวัน', 'DAILY QUANTUM AURA')} · ${auraDateLabel()}</div>
       ${twinBanner}
+      ${AURA.streak > 0 ? `<div class="aura-streak">🔥 ${AURA.streak} ${auraLang(AURA.streak === 1 ? 'วัน' : 'วันติด', AURA.streak === 1 ? 'day' : 'day streak')}</div>` : ''}
 
       <div class="aura-stage" id="auraStage">
         <div class="aura-orb ${AURA.measured === null ? 'superposed' : (AURA.measured === 0 ? 'up' : 'down')}" id="auraOrb">
@@ -154,6 +175,7 @@ function renderAura() {
           <button class="aura-again-btn" onclick="auraAgainTune()">${auraLang('ปรับเอง / วัดใหม่', 'Tune / measure again')}</button>
           <button class="aura-why-btn" onclick="openWhy('measure')">🧠 ${auraLang('ทำไมถึงได้ค่านี้?', 'why did i get this?')}</button>
         </div>
+        ${AURA.streak > 0 ? `<div class="aura-streak-nudge">${auraLang('🔥 สตรีค ' + AURA.streak + ' วัน — พรุ่งนี้กลับมาต่อสตรีคนะ', '🔥 ' + AURA.streak + '-day streak — come back tomorrow to keep it')}</div>` : ''}
         <div class="aura-honest">${auraLang(
             'นี่คือการวัดควอนตัมจริง ๆ ก่อนวัด คุณเป็นทั้ง ⬆ และ ⬇ พร้อมกัน',
             'A real quantum measurement. Before you looked, you were BOTH ⬆ and ⬇ at once.')}</div>
@@ -185,6 +207,7 @@ function auraMeasure() {
   setTimeout(() => {
     AURA.measured = outcome;
     AURA.spinning = false;
+    AURA.streak = auraBumpStreak();
     if (navigator.vibrate) navigator.vibrate([0, 40, 20, 60]);
     if (typeof play === 'function') play(outcome === 0 ? 'success' : 'collision');
     renderAura();
@@ -203,6 +226,27 @@ function auraOnMotion(e) {
 }
 
 /* ── Shareable card (canvas) ─────────────────────────────── */
+// preload generated aura backgrounds + SCIUS/Burapha logos for the share card
+const AURA_ASSETS = {};
+(function () {
+  const load = (key, src) => {
+    const im = new Image();
+    im.onload = () => { if (AURA.measured !== null) drawAuraCard(); };
+    im.src = src;
+    AURA_ASSETS[key] = im;
+  };
+  load('up', 'aura-bg-up.png');
+  load('down', 'aura-bg-down.png');
+  load('logo', 'scius-buu-logo-removebg-preview.png');
+})();
+function auraDrawCover(ctx, img, x, y, w, h) {
+  const ir = img.naturalWidth / img.naturalHeight, r = w / h;
+  let dw, dh, dx, dy;
+  if (ir > r) { dh = h; dw = h * ir; dx = x - (dw - w) / 2; dy = y; }
+  else { dw = w; dh = w / ir; dx = x; dy = y - (dh - h) / 2; }
+  ctx.drawImage(img, dx, dy, dw, dh);
+}
+
 function drawAuraCard() {
   const cv = document.getElementById('auraCard');
   if (!cv) return;
@@ -216,6 +260,17 @@ function drawAuraCard() {
   if (up) { g.addColorStop(0, '#2a1c14'); g.addColorStop(0.5, '#3a2416'); g.addColorStop(1, '#20140c'); }
   else { g.addColorStop(0, '#1a1526'); g.addColorStop(0.5, '#241a35'); g.addColorStop(1, '#120e1c'); }
   ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+
+  // generated aura background (cover), if loaded
+  const bgImg = AURA_ASSETS[up ? 'up' : 'down'];
+  if (bgImg && bgImg.complete && bgImg.naturalWidth) {
+    auraDrawCover(ctx, bgImg, 0, 0, W, H);
+    const sc = ctx.createLinearGradient(0, 0, 0, H);
+    sc.addColorStop(0, 'rgba(0,0,0,0.34)');
+    sc.addColorStop(0.5, 'rgba(0,0,0,0.12)');
+    sc.addColorStop(1, 'rgba(0,0,0,0.78)');
+    ctx.fillStyle = sc; ctx.fillRect(0, 0, W, H);
+  }
 
   // soft glow orb
   const cx = W / 2, oy = H * 0.34, accent = up ? '#D4A574' : '#8B6BAE';
@@ -253,14 +308,22 @@ function drawAuraCard() {
   ctx.font = '700 46px Inter, Kanit, sans-serif';
   wrapText(ctx, cap, cx, oy + 430, W - 120, 58);
 
-  // honest footer + watermark
-  ctx.fillStyle = 'rgba(230,226,220,0.5)';
+  // honest footer
+  ctx.fillStyle = 'rgba(230,226,220,0.55)';
   ctx.font = '400 26px Inter, Kanit, sans-serif';
   wrapText(ctx, auraLang('ก่อนวัด คุณเป็นทั้งสองอย่างพร้อมกันจริง ๆ',
-                         'Before you looked, you were genuinely both at once.'), cx, H - 150, W - 140, 34);
+                         'Before you looked, you were genuinely both at once.'), cx, H - 176, W - 140, 34);
+  // SCIUS BUU logo + wordmark (branding travels with every share)
+  const logo = AURA_ASSETS.logo;
+  if (logo && logo.complete && logo.naturalWidth) {
+    const ls = 60; ctx.drawImage(logo, cx - ls / 2, H - 130, ls, ls);
+  }
   ctx.fillStyle = accent;
-  ctx.font = '700 24px Orbitron, Inter, sans-serif';
-  ctx.fillText('QUANTUM · EXPERIENCE — SCIUS BUU', cx, H - 60);
+  ctx.font = '700 22px Orbitron, Inter, sans-serif';
+  ctx.fillText('QUANTUM · EXPERIENCE', cx, H - 44);
+  ctx.fillStyle = 'rgba(230,226,220,0.5)';
+  ctx.font = '600 18px Inter, sans-serif';
+  ctx.fillText('SCIUS BUU · วมว.', cx, H - 20);
   ctx.textAlign = 'left';
 }
 

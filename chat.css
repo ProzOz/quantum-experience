@@ -13,6 +13,11 @@
   flex-direction: column;
   position: relative;
 }
+/* dim the classroom video behind the chat for readability */
+.chat-wrap::before {
+  content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(6,8,14,0.68), rgba(6,8,14,0.88));
+}
 
 /* top bar */
 .chat-topbar {

@@ -175,6 +175,14 @@ body { background: transparent !important; }
 @media (hover: hover) { .aura-measure-btn:hover { box-shadow: 0 14px 40px rgba(232,121,121,0.45); } }
 .aura-hint { color: var(--text-tertiary, #6B6966); font-size: 0.85rem; margin-top: 14px; }
 
+.aura-streak {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.9rem; font-weight: 700; color: #ffb26b;
+  background: rgba(255,120,60,0.12); border: 1px solid rgba(255,150,80,0.3);
+  padding: 5px 14px; border-radius: 999px; margin: 4px 0 0;
+}
+.aura-streak-nudge { font-size: 0.9rem; color: #ffb26b; font-weight: 600; margin-top: 14px; }
+
 /* ── Result card ─────────────────────────────────────────── */
 .aura-card {
   width: 100%;
