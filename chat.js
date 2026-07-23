@@ -41,6 +41,7 @@ const CHAT_NODES = {
     ],
     replies: [
       { th: 'แล้วไงต่อ 🤨', en: 'ok… and? 🤨', next: 'twin' },
+      { th: 'เดี๋ยว เมื่อกี้มันเกิดอะไรขึ้น 🧠', en: 'wait what just happened 🧠', action: 'why:measure' },
     ],
   },
   twin: {
@@ -163,6 +164,12 @@ function doCollapse(forced, cb) {
 function chatReply(i) {
   const rep = CHAT.currentReplies && CHAT.currentReplies[i];
   if (!rep || CHAT.busy) return;
+  // "why?" chips open the science reveal without consuming the flow
+  if (rep.action && rep.action.indexOf('why:') === 0) {
+    if (typeof openWhy === 'function') openWhy(rep.action.slice(4));
+    if (typeof play === 'function') play('click');
+    return;
+  }
   clearReplies();
   pushOutgoing(cT(rep.th, rep.en));
   if (typeof play === 'function') play('click');

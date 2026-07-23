@@ -152,6 +152,7 @@ function renderAura() {
           <button class="aura-share-btn" onclick="auraShare()">${auraLang('แชร์การ์ด', 'Share card')}</button>
           <button class="aura-friend-btn" onclick="auraEntangle()">${auraLang('พัวพันกับเพื่อน 🔗', 'Entangle a friend 🔗')}</button>
           <button class="aura-again-btn" onclick="auraAgainTune()">${auraLang('ปรับเอง / วัดใหม่', 'Tune / measure again')}</button>
+          <button class="aura-why-btn" onclick="openWhy('measure')">🧠 ${auraLang('ทำไมถึงได้ค่านี้?', 'why did i get this?')}</button>
         </div>
         <div class="aura-honest">${auraLang(
             'นี่คือการวัดควอนตัมจริง ๆ ก่อนวัด คุณเป็นทั้ง ⬆ และ ⬇ พร้อมกัน',

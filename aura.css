@@ -211,6 +211,11 @@ body { background: transparent !important; }
   background: transparent;
   color: var(--text-secondary, #A8A5A0);
 }
+.aura-why-btn {
+  border: 1px solid rgba(53,224,255,0.4);
+  background: rgba(53,224,255,0.08);
+  color: #7fe6ff;
+}
 .aura-honest {
   color: var(--text-tertiary, #6B6966);
   font-size: 0.85rem;
