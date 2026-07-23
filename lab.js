@@ -151,68 +151,44 @@ function buildLabHome() {
   const pct = Math.round(doneCount / total * 100);
 
   page.innerHTML = `
-  <div class="lab-home">
-    <button class="aura-hero" onclick="openAura()" onpointerenter="play('hover')" aria-label="Quantum Aura">
-      <div class="aura-hero-orb">✦</div>
-      <div class="aura-hero-text">
-        <div class="aura-hero-label">${lang === 'th' ? '⚛ ใหม่ · ควอนตัมออร่าประจำวัน' : '⚛ NEW · DAILY QUANTUM AURA'}</div>
-        <div class="aura-hero-title">${lang === 'th' ? 'วันนี้ออร่าควอนตัมของคุณเป็นแบบไหน?' : "What's your Quantum Aura today?"}</div>
-        <div class="aura-hero-sub">${lang === 'th' ? 'แตะ → วัดควอนตัมจริง → แชร์ให้เพื่อน' : 'tap → a real quantum measurement → share it'}</div>
+  <div class="lab-home qx-flow">
+    <div class="qx-hero">
+      <div class="qx-hero-eyebrow">
+        <span class="qx-breach-dot"></span>${lang === 'th' ? 'แล็บควอนตัม · ระบบกำลังพัง' : 'QUANTUM FACILITY · CONTAINMENT BREACH'}
       </div>
-      <div class="aura-hero-arrow">→</div>
-    </button>
-    <button class="aura-hero chat-hero" onclick="openChat()" onpointerenter="play('hover')" aria-label="Text the Particle">
-      <div class="aura-hero-orb">💬</div>
-      <div class="aura-hero-text">
-        <div class="aura-hero-label">${lang === 'th' ? '⚛ ใหม่ · แชทกับอนุภาค' : '⚛ NEW · TEXT THE PARTICLE'}</div>
-        <div class="aura-hero-title">${lang === 'th' ? 'มีอนุภาคควอนตัมส่ง DM มาหาคุณ 👀' : 'a quantum particle just DMed you 👀'}</div>
-        <div class="aura-hero-sub">${lang === 'th' ? 'แชท → ดูมันยุบตัว → พัวพันกับเพื่อน' : 'chat → watch it collapse → entangle a friend'}</div>
-      </div>
-      <div class="aura-hero-arrow">→</div>
-    </button>
-    <div class="mission-briefing">
-      ${doneCount === 7 ? '' : `
-      <div class="emergency-badge" role="img" aria-label="Emergency">
-        <span class="emergency-cross">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3h5v6h6v5h-6v6h-5v-6h-6V9h6z"/></svg>
-        </span>
-        <span class="emergency-word">EMERGENCY</span>
-      </div>`}
-      <h1 class="mission-title">
-        QUANTUM EXPERIENCE
-      </h1>
-      <p class="mission-narrative">
-        ${doneCount === 7 ? LT('subtitle_ok') : LT('subtitle_bad')}
-      </p>
-      <div class="mission-progress-wrap">
-        <div class="mission-progress-label">
-          <span>${lang === 'th' ? 'ความคืบหน้า' : 'PROGRESS'}</span>
-          <span>${doneCount}/${total} ${LT('stations_unit')}</span>
-        </div>
-        <div class="mission-progress-bar">
-          <div class="mission-progress-fill" style="width:${pct}%"></div>
-        </div>
-      </div>
+      <h1 class="qx-hero-title">${lang === 'th' ? 'คุณคืออนุภาคควอนตัม<br>ในแล็บที่กำลังพัง' : "You're a quantum particle<br>in a facility mid-breach"}</h1>
+      <p class="qx-hero-sub">${lang === 'th' ? 'เลือกสิ่งที่อยากลอง — ใช้เวลาแค่ 10 วิ แล้วแชร์ได้เลย ⚛' : 'pick your vibe — 10 seconds, then share it ⚛'}</p>
     </div>
 
-    <div class="station-grid">${stationCards}</div>
+    <div class="qx-hooks">
+      <button class="qx-hook qx-hook-aura" onclick="openAura()" onpointerenter="play('hover')" aria-label="Quantum Aura">
+        <div class="qx-hook-orb">🔮</div>
+        <div class="qx-hook-title">${lang === 'th' ? 'วัดออร่าควอนตัม' : 'Measure your Aura'}</div>
+        <div class="qx-hook-sub">${lang === 'th' ? 'แตะ → ยุบตัวจริง → การ์ดแชร์ได้' : 'tap → real collapse → shareable card'}</div>
+      </button>
+      <button class="qx-hook qx-hook-chat" onclick="openChat()" onpointerenter="play('hover')" aria-label="Text the Particle">
+        <div class="qx-hook-orb">💬</div>
+        <div class="qx-hook-title">${lang === 'th' ? 'แชทกับอนุภาค' : 'Text the Particle'}</div>
+        <div class="qx-hook-sub">${lang === 'th' ? 'มันส่ง DM มา 👀 คุยกับมันสิ' : 'it just DMed you 👀 reply to it'}</div>
+      </button>
+    </div>
 
-    <div class="${coreClass}" id="corePanel" onclick="${coreUnlocked ? 'openQuantumCore()' : ''}" ${coreCursor}>
-      <div class="core-lock-icon">${coreUnlocked ? '⚛️' : '🔒'}</div>
+    <div class="quantum-core-panel unlocked" id="corePanel" onclick="openQuantumCore()">
+      <div class="core-lock-icon">⚛️</div>
       <div class="core-content">
         <div class="core-label">${LT('core_label')}</div>
         <div class="core-title">${LT('core_title')}</div>
-        <div class="core-desc">
-          ${coreUnlocked ? LT('core_ok') : LT('core_bad')}
-        </div>
-        <div class="core-progress">
-          <div class="core-progress-bar-wrap">
-            <div class="core-progress-bar" id="coreProgressBar" style="width:${pct}%"></div>
-          </div>
-          <div class="core-progress-label" id="coreProgressLabel">${doneCount}/${total} ${LT('stations_unit')}</div>
-        </div>
+        <div class="core-desc">${LT('core_ok')}</div>
       </div>
-      ${coreUnlocked ? '<button class="core-cta" onclick="event.stopPropagation();openQuantumCore()">LAUNCH →</button>' : ''}
+      <button class="core-cta" onclick="event.stopPropagation();openQuantumCore()">LAUNCH →</button>
+    </div>
+
+    <button class="lab-toggle" id="labToggle" onclick="toggleLabSection()">
+      <span>${lang === 'th' ? '🔬 อยากรู้ว่ามันทำงานยังไงจริง ๆ?' : '🔬 wanna see how it actually works?'}</span>
+      <span class="lab-toggle-meta">${doneCount}/${total} <span class="lab-chevron" id="labChevron">▾</span></span>
+    </button>
+    <div class="lab-section" id="labSection" hidden>
+      <div class="station-grid">${stationCards}</div>
     </div>
 
     ${typeof CT === 'function' ? `
@@ -226,6 +202,17 @@ function buildLabHome() {
       <div class="coop-banner-play">▶</div>
     </button>` : ''}
   </div>`;
+}
+
+// Expand/collapse the optional "how it actually works" lab section.
+function toggleLabSection() {
+  const sec = document.getElementById('labSection');
+  const chev = document.getElementById('labChevron');
+  if (!sec) return;
+  const opening = sec.hasAttribute('hidden');
+  if (opening) { sec.removeAttribute('hidden'); if (chev) chev.textContent = '▴'; }
+  else { sec.setAttribute('hidden', ''); if (chev) chev.textContent = '▾'; }
+  if (typeof play === 'function') play('click');
 }
 
 /* ── Refresh lab-generated text after a language switch ───── */
