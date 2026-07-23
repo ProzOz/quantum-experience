@@ -305,6 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
   applySoundUI();
   syncPuzzleStateFromProgress(); // re-solve any already-completed stations
   if (typeof auraCheckInbound === 'function') auraCheckInbound(); // open Aura if arrived via a friend's entangle link
+  if (typeof chatCheckInbound === 'function') chatCheckInbound(); // open the particle chat if arrived via its entangle link
 
   // resume audio on first gesture (browsers block autoplay)
   const resume = () => {

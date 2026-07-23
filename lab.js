@@ -161,6 +161,15 @@ function buildLabHome() {
       </div>
       <div class="aura-hero-arrow">→</div>
     </button>
+    <button class="aura-hero chat-hero" onclick="openChat()" onpointerenter="play('hover')" aria-label="Text the Particle">
+      <div class="aura-hero-orb">💬</div>
+      <div class="aura-hero-text">
+        <div class="aura-hero-label">${lang === 'th' ? '⚛ ใหม่ · แชทกับอนุภาค' : '⚛ NEW · TEXT THE PARTICLE'}</div>
+        <div class="aura-hero-title">${lang === 'th' ? 'มีอนุภาคควอนตัมส่ง DM มาหาคุณ 👀' : 'a quantum particle just DMed you 👀'}</div>
+        <div class="aura-hero-sub">${lang === 'th' ? 'แชท → ดูมันยุบตัว → พัวพันกับเพื่อน' : 'chat → watch it collapse → entangle a friend'}</div>
+      </div>
+      <div class="aura-hero-arrow">→</div>
+    </button>
     <div class="mission-briefing">
       ${doneCount === 7 ? '' : `
       <div class="emergency-badge" role="img" aria-label="Emergency">
