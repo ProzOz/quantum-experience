@@ -1,0 +1,75 @@
+/* ============================================================
+   Quantum Emergency — atmosphere layer
+   Turns the calm classroom into a quantum facility mid-breach.
+   Loaded last so it sits over the base theme. All overlays are
+   pointer-events:none so they never block interaction.
+   ============================================================ */
+
+:root {
+  --alert: #ff3344;
+  --alert-soft: rgba(255,51,68,0.55);
+  --q-cyan: #35e0ff;
+}
+
+/* cool + red-tint the background veil (over the classroom video) */
+.bg-video-veil {
+  background:
+    radial-gradient(130% 90% at 50% -10%, rgba(255,45,60,0.12), rgba(0,0,0,0) 55%),
+    radial-gradient(120% 80% at 50% 110%, rgba(53,224,255,0.06), rgba(0,0,0,0) 55%),
+    linear-gradient(180deg, rgba(8,10,18,0.82), rgba(6,8,14,0.93)) !important;
+}
+
+/* faint facility scanlines */
+.fx-scanlines {
+  position: fixed; inset: 0; z-index: 55; pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(180,210,255,0.030) 0 1px, rgba(0,0,0,0) 1px 3px);
+  opacity: 0.6;
+}
+
+/* pulsing red emergency vignette at the edges (center stays readable) */
+.fx-alert {
+  position: fixed; inset: 0; z-index: 56; pointer-events: none;
+  box-shadow: inset 0 0 150px rgba(255,45,60,0.26), inset 0 0 46px rgba(255,45,60,0.14);
+  animation: fx-alert-pulse 2.6s ease-in-out infinite;
+}
+@keyframes fx-alert-pulse { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+/* hazard stripe just under the header */
+.fx-hazard {
+  position: fixed; top: 64px; left: 0; right: 0; height: 3px; z-index: 57; pointer-events: none;
+  background: repeating-linear-gradient(90deg, var(--alert) 0 15px, #12141d 15px 30px);
+  box-shadow: 0 0 14px rgba(255,45,60,0.6);
+  animation: fx-hazard-blink 1.7s steps(2, jump-none) infinite;
+}
+@keyframes fx-hazard-blink { 0%,100% { opacity: 0.95; } 50% { opacity: 0.45; } }
+
+/* slow cyan quantum scan sweep (subtle) */
+.fx-scan {
+  position: fixed; left: 0; right: 0; top: 0; height: 150px; z-index: 55; pointer-events: none;
+  background: linear-gradient(180deg, rgba(53,224,255,0) 0%, rgba(53,224,255,0.055) 50%, rgba(53,224,255,0) 100%);
+  animation: fx-scan-move 8s linear infinite;
+}
+@keyframes fx-scan-move { 0% { transform: translateY(-160px); } 100% { transform: translateY(105vh); } }
+
+/* ── Emergency accents on real elements ─────────────────────── */
+
+/* quantum-electric glow on the big mission title */
+.mission-title { text-shadow: 0 0 20px rgba(53,224,255,0.35), 0 0 46px rgba(255,45,60,0.22); }
+
+/* offline stations read as failed systems: pulsing red status dot */
+.station-card:not(.online) .station-status-dot {
+  background: var(--alert) !important;
+  box-shadow: 0 0 10px var(--alert);
+  animation: fx-dot 1.5s ease-in-out infinite;
+}
+@keyframes fx-dot { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+/* the EMERGENCY badge gets a harder klaxon glow */
+.emergency-badge { box-shadow: 0 6px 26px rgba(237,28,36,0.5), 0 0 60px rgba(237,28,36,0.25) !important; }
+
+/* mission briefing frame reads like an alert console */
+.mission-briefing { box-shadow: var(--shadow-glow-warm), inset 0 0 0 1px rgba(255,45,60,0.12); }
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-alert, .fx-scan, .fx-hazard, .station-card .station-status-dot { animation: none; }
+}

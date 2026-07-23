@@ -172,6 +172,15 @@ function buildLabHome() {
 
   page.innerHTML = `
   <div class="lab-home">
+    <button class="aura-hero" onclick="openAura()" onpointerenter="play('hover')" aria-label="Quantum Aura">
+      <div class="aura-hero-orb">✦</div>
+      <div class="aura-hero-text">
+        <div class="aura-hero-label">${lang === 'th' ? '⚛ ใหม่ · ควอนตัมออร่าประจำวัน' : '⚛ NEW · DAILY QUANTUM AURA'}</div>
+        <div class="aura-hero-title">${lang === 'th' ? 'วันนี้ออร่าควอนตัมของคุณเป็นแบบไหน?' : "What's your Quantum Aura today?"}</div>
+        <div class="aura-hero-sub">${lang === 'th' ? 'แตะ → วัดควอนตัมจริง → แชร์ให้เพื่อน' : 'tap → a real quantum measurement → share it'}</div>
+      </div>
+      <div class="aura-hero-arrow">→</div>
+    </button>
     <div class="mission-briefing">
       ${doneCount === 7 ? '' : `
       <div class="emergency-badge" role="img" aria-label="Emergency">

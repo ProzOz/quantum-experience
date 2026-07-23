@@ -172,7 +172,7 @@ const I18N = {
   // Control labels
   ctl_slit_sep:  { th: "ระยะห่างช่อง", en: "Slit separation" },
   ctl_energy:    { th: "พลังงานอนุภาค", en: "Particle energy" },
-  ctl_theta:     { th: "ความเอียงลูกศร (θ)", en: "Arrow tilt (θ)" },
+  ctl_theta:     { th: "เอียงโต๊ะ", en: "Table tilt" },
   ctl_phi:       { th: "หมุนรอบแกน (φ)", en: "Spin around (φ)" },
   ctl_width:     { th: "ความกว้างกลุ่มคลื่น", en: "Wave packet width" },
   ctl_speed:     { th: "ความเร็วเวลา", en: "Time speed" },
@@ -240,7 +240,7 @@ const I18N = {
 
   // Sim hints
   hint_slit:      { th: "กดยิงอนุภาค แล้วดูลายแทรกสอดค่อย ๆ ปรากฏ", en: "Fire particles and watch the interference pattern build" },
-  hint_bloch:     { th: "ลากบนทรงกลมเพื่อหมุนสถานะ", en: "Drag on the sphere to rotate the state" },
+  hint_bloch:     { th: "ลากโต๊ะให้เอียง แล้วกดวัด", en: "Drag the table to tilt it, then Measure" },
   hint_uncertainty:{ th: "เลื่อนแถบความกว้าง แล้วดูอีกกราฟตอบสนอง", en: "Slide the width and watch the other curve react" },
   hint_tunnel:    { th: "ปรับกำแพงแล้วกดยิงกลุ่มคลื่น", en: "Adjust the wall, then fire the wave packet" },
   hint_entangle:  { th: "ตั้งมุมแล้วกดวัดผลหลาย ๆ ครั้ง", en: "Set the angles, then measure many times" },
@@ -304,6 +304,7 @@ document.addEventListener('DOMContentLoaded', () => {
   applyLanguage();
   applySoundUI();
   syncPuzzleStateFromProgress(); // re-solve any already-completed stations
+  if (typeof auraCheckInbound === 'function') auraCheckInbound(); // open Aura if arrived via a friend's entangle link
 
   // resume audio on first gesture (browsers block autoplay)
   const resume = () => {
@@ -688,8 +689,7 @@ const TOPIC_CONFIG = {
   2: {
     canvas: 'sim2',
     controls: [
-      { id: 'theta', label: 'ctl_theta', min: 0, max: 180, val: 45, unit: '°' },
-      { id: 'phi', label: 'ctl_phi', min: 0, max: 360, val: 30, unit: '°' }
+      { id: 'theta', label: 'ctl_theta', min: 0, max: 180, val: 45, unit: '°' }
     ],
     buttons: [
       { fn: 'measure2()', cls: 'btn-primary', label: 'btn_measure', sound: 'measure', icon: 'search' },
@@ -1123,86 +1123,134 @@ function toggleWaveView1(btn) {
 /* ============================================================
    13. TOPIC 2 — BLOCH SPHERE / SUPERPOSITION
    ============================================================ */
-const S2 = { up: 0, down: 0, collapse: null };
+const S2 = { up: 0, down: 0, flip: null };
 
 function drawBloch() {
+  // Station 2 reframed: a coin balancing on a tilting table (see-saw beam).
+  // Level table (θ=90) = 50:50. Full tilt = a certain outcome. The coin shows a
+  // green "0" wedge and red "1" wedge sized by probability — it is genuinely BOTH
+  // until measured (no hidden pre-set face), the anti-determinism point made visual.
   const o = CV.sim2; if (!o) return;
   const { ctx, w, h } = o;
   ctx.clearRect(0, 0, w, h);
   ctx.fillStyle = '#06060f'; ctx.fillRect(0, 0, w, h);
 
-  const cx = w * 0.36, cy = h * 0.5, R = Math.min(w * 0.34, h * 0.4);
-  const theta = val('theta') * Math.PI / 180;
-  const phi = val('phi') * Math.PI / 180;
+  const theta = val('theta');                        // 0..180
+  const p0 = Math.cos(theta * Math.PI / 360) ** 2;   // cos²(θ/2) — chance of 0
+  const p1 = 1 - p0;
+  const balanced = Math.abs(theta - 90) <= 5;
 
-  // sphere
-  const sg = ctx.createRadialGradient(cx - R*0.3, cy - R*0.3, R*0.2, cx, cy, R);
-  sg.addColorStop(0, 'rgba(34,224,255,0.10)');
-  sg.addColorStop(1, 'rgba(10,14,34,0.5)');
-  ctx.fillStyle = sg;
-  ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI*2); ctx.fill();
-  ctx.strokeStyle = 'rgba(34,224,255,0.35)'; ctx.lineWidth = 1.5;
-  ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI*2); ctx.stroke();
+  const pivotX = w * 0.40, pivotY = h * 0.60;
+  const beamHalf = Math.min(w * 0.30, 150);
+  const ang = (theta - 90) / 90 * (30 * Math.PI / 180); // θ<90 → left(0) end drops
 
-  // equator + meridian ellipses
-  ctx.strokeStyle = 'rgba(155,123,255,0.3)';
-  ctx.beginPath(); ctx.ellipse(cx, cy, R, R*0.32, 0, 0, Math.PI*2); ctx.stroke();
-  ctx.strokeStyle = 'rgba(150,175,255,0.18)';
-  ctx.beginPath(); ctx.ellipse(cx, cy, R*0.32, R, 0, 0, Math.PI*2); ctx.stroke();
+  // balance glow near 50:50
+  if (balanced) {
+    const g = ctx.createRadialGradient(pivotX, pivotY, 4, pivotX, pivotY, beamHalf * 1.5);
+    g.addColorStop(0, 'rgba(52,224,138,0.22)');
+    g.addColorStop(1, 'rgba(52,224,138,0)');
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(pivotX, pivotY, beamHalf * 1.5, 0, Math.PI * 2); ctx.fill();
+  }
 
-  // axis
-  ctx.strokeStyle = 'rgba(150,175,255,0.35)'; ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.moveTo(cx, cy - R - 16); ctx.lineTo(cx, cy + R + 16); ctx.stroke();
-  label(ctx, '|0⟩', cx, cy - R - 22, '#eef3ff', 15, 'center');
-  label(ctx, '|1⟩', cx, cy + R + 34, '#eef3ff', 15, 'center');
+  ctx.save();
+  ctx.translate(pivotX, pivotY);
+  ctx.rotate(ang);
 
-  // state vector (project 3D to 2D with slight perspective)
-  const sx = Math.sin(theta) * Math.cos(phi);
-  const sy = Math.sin(theta) * Math.sin(phi);
-  const sz = Math.cos(theta);
-  const px = cx + sx * R;
-  const py = cy - sz * R + sy * R * 0.32;
+  // beam
+  const beamH = 12;
+  const bgrad = ctx.createLinearGradient(-beamHalf, 0, beamHalf, 0);
+  bgrad.addColorStop(0, 'rgba(52,224,138,0.55)');
+  bgrad.addColorStop(0.5, 'rgba(150,175,255,0.32)');
+  bgrad.addColorStop(1, 'rgba(255,107,125,0.55)');
+  rrect(ctx, -beamHalf, -beamH / 2, beamHalf * 2, beamH, 6);
+  ctx.fillStyle = bgrad; ctx.fill();
+  ctx.strokeStyle = balanced ? 'rgba(52,224,138,0.9)' : 'rgba(150,175,255,0.5)';
+  ctx.lineWidth = 1.5; ctx.stroke();
+  label(ctx, '0', -beamHalf - 2, -14, '#34e08a', 15, 'center');
+  label(ctx, '1', beamHalf + 2, -14, '#ff6b7d', 15, 'center');
 
-  ctx.strokeStyle = '#22e0ff'; ctx.lineWidth = 3;
-  ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(px, py); ctx.stroke();
-  glowDot(ctx, px, py, 6, 'rgba(120,240,255,1)', true);
+  // coin slides toward the LOW end; wedge split by probability
+  const coinLocalX = (p1 - p0) * beamHalf * 0.82;
+  drawCoin(ctx, coinLocalX, -beamH / 2 - 28, 26, p0, S2.flip);
+  ctx.restore();
 
-  // arrowhead
-  const ang = Math.atan2(py - cy, px - cx);
-  ctx.fillStyle = '#22e0ff';
+  // fulcrum (upright)
+  ctx.fillStyle = 'rgba(150,175,255,0.5)';
   ctx.beginPath();
-  ctx.moveTo(px, py);
-  ctx.lineTo(px - 11*Math.cos(ang - 0.4), py - 11*Math.sin(ang - 0.4));
-  ctx.lineTo(px - 11*Math.cos(ang + 0.4), py - 11*Math.sin(ang + 0.4));
+  ctx.moveTo(pivotX, pivotY + 2);
+  ctx.lineTo(pivotX - 18, pivotY + 46);
+  ctx.lineTo(pivotX + 18, pivotY + 46);
   ctx.closePath(); ctx.fill();
 
-  // probability bars on the right
-  const p0 = Math.cos(theta/2) ** 2;
-  const p1 = 1 - p0;
-  const bx = w * 0.76, bw = w * 0.16, top = cy - R, barH = 26;
-  drawProbBar(ctx, bx, top, bw, barH, p0, '|0⟩', '#34e08a');
-  drawProbBar(ctx, bx, top + 44, bw, barH, p1, '|1⟩', '#ff6b7d');
+  // caption
+  label(ctx,
+    balanced ? (lang === 'th' ? '⚖ สมดุล 50:50' : '⚖ Balanced 50:50')
+             : (lang === 'th' ? 'ลากโต๊ะให้สมดุล' : 'tilt it level'),
+    pivotX, pivotY + 72, balanced ? '#34e08a' : '#9aa6c8', 13, 'center');
 
-  // histogram of measured results
+  // right side: probability bars + measurement histogram
+  const bx = w * 0.76, bw = w * 0.16, top = h * 0.16, barH = 26;
+  label(ctx, lang === 'th' ? 'โอกาสวัดได้' : 'chance of', bx, top - 12, '#9aa6c8', 12);
+  drawProbBar(ctx, bx, top, bw, barH, p0, '0', '#34e08a');
+  drawProbBar(ctx, bx, top + 44, bw, barH, p1, '1', '#ff6b7d');
+
   const total = S2.up + S2.down;
   label(ctx, t('stat_measurements'), bx, top + 108, '#9aa6c8', 12);
   const hgY = top + 120, hgH = 70;
   const upFrac = total ? S2.up / total : 0;
+  const dnFrac = total ? S2.down / total : 0;
   ctx.fillStyle = 'rgba(52,224,138,0.75)';
-  ctx.fillRect(bx, hgY + hgH*(1-upFrac), bw/2 - 4, hgH*upFrac);
+  ctx.fillRect(bx, hgY + hgH * (1 - upFrac), bw / 2 - 4, hgH * upFrac);
   ctx.fillStyle = 'rgba(255,107,125,0.75)';
-  ctx.fillRect(bx + bw/2 + 4, hgY + hgH*(1-(1-upFrac)*(total?1:0)), bw/2 - 4, hgH*(total? (S2.down/total):0));
+  ctx.fillRect(bx + bw / 2 + 4, hgY + hgH * (1 - dnFrac), bw / 2 - 4, hgH * dnFrac);
   ctx.strokeStyle = 'rgba(150,175,255,0.2)';
-  ctx.strokeRect(bx, hgY, bw/2 - 4, hgH);
-  ctx.strokeRect(bx + bw/2 + 4, hgY, bw/2 - 4, hgH);
+  ctx.strokeRect(bx, hgY, bw / 2 - 4, hgH);
+  ctx.strokeRect(bx + bw / 2 + 4, hgY, bw / 2 - 4, hgH);
+  label(ctx, '0', bx + bw / 4 - 4, hgY + hgH + 14, '#9aa6c8', 11, 'center');
+  label(ctx, '1', bx + bw * 3 / 4, hgY + hgH + 14, '#9aa6c8', 11, 'center');
+}
 
-  // collapse flash
-  if (S2.collapse) {
-    ctx.strokeStyle = S2.collapse.result === 'up' ? 'rgba(52,224,138,' + S2.collapse.a + ')' : 'rgba(255,107,125,' + S2.collapse.a + ')';
-    ctx.lineWidth = 4;
-    const ty = S2.collapse.result === 'up' ? cy - R : cy + R;
-    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx, ty); ctx.stroke();
+// rounded-rect path helper
+function rrect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+
+// coin: a disc split green(0)/red(1) by probability; squashes mid-flip
+function drawCoin(ctx, x, y, r, p0, flip) {
+  ctx.save();
+  ctx.translate(x, y);
+  let faceP0 = p0, squash = 1;
+  if (flip) {
+    squash = Math.max(0.08, Math.abs(Math.cos(flip.spin)));
+    if (flip.settled) faceP0 = flip.result === 'up' ? 1 : 0;
   }
+  ctx.scale(squash, 1);
+
+  ctx.save();
+  ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.clip();
+  ctx.fillStyle = 'rgba(255,107,125,0.92)';           // 1 (top)
+  ctx.fillRect(-r, -r, 2 * r, 2 * r);
+  const gh = 2 * r * faceP0;                           // 0 fills lower fraction
+  ctx.fillStyle = 'rgba(52,224,138,0.94)';
+  ctx.fillRect(-r, r - gh, 2 * r, gh);
+  ctx.strokeStyle = 'rgba(255,255,255,0.25)'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(-r, r - gh); ctx.lineTo(r, r - gh); ctx.stroke();
+  ctx.restore();
+
+  ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.strokeStyle = 'rgba(255,255,255,0.4)'; ctx.lineWidth = 2; ctx.stroke();
+  if (squash > 0.6) {
+    label(ctx, '1', 0, -r * 0.42, 'rgba(255,255,255,0.85)', 12, 'center');
+    label(ctx, '0', 0, r * 0.66, 'rgba(6,18,10,0.9)', 12, 'center');
+  }
+  ctx.restore();
 }
 
 function drawProbBar(ctx, x, y, wBar, hBar, frac, tag, color) {
@@ -1216,48 +1264,74 @@ function drawProbBar(ctx, x, y, wBar, hBar, frac, tag, color) {
 
 function measure2() {
   const o = CV.sim2; if (!o) return;
-  const theta = val('theta') * Math.PI / 180;
-  const p0 = Math.cos(theta/2) ** 2;
-  const result = Math.random() < p0 ? 'up' : 'down';
-  if (result === 'up') S2.up++; else S2.down++;
-  document.getElementById('stUp').textContent = S2.up;
-  document.getElementById('stDown').textContent = S2.down;
-  document.getElementById('stMeas').textContent = S2.up + S2.down;
-  play(result === 'up' ? 'success' : 'collision');
-  if (typeof checkStation2Super === 'function') checkStation2Super();
+  if (S2.flip && !S2.flip.settled) return;            // ignore taps mid-flip
+  const theta = val('theta');
+  const p0 = Math.cos(theta * Math.PI / 360) ** 2;
+  const result = Math.random() < p0 ? 'up' : 'down';  // 'up' = 0, 'down' = 1
+  play('measure');
 
-  // animate collapse flash
-  S2.collapse = { result, a: 1 };
-  const fade = () => {
-    if (!S2.collapse) return;
-    S2.collapse.a -= 0.04;
-    drawBloch();
-    if (S2.collapse.a > 0) requestAnimationFrame(fade);
-    else { S2.collapse = null; drawBloch(); }
+  const tally = () => {
+    if (result === 'up') S2.up++; else S2.down++;
+    document.getElementById('stUp').textContent = S2.up;
+    document.getElementById('stDown').textContent = S2.down;
+    document.getElementById('stMeas').textContent = S2.up + S2.down;
+    play(result === 'up' ? 'success' : 'collision');
+    if (typeof checkStation2Super === 'function') checkStation2Super();
   };
-  fade();
+
+  // reduced-motion: skip the spin, settle at once
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) {
+    S2.flip = { spin: Math.PI * 6, settled: true, result };
+    tally(); drawBloch();
+    setTimeout(() => { S2.flip = null; drawBloch(); }, 600);
+    return;
+  }
+
+  // spin with a strong ease-out, then land on one face
+  S2.flip = { spin: 0, settled: false, result };
+  const dur = 620;
+  let start = null;
+  const step = (ts) => {
+    if (start === null) start = ts;
+    const t = Math.min(1, (ts - start) / dur);
+    if (t >= 1) {
+      S2.flip.spin = Math.PI * 6;            // land flat (cos = 1 → no squash)
+      S2.flip.settled = true;
+      tally(); drawBloch();
+      setTimeout(() => { S2.flip = null; drawBloch(); }, 650);  // re-arm to superposition
+      return;
+    }
+    const eased = 1 - Math.pow(1 - t, 3);     // strong ease-out
+    S2.flip.spin = eased * Math.PI * 6;
+    drawBloch();
+    requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
 }
 
 // drag to rotate
 function initBlochDrag() {
   const o = CV.sim2; if (!o) return;
   const canvas = o.canvas;
-  let dragging = false, lastX, lastY;
-  const down = e => { dragging = true; const p = pointer(e, canvas); lastX = p.x; lastY = p.y; };
+  let dragging = false, lastX;
+  const down = e => {
+    dragging = true; lastX = pointer(e, canvas).x;
+    if (canvas.setPointerCapture) canvas.setPointerCapture(e.pointerId);
+  };
   const move = e => {
     if (!dragging) return;
     const p = pointer(e, canvas);
-    const dx = p.x - lastX, dy = p.y - lastY;
-    lastX = p.x; lastY = p.y;
-    const phiEl = document.getElementById('phi'), thEl = document.getElementById('theta');
-    let phi = (parseFloat(phiEl.value) + dx) % 360; if (phi < 0) phi += 360;
-    let th = Math.max(0, Math.min(180, parseFloat(thEl.value) + dy));
-    phiEl.value = phi.toFixed(0); thEl.value = th.toFixed(0);
-    document.getElementById('phiVal').textContent = phi.toFixed(0) + '°';
-    document.getElementById('thetaVal').textContent = th.toFixed(0) + '°';
+    const dx = p.x - lastX; lastX = p.x;
+    const thEl = document.getElementById('theta');
+    if (!thEl) return;
+    // drag right → tilt toward 1, drag left → tilt toward 0
+    let th = Math.max(0, Math.min(180, parseFloat(thEl.value) + dx * 0.6));
+    thEl.value = th.toFixed(0);
+    const tv = document.getElementById('thetaVal'); if (tv) tv.textContent = th.toFixed(0) + '°';
     drawBloch();
   };
-  const up = () => dragging = false;
+  const up = () => { dragging = false; };
   canvas.addEventListener('pointerdown', down);
   window.addEventListener('pointermove', move);
   window.addEventListener('pointerup', up);
@@ -1760,7 +1834,7 @@ function debugRepairAll() {
   document.getElementById('stParticles') && (document.getElementById('stParticles').textContent = '0');
   drawSlit();
 
-  S2.up = 0; S2.down = 0; S2.collapse = null;
+  S2.up = 0; S2.down = 0; S2.flip = null;
   document.getElementById('stUp') && (document.getElementById('stUp').textContent = '0');
   document.getElementById('stDown') && (document.getElementById('stDown').textContent = '0');
   document.getElementById('stMeas') && (document.getElementById('stMeas').textContent = '0');
@@ -1881,7 +1955,7 @@ function resetTopic(id) {
       document.getElementById('stParticles').textContent = '0';
       drawSlit(); break;
     case 2:
-      S2.up = 0; S2.down = 0; S2.collapse = null;
+      S2.up = 0; S2.down = 0; S2.flip = null;
       document.getElementById('stUp').textContent = '0';
       document.getElementById('stDown').textContent = '0';
       document.getElementById('stMeas').textContent = '0';
