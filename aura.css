@@ -232,6 +232,32 @@ body { background: transparent !important; }
   margin-top: 16px;
 }
 
+/* gacha rarity */
+.aura-rarity {
+  font-family: var(--font-display, sans-serif); font-weight: 800; font-size: 1.15rem;
+  padding: 7px 20px; border-radius: 999px; border: 2px solid transparent;
+  display: inline-flex; align-items: center; gap: 6px; letter-spacing: 0.5px;
+  margin: 0 0 12px; color: #9aa6c8;
+}
+.aura-rarity.locked { animation: aura-rar-pop 0.45s cubic-bezier(0.23,1,0.32,1); }
+@keyframes aura-rar-pop { 0% { transform: scale(0.5); opacity: 0; } 60% { transform: scale(1.18); } 100% { transform: scale(1); opacity: 1; } }
+.aura-pull-btn {
+  border: none !important;
+  background: linear-gradient(135deg, var(--coral, #E87979), var(--gold, #D4A574)) !important;
+  color: #17130f !important; font-weight: 800 !important; font-size: 1.05rem !important;
+  box-shadow: 0 8px 24px rgba(232,121,121,0.3);
+}
+.aura-dex { font-size: 0.85rem; color: var(--text-secondary, #A8A5A0); margin-top: 12px; }
+.aura-shake { animation: aura-shake-k 0.5s ease; }
+@keyframes aura-shake-k {
+  0%,100% { transform: translate(0,0); }
+  20% { transform: translate(-6px,3px) rotate(-1deg); }
+  40% { transform: translate(6px,-3px) rotate(1deg); }
+  60% { transform: translate(-4px,2px); }
+  80% { transform: translate(4px,-2px); }
+}
+@media (prefers-reduced-motion: reduce) { .aura-rarity.locked, .aura-shake { animation: none; } }
+
 @media (prefers-reduced-motion: reduce) {
   .aura-orb.superposed, .aura-orb.superposed::before, .aura-orb.superposed::after,
   .aura-orb.up, .aura-orb.down { animation: none; }

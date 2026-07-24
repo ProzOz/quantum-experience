@@ -36,7 +36,38 @@ const AURA = {
   twin: null,       // {seed, outcome} if opened from a friend's link
   spinning: false,
   streak: 0,
+  rarity: 0,
+  rarityRevealed: false,
 };
+
+/* ── Gacha rarity — the pull-again chase ─────────────────── */
+const AURA_RARITY = [
+  { key: 'common',    th: 'ธรรมดา',      en: 'Common',    color: '#9aa6c8', glow: 'rgba(154,166,200,0.45)', emoji: '⚪' },
+  { key: 'rare',      th: 'แรร์',         en: 'Rare',      color: '#35e0ff', glow: 'rgba(53,224,255,0.6)',   emoji: '🔷' },
+  { key: 'epic',      th: 'เอพิค',        en: 'Epic',      color: '#b06bff', glow: 'rgba(176,107,255,0.7)',  emoji: '🟣' },
+  { key: 'legendary', th: 'เลเจนดารี่',   en: 'Legendary', color: '#ffc23d', glow: 'rgba(255,194,61,0.85)',  emoji: '⭐' },
+  { key: 'mythic',    th: 'ตำนาน',        en: 'Mythic',    color: '#ff5db1', glow: 'rgba(255,93,177,0.95)',  emoji: '🌈' },
+];
+function auraRollRarity() {
+  const r = Math.random();
+  if (r < 0.002) return 4;   // mythic ~0.2%
+  if (r < 0.022) return 3;   // legendary ~2%
+  if (r < 0.09)  return 2;   // epic ~7%
+  if (r < 0.32)  return 1;   // rare ~23%
+  return 0;                  // common
+}
+function auraDex() {
+  try { return JSON.parse(localStorage.getItem('qx_aura_dex') || '{"best":-1,"seen":[]}'); }
+  catch (e) { return { best: -1, seen: [] }; }
+}
+function auraDexRecord(idx) {
+  const d = auraDex();
+  d.best = Math.max(d.best == null ? -1 : d.best, idx);
+  d.seen = d.seen || [];
+  d.seen[idx] = true;
+  localStorage.setItem('qx_aura_dex', JSON.stringify(d));
+  return d;
+}
 
 // today's date as an integer seed (YYYYMMDD) — same for everyone today
 function auraDailySeed() {
@@ -167,12 +198,14 @@ function renderAura() {
           ${auraLang('วัดออร่า', 'Measure me')}
         </button>
         <div class="aura-hint">${auraLang('หรือเขย่ามือถือ', 'or shake your phone')}</div>
+        ${(function () { const d = auraDex(); return (d.best != null && d.best >= 0) ? `<div class="aura-dex">🏆 ${auraLang('พูลดีสุดของนาย', 'your best pull')}: <b style="color:${AURA_RARITY[d.best].color}">${AURA_RARITY[d.best].emoji} ${auraLang(AURA_RARITY[d.best].th, AURA_RARITY[d.best].en)}</b></div>` : ''; })()}
       ` : `
+        <div class="aura-rarity" id="auraRarity"></div>
         <canvas class="aura-card" id="auraCard" width="720" height="1152"></canvas>
         <div class="aura-actions">
+          <button class="aura-again-btn aura-pull-btn" onclick="auraAgainTune()">🎲 ${auraLang('วัดอีกรอบ!', 'PULL AGAIN')}</button>
           <button class="aura-share-btn" onclick="auraShare()">${auraLang('แชร์การ์ด', 'Share card')}</button>
           <button class="aura-friend-btn" onclick="auraEntangle()">${auraLang('พัวพันกับเพื่อน 🔗', 'Entangle a friend 🔗')}</button>
-          <button class="aura-again-btn" onclick="auraAgainTune()">${auraLang('ปรับเอง / วัดใหม่', 'Tune / measure again')}</button>
           <button class="aura-why-btn" onclick="openWhy('measure')">🧠 ${auraLang('ทำไมถึงได้ค่านี้?', 'why did i get this?')}</button>
         </div>
         ${AURA.streak > 0 ? `<div class="aura-streak-nudge">${auraLang('🔥 สตรีค ' + AURA.streak + ' วัน — พรุ่งนี้กลับมาต่อสตรีคนะ', '🔥 ' + AURA.streak + '-day streak — come back tomorrow to keep it')}</div>` : ''}
@@ -182,7 +215,51 @@ function renderAura() {
       `}
     </div>`;
 
-  if (AURA.measured !== null) drawAuraCard();
+  if (AURA.measured !== null) {
+    drawAuraCard();
+    const rEl = document.getElementById('auraRarity');
+    if (!AURA.rarityRevealed) auraRevealRarity();
+    else if (rEl) auraRenderRarityBadge(rEl, AURA.rarity, false);
+  }
+}
+
+/* ── Rarity reveal (slot-machine tease) + celebration ────── */
+function auraRenderRarityBadge(el, idx, rolling) {
+  const r = AURA_RARITY[idx];
+  el.textContent = r.emoji + ' ' + auraLang(r.th, r.en);
+  el.style.color = r.color;
+  el.style.borderColor = r.glow;
+  el.style.boxShadow = rolling ? 'none' : ('0 0 22px ' + r.glow);
+}
+function auraRevealRarity() {
+  const el = document.getElementById('auraRarity');
+  if (!el) return;
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) { auraRenderRarityBadge(el, AURA.rarity, false); el.classList.add('locked'); AURA.rarityRevealed = true; if (AURA.rarity >= 3) auraCelebrate(); return; }
+  let n = 0; const ticks = 16;
+  const spin = () => {
+    if (n >= ticks) {
+      auraRenderRarityBadge(el, AURA.rarity, false);
+      el.classList.remove('locked'); void el.offsetWidth; el.classList.add('locked');
+      AURA.rarityRevealed = true;
+      drawAuraCard();
+      if (AURA.rarity >= 3) auraCelebrate();
+      else if (AURA.rarity >= 1 && typeof play === 'function') play('discover');
+      return;
+    }
+    auraRenderRarityBadge(el, Math.floor(Math.random() * AURA_RARITY.length), true);
+    if (typeof play === 'function' && n % 2 === 0) play('hover');
+    n++;
+    setTimeout(spin, 55 + n * n * 1.4);
+  };
+  spin();
+}
+function auraCelebrate() {
+  if (typeof confetti === 'function') confetti();
+  if (typeof play === 'function') play('success');
+  if (navigator.vibrate) navigator.vibrate([0, 60, 30, 120, 30, 160]);
+  const wrap = document.querySelector('.aura-wrap');
+  if (wrap) { wrap.classList.remove('aura-shake'); void wrap.offsetWidth; wrap.classList.add('aura-shake'); }
 }
 
 /* ── Measure: honest Born-rule collapse + orb animation ──── */
@@ -208,6 +285,9 @@ function auraMeasure() {
     AURA.measured = outcome;
     AURA.spinning = false;
     AURA.streak = auraBumpStreak();
+    AURA.rarity = auraRollRarity();
+    AURA.rarityRevealed = false;
+    auraDexRecord(AURA.rarity);
     if (navigator.vibrate) navigator.vibrate([0, 40, 20, 60]);
     if (typeof play === 'function') play(outcome === 0 ? 'success' : 'collision');
     renderAura();
@@ -283,7 +363,12 @@ function drawAuraCard() {
   ctx.textAlign = 'center';
   ctx.fillStyle = 'rgba(230,226,220,0.55)';
   ctx.font = '600 26px Inter, Kanit, sans-serif';
-  ctx.fillText(auraLang('ควอนตัมออร่า', 'QUANTUM AURA') + ' · ' + auraDateLabel(), cx, 90);
+  ctx.fillText(auraLang('ควอนตัมออร่า', 'QUANTUM AURA') + ' · ' + auraDateLabel(), cx, 86);
+  // rarity badge
+  const rar = AURA_RARITY[(AURA.rarity != null) ? AURA.rarity : 0];
+  ctx.fillStyle = rar.color;
+  ctx.font = '800 38px Orbitron, Inter, sans-serif';
+  ctx.fillText(auraLang(rar.th, rar.en).toUpperCase() + ' ' + rar.emoji, cx, 150);
 
   // big glyph
   ctx.font = '200px sans-serif';
@@ -324,6 +409,14 @@ function drawAuraCard() {
   ctx.fillStyle = 'rgba(230,226,220,0.5)';
   ctx.font = '600 18px Inter, sans-serif';
   ctx.fillText('SCIUS BUU · วมว.', cx, H - 20);
+  // rarity glow border
+  const gi = (AURA.rarity != null) ? AURA.rarity : 0;
+  ctx.strokeStyle = rar.color;
+  ctx.lineWidth = 5 + gi * 2.5;
+  ctx.shadowColor = rar.color; ctx.shadowBlur = 6 + gi * 12;
+  const lw = ctx.lineWidth;
+  ctx.strokeRect(lw / 2, lw / 2, W - lw, H - lw);
+  ctx.shadowBlur = 0;
   ctx.textAlign = 'left';
 }
 
