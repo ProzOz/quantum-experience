@@ -1,0 +1,75 @@
+/* ============================================================
+   วัดใจควอนตัม / Quantum Match — compatibility duel
+   ============================================================ */
+
+#duelPage { display: none; }
+#duelPage.active { display: block; }
+
+.duel-wrap {
+  max-width: 440px; margin: 0 auto;
+  min-height: calc(100vh - 96px);
+  padding: 44px 24px 64px;
+  display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px;
+  position: relative;
+}
+.duel-wrap::before {
+  content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 32%, rgba(255,93,177,0.12), rgba(6,8,14,0.9) 68%);
+}
+
+.duel-heart { font-size: 3.4rem; margin-top: 18px; animation: duel-beat 1.4s ease-in-out infinite; }
+@keyframes duel-beat { 0%,100% { transform: scale(1); } 30% { transform: scale(1.16); } }
+.duel-title { font-weight: 800; font-size: 1.55rem; color: var(--text-primary, #E6E2DC); line-height: 1.3; }
+.duel-sub { color: var(--text-secondary, #A8A5A0); font-size: 1rem; line-height: 1.6; max-width: 340px; }
+
+.duel-input {
+  width: 100%; max-width: 300px; padding: 14px 18px; border-radius: 14px;
+  border: 1px solid rgba(255,93,177,0.4); background: rgba(255,93,177,0.08);
+  color: var(--text-primary, #E6E2DC); font-size: 1.1rem; text-align: center; outline: none;
+}
+.duel-input::placeholder { color: var(--text-tertiary, #6B6966); }
+.duel-input:focus { border-color: #ff5db1; box-shadow: 0 0 18px rgba(255,93,177,0.3); }
+
+.duel-go {
+  padding: 15px 40px; border: none; border-radius: 999px;
+  background: linear-gradient(135deg, #ff5db1, #b06bff); color: #fff;
+  font-weight: 800; font-size: 1.1rem; cursor: pointer;
+  box-shadow: 0 10px 30px rgba(255,93,177,0.35);
+  transition: transform 0.15s cubic-bezier(0.23,1,0.32,1);
+}
+.duel-go:active { transform: scale(0.96); }
+.duel-hint { color: var(--text-tertiary, #6B6966); font-size: 0.85rem; }
+.duel-actions { display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 300px; margin-top: 10px; }
+.duel-again { padding: 12px 24px; border: 1px solid var(--border-light, #2A2B34); background: transparent; color: var(--text-secondary, #A8A5A0); border-radius: 14px; font-weight: 600; cursor: pointer; }
+.duel-again:active { transform: scale(0.97); }
+
+/* result */
+.duel-stage2 { display: flex; align-items: center; justify-content: center; margin: 26px 0 10px; width: 100%; }
+.duel-orb { width: 74px; height: 74px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 1.15rem; color: #fff; flex-shrink: 0; text-transform: uppercase; }
+.duel-orb.a { background: radial-gradient(circle, #35e0ff, #1a6b9e); box-shadow: 0 0 24px rgba(53,224,255,0.6); }
+.duel-orb.b { background: radial-gradient(circle, #ff5db1, #9e1a6b); box-shadow: 0 0 24px rgba(255,93,177,0.6); }
+.duel-string {
+  flex: 1; max-width: 130px; height: 3px;
+  background: linear-gradient(90deg, #35e0ff, #ff5db1);
+  opacity: 0; transform: scaleX(0); transform-origin: center;
+  transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.23,1,0.32,1);
+}
+.duel-string.lit { opacity: 1; transform: scaleX(1); box-shadow: 0 0 14px rgba(255,93,177,0.7); }
+.duel-pct {
+  font-family: var(--font-display, sans-serif); font-weight: 800; font-size: 4rem; line-height: 1;
+  background: linear-gradient(125deg, #35e0ff, #ff5db1);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.duel-verdict { font-weight: 800; font-size: 1.5rem; }
+.duel-verdict-sub { color: var(--text-secondary, #A8A5A0); font-size: 1rem; }
+.duel-names { font-weight: 700; color: var(--text-primary, #E6E2DC); font-size: 1.1rem; margin-top: 4px; }
+.duel-names span { margin: 0 6px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .duel-heart { animation: none; }
+  .duel-string { transition: none; opacity: 1; transform: none; }
+}
+
+/* home hook variant (pink) */
+.qx-hook-duel { border-color: rgba(255,93,177,0.4); background: linear-gradient(160deg, rgba(255,93,177,0.14), rgba(176,107,255,0.1)); }
+.qx-hook-duel .qx-hook-orb { filter: drop-shadow(0 0 16px rgba(255,93,177,0.6)); }

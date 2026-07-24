@@ -171,6 +171,11 @@ function buildLabHome() {
         <div class="qx-hook-title">${lang === 'th' ? 'แชทกับอนุภาค' : 'Text the Particle'}</div>
         <div class="qx-hook-sub">${lang === 'th' ? 'มันส่ง DM มา 👀 คุยกับมันสิ' : 'it just DMed you 👀 reply to it'}</div>
       </button>
+      <button class="qx-hook qx-hook-duel" onclick="openDuel()" onpointerenter="play('hover')" aria-label="Quantum Match">
+        <div class="qx-hook-orb">💘</div>
+        <div class="qx-hook-title">${lang === 'th' ? 'วัดใจควอนตัม' : 'Quantum Match'}</div>
+        <div class="qx-hook-sub">${lang === 'th' ? 'วัดใจกับครัช 👀 ส่งลิงก์ให้เขา' : 'match your crush 👀 send them the link'}</div>
+      </button>
     </div>
 
     <div class="quantum-core-panel unlocked" id="corePanel" onclick="openQuantumCore()">
