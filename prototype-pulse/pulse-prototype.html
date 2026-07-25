@@ -1,29 +1,47 @@
-<title>PULSE — difficulty ladder prototype</title>
+<title>PULSE — mechanic prototype</title>
 
 <!--
   PROTOTYPE — throwaway. Not production code.
 
-  Question it answers (ADR-0003, "Still open"): omega is a tuning parameter with
-  a sweet spot, not a difficulty knob. So where does difficulty come from —
-  target TIGHTNESS, target COUNT, or a shorter frame BUDGET?
+  ROUND 1 answered the difficulty question (tightness is the ladder, count is
+  the score, budget is a bounded speed tier — see README.md). Playtest verdict on
+  round 2: "easier, but the game mechanic feels like shit."
 
-  Three ladders on one game, switchable via ?variant=A|B|C and the bar at the
-  bottom. The game is held VISUALLY IDENTICAL across all three; only the one
-  varied parameter changes. That is what makes the comparison valid, and is a
-  deliberate departure from the usual "variants must differ structurally" rule —
-  here the variants are the difficulty axes, not the looks.
+  ROUND 3 (this file) attacks that. Three hypotheses for why hold-to-drive on a
+  fast Bloch sphere feels bad:
 
-    A — TIGHTNESS : bar rises 80 -> 99.3%,  4 targets, 700ms window
-    B — COUNT     : 2 -> 18 targets,        bar 93%,   700ms window
-    C — BUDGET    : window 900 -> 250ms,    bar 93%,   4 targets
+    1. Too fast to read. The tip moves at up to omega*R px/s — at omega=11,
+       R=170px that is ~1900 px/s free and ~3000 px/s driven, crossing the
+       sphere in under 0.2s. You cannot see cause and effect, so you hold and
+       hope. That is a slot machine with a hold button.
+    2. The 3D projection is unreadable. Depth on a wireframe sphere is
+       ambiguous, so you end up reading the number, not the picture.
+    3. Hold-duration is mushy. Rhythm games are built on WHEN you tap.
 
-  Every target is generated as the endpoint of a real, human-feasible input word
-  from the CURRENT state, so a hittable input provably exists for every target
-  (ceiling 100% by construction). Without this, randomly-placed targets at 550ms
-  and below have worst-case ceilings of 78%/62%/51%/27% and levels are silently
-  impossible. See pulse-solve2.js / pulse-levels.js.
+  THE UNLOCK: ADR-0003 pinned omega to 9..13 because anything slower made
+  targets unreachable inside the window. Targets are now generated as the
+  endpoint of a real input word, so they are reachable at ANY omega. That
+  constraint dissolved. omega is now free to be tuned for legibility instead of
+  for a solver, and every variant here runs slow enough to actually read.
 
-  No persistence — session only. (LINE in-app localStorage is untested per ADR-0003.)
+  Variants (?variant=A|B|C, or the bar at the bottom):
+
+    A — SPHERE + HOLD   omega 4, with a forward preview of both futures
+    B — DISC   + HOLD   same physics, drawn top-down (azimuthal equidistant)
+    C — DISC   + TAP    discrete hard 90-degree pulses instead of holding
+
+  A -> B isolates the VIEW. B -> C isolates the CONTROL.
+
+  The disc is a real projection of the whole sphere: distance from centre is the
+  polar angle theta (centre = |0>, rim = |1>), angle around is the phase phi. No
+  hidden hemisphere, no depth ambiguity, and free precession becomes a clock
+  hand sweeping at constant speed.
+
+  Difficulty is the settled answer from round 1: tightness ladder, 4 targets,
+  lock-in scoring (best fidelity reached while the target is live, locking in
+  the instant you touch the bar). Deterministic throughout — no dice.
+
+  No persistence — session only. (LINE in-app localStorage untested per ADR-0003.)
 -->
 
 <style>
@@ -64,12 +82,10 @@
     inset: 0;
     display: grid;
     grid-template-rows: auto auto 1fr auto;
-    gap: 0;
     max-width: 560px;
     margin: 0 auto;
   }
 
-  /* ── instrument header ─────────────────────────────────── */
   .head {
     display: flex;
     align-items: center;
@@ -79,14 +95,9 @@
     border-bottom: 1px solid var(--line);
   }
 
-  .ladder-id {
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-    min-width: 0;
-  }
+  .mech-id { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
 
-  .ladder-key {
+  .mech-key {
     font-family: var(--mono);
     font-size: 11px;
     letter-spacing: .12em;
@@ -97,9 +108,9 @@
     flex: none;
   }
 
-  .ladder-name {
+  .mech-name {
     font-size: 12px;
-    letter-spacing: .16em;
+    letter-spacing: .14em;
     text-transform: uppercase;
     color: var(--ink-dim);
     white-space: nowrap;
@@ -123,7 +134,6 @@
   .tool[aria-pressed="true"] { color: var(--ink); border-color: var(--ink-faint); }
   .tool:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 
-  /* ── level ladder + varied parameter ───────────────────── */
   .rungs {
     display: flex;
     align-items: center;
@@ -133,12 +143,7 @@
   }
 
   .pips { display: flex; gap: 5px; flex: none; }
-
-  .pip {
-    width: 18px; height: 3px;
-    border-radius: 2px;
-    background: var(--line);
-  }
+  .pip { width: 18px; height: 3px; border-radius: 2px; background: var(--line); }
   .pip.done { background: var(--good); }
   .pip.now  { background: var(--gold); box-shadow: 0 0 8px rgba(212,165,116,.6); }
 
@@ -146,7 +151,6 @@
     font-family: var(--mono);
     font-size: 12px;
     font-variant-numeric: tabular-nums;
-    color: var(--ink);
     margin-left: auto;
     text-align: right;
     white-space: nowrap;
@@ -154,13 +158,12 @@
   .knob b { color: var(--gold); font-weight: 600; }
   .knob span { color: var(--ink-faint); }
 
-  /* ── the sphere ────────────────────────────────────────── */
   .field { position: relative; min-height: 0; }
-  #sphere { display: block; width: 100%; height: 100%; }
+  #view { display: block; width: 100%; height: 100%; }
 
   .readout {
     position: absolute;
-    top: 10px; left: 0; right: 0;
+    top: 8px; left: 0; right: 0;
     text-align: center;
     pointer-events: none;
   }
@@ -168,17 +171,16 @@
   .fid {
     font-family: var(--mono);
     font-variant-numeric: tabular-nums;
-    font-size: 40px;
+    font-size: 38px;
     font-weight: 600;
     line-height: 1;
     letter-spacing: -.02em;
     color: var(--coral);
-    transition: color .12s linear;
   }
 
   .fid-label {
     font-size: 10px;
-    letter-spacing: .2em;
+    letter-spacing: .18em;
     text-transform: uppercase;
     color: var(--ink-faint);
     margin-top: 4px;
@@ -186,7 +188,7 @@
 
   .chain {
     position: absolute;
-    bottom: 8px; left: 0; right: 0;
+    bottom: 6px; left: 0; right: 0;
     display: flex;
     justify-content: center;
     gap: 4px;
@@ -195,10 +197,9 @@
     padding: 0 20px;
   }
   .link { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--ink-faint); }
-  .link.hit  { background: var(--good); border-color: var(--good); }
-  .link.now  { border-color: var(--gold); box-shadow: 0 0 7px rgba(212,165,116,.7); }
+  .link.hit { background: var(--good); border-color: var(--good); }
+  .link.now { border-color: var(--gold); box-shadow: 0 0 7px rgba(212,165,116,.7); }
 
-  /* overlay for idle / miss / clear */
   .veil {
     position: absolute;
     inset: 0;
@@ -207,18 +208,13 @@
     justify-items: center;
     gap: 8px;
     text-align: center;
-    background: rgba(11,13,20,.82);
+    background: rgba(11,13,20,.86);
     pointer-events: none;
     padding: 20px;
   }
   .veil[hidden] { display: none; }
-  .veil-big {
-    font-family: var(--mono);
-    font-size: 26px;
-    font-weight: 600;
-    letter-spacing: .05em;
-  }
-  .veil-sub { font-size: 13px; color: var(--ink-dim); max-width: 30ch; line-height: 1.5; }
+  .veil-big { font-family: var(--mono); font-size: 25px; font-weight: 600; letter-spacing: .04em; }
+  .veil-sub { font-size: 13px; color: var(--ink-dim); max-width: 32ch; line-height: 1.55; }
   .veil-hint {
     font-family: var(--mono);
     font-size: 11px;
@@ -228,7 +224,6 @@
     margin-top: 6px;
   }
 
-  /* ── stats strip ───────────────────────────────────────── */
   .strip {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -239,30 +234,17 @@
   }
 
   .counts { display: flex; gap: 14px; flex: none; }
+  .count-label { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-faint); }
+  .count-val { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 15px; }
 
-  .count-label {
-    font-size: 9px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-  }
-  .count-val {
-    font-family: var(--mono);
-    font-variant-numeric: tabular-nums;
-    font-size: 15px;
-    color: var(--ink);
-  }
+  #spark { display: block; width: 100%; height: 32px; }
 
-  #spark { display: block; width: 100%; height: 34px; }
-
-  /* ── prototype switcher (never ships) ──────────────────── */
   .switcher {
     position: fixed;
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    align-items: stretch;
     background: var(--panel);
     border: 1px solid var(--ink-faint);
     border-radius: 999px;
@@ -282,24 +264,20 @@
   .switcher button:focus-visible { outline: 2px solid var(--gold); outline-offset: -3px; }
   .switcher .cur {
     font-size: 11px;
-    letter-spacing: .12em;
+    letter-spacing: .1em;
     text-transform: uppercase;
     color: var(--ink-dim);
     padding: 7px 4px;
     align-self: center;
     white-space: nowrap;
   }
-
-  @media (prefers-reduced-motion: reduce) {
-    .fid { transition: none; }
-  }
 </style>
 
 <div id="stage">
   <div class="head">
-    <div class="ladder-id">
-      <span class="ladder-key" id="lKey">A</span>
-      <span class="ladder-name" id="lName">TIGHTNESS</span>
+    <div class="mech-id">
+      <span class="mech-key" id="mKey">A</span>
+      <span class="mech-name" id="mName"></span>
     </div>
     <div class="head-tools">
       <button class="tool" id="btnLang" type="button">EN</button>
@@ -313,7 +291,7 @@
   </div>
 
   <div class="field">
-    <canvas id="sphere"></canvas>
+    <canvas id="view"></canvas>
     <div class="readout">
       <div class="fid" id="fid">50.0%</div>
       <div class="fid-label" id="fidLabel">fidelity</div>
@@ -328,30 +306,20 @@
 
   <div class="strip">
     <div class="counts">
-      <div>
-        <div class="count-label" id="labTries">tries</div>
-        <div class="count-val" id="tries">0</div>
-      </div>
-      <div>
-        <div class="count-label" id="labBest">best</div>
-        <div class="count-val" id="best">0</div>
-      </div>
+      <div><div class="count-label" id="labTries">tries</div><div class="count-val" id="tries">0</div></div>
+      <div><div class="count-label" id="labBest">best run</div><div class="count-val" id="best">0</div></div>
     </div>
     <canvas id="spark"></canvas>
   </div>
 </div>
 
 <div class="switcher" id="switcher">
-  <button type="button" id="prev" aria-label="previous ladder">‹</button>
-  <span class="cur" id="cur">A — tightness</span>
-  <button type="button" id="next" aria-label="next ladder">›</button>
+  <button type="button" id="prev" aria-label="previous mechanic">‹</button>
+  <span class="cur" id="cur">A</span>
+  <button type="button" id="next" aria-label="next mechanic">›</button>
 </div>
 
 <script>
-/* ─────────────────────────────────────────────────────────────
-   Local-file fallback: the Artifact host supplies a viewport meta,
-   a bare file:// open does not.
-   ───────────────────────────────────────────────────────────── */
 if (!document.querySelector('meta[name=viewport]')) {
   const m = document.createElement('meta');
   m.name = 'viewport';
@@ -360,142 +328,118 @@ if (!document.querySelector('meta[name=viewport]')) {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Physics — H = (w/2)sz + (W/2)sx, drive gated by the thumb.
-   One qubit as a spinor (a,b); global phase carried, never scored.
-   Identical maths to pulse-solve2.js so the solver's ceilings apply.
+   Physics. H = (w/2)sz + (W/2)sx, drive gated by the thumb.
    ───────────────────────────────────────────────────────────── */
-const OMEGA = 11;      // Larmor precession about Z — ADR-0003 sweet spot 9..13
-const DRIVE = 14;      // Rabi drive about X while held
 const SUB_DT = 1 / 120;
-const TICK_SUBS = 2;   // 2 substeps = one 60Hz decision tick
-const MIN_SEG = 6;     // ticks (100ms) — the human thumb floor
+const TAU = Math.PI * 2;
 
-function step(s, driveOn, dt) {
-  const nx = driveOn ? DRIVE : 0, nz = OMEGA;
-  const nn = Math.hypot(nx, nz);
+function step(s, omega, drive, dt) {
+  const nn = Math.hypot(drive, omega);
   const th = nn * dt, c = Math.cos(th / 2), sn = Math.sin(th / 2);
-  const u = -sn * (nz / nn), v = -sn * (nx / nn);
+  const u = -sn * (omega / nn), v = -sn * (drive / nn);
   const [ar, ai, br, bi] = s;
-  return [
-    c * ar - u * ai - v * bi,
-    c * ai + u * ar + v * br,
-    -v * ai + c * br + u * bi,
-    v * ar + c * bi - u * br,
-  ];
+  return [c * ar - u * ai - v * bi, c * ai + u * ar + v * br,
+          -v * ai + c * br + u * bi, v * ar + c * bi - u * br];
 }
+const bloch = ([ar, ai, br, bi]) => [2 * (ar * br + ai * bi), 2 * (ar * bi - ai * br),
+                                     ar * ar + ai * ai - br * br - bi * bi];
+const fidTo = (s, t) => { const r = bloch(s); return (1 + r[0] * t[0] + r[1] * t[1] + r[2] * t[2]) / 2; };
+const clamp1 = (x) => Math.max(-1, Math.min(1, x));
 
-function bloch(s) {
-  const [ar, ai, br, bi] = s;
-  return [2 * (ar * br + ai * bi), 2 * (ar * bi - ai * br),
-          ar * ar + ai * ai - br * br - bi * bi];
-}
-
-// |<target|psi>|^2 for pure states = (1 + r.t)/2 on the Bloch sphere.
-function fidTo(s, t) {
-  const r = bloch(s);
-  return (1 + r[0] * t[0] + r[1] * t[1] + r[2] * t[2]) / 2;
-}
-
-const runTicks = (s, bits) => {
-  for (const bit of bits)
-    for (let q = 0; q < TICK_SUBS; q++) s = step(s, bit, SUB_DT);
-  return s;
+/* ─────────────────────────────────────────────────────────────
+   Mechanics. Every one runs slow enough to READ: the tip speed
+   is omega*R px/s, and a phone tip is comfortably trackable to
+   roughly 600 px/s. The shipped round-2 build was ~1900.
+   ───────────────────────────────────────────────────────────── */
+const MECH = {
+  A: {
+    key: 'A', view: 'sphere', control: 'hold',
+    omega: 4.0, drive: 5.1, windowMs: 1600,
+    name: { en: 'sphere · hold', th: 'ทรงกลม · กดค้าง' },
+  },
+  B: {
+    key: 'B', view: 'disc', control: 'hold',
+    omega: 4.0, drive: 5.1, windowMs: 1600,
+    name: { en: 'disc · hold', th: 'จานกลม · กดค้าง' },
+  },
+  C: {
+    key: 'C', view: 'disc', control: 'tap',
+    omega: 5.0, drive: 50, pulseMs: 31, windowMs: 2000,
+    name: { en: 'disc · tap', th: 'จานกลม · แตะ' },
+  },
 };
 
-/* A word a thumb could actually execute: every segment >= MIN_SEG ticks. */
-function humanWord(ticks) {
-  const bits = [];
+/* The settled difficulty answer from round 1: tightness. */
+const BARS = [0.88, 0.93, 0.96, 0.98, 0.99, 0.995];
+const TARGETS = 4;
+const PREVIEW_SUBS = 90;   // 0.75s of shown future
+
+const params = new URLSearchParams(location.search);
+let variant = (params.get('variant') || 'A').toUpperCase();
+if (!MECH[variant]) variant = 'A';
+let lang = params.get('lang') === 'th' ? 'th' : 'en';
+let sound = true;
+
+const M = () => MECH[variant];
+const pulseSubs = (m) => Math.max(1, Math.round((m.pulseMs || 0) / 1000 * 120));
+
+/* ─────────────────────────────────────────────────────────────
+   Input words — used only to CONSTRUCT reachable targets.
+   ───────────────────────────────────────────────────────────── */
+function holdWord(subs) {
+  const b = [];
+  const minSeg = 12;                       // 100ms — the human thumb floor
   let bit = Math.random() < 0.5 ? 1 : 0;
-  while (bits.length < ticks) {
-    const len = MIN_SEG + Math.floor(Math.random() * MIN_SEG * 2.5);
-    for (let i = 0; i < len && bits.length < ticks; i++) bits.push(bit);
+  while (b.length < subs) {
+    const len = minSeg + Math.floor(Math.random() * minSeg * 2.5);
+    for (let i = 0; i < len && b.length < subs; i++) b.push(bit);
     bit ^= 1;
+  }
+  return b;
+}
+
+function tapWord(subs, m) {
+  const p = pulseSubs(m), gap = Math.round(0.18 * 120);
+  const bits = new Array(subs).fill(0);
+  let t = Math.floor(Math.random() * gap);
+  while (t < subs) {
+    for (let i = 0; i < p && t + i < subs; i++) bits[t + i] = 1;
+    t += p + gap + Math.floor(Math.random() * gap * 2);
   }
   return bits;
 }
 
-/* Target = the endpoint of a real human-feasible word from the current state.
-   Guarantees a hittable input exists. Reject endpoints you would drift into by
-   doing nothing, or reach by just holding — those need no timing. */
-function makeTarget(state, ticks) {
-  const idle = bloch(runTicks(state, new Array(ticks).fill(0)));
-  const full = bloch(runTicks(state, new Array(ticks).fill(1)));
-  const here = bloch(state);
-  const near = (a, b) => (1 + a[0] * b[0] + a[1] * b[1] + a[2] * b[2]) / 2;
+const word = (subs) => (M().control === 'tap' ? tapWord(subs, M()) : holdWord(subs));
 
-  let bestT = null, bestW = null, bestCost = Infinity;
-  for (let k = 0; k < 60; k++) {
-    const w = humanWord(ticks);
-    const t = bloch(runTicks(state, w));
-    const cost = Math.max(near(t, idle), near(t, full), near(t, here));
-    if (cost < bestCost) { bestCost = cost; bestT = t; bestW = w; }
-    if (cost < 0.85) { window.LAST_WORD = w; return t; }
-  }
-  window.LAST_WORD = bestW;
-  return bestT;
+function runWord(s, bits) {
+  const m = M();
+  for (const b of bits) s = step(s, m.omega, b ? m.drive : 0, SUB_DT);
+  return s;
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Ladders — one varied parameter each, everything else fixed.
-   ───────────────────────────────────────────────────────────── */
-const LADDERS = {
-  A: {
-    key: 'A', name: { en: 'tightness', th: 'ความแม่นยำ' },
-    fixed: { targets: 4, windowMs: 900 },
-    levels: [0.70, 0.80, 0.88, 0.93, 0.96, 0.99].map(bar => ({ bar })),
-    knob: (L, lang) => {
-      const deg = (Math.acos(2 * L.bar - 1) * 180 / Math.PI).toFixed(0);
-      return `<b>${(L.bar * 100).toFixed(0)}%</b> <span>bar · ${deg}° ${lang === 'th' ? 'รัศมี' : 'radius'}</span>`;
-    },
-  },
-  B: {
-    key: 'B', name: { en: 'count', th: 'จำนวนเป้า' },
-    fixed: { bar: 0.88, windowMs: 900 },
-    levels: [2, 4, 6, 9, 13, 18].map(targets => ({ targets })),
-    knob: (L, lang) => `<b>${L.targets}</b> <span>${lang === 'th' ? 'เป้าติดกัน' : 'in a row'} · 88% bar</span>`,
-  },
-  C: {
-    key: 'C', name: { en: 'budget', th: 'เวลาที่ให้' },
-    fixed: { bar: 0.93, targets: 4 },
-    levels: [1600, 1200, 900, 700, 500, 400].map(windowMs => ({ windowMs })),
-    knob: (L, lang) => `<b>${L.windowMs}ms</b> <span>${lang === 'th' ? 'ต่อเป้า' : 'per target'} · 93% bar</span>`,
-  },
-};
-
-const I18N = {
-  en: {
-    fidelity: 'fidelity', peak: 'best', tries: 'tries', best: 'best run',
-    start: 'TAP AND HOLD', startSub: 'Hold to drive the qubit, let go and it precesses. Touch the gold ring before the timer runs out. You cannot mash this — wait for the phase.',
-    hint: 'tap to begin',
-    miss: 'MISS', missSub: (f, b) => `${(f * 100).toFixed(1)}% — needed ${(b * 100).toFixed(1)}%`,
-    retry: 'tap to retry',
-    clear: 'LEVEL CLEAR', clearSub: (n) => `Level ${n} of 6`, nextHint: 'tap for next level',
-    done: 'LADDER COMPLETE', doneSub: 'You cleared every rung. Switch ladders at the bottom.',
-    again: 'tap to replay',
-  },
-  th: {
-    fidelity: 'ความเหมือน', peak: 'ดีสุด', tries: 'ครั้ง', best: 'สถิติ',
-    start: 'แตะค้างไว้', startSub: 'กดค้างเพื่อขับคิวบิต ปล่อยแล้วมันจะหมุนเอง พาไปแตะวงแหวนสีทองให้ทันเวลา กดรัวไม่ได้ผล ต้องรอจังหวะ',
-    hint: 'แตะเพื่อเริ่ม',
-    miss: 'พลาด', missSub: (f, b) => `${(f * 100).toFixed(1)}% — ต้องได้ ${(b * 100).toFixed(1)}%`,
-    retry: 'แตะเพื่อเล่นใหม่',
-    clear: 'ผ่านด่าน', clearSub: (n) => `ด่าน ${n} จาก 6`, nextHint: 'แตะเพื่อไปด่านต่อไป',
-    done: 'จบทุกด่าน', doneSub: 'ผ่านครบทุกขั้นแล้ว เปลี่ยนแกนความยากด้านล่าง',
-    again: 'แตะเพื่อเล่นอีก',
-  },
-};
+/* Target = endpoint of a real, playable input word, so a hittable input
+   provably exists. Reject endpoints you would drift into by doing nothing. */
+function makeTarget(state, subs) {
+  const idle = bloch(runWord(state, new Array(subs).fill(0)));
+  const here = bloch(state);
+  const near = (a, b) => (1 + a[0] * b[0] + a[1] * b[1] + a[2] * b[2]) / 2;
+  let bT = null, bW = null, bC = Infinity;
+  for (let k = 0; k < 50; k++) {
+    const w = word(subs);
+    const t = bloch(runWord(state, w));
+    const c = Math.max(near(t, idle), near(t, here));
+    if (c < bC) { bC = c; bT = t; bW = w; }
+    if (c < 0.8) { window.LAST_WORD = w; return t; }
+  }
+  window.LAST_WORD = bW;
+  return bT;
+}
 
 /* ─────────────────────────────────────────────────────────────
    Game state
    ───────────────────────────────────────────────────────────── */
-const params = new URLSearchParams(location.search);
-let variant = (params.get('variant') || 'A').toUpperCase();
-if (!LADDERS[variant]) variant = 'A';
-let lang = (params.get('lang') === 'th') ? 'th' : 'en';
-let sound = true;
-
 const G = {
-  phase: 'idle',      // idle | playing | miss | clear | done
+  phase: 'idle',        // idle | playing | miss | clear | done
   level: 0,
   state: null,
   target: null,
@@ -503,33 +447,25 @@ const G = {
   subsLeft: 0,
   hits: 0,
   held: false,
-  ignoreHold: false,  // a tap that dismissed an overlay must not count as drive
+  suppress: false,      // the tap that dismissed an overlay must not also play
+  pulseLeft: 0,         // substeps remaining of the current tap pulse
   trail: [],
-  ringIn: 0,          // 0..1 fade-in of a freshly placed target
+  ringIn: 0,
   flash: 0,
   flashGood: false,
-  history: [],        // fidelity of every resolved target this session
+  history: [],
   tries: 0,
   bestRun: 0,
   lastFid: 0.5,
-  bestFid: 0,         // best fidelity reached while the current target is live
+  bestFid: 0,
 };
 
-function cfg() {
-  const L = LADDERS[variant];
-  return Object.assign({}, L.fixed, L.levels[G.level]);
-}
-
-/* start state: latitude 35°, so the sphere is already precessing on frame 1 */
-function freshState() {
-  const th = 35 * Math.PI / 180;
-  return [Math.cos(th / 2), 0, Math.sin(th / 2), 0];
-}
+const bar = () => BARS[G.level];
+const freshState = () => { const th = 0.6; return [Math.cos(th / 2), 0, Math.sin(th / 2), 0]; };
 
 function beginLevel() {
   G.state = freshState();
-  G.hits = 0;
-  G.trail = [];
+  G.hits = 0; G.trail = []; G.pulseLeft = 0;
   G.phase = 'playing';
   G.tries++;
   nextTarget();
@@ -537,39 +473,26 @@ function beginLevel() {
 }
 
 function nextTarget() {
-  const c = cfg();
-  const ticks = Math.round(c.windowMs / 1000 * 60);
-  G.target = makeTarget(G.state, ticks);
-  G.windowSubs = ticks * TICK_SUBS;
-  G.subsLeft = G.windowSubs;
+  const subs = Math.round(M().windowMs / 1000 * 120);
+  G.target = makeTarget(G.state, subs);
+  G.windowSubs = subs;
+  G.subsLeft = subs;
   G.ringIn = 0;
   G.bestFid = 0;
 }
 
-/* Scoring: the target locks in the INSTANT you touch the bar, and the score is
-   the best fidelity reached while it was live — not wherever the vector
-   happened to be at the buzzer. Still fully deterministic, so ADR-0003's
-   no-dice requirement holds. Buzzer scoring was measured and it is what made
-   every ladder unplayable: at a 700ms window and an 80% bar it took a thumb
-   from 75.6% down to 25.4% per target. */
-function record(f) {
-  G.history.push(f);
-  if (G.history.length > 240) G.history.shift();
-}
+const record = (f) => { G.history.push(f); if (G.history.length > 240) G.history.shift(); };
 
 function hitTarget() {
-  const c = cfg();
   record(G.bestFid);
   G.hits++;
   G.flash = 1; G.flashGood = true;
   blip(true);
   if (navigator.vibrate) { try { navigator.vibrate(12); } catch (e) {} }
-  if (G.hits >= c.targets) {
+  if (G.hits >= TARGETS) {
     if (G.hits > G.bestRun) G.bestRun = G.hits;
-    G.phase = (G.level >= LADDERS[variant].levels.length - 1) ? 'done' : 'clear';
-  } else {
-    nextTarget();
-  }
+    G.phase = G.level >= BARS.length - 1 ? 'done' : 'clear';
+  } else nextTarget();
   updateChrome();
 }
 
@@ -585,8 +508,7 @@ function missTarget() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Audio — a drone whose pitch tracks fidelity gives eyes-free
-   feedback, which is the whole point of a timing game.
+   Audio
    ───────────────────────────────────────────────────────────── */
 let actx = null, drone = null, droneGain = null;
 
@@ -606,8 +528,7 @@ function ensureAudio() {
 
 function tuneDrone(f, on) {
   if (!actx || !drone) return;
-  const want = (on && sound) ? 0.045 : 0;
-  droneGain.gain.setTargetAtTime(want, actx.currentTime, 0.05);
+  droneGain.gain.setTargetAtTime((on && sound) ? 0.04 : 0, actx.currentTime, 0.05);
   drone.frequency.setTargetAtTime(170 + 620 * Math.pow(f, 3), actx.currentTime, 0.03);
 }
 
@@ -623,28 +544,44 @@ function blip(good) {
   o.start(); o.stop(actx.currentTime + 0.34);
 }
 
+function tick() {   // the click of a fired pulse
+  if (!actx || !sound) return;
+  const o = actx.createOscillator(), g = actx.createGain();
+  o.type = 'square';
+  o.frequency.value = 1400;
+  g.gain.setValueAtTime(0.0008, actx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.05, actx.currentTime + 0.004);
+  g.gain.exponentialRampToValueAtTime(0.0001, actx.currentTime + 0.07);
+  o.connect(g).connect(actx.destination);
+  o.start(); o.stop(actx.currentTime + 0.09);
+}
+
 /* ─────────────────────────────────────────────────────────────
    Input — the whole screen is the pad.
    ───────────────────────────────────────────────────────────── */
 function onDown(e) {
-  if (e.target.closest('button')) return;
-  e.preventDefault();
+  if (e.target && e.target.closest && e.target.closest('button')) return;
+  if (e.preventDefault) e.preventDefault();
   ensureAudio();
 
-  if (G.phase === 'playing') { G.held = true; return; }
+  if (G.phase === 'playing') {
+    if (G.suppress) return;
+    if (M().control === 'tap') {
+      if (G.pulseLeft <= 0) { G.pulseLeft = pulseSubs(M()); tick(); }
+    } else {
+      G.held = true;
+    }
+    return;
+  }
 
-  // any overlay: this tap advances, and must not also drive
   if (G.phase === 'clear') G.level++;
   if (G.phase === 'done') G.level = 0;
   beginLevel();
   G.held = false;
-  G.ignoreHold = true;
+  G.suppress = true;
 }
 
-function onUp() {
-  G.held = false;
-  G.ignoreHold = false;
-}
+function onUp() { G.held = false; G.suppress = false; }
 
 addEventListener('pointerdown', onDown, { passive: false });
 addEventListener('pointerup', onUp);
@@ -653,11 +590,15 @@ addEventListener('blur', onUp);
 addEventListener('contextmenu', (e) => e.preventDefault());
 
 /* ─────────────────────────────────────────────────────────────
-   Loop — fixed timestep, so fidelity is deterministic regardless
-   of the phone's refresh rate. This is load-bearing: the whole
-   design rests on the score having no dice in it.
+   Loop — fixed timestep, so the score never depends on refresh rate.
    ───────────────────────────────────────────────────────────── */
 let acc = 0, last = performance.now();
+
+function driveNow() {
+  const m = M();
+  if (m.control === 'tap') return G.pulseLeft > 0;
+  return G.held && !G.suppress;
+}
 
 function frame(now) {
   let dt = (now - last) / 1000;
@@ -665,28 +606,27 @@ function frame(now) {
   if (dt > 0.25) dt = 0.25;
 
   if (G.phase === 'playing') {
-    const bar = cfg().bar;
+    const m = M(), b = bar();
     acc += dt;
     while (acc >= SUB_DT) {
-      const driving = G.held && !G.ignoreHold;
-      G.state = step(G.state, driving, SUB_DT);
+      const on = driveNow();
+      if (G.pulseLeft > 0) G.pulseLeft--;
+      G.state = step(G.state, m.omega, on ? m.drive : 0, SUB_DT);
       G.subsLeft--;
       acc -= SUB_DT;
 
       if (G.trail.length === 0 || G.subsLeft % 3 === 0) {
         G.trail.push(bloch(G.state));
-        if (G.trail.length > 40) G.trail.shift();
+        if (G.trail.length > 46) G.trail.shift();
       }
 
       const f = fidTo(G.state, G.target);
       if (f > G.bestFid) G.bestFid = f;
-      if (f >= bar) { hitTarget(); break; }        // lock in the moment you touch it
+      if (f >= b) { hitTarget(); break; }
       if (G.subsLeft <= 0) { missTarget(); break; }
     }
     G.ringIn = Math.min(1, G.ringIn + dt * 7);
-  } else {
-    acc = 0;
-  }
+  } else acc = 0;
 
   G.flash = Math.max(0, G.flash - dt * 3.2);
   draw();
@@ -694,9 +634,9 @@ function frame(now) {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Render
+   Projections
    ───────────────────────────────────────────────────────────── */
-const cv = document.getElementById('sphere');
+const cv = document.getElementById('view');
 const ctx = cv.getContext('2d');
 const sparkCv = document.getElementById('spark');
 const sctx = sparkCv.getContext('2d');
@@ -719,66 +659,78 @@ function fit() {
 addEventListener('resize', fit);
 addEventListener('orientationchange', () => setTimeout(fit, 120));
 
-/* camera: azimuth 0, elevation ELEV. depth > 0 is the near hemisphere. */
-function proj(v) {
+function projSphere(v) {
   const [x, y, z] = v;
-  const sx = CX + R * y;
-  const sy = CY - R * (z * Math.cos(ELEV) - x * Math.sin(ELEV));
-  const depth = z * Math.sin(ELEV) + x * Math.cos(ELEV);
-  return [sx, sy, depth];
+  return [CX + R * y,
+          CY - R * (z * Math.cos(ELEV) - x * Math.sin(ELEV)),
+          z * Math.sin(ELEV) + x * Math.cos(ELEV)];
 }
 
-function ring(center, angRad, steps) {
-  // orthonormal basis perpendicular to `center`
-  const c = center;
-  let a = Math.abs(c[2]) < 0.9 ? [0, 0, 1] : [1, 0, 0];
-  let u = [a[1] * c[2] - a[2] * c[1], a[2] * c[0] - a[0] * c[2], a[0] * c[1] - a[1] * c[0]];
-  const un = Math.hypot(u[0], u[1], u[2]); u = u.map(k => k / un);
-  const v = [c[1] * u[2] - c[2] * u[1], c[2] * u[0] - c[0] * u[2], c[0] * u[1] - c[1] * u[0]];
-  const out = [], ca = Math.cos(angRad), sa = Math.sin(angRad);
-  for (let i = 0; i <= steps; i++) {
-    const p = i / steps * Math.PI * 2, cp = Math.cos(p), sp = Math.sin(p);
-    out.push([
-      c[0] * ca + (u[0] * cp + v[0] * sp) * sa,
-      c[1] * ca + (u[1] * cp + v[1] * sp) * sa,
-      c[2] * ca + (u[2] * cp + v[2] * sp) * sa,
-    ]);
-  }
-  return out;
+/* Azimuthal equidistant: radius = polar angle. Centre is |0>, rim is |1>,
+   angle around is the phase. The whole sphere, no hidden half. */
+function projDisc(v) {
+  const th = Math.acos(clamp1(v[2]));
+  const ph = Math.atan2(v[1], v[0]);
+  const rr = (th / Math.PI) * R;
+  return [CX + rr * Math.cos(ph), CY + rr * Math.sin(ph), 1];
+}
+
+const proj = (v) => (M().view === 'disc' ? projDisc(v) : projSphere(v));
+
+/* screen radius of an angular tolerance, per view */
+function tolPx(tol) {
+  return M().view === 'disc' ? R * (tol / Math.PI) : R * Math.sin(tol);
 }
 
 function strokePath(pts, near, far, width) {
   for (let i = 1; i < pts.length; i++) {
     const [x0, y0, d0] = proj(pts[i - 1]);
     const [x1, y1, d1] = proj(pts[i]);
+    if (Math.hypot(x1 - x0, y1 - y0) > R * 1.2) continue;   // seam guard
     const front = (d0 + d1) / 2 > 0;
     ctx.strokeStyle = front ? near : far;
     ctx.lineWidth = width * (front ? 1 : 0.75);
-    ctx.beginPath();
-    ctx.moveTo(x0, y0);
-    ctx.lineTo(x1, y1);
-    ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke();
   }
 }
 
 function circleOnSphere(axis, steps) {
   const c = axis;
-  let a = Math.abs(c[2]) < 0.9 ? [0, 0, 1] : [1, 0, 0];
+  const a = Math.abs(c[2]) < 0.9 ? [0, 0, 1] : [1, 0, 0];
   let u = [a[1] * c[2] - a[2] * c[1], a[2] * c[0] - a[0] * c[2], a[0] * c[1] - a[1] * c[0]];
   const un = Math.hypot(u[0], u[1], u[2]); u = u.map(k => k / un);
   const v = [c[1] * u[2] - c[2] * u[1], c[2] * u[0] - c[0] * u[2], c[0] * u[1] - c[1] * u[0]];
   const out = [];
   for (let i = 0; i <= steps; i++) {
-    const p = i / steps * Math.PI * 2, cp = Math.cos(p), sp = Math.sin(p);
+    const p = i / steps * TAU, cp = Math.cos(p), sp = Math.sin(p);
     out.push([u[0] * cp + v[0] * sp, u[1] * cp + v[1] * sp, u[2] * cp + v[2] * sp]);
   }
   return out;
 }
 
+/* ─────────────────────────────────────────────────────────────
+   The missing mental model: show BOTH futures.
+   ───────────────────────────────────────────────────────────── */
+function futurePath(driven) {
+  const m = M();
+  let s = G.state;
+  const pts = [bloch(s)];
+  if (m.control === 'tap' && driven) {
+    const p = pulseSubs(m);
+    for (let i = 0; i < p; i++) s = step(s, m.omega, m.drive, SUB_DT);
+    pts.push(bloch(s));
+  }
+  const on = m.control === 'tap' ? false : driven;
+  for (let i = 0; i < PREVIEW_SUBS; i++) {
+    s = step(s, m.omega, on ? m.drive : 0, SUB_DT);
+    if (i % 4 === 0) pts.push(bloch(s));
+  }
+  return pts;
+}
+
 const lerp = (a, b, t) => a + (b - a) * t;
 
 function fidColor(f) {
-  // coral -> gold -> good, so the number reads before you can parse it
   if (f < 0.6) return '#E87979';
   if (f < 0.93) {
     const t = (f - 0.6) / 0.33;
@@ -788,190 +740,191 @@ function fidColor(f) {
   return `rgb(${Math.round(lerp(212, 123, t))},${Math.round(lerp(165, 196, t))},${Math.round(lerp(116, 127, t))})`;
 }
 
+/* ─────────────────────────────────────────────────────────────
+   Render
+   ───────────────────────────────────────────────────────────── */
+function drawBackdrop() {
+  const disc = M().view === 'disc';
+
+  const g = ctx.createRadialGradient(CX - R * 0.3, CY - R * 0.4, R * 0.1, CX, CY, R);
+  g.addColorStop(0, 'rgba(38,40,54,.5)');
+  g.addColorStop(1, 'rgba(16,18,26,.22)');
+  ctx.fillStyle = g;
+  ctx.beginPath(); ctx.arc(CX, CY, R, 0, TAU); ctx.fill();
+  ctx.strokeStyle = 'rgba(86,84,94,.35)';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.arc(CX, CY, R, 0, TAU); ctx.stroke();
+
+  if (disc) {
+    // latitude rings at 45/90/135 degrees; the 90 ring is the equator
+    for (const deg of [45, 90, 135]) {
+      ctx.strokeStyle = deg === 90 ? 'rgba(139,107,174,.5)' : 'rgba(86,84,94,.28)';
+      ctx.lineWidth = deg === 90 ? 1.2 : 1;
+      ctx.beginPath(); ctx.arc(CX, CY, R * (deg / 180), 0, TAU); ctx.stroke();
+    }
+    // spokes mark the phase clock
+    ctx.strokeStyle = 'rgba(86,84,94,.18)';
+    ctx.lineWidth = 1;
+    for (let k = 0; k < 8; k++) {
+      const a = k / 8 * TAU;
+      ctx.beginPath();
+      ctx.moveTo(CX + Math.cos(a) * R * 0.12, CY + Math.sin(a) * R * 0.12);
+      ctx.lineTo(CX + Math.cos(a) * R, CY + Math.sin(a) * R);
+      ctx.stroke();
+    }
+    ctx.fillStyle = 'rgba(139,137,131,.5)';
+    ctx.font = '11px ui-monospace, Menlo, Consolas, monospace';
+    ctx.textAlign = 'left';
+    ctx.fillText('|0⟩', CX + 9, CY - 7);          // offset so the state dot never sits on it
+    ctx.textAlign = 'center';
+    ctx.fillText('|1⟩', CX, CY + R - 9);
+    ctx.textAlign = 'left';
+  } else {
+    strokePath(circleOnSphere([0, 0, 1], 96), 'rgba(139,107,174,.55)', 'rgba(139,107,174,.16)', 1.2);
+    strokePath(circleOnSphere([0, 1, 0], 96), 'rgba(86,84,94,.32)', 'rgba(86,84,94,.1)', 1);
+    const [nx, ny] = proj([0, 0, 1]), [sx, sy] = proj([0, 0, -1]);
+    ctx.strokeStyle = 'rgba(86,84,94,.4)';
+    ctx.setLineDash([3, 4]);
+    ctx.beginPath(); ctx.moveTo(nx, ny); ctx.lineTo(sx, sy); ctx.stroke();
+    ctx.setLineDash([]);
+  }
+}
+
 function draw() {
   if (!W) fit();
   ctx.clearRect(0, 0, W, H);
 
-  const c = cfg();
+  const m = M();
   const playing = G.phase === 'playing';
   const f = (G.target && G.state) ? fidTo(G.state, G.target) : 0.5;
+  const b = bar();
 
-  // sphere body
-  const g = ctx.createRadialGradient(CX - R * 0.3, CY - R * 0.4, R * 0.1, CX, CY, R);
-  g.addColorStop(0, 'rgba(38,40,54,.55)');
-  g.addColorStop(1, 'rgba(16,18,26,.25)');
-  ctx.fillStyle = g;
-  ctx.beginPath(); ctx.arc(CX, CY, R, 0, Math.PI * 2); ctx.fill();
-  ctx.strokeStyle = 'rgba(86,84,94,.35)';
-  ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.arc(CX, CY, R, 0, Math.PI * 2); ctx.stroke();
+  drawBackdrop();
 
-  // equator + one meridian
-  strokePath(circleOnSphere([0, 0, 1], 96), 'rgba(139,107,174,.55)', 'rgba(139,107,174,.16)', 1.2);
-  strokePath(circleOnSphere([0, 1, 0], 96), 'rgba(86,84,94,.35)', 'rgba(86,84,94,.12)', 1);
-
-  // Z axis
-  const [nx, ny] = proj([0, 0, 1]), [sx2, sy2] = proj([0, 0, -1]);
-  ctx.strokeStyle = 'rgba(86,84,94,.4)';
-  ctx.setLineDash([3, 4]);
-  ctx.beginPath(); ctx.moveTo(nx, ny); ctx.lineTo(sx2, sy2); ctx.stroke();
-  ctx.setLineDash([]);
-
-  // drive axis lights up while held — makes "what does holding do" legible
-  const driving = playing && G.held && !G.ignoreHold;
-  if (driving) {
-    const [ax, ay] = proj([1, 0, 0]), [bx, by] = proj([-1, 0, 0]);
-    ctx.strokeStyle = 'rgba(212,165,116,.85)';
-    ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by); ctx.stroke();
-    ctx.fillStyle = 'rgba(212,165,116,.9)';
-    ctx.beginPath(); ctx.arc(ax, ay, 3.5, 0, Math.PI * 2); ctx.fill();
-  }
-
+  // ── target zone ────────────────────────────────────────────
   if (G.target) {
-    const tol = Math.acos(Math.max(-1, Math.min(1, 2 * c.bar - 1)));
+    const tol = Math.acos(clamp1(2 * b - 1));
     const a = 0.25 + 0.75 * G.ringIn;
-    // ring brightens as your best approach closes on the bar
-    const warm = playing ? Math.max(0, Math.min(1, (G.bestFid - 0.4) / (c.bar - 0.4))) : 0;
-
-    /* The tolerance is drawn as a ZONE, not as the true great circle. A 31°
-       ring (93% bar) projects to an arc that crosses the whole sphere and reads
-       as a stray diagonal; at the 70% rung it is 66° and reads as nothing at
-       all. A screen-space cap keeps the one thing that must be legible — the
-       zone visibly shrinks as the bar rises — at the cost of exact geometry.
-       Prototype trade: legibility over projective honesty. */
+    const warm = playing ? Math.max(0, Math.min(1, (G.bestFid - 0.4) / (b - 0.4))) : 0;
     const [tx, ty, td] = proj(G.target);
     const ta = td > 0 ? a : 0.4 * a;
-    const rad = Math.max(5, R * Math.sin(tol));
+    const rad = Math.max(5, tolPx(tol));
 
     ctx.save();
-    ctx.beginPath(); ctx.arc(CX, CY, R, 0, Math.PI * 2); ctx.clip();
+    ctx.beginPath(); ctx.arc(CX, CY, R, 0, TAU); ctx.clip();
 
     const gg = ctx.createRadialGradient(tx, ty, 0, tx, ty, rad);
-    gg.addColorStop(0, `rgba(212,165,116,${(0.20 + 0.22 * warm) * ta})`);
-    gg.addColorStop(0.7, `rgba(212,165,116,${(0.08 + 0.10 * warm) * ta})`);
+    gg.addColorStop(0, `rgba(212,165,116,${(0.22 + 0.24 * warm) * ta})`);
+    gg.addColorStop(0.7, `rgba(212,165,116,${(0.09 + 0.11 * warm) * ta})`);
     gg.addColorStop(1, 'rgba(212,165,116,0)');
     ctx.fillStyle = gg;
-    ctx.beginPath(); ctx.arc(tx, ty, rad, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(tx, ty, rad, 0, TAU); ctx.fill();
 
     ctx.strokeStyle = `rgba(212,165,116,${(0.5 + 0.4 * warm) * ta})`;
     ctx.lineWidth = 1.2 + 0.8 * warm;
     ctx.setLineDash([4, 5]);
-    ctx.beginPath(); ctx.arc(tx, ty, rad, 0, Math.PI * 2); ctx.stroke();
+    ctx.beginPath(); ctx.arc(tx, ty, rad, 0, TAU); ctx.stroke();
     ctx.setLineDash([]);
 
-    // how close you have actually come — a ghost edge at your best approach
-    if (playing && G.bestFid > 0.45 && G.bestFid < c.bar) {
-      const got = Math.acos(Math.max(-1, Math.min(1, 2 * G.bestFid - 1)));
+    if (playing && G.bestFid > 0.45 && G.bestFid < b) {
+      const got = Math.acos(clamp1(2 * G.bestFid - 1));
       ctx.strokeStyle = `rgba(139,107,174,${0.45 * a})`;
       ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.arc(tx, ty, Math.max(4, R * Math.sin(got)), 0, Math.PI * 2); ctx.stroke();
+      ctx.beginPath(); ctx.arc(tx, ty, Math.max(4, tolPx(got)), 0, TAU); ctx.stroke();
     }
     ctx.restore();
 
-    // target centre — a filled pip, readable at arm's length
     ctx.fillStyle = `rgba(212,165,116,${ta})`;
-    ctx.beginPath(); ctx.arc(tx, ty, 3.6, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(tx, ty, 3.6, 0, TAU); ctx.fill();
   }
 
-  /* Phase gap: the arc on the equator between where the qubit's azimuth is now
-     and where the target's is. It closes on its own as the qubit precesses —
-     this is the "wait for the phase" cue, drawn rather than explained. */
-  if (playing && G.target && G.state) {
-    const r0 = bloch(G.state);
-    const ls = Math.hypot(r0[0], r0[1]), lt = Math.hypot(G.target[0], G.target[1]);
-    if (ls > 0.06 && lt > 0.06) {
-      const ps = Math.atan2(r0[1], r0[0]);
-      const pt = Math.atan2(G.target[1], G.target[0]);
-      let d = pt - ps;
-      while (d > Math.PI) d -= 2 * Math.PI;
-      while (d < -Math.PI) d += 2 * Math.PI;
-      const close = 1 - Math.abs(d) / Math.PI;
-      const pts = [];
-      const N = 40;
-      for (let i = 0; i <= N; i++) {
-        const p = ps + d * (i / N);
-        pts.push([Math.cos(p), Math.sin(p), 0]);
-      }
-      strokePath(pts,
-        `rgba(212,165,116,${0.2 + 0.7 * close * close})`,
-        `rgba(212,165,116,${0.06 + 0.2 * close * close})`,
-        1.5 + 2.5 * close * close);
-    }
+  // ── both futures: the mental model this game was missing ───
+  if (playing) {
+    const driving = driveNow();
+    ctx.save();
+    ctx.beginPath(); ctx.arc(CX, CY, R * 1.02, 0, TAU); ctx.clip();
+
+    // where you drift if you do nothing
+    strokePath(futurePath(false),
+      driving ? 'rgba(139,107,174,.3)' : 'rgba(139,107,174,.75)',
+      'rgba(139,107,174,.14)', driving ? 1.2 : 2);
+
+    // where the drive (or the next tap) takes you
+    strokePath(futurePath(true),
+      driving || m.control === 'tap' ? 'rgba(212,165,116,.8)' : 'rgba(212,165,116,.4)',
+      'rgba(212,165,116,.16)', driving || m.control === 'tap' ? 2.2 : 1.3);
+
+    ctx.restore();
   }
 
-  // trail
+  // ── trail ──────────────────────────────────────────────────
   if (G.trail.length > 1) {
     for (let i = 1; i < G.trail.length; i++) {
       const t = i / G.trail.length;
       const [x0, y0] = proj(G.trail[i - 1]);
       const [x1, y1, d1] = proj(G.trail[i]);
-      ctx.strokeStyle = `rgba(139,107,174,${0.06 + 0.5 * t * (d1 > 0 ? 1 : 0.4)})`;
-      ctx.lineWidth = 1 + 1.6 * t;
+      if (Math.hypot(x1 - x0, y1 - y0) > R * 1.2) continue;
+      ctx.strokeStyle = `rgba(232,121,121,${0.04 + 0.30 * t * (d1 > 0 ? 1 : 0.4)})`;
+      ctx.lineWidth = 1 + 1.4 * t;
       ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke();
     }
   }
 
-  // state vector
+  // ── the state itself ───────────────────────────────────────
   if (G.state) {
     const r = bloch(G.state);
     const [px, py, pd] = proj(r);
-    const [ox, oy] = proj([0, 0, 0]);
     const col = fidColor(f);
+    const driving = playing && driveNow();
 
-    // dashed drop to the equatorial plane — reads the precession phase directly
-    const pl = Math.hypot(r[0], r[1]);
-    if (pl > 0.04) {
-      const [ex, ey] = proj([r[0], r[1], 0]);
-      ctx.strokeStyle = 'rgba(139,107,174,.35)';
-      ctx.setLineDash([2, 4]);
-      ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(ex, ey); ctx.stroke();
-      ctx.setLineDash([]);
-      ctx.fillStyle = 'rgba(139,107,174,.8)';
-      ctx.beginPath(); ctx.arc(ex, ey, 2.4, 0, Math.PI * 2); ctx.fill();
+    if (m.view === 'sphere') {
+      const [ox, oy] = proj([0, 0, 0]);
+      ctx.strokeStyle = col;
+      ctx.lineWidth = pd > 0 ? 2.4 : 1.6;
+      ctx.globalAlpha = pd > 0 ? 1 : 0.5;
+      ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(px, py); ctx.stroke();
+      ctx.globalAlpha = 1;
     }
 
-    ctx.strokeStyle = col;
-    ctx.lineWidth = pd > 0 ? 2.4 : 1.6;
-    ctx.globalAlpha = pd > 0 ? 1 : 0.5;
-    ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(px, py); ctx.stroke();
-    ctx.globalAlpha = 1;
-
-    ctx.shadowBlur = 16; ctx.shadowColor = col;
+    ctx.shadowBlur = driving ? 22 : 14;
+    ctx.shadowColor = col;
     ctx.fillStyle = col;
-    ctx.beginPath(); ctx.arc(px, py, driving ? 7 : 5.5, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(px, py, driving ? 8 : 6, 0, TAU); ctx.fill();
     ctx.shadowBlur = 0;
+
+    // a pulse firing gets a visible ring so the tap has weight
+    if (m.control === 'tap' && G.pulseLeft > 0) {
+      ctx.strokeStyle = 'rgba(212,165,116,.9)';
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(px, py, 14, 0, TAU); ctx.stroke();
+    }
   }
 
-  // time budget: an arc that drains — in ladder C this is the difficulty
+  // ── time budget ────────────────────────────────────────────
   if (playing && G.windowSubs) {
     const frac = Math.max(0, G.subsLeft / G.windowSubs);
     const rr = R * 1.09;
     ctx.strokeStyle = 'rgba(86,84,94,.25)';
     ctx.lineWidth = 3;
-    ctx.beginPath(); ctx.arc(CX, CY, rr, 0, Math.PI * 2); ctx.stroke();
-    ctx.strokeStyle = frac < 0.25 ? '#E87979' : '#D4A574';
+    ctx.beginPath(); ctx.arc(CX, CY, rr, 0, TAU); ctx.stroke();
+    // deliberately NOT gold: gold is the target and the drive-preview, and a
+    // gold timer ring competes with both
+    ctx.strokeStyle = frac < 0.25 ? '#E87979' : 'rgba(139,137,131,.7)';
     ctx.lineCap = 'round';
-    ctx.beginPath();
-    ctx.arc(CX, CY, rr, -Math.PI / 2, -Math.PI / 2 + frac * Math.PI * 2);
+    ctx.beginPath(); ctx.arc(CX, CY, rr, -Math.PI / 2, -Math.PI / 2 + frac * TAU);
     ctx.stroke();
     ctx.lineCap = 'butt';
   }
 
-  // hit / miss flash
   if (G.flash > 0.01) {
-    const k = 1 - G.flash;                 // 0 at the instant of impact
+    const k = 1 - G.flash;
     ctx.strokeStyle = G.flashGood
       ? `rgba(123,196,127,${G.flash * G.flash * 0.9})`
       : `rgba(232,121,121,${G.flash * G.flash * 0.9})`;
     ctx.lineWidth = 5 * G.flash;
-    ctx.beginPath();
-    ctx.arc(CX, CY, R * (0.98 + 0.55 * k), 0, Math.PI * 2);
-    ctx.stroke();
+    ctx.beginPath(); ctx.arc(CX, CY, R * (0.98 + 0.55 * k), 0, TAU); ctx.stroke();
   }
 
-  // live readout — the big number is what you are steering right now, the tag
-  // is the best you have touched, which is what actually scores
   fidEl.textContent = (f * 100).toFixed(1) + '%';
   fidEl.style.color = fidColor(f);
   fidLabelEl.textContent = (playing && G.bestFid > 0.02)
@@ -982,35 +935,61 @@ function draw() {
   drawSpark();
 }
 
-/* the point of the whole exercise: can you SEE yourself getting better? */
 function drawSpark() {
   const r = sparkCv.getBoundingClientRect();
   const w = r.width, h = r.height;
   sctx.clearRect(0, 0, w, h);
-  const c = cfg();
-  const data = G.history.slice(-40);
-
-  // threshold line
-  const yBar = h - (c.bar - 0.4) / 0.6 * h;
+  const b = bar();
+  const yBar = h - (b - 0.4) / 0.6 * h;
   sctx.strokeStyle = 'rgba(212,165,116,.5)';
   sctx.setLineDash([3, 3]);
   sctx.beginPath(); sctx.moveTo(0, yBar); sctx.lineTo(w, yBar); sctx.stroke();
   sctx.setLineDash([]);
 
+  const data = G.history.slice(-40);
   if (!data.length) return;
   const slot = w / 40;
   const bw = Math.max(1.5, Math.min(6, slot - 1.5));
   data.forEach((v, i) => {
-    const x = w - (data.length - i) * slot;   // newest at the right
+    const x = w - (data.length - i) * slot;
     const y = h - Math.max(0, (v - 0.4) / 0.6) * h;
-    sctx.fillStyle = v >= c.bar ? 'rgba(123,196,127,.85)' : 'rgba(232,121,121,.55)';
+    sctx.fillStyle = v >= b ? 'rgba(123,196,127,.85)' : 'rgba(232,121,121,.55)';
     sctx.fillRect(x, y, bw, h - y);
   });
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Chrome
+   Copy
    ───────────────────────────────────────────────────────────── */
+const I18N = {
+  en: {
+    fidelity: 'fidelity', peak: 'best', tries: 'tries', best: 'best run',
+    startHold: 'TAP AND HOLD',
+    startTap: 'TAP TO PULSE',
+    subHold: 'Hold to drive, let go and it drifts. The gold line is where holding takes you, the purple line where letting go takes you. Get into the gold zone.',
+    subTap: 'Each tap fires a 90° pulse. The gold line shows where the next tap lands you, the purple line where you drift if you wait. Wait for the phase, then tap.',
+    hint: 'tap to begin',
+    miss: 'MISS', missSub: (f, b) => `${(f * 100).toFixed(1)}% — needed ${(b * 100).toFixed(1)}%`,
+    retry: 'tap to retry',
+    clear: 'LEVEL CLEAR', clearSub: (n) => `Level ${n} of ${BARS.length}`, nextHint: 'tap for next level',
+    done: 'ALL LEVELS CLEAR', doneSub: 'Switch mechanic at the bottom and compare how it feels.',
+    again: 'tap to replay',
+  },
+  th: {
+    fidelity: 'ความเหมือน', peak: 'ดีสุด', tries: 'ครั้ง', best: 'สถิติ',
+    startHold: 'แตะค้างไว้',
+    startTap: 'แตะเพื่อยิงพัลส์',
+    subHold: 'กดค้างเพื่อขับ ปล่อยแล้วมันจะลอยไปเอง เส้นสีทองคือทางที่จะไปถ้ากดค้าง เส้นสีม่วงคือถ้าปล่อย พาไปให้ถึงวงสีทอง',
+    subTap: 'แตะหนึ่งครั้ง = พัลส์ 90° เส้นสีทองคือจุดที่จะไปถ้าแตะตอนนี้ เส้นสีม่วงคือถ้ารอ รอจังหวะให้ดีแล้วค่อยแตะ',
+    hint: 'แตะเพื่อเริ่ม',
+    miss: 'พลาด', missSub: (f, b) => `${(f * 100).toFixed(1)}% — ต้องได้ ${(b * 100).toFixed(1)}%`,
+    retry: 'แตะเพื่อเล่นใหม่',
+    clear: 'ผ่านด่าน', clearSub: (n) => `ด่าน ${n} จาก ${BARS.length}`, nextHint: 'แตะเพื่อไปด่านต่อไป',
+    done: 'ผ่านครบทุกด่าน', doneSub: 'เปลี่ยนกลไกด้านล่างแล้วลองเทียบความรู้สึกดู',
+    again: 'แตะเพื่อเล่นอีก',
+  },
+};
+
 const fidEl = document.getElementById('fid');
 const fidLabelEl = document.getElementById('fidLabel');
 let fidLabelBase = 'fidelity', peakWord = 'best';
@@ -1020,14 +999,16 @@ const veilSub = document.getElementById('veilSub');
 const veilHint = document.getElementById('veilHint');
 
 function updateChrome() {
-  const L = LADDERS[variant];
-  const c = cfg();
-  const t = I18N[lang];
+  const m = M(), t = I18N[lang], b = bar();
+  const isTap = m.control === 'tap';
 
-  document.getElementById('lKey').textContent = L.key;
-  document.getElementById('lName').textContent = L.name[lang];
-  document.getElementById('knob').innerHTML = L.knob(L.levels[G.level], lang);
-  document.getElementById('cur').textContent = `${L.key} — ${L.name.en}`;
+  document.getElementById('mKey').textContent = m.key;
+  document.getElementById('mName').textContent = m.name[lang];
+  document.getElementById('cur').textContent = `${m.key} — ${m.name.en}`;
+  const deg = (Math.acos(clamp1(2 * b - 1)) * 180 / Math.PI).toFixed(0);
+  document.getElementById('knob').innerHTML =
+    `<b>${(b * 100).toFixed(1)}%</b> <span>· ${deg}° · ω${m.omega} · ${m.windowMs}ms</span>`;
+
   fidLabelBase = t.fidelity;
   peakWord = t.peak;
   document.getElementById('labTries').textContent = t.tries;
@@ -1038,7 +1019,7 @@ function updateChrome() {
 
   const pips = document.getElementById('pips');
   pips.innerHTML = '';
-  L.levels.forEach((_, i) => {
+  BARS.forEach((_, i) => {
     const d = document.createElement('div');
     d.className = 'pip' + (i < G.level ? ' done' : i === G.level ? ' now' : '');
     pips.appendChild(d);
@@ -1046,24 +1027,26 @@ function updateChrome() {
 
   const chain = document.getElementById('chain');
   chain.innerHTML = '';
-  for (let i = 0; i < c.targets; i++) {
+  for (let i = 0; i < TARGETS; i++) {
     const d = document.createElement('div');
-    d.className = 'link' + (i < G.hits ? ' hit' : i === G.hits && G.phase === 'playing' ? ' now' : '');
+    d.className = 'link' + (i < G.hits ? ' hit' : (i === G.hits && G.phase === 'playing') ? ' now' : '');
     chain.appendChild(d);
   }
 
   if (G.phase === 'playing') { veil.hidden = true; return; }
   veil.hidden = false;
   if (G.phase === 'idle') {
-    veilBig.textContent = t.start; veilBig.style.color = 'var(--ink)';
-    veilSub.textContent = t.startSub; veilHint.textContent = t.hint;
+    veilBig.textContent = isTap ? t.startTap : t.startHold;
+    veilBig.style.color = 'var(--ink)';
+    veilSub.textContent = isTap ? t.subTap : t.subHold;
+    veilHint.textContent = t.hint;
   } else if (G.phase === 'miss') {
     veilBig.textContent = t.miss; veilBig.style.color = 'var(--coral)';
-    veilSub.textContent = t.missSub(G.lastFid, c.bar); veilHint.textContent = t.retry;
+    veilSub.textContent = t.missSub(G.lastFid, b); veilHint.textContent = t.retry;
   } else if (G.phase === 'clear') {
     veilBig.textContent = t.clear; veilBig.style.color = 'var(--good)';
     veilSub.textContent = t.clearSub(G.level + 1); veilHint.textContent = t.nextHint;
-  } else if (G.phase === 'done') {
+  } else {
     veilBig.textContent = t.done; veilBig.style.color = 'var(--good)';
     veilSub.textContent = t.doneSub; veilHint.textContent = t.again;
   }
@@ -1075,26 +1058,25 @@ function updateChrome() {
 const ORDER = ['A', 'B', 'C'];
 
 function go(dir) {
-  const i = (ORDER.indexOf(variant) + dir + ORDER.length) % ORDER.length;
-  variant = ORDER[i];
+  variant = ORDER[(ORDER.indexOf(variant) + dir + ORDER.length) % ORDER.length];
   const p = new URLSearchParams(location.search);
   p.set('variant', variant);
   history.replaceState(null, '', location.pathname + '?' + p);
   G.level = 0; G.tries = 0; G.bestRun = 0; G.history = [];
-  G.phase = 'idle'; G.state = freshState(); G.target = null; G.trail = [];
+  G.phase = 'idle'; G.state = freshState(); G.target = null;
+  G.trail = []; G.pulseLeft = 0;
   updateChrome();
 }
 
-document.getElementById('prev').addEventListener('click', (e) => { e.stopPropagation(); go(-1); });
-document.getElementById('next').addEventListener('click', (e) => { e.stopPropagation(); go(1); });
+for (const [id, dir] of [['prev', -1], ['next', 1]]) {
+  const el = document.getElementById(id);
+  el.addEventListener('click', (e) => { e.stopPropagation(); go(dir); });
+}
 document.getElementById('switcher').addEventListener('pointerdown', (e) => e.stopPropagation());
 
-document.getElementById('btnLang').addEventListener('click', (e) => {
-  e.stopPropagation();
-  lang = lang === 'en' ? 'th' : 'en';
-  updateChrome();
-});
-document.getElementById('btnLang').addEventListener('pointerdown', (e) => e.stopPropagation());
+const bl = document.getElementById('btnLang');
+bl.addEventListener('click', (e) => { e.stopPropagation(); lang = lang === 'en' ? 'th' : 'en'; updateChrome(); });
+bl.addEventListener('pointerdown', (e) => e.stopPropagation());
 
 const bs = document.getElementById('btnSound');
 bs.addEventListener('click', (e) => {
@@ -1110,13 +1092,10 @@ addEventListener('keydown', (e) => {
   if (tag === 'INPUT' || tag === 'TEXTAREA') return;
   if (e.key === 'ArrowLeft') go(-1);
   if (e.key === 'ArrowRight') go(1);
-  if (e.code === 'Space') { e.preventDefault(); if (!G.held) onDown({ target: document.body, preventDefault() {} }); }
+  if (e.code === 'Space') { e.preventDefault(); onDown({ target: document.body }); }
 });
 addEventListener('keyup', (e) => { if (e.code === 'Space') onUp(); });
 
-/* ─────────────────────────────────────────────────────────────
-   Boot
-   ───────────────────────────────────────────────────────────── */
 G.state = freshState();
 fit();
 updateChrome();

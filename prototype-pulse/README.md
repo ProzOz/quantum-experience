@@ -1,6 +1,64 @@
-# PULSE — difficulty-ladder prototype
+# PULSE — prototype
 
-**Throwaway.** Built to answer the one question that kept ADR-0003 at *Proposed*.
+**Throwaway.** Three rounds, each driven by a playtest verdict.
+
+| round | question | verdict |
+|---|---|---|
+| 1 | Where does difficulty come from — tightness, count, or budget? | **Tightness.** Count is stakes, budget is a bounded speed tier. |
+| 2 | *"All of the modes are too hard."* | The **scoring rule**, not the ladder. Lock-in fixed it. |
+| 3 | *"Easier, but the game mechanic feels like shit."* | It was **illegible**, not badly tuned. See below. |
+
+The current build (`?variant=A|B|C`) varies the **mechanic**, not the difficulty —
+round 1 settled difficulty, so the live question is which mechanic feels good.
+
+    A — SPHERE + HOLD   ω 4, with a forward preview of both futures
+    B — DISC   + HOLD   same physics, drawn top-down
+    C — DISC   + TAP    discrete hard 90° pulses instead of holding
+
+A → B isolates the **view**. B → C isolates the **control**.
+
+## Round 3: the mechanic was illegible
+
+The tip of the Bloch vector moves at up to **ω × R pixels per second**. At the
+shipped ω = 11 with R = 170 px that is **~1900 px/s** free and **~3000 px/s** while
+driving — it crosses the sphere in under 0.2 s. A phone tip is comfortably
+trackable to roughly 600 px/s. You could not see cause and effect, so you held and
+hoped. That is a slot machine with a hold button — the exact failure ADR-0001 named
+for MANY WORLDS.
+
+**The constraint that pinned ω there had already dissolved.** ADR-0003 fixed
+ω ∈ 9–13 because anything slower made targets *unreachable inside the window*. But
+targets are now generated as the endpoint of a real input word, so they are
+reachable at **any** ω. Nobody noticed the constraint had lapsed — including me,
+for two rounds.
+
+Slowing to ω = 4 puts the tip at 680 px/s and stretches the precession period from
+0.57 s to 1.57 s. Difficulty does not vanish, it just moves up the bar — a random
+thumb clears an 88% bar but only 41% at a 99% bar — so the tightness ladder simply
+recalibrates to 88 / 93 / 96 / 98 / 99 / 99.5%.
+
+Three further changes, each attacking a specific reason it felt bad:
+
+- **Both futures are drawn.** A gold path shows where holding (or the next tap)
+  takes you; a purple path shows where letting go takes you. This is just forward
+  simulation of deterministic dynamics, so it is honest — and it converts the game
+  from guessing into planning. It is "wait for the phase" made visible.
+- **The disc view** (variants B and C) is an azimuthal-equidistant projection:
+  distance from centre is the polar angle (centre = |0⟩, rim = |1⟩), angle around
+  is the phase. The whole sphere with no hidden hemisphere and no depth ambiguity,
+  and free precession becomes a clock hand sweeping at constant speed.
+- **Tap-to-pulse** (variant C) replaces analog hold-duration with discrete hard 90°
+  X-pulses — the impulsive limit real quantum control actually uses. Only the smooth
+  precession has to be tracked; the pulse reads as a jump. So the skill collapses to
+  pure timing, which is what rhythm games are built on.
+
+**Unverified.** Everything in this section is reasoning plus a legibility budget,
+not a playtest. Which of the three actually feels good is exactly what cannot be
+settled on paper — that is what the variants are for.
+
+---
+
+## Round 1: where difficulty comes from
 
 > ω turned out to be a tuning parameter with a sweet spot (9–13), not a knob.
 > So difficulty has to come from somewhere else: **target tightness**,
