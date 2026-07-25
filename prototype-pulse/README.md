@@ -59,45 +59,84 @@ and "impossible" reads at a booth as "broken". By construction the ceiling is
 
 ## Findings
 
-### Budget is not a knob. It is an *inverted* knob.
+### First finding: the scoring rule mattered more than any of the three knobs
 
-Pass rate of a random-but-human-feasible thumb, measured against the shipped
-generator (4,800 samples per row):
+The first build scored fidelity **at the buzzer** — wherever the vector happened to
+be when the window expired. Playtest verdict was blunt: *every mode is too hard*.
+That was correct, and it was not the ladder values.
 
-| window | median fidelity | clears 93% | clears 99.3% | tries to clear 93% |
-|---|---|---|---|---|
-| 900ms | 53.1% | 8.81% | 0.88% | 11 |
-| 700ms | 54.4% | 9.33% | 1.31% | 11 |
-| 550ms | 60.6% | 12.29% | 2.06% | 8 |
-| 450ms | 60.3% | 16.54% | 3.08% | 6 |
-| 350ms | 70.0% | 19.29% | 3.85% | 5 |
-| 250ms | 73.7% | 18.85% | 5.46% | 5 |
+Buzzer scoring throws away everything except one instant. Being at 99% a frame
+early counts for nothing, and there is no read-time to find the phase before
+acting. Every game this is modelled on — osu!, Geometry Dash, Super Hexagon —
+shows the thing coming and pays you the moment you connect.
 
-Shortening the window makes the game **easier on every measure**. The reason is
-structural: a thumb cannot commit for less than ~100 ms, so a 250 ms window admits
-only about two segments. The space of distinct plays collapses, and guessing lands
-on the answer. A *long* window is what creates enough ways to be wrong for
-precision to matter.
+Rule now: **best fidelity reached at any instant while the target is live, locking
+in the moment you touch the bar.** Still fully deterministic — no dice, so
+ADR-0003's core requirement holds — and arguably closer to the ADR's own words
+("steer the vector onto each one") than sampling at the buzzer was.
 
-So budget fails the same way ω did, and then some — with random targets it kills
-reachability, and with reachable targets it makes the game degenerate. **Rejected.**
+Pass rate of one random human-feasible thumb on one target, 700 ms window:
 
-### Tightness is the difficulty knob.
+| bar | at the buzzer | lock-in |
+|---|---|---|
+| 70% | 36.9% | **85.7%** |
+| 80% | 25.4% | **75.6%** |
+| 88% | 15.8% | **62.9%** |
+| 93% | 9.7% | **50.6%** |
+| 99.3% | 1.2% | **17.2%** |
 
-At a fixed 700 ms window, the bar alone produces a clean monotone ladder:
+Level 1 of ladder A (4 in a row at a 70% bar) goes from roughly 1-in-250 to
+**over half** for *random* input. A real player is well above that. Verified in the
+browser: a scripted random thumb now clears level 1 of ladders A and C, and still
+fails every level 6.
 
-| bar | tolerance | random thumb clears | tries to clear |
-|---|---|---|---|
-| 80.0% | 53° | 24.31% | 4 |
-| 88.0% | 41° | 14.88% | 7 |
-| 93.0% | 31° | 9.33% | 11 |
-| 96.0% | 23° | 6.00% | 17 |
-| 98.0% | 16° | 3.23% | 31 |
-| 99.3% | 10° | 1.31% | 76 |
+### This flips the budget verdict — my earlier one was wrong
 
-Roughly halving per rung, no cliff, every rung reachable, and — the part that
-matters for a booth — it is **drawable**. The bar is an angular radius, so the
-tolerance ring visibly shrinks on the sphere. The player sees the difficulty.
+The first writeup said budget was an *inverted* knob: shortening the window raised
+the pass rate. That was true, but **only under buzzer scoring** — the very rule
+that made the game unplayable. Under lock-in, a shorter window means fewer chances
+to touch the target, so it works the normal way round. Recorded here because the
+earlier claim is in the git history and the PR.
+
+| window | buzzer | lock-in |
+|---|---|---|
+| 1600ms | 7.3% | 82.3% |
+| 1200ms | 7.7% | 70.6% |
+| 900ms | 8.8% | 59.5% |
+| 700ms | 9.5% | 52.8% |
+| 500ms | 13.5% | 46.9% |
+| 400ms | 18.6% | 42.7% |
+| 300ms | 19.9% | 40.6% |
+| 250ms | 17.9% | 36.0% |
+
+But budget is **bounded**. It drops 29.5 points across 1600 → 700 ms, then only
+16.8 points across 700 → 250 ms, and 400/300/250 ms are nearly flat. Two effects
+fight below ~700 ms: fewer chances to touch (harder) against a collapsing space of
+distinct plays (easier, since a thumb cannot commit for under ~100 ms). They
+roughly cancel. Ladder C deliberately runs 1600 → 400 ms so you can feel where it
+stops responding.
+
+### Tightness is still the primary knob
+
+At a fixed 900 ms window, lock-in scoring, random thumb per target:
+
+| bar | tolerance | clears |
+|---|---|---|
+| 70% | 66° | 90.8% |
+| 80% | 53° | 82.6% |
+| 88% | 41° | 71.3% |
+| 93% | 31° | 59.3% |
+| 96% | 23° | 48.2% |
+| 99.3% | 10° | 21.7% |
+
+Monotone, no cliff, no saturation, every rung reachable. Two things keep it ahead
+of budget:
+
+- **Range.** Tightness spans 90.8% → 21.7% (4.2×) and is still falling at the top
+  rung. Budget spans 82.3% → 36.0% (2.3×) and flattens halfway.
+- **It is drawable.** The bar is an angular radius, so the target zone visibly
+  shrinks. The player *sees* the difficulty rise. Nothing shows a shorter clock
+  except a faster-draining arc.
 
 ### Count is a stakes knob, not a difficulty knob.
 
@@ -121,19 +160,37 @@ That is the combo/streak mechanic — real tension, but it converts precision in
 
 ### Recommendation
 
-**Tightness is the ladder. Count is the score.** Difficulty ramps by shrinking the
-tolerance ring; length of the required streak is what you grind against on a given
-rung. Hold the window fixed at 700 ms and never shorten it.
+**Tightness is the ladder. Count is the score. Budget is a speed tier, not a
+ladder.** Ramp difficulty by shrinking the target zone; the required streak length
+is what you grind against on a rung; the clock is available as a secondary tier
+(1600 → 700 ms is the responsive range) but cannot carry the curve on its own.
 
-### One thing the simulation cannot settle
+And underneath all three: **lock-in scoring is not optional.** It was worth more
+than every knob choice combined.
 
-Every number above measures a *random* thumb. A human at 250 ms may well *feel*
-rushed and panicked even though the objective pass rate is higher — subjective
-difficulty and measured difficulty can disagree, and this project has been burned
-before by designs that read fine and played boring. **Play ladder C and check
-whether level 6 feels easier than level 1.** If it does, budget is dead on both
-counts. If it feels harder despite the numbers, that is a genuine finding and the
-recommendation above needs revisiting.
+### Current ladder tuning
+
+| | rungs | fixed |
+|---|---|---|
+| **A — tightness** | bar 70 / 80 / 88 / 93 / 96 / 99% | 4 targets, 900ms |
+| **B — count** | 2 / 4 / 6 / 9 / 13 / 18 targets | 88% bar, 900ms |
+| **C — budget** | 1600 / 1200 / 900 / 700 / 500 / 400ms | 93% bar, 4 targets |
+
+Rung 1 of each is clearable by *random* input, so it works as a booth tutorial;
+rung 6 of each resists it.
+
+### Still to check in the hand
+
+- Is rung 1 now too easy? It is deliberately clearable by random input so a booth
+  visitor cannot bounce off it, but there is a difference between "forgiving" and
+  "nothing happened". If it feels like nothing happened, raise ladder A rung 1 from
+  70% to 80% — that is still 82.6% per target.
+- Does the ladder now climb at the right *rate*? Six rungs may be too few or too
+  many between "first touch" and "this is hard".
+- Ladder C past rung 4 (700 ms) should feel like it stops getting harder and starts
+  just feeling rushed. If it doesn't — if 400 ms feels meaningfully harder than
+  700 ms — the flattening is not showing up in the hand and budget deserves more
+  weight than the recommendation gives it.
 
 ## Not production code
 

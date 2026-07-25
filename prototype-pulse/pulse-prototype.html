@@ -441,31 +441,31 @@ function makeTarget(state, ticks) {
 const LADDERS = {
   A: {
     key: 'A', name: { en: 'tightness', th: 'ความแม่นยำ' },
-    fixed: { targets: 4, windowMs: 700 },
-    levels: [0.80, 0.88, 0.93, 0.96, 0.98, 0.993].map(bar => ({ bar })),
+    fixed: { targets: 4, windowMs: 900 },
+    levels: [0.70, 0.80, 0.88, 0.93, 0.96, 0.99].map(bar => ({ bar })),
     knob: (L, lang) => {
       const deg = (Math.acos(2 * L.bar - 1) * 180 / Math.PI).toFixed(0);
-      return `<b>${(L.bar * 100).toFixed(1)}%</b> <span>bar · ${deg}° ${lang === 'th' ? 'รัศมี' : 'radius'}</span>`;
+      return `<b>${(L.bar * 100).toFixed(0)}%</b> <span>bar · ${deg}° ${lang === 'th' ? 'รัศมี' : 'radius'}</span>`;
     },
   },
   B: {
     key: 'B', name: { en: 'count', th: 'จำนวนเป้า' },
-    fixed: { bar: 0.93, windowMs: 700 },
+    fixed: { bar: 0.88, windowMs: 900 },
     levels: [2, 4, 6, 9, 13, 18].map(targets => ({ targets })),
-    knob: (L, lang) => `<b>${L.targets}</b> <span>${lang === 'th' ? 'เป้าติดกัน' : 'in a row'} · 93% bar</span>`,
+    knob: (L, lang) => `<b>${L.targets}</b> <span>${lang === 'th' ? 'เป้าติดกัน' : 'in a row'} · 88% bar</span>`,
   },
   C: {
     key: 'C', name: { en: 'budget', th: 'เวลาที่ให้' },
     fixed: { bar: 0.93, targets: 4 },
-    levels: [900, 700, 550, 450, 350, 250].map(windowMs => ({ windowMs })),
+    levels: [1600, 1200, 900, 700, 500, 400].map(windowMs => ({ windowMs })),
     knob: (L, lang) => `<b>${L.windowMs}ms</b> <span>${lang === 'th' ? 'ต่อเป้า' : 'per target'} · 93% bar</span>`,
   },
 };
 
 const I18N = {
   en: {
-    fidelity: 'fidelity', tries: 'tries', best: 'best run',
-    start: 'TAP AND HOLD', startSub: 'Hold to drive the qubit. Let go and it precesses. You cannot mash this — wait for the phase.',
+    fidelity: 'fidelity', peak: 'best', tries: 'tries', best: 'best run',
+    start: 'TAP AND HOLD', startSub: 'Hold to drive the qubit, let go and it precesses. Touch the gold ring before the timer runs out. You cannot mash this — wait for the phase.',
     hint: 'tap to begin',
     miss: 'MISS', missSub: (f, b) => `${(f * 100).toFixed(1)}% — needed ${(b * 100).toFixed(1)}%`,
     retry: 'tap to retry',
@@ -474,8 +474,8 @@ const I18N = {
     again: 'tap to replay',
   },
   th: {
-    fidelity: 'ความเหมือน', tries: 'ครั้ง', best: 'สถิติ',
-    start: 'แตะค้างไว้', startSub: 'กดค้างเพื่อขับคิวบิต ปล่อยแล้วมันจะหมุนเอง กดรัวไม่ได้ผล ต้องรอจังหวะ',
+    fidelity: 'ความเหมือน', peak: 'ดีสุด', tries: 'ครั้ง', best: 'สถิติ',
+    start: 'แตะค้างไว้', startSub: 'กดค้างเพื่อขับคิวบิต ปล่อยแล้วมันจะหมุนเอง พาไปแตะวงแหวนสีทองให้ทันเวลา กดรัวไม่ได้ผล ต้องรอจังหวะ',
     hint: 'แตะเพื่อเริ่ม',
     miss: 'พลาด', missSub: (f, b) => `${(f * 100).toFixed(1)}% — ต้องได้ ${(b * 100).toFixed(1)}%`,
     retry: 'แตะเพื่อเล่นใหม่',
@@ -512,6 +512,7 @@ const G = {
   tries: 0,
   bestRun: 0,
   lastFid: 0.5,
+  bestFid: 0,         // best fidelity reached while the current target is live
 };
 
 function cfg() {
@@ -542,33 +543,44 @@ function nextTarget() {
   G.windowSubs = ticks * TICK_SUBS;
   G.subsLeft = G.windowSubs;
   G.ringIn = 0;
+  G.bestFid = 0;
 }
 
-function resolveTarget() {
-  const c = cfg();
-  const f = fidTo(G.state, G.target);
+/* Scoring: the target locks in the INSTANT you touch the bar, and the score is
+   the best fidelity reached while it was live — not wherever the vector
+   happened to be at the buzzer. Still fully deterministic, so ADR-0003's
+   no-dice requirement holds. Buzzer scoring was measured and it is what made
+   every ladder unplayable: at a 700ms window and an 80% bar it took a thumb
+   from 75.6% down to 25.4% per target. */
+function record(f) {
   G.history.push(f);
   if (G.history.length > 240) G.history.shift();
+}
 
-  if (f >= c.bar) {
-    G.hits++;
-    G.flash = 1; G.flashGood = true;
-    blip(true);
-    if (navigator.vibrate) { try { navigator.vibrate(12); } catch (e) {} }
-    if (G.hits >= c.targets) {
-      if (G.hits > G.bestRun) G.bestRun = G.hits;
-      G.phase = (G.level >= LADDERS[variant].levels.length - 1) ? 'done' : 'clear';
-    } else {
-      nextTarget();
-    }
-  } else {
+function hitTarget() {
+  const c = cfg();
+  record(G.bestFid);
+  G.hits++;
+  G.flash = 1; G.flashGood = true;
+  blip(true);
+  if (navigator.vibrate) { try { navigator.vibrate(12); } catch (e) {} }
+  if (G.hits >= c.targets) {
     if (G.hits > G.bestRun) G.bestRun = G.hits;
-    G.lastFid = f;
-    G.flash = 1; G.flashGood = false;
-    blip(false);
-    if (navigator.vibrate) { try { navigator.vibrate([25, 40, 25]); } catch (e) {} }
-    G.phase = 'miss';
+    G.phase = (G.level >= LADDERS[variant].levels.length - 1) ? 'done' : 'clear';
+  } else {
+    nextTarget();
   }
+  updateChrome();
+}
+
+function missTarget() {
+  record(G.bestFid);
+  if (G.hits > G.bestRun) G.bestRun = G.hits;
+  G.lastFid = G.bestFid;
+  G.flash = 1; G.flashGood = false;
+  blip(false);
+  if (navigator.vibrate) { try { navigator.vibrate([25, 40, 25]); } catch (e) {} }
+  G.phase = 'miss';
   updateChrome();
 }
 
@@ -653,6 +665,7 @@ function frame(now) {
   if (dt > 0.25) dt = 0.25;
 
   if (G.phase === 'playing') {
+    const bar = cfg().bar;
     acc += dt;
     while (acc >= SUB_DT) {
       const driving = G.held && !G.ignoreHold;
@@ -664,7 +677,11 @@ function frame(now) {
         G.trail.push(bloch(G.state));
         if (G.trail.length > 40) G.trail.shift();
       }
-      if (G.subsLeft <= 0) { resolveTarget(); break; }
+
+      const f = fidTo(G.state, G.target);
+      if (f > G.bestFid) G.bestFid = f;
+      if (f >= bar) { hitTarget(); break; }        // lock in the moment you touch it
+      if (G.subsLeft <= 0) { missTarget(); break; }
     }
     G.ringIn = Math.min(1, G.ringIn + dt * 7);
   } else {
@@ -814,19 +831,47 @@ function draw() {
   if (G.target) {
     const tol = Math.acos(Math.max(-1, Math.min(1, 2 * c.bar - 1)));
     const a = 0.25 + 0.75 * G.ringIn;
+    // ring brightens as your best approach closes on the bar
+    const warm = playing ? Math.max(0, Math.min(1, (G.bestFid - 0.4) / (c.bar - 0.4))) : 0;
 
-    // tolerance ring — its radius IS the difficulty in ladder A
-    strokePath(ring(G.target, tol, 72),
-      `rgba(212,165,116,${0.9 * a})`, `rgba(212,165,116,${0.22 * a})`, 1.8);
-
-    // target centre — a filled pip inside a hairline, readable at arm's length
+    /* The tolerance is drawn as a ZONE, not as the true great circle. A 31°
+       ring (93% bar) projects to an arc that crosses the whole sphere and reads
+       as a stray diagonal; at the 70% rung it is 66° and reads as nothing at
+       all. A screen-space cap keeps the one thing that must be legible — the
+       zone visibly shrinks as the bar rises — at the cost of exact geometry.
+       Prototype trade: legibility over projective honesty. */
     const [tx, ty, td] = proj(G.target);
-    const ta = td > 0 ? a : 0.35 * a;
-    ctx.strokeStyle = `rgba(212,165,116,${ta})`;
-    ctx.lineWidth = 1.2;
-    ctx.beginPath(); ctx.arc(tx, ty, 8, 0, Math.PI * 2); ctx.stroke();
+    const ta = td > 0 ? a : 0.4 * a;
+    const rad = Math.max(5, R * Math.sin(tol));
+
+    ctx.save();
+    ctx.beginPath(); ctx.arc(CX, CY, R, 0, Math.PI * 2); ctx.clip();
+
+    const gg = ctx.createRadialGradient(tx, ty, 0, tx, ty, rad);
+    gg.addColorStop(0, `rgba(212,165,116,${(0.20 + 0.22 * warm) * ta})`);
+    gg.addColorStop(0.7, `rgba(212,165,116,${(0.08 + 0.10 * warm) * ta})`);
+    gg.addColorStop(1, 'rgba(212,165,116,0)');
+    ctx.fillStyle = gg;
+    ctx.beginPath(); ctx.arc(tx, ty, rad, 0, Math.PI * 2); ctx.fill();
+
+    ctx.strokeStyle = `rgba(212,165,116,${(0.5 + 0.4 * warm) * ta})`;
+    ctx.lineWidth = 1.2 + 0.8 * warm;
+    ctx.setLineDash([4, 5]);
+    ctx.beginPath(); ctx.arc(tx, ty, rad, 0, Math.PI * 2); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // how close you have actually come — a ghost edge at your best approach
+    if (playing && G.bestFid > 0.45 && G.bestFid < c.bar) {
+      const got = Math.acos(Math.max(-1, Math.min(1, 2 * G.bestFid - 1)));
+      ctx.strokeStyle = `rgba(139,107,174,${0.45 * a})`;
+      ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(tx, ty, Math.max(4, R * Math.sin(got)), 0, Math.PI * 2); ctx.stroke();
+    }
+    ctx.restore();
+
+    // target centre — a filled pip, readable at arm's length
     ctx.fillStyle = `rgba(212,165,116,${ta})`;
-    ctx.beginPath(); ctx.arc(tx, ty, 3.4, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(tx, ty, 3.6, 0, Math.PI * 2); ctx.fill();
   }
 
   /* Phase gap: the arc on the equator between where the qubit's azimuth is now
@@ -925,9 +970,13 @@ function draw() {
     ctx.stroke();
   }
 
-  // live readout
+  // live readout — the big number is what you are steering right now, the tag
+  // is the best you have touched, which is what actually scores
   fidEl.textContent = (f * 100).toFixed(1) + '%';
   fidEl.style.color = fidColor(f);
+  fidLabelEl.textContent = (playing && G.bestFid > 0.02)
+    ? `${fidLabelBase} · ${peakWord} ${(G.bestFid * 100).toFixed(0)}%`
+    : fidLabelBase;
   tuneDrone(f, playing);
 
   drawSpark();
@@ -963,6 +1012,8 @@ function drawSpark() {
    Chrome
    ───────────────────────────────────────────────────────────── */
 const fidEl = document.getElementById('fid');
+const fidLabelEl = document.getElementById('fidLabel');
+let fidLabelBase = 'fidelity', peakWord = 'best';
 const veil = document.getElementById('veil');
 const veilBig = document.getElementById('veilBig');
 const veilSub = document.getElementById('veilSub');
@@ -977,7 +1028,8 @@ function updateChrome() {
   document.getElementById('lName').textContent = L.name[lang];
   document.getElementById('knob').innerHTML = L.knob(L.levels[G.level], lang);
   document.getElementById('cur').textContent = `${L.key} — ${L.name.en}`;
-  document.getElementById('fidLabel').textContent = t.fidelity;
+  fidLabelBase = t.fidelity;
+  peakWord = t.peak;
   document.getElementById('labTries').textContent = t.tries;
   document.getElementById('labBest').textContent = t.best;
   document.getElementById('tries').textContent = G.tries;
