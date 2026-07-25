@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Test output
+test-results/
+playwright-report/
+
+# Agent tooling (mirrors .claude/ — machine-local, not part of the site)
+.claude/
+.claude - Copy/
+.agents/
+skills-lock.json
+mobile-microsite/
+mobile-microsite.zip
+
+# Working notes
+backend conversation.txt
+spaceball conversation.txt
