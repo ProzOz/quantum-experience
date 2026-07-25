@@ -73,6 +73,30 @@ polished version is still only "a little bit fun", that means the mechanic was
 never carrying it and the polish was. Better to learn that in week two than at
 the booth.
 
+### Raised after the prototype: "it didn't teach me any quantum knowledge"
+
+The owner's second reaction, and it reframes the whole build. Assessment:
+
+- **The quantum is load-bearing, not a skin.** The graded skill is timing a Rabi
+  drive against Larmor precession — `H = (ω/2)σz + (Ω/2)σx`. Reskin it as a
+  non-quantum reflex game and the skill ceases to exist. ADR-0003 also had to
+  hand-pick the gate set to make non-commutativity *felt*: Clifford+T hides it
+  completely (all 24 orderings give exactly 50.0%).
+- **Teaching was never PULSE's job.** ADR-0003 is explicit — the mechanic makes a
+  thumb discover that timing beats mashing and leaves the visitor asking *"why
+  does waiting help?"*, which a poster or a student then answers.
+- **But that answering layer has never been built or specced**, so the owner
+  played a bare mechanic with no booth around it. Of course it taught nothing.
+- **The untested part:** "creates an itch a human answers" is an *educational*
+  claim that has never been validated the way "is it fun" was. Treat it as an
+  assumption, not a finding.
+
+**This is the same question as the ~250KB one below.** The existing 7-station
+bilingual lab *is* didactic content. If PULSE is the hook, those stations are the
+teaching layer and they stay; if PULSE must teach alone, they are dead weight.
+Neither question can be answered without the other — which is likely why the
+250KB one kept getting dodged. **Grill them together.**
+
 ---
 
 ## Three ADR-0003 claims this prototype overturned
@@ -128,21 +152,31 @@ Tracker state: **zero GitHub issues**, no `.scratch/`. Clean slate.
 
 ## Suggested skills, in order
 
-1. **`/domain-modeling`** — record the three overturned claims as an ADR
-   (amend 0003 or add 0004), including the weak-signal caveat. Hard-to-reverse
+**Order revised** after the "it didn't teach me anything" reaction. Grilling now
+comes *first*: what PULSE's job in the booth is determines what `/to-spec` is even
+specing, whereas the difficulty/scoring findings stay true either way.
+
+1. **`/grill-with-docs`** — first, before anything gets written. PULSE's job in the
+   booth **and** the fate of the ~250KB, together, as one question. Then the other
+   two open items (vocabulary collision, LINE localStorage). This is the step that
+   produces the missing `CONTEXT.md`. Not to re-grill whether PULSE is the right
+   mechanic — that idea is sharp, three ADRs and three prototype rounds back it.
+2. **`/domain-modeling`** — then record the outcome, plus the three overturned
+   claims (amend 0003 or add 0004) and the weak-signal caveat. Hard-to-reverse
    decisions are exactly its job.
-2. **`/grill-with-docs`** — on the three still-open items above. Not to re-grill
-   PULSE (that idea is sharp; three ADRs and three prototype rounds back it), but
-   because two are unanswered scope questions that will otherwise infect the spec,
-   and it is the step that produces the missing `CONTEXT.md`.
 3. **`/to-spec`** → **`/to-tickets`** → **`/implement`** per ticket. This is a
    multi-session build with a booth a month out. Keep grill → spec → tickets in
    **one unbroken context window**; clear context between each `/implement`.
 
+Optional, in parallel: **`/research`** on *intrinsic vs extrinsic integration* in
+educational games — whether the learning has to live in the mechanic or can sit
+beside it. It is a background agent, so it reads while you grill.
+
 **Do not** reach for `/wayfinder` — three ADRs and a played prototype mean the fog
 is gone, and it would cost a week that is not available. **Do not** `/triage` —
 nothing incoming, and `/to-tickets` output is already agent-ready. **Do not** start
-another `/prototype` round for the visuals.
+another `/prototype` round — not for the visuals, and not for the teaching
+question either: you cannot prototype "did a visitor learn something".
 
 ---
 
@@ -156,8 +190,14 @@ read prototype-pulse/HANDOFF.md first — it is a handoff from a finished /proto
 session and it points at the ADRs, the prototype branch, and PR #2 rather than
 repeating them.
 
-Note the ADRs are only on branch worktree-design-spikes-adr, and the prototype is
-on prototype-pulse-difficulty — neither is on main, which has diverged completely.
+Branch topology — sort this out before you write any file:
+- ADRs 0001-0003 exist only on branch worktree-design-spikes-adr
+- the prototype is on prototype-pulse-difficulty (based on that ADR branch)
+- docs/agents/*.md, the skills' own config, exists only on main
+- CONTEXT.md exists on no branch at all
+main and the ADR branch have diverged completely (merge-base 5a2336c; the ADR
+branch still tracks node_modules that main has since untracked). New ADRs and
+CONTEXT.md need a decided home.
 
 Context: bilingual TH/EN static site, no backend ever, mobile portrait, school
 science fair booth about a month out.
@@ -166,21 +206,47 @@ The prototype is done. I played it and it looks like shit but feels a little bit
 fun — the first positive feel signal this project has had. So we are committing to
 building PULSE, and the visual identity is build work, not another prototype.
 
-Start by asking me which variant felt fun (A sphere+hold, B disc+hold, or C
-disc+tap) — the handoff explains why that changes everything downstream, and
-nobody asked me.
+My bigger worry: it didn't teach me any quantum knowledge, it was just pure fun.
+The handoff assesses this — the physics is load-bearing (the skill you grind is
+literally timing a Rabi drive against Larmor precession), and ADR-0003 says
+teaching was never PULSE's job: it is meant to create the itch "why does waiting
+help?" that a poster or a student then answers. But that answering layer has never
+been built or specced, and "it creates an itch a human answers" is an untested
+educational assumption, not a finding.
+
+Start by asking me two things, and do not skip either:
+1. Which variant felt fun — A (Bloch sphere, hold), B (top-down disc, hold), or C
+   (disc, discrete 90° taps)? Nobody has ever asked me. The three imply different
+   specs, different booth copy and different physics explanations. If I don't
+   remember, tell me to spend two minutes on the build in the handoff flipping
+   between them with the ‹ › bar.
+2. What PULSE's job in the booth actually is — the hook that earns 60 seconds of a
+   human explaining, or the thing that has to teach on its own.
 
 Then:
-1. /domain-modeling — record as an ADR the three ADR-0003 claims the prototype
-   overturned (omega is a legibility not a reachability parameter; tightness is the
-   difficulty ladder; scoring must be lock-in not buzzer-sampled), and record the
-   "only a little bit fun" signal as the weak yes it is.
-2. /grill-with-docs — on ADR-0003's three still-open items: the station/topic/
-   puzzle/hook vocabulary collision (this is what creates the missing CONTEXT.md),
-   the fate of the ~250KB of existing bilingual modules, and whether LINE's in-app
-   browser isolates localStorage now that a personal-best grind needs persistence.
-   Push me for real answers on the 250KB one — I have dodged it twice.
-3. Then /to-spec and /to-tickets, in the same context window.
+1. /grill-with-docs — first, before anything gets written. Grill me on PULSE's job
+   in the booth AND the fate of the ~250KB of existing bilingual modules (aura,
+   chat, duel, coop, the 7-station lab) together, because they are one question: if
+   PULSE is the hook then those stations are the teaching layer and they stay; if
+   PULSE must teach alone they are dead weight. I have dodged the 250KB question
+   twice — push me for a real answer, do not accept "we'll decide later". Then
+   ADR-0003's other open items: the station/topic/puzzle/hook vocabulary collision
+   (station id:4 renders as "Station 3"), and whether LINE's in-app browser
+   isolates localStorage now that a personal-best grind needs persisted PBs. This
+   step is what creates CONTEXT.md.
+2. /domain-modeling — then record as ADRs the outcome of the above, plus the three
+   ADR-0003 claims the prototype overturned (omega is a legibility not a
+   reachability parameter; tightness is the difficulty ladder and count is a stakes
+   multiplier; scoring must be lock-in not buzzer-sampled), and record the "only a
+   little bit fun" signal as the weak yes it is. ADR-0003 is still Proposed —
+   accepting it is my call, not yours.
+3. Then /to-spec and /to-tickets, in the same unbroken context window.
 
-Do not start another prototype round, and do not use /wayfinder.
+Optionally kick off /research in the background on intrinsic vs extrinsic
+integration in educational games — whether the learning must live in the mechanic
+or can sit beside it — and keep grilling while it reads.
+
+Do not start another prototype round — not for the visuals, and not for the
+teaching question either, since you cannot prototype "did a visitor learn
+something". Do not use /wayfinder.
 ```
