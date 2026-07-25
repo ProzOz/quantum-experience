@@ -136,3 +136,17 @@ Target: after 1 Grover iteration on |2⟩ with 3 qubits, probability should reac
 5. Hint system progressively reveals the solution
 6. Works in both Thai and English (I18N)
 7. Looks and feels as polished as the other 6 stations
+
+## Agent skills
+
+### Issue tracker
+
+Issues live as GitHub issues in `ProzOz/quantum-experience`, managed with the `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+The five canonical roles, using the default label strings. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: `CONTEXT.md` and `docs/adr/` at the repo root. See `docs/agents/domain.md`.
