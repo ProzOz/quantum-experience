@@ -69,7 +69,41 @@ and 64 (6 vs 32.5) before touching anything settled. And per ADR-0004, it is not
 answered when it feels good to the owner: n=1 self-assessment is not Satisfaction.
 A Classmate has to race it and say something.
 
-## 5. Prompt to paste into Claude Code
+## 5. One-paste setup prompt
+
+Steps 1–3 above can all be handed to Claude Code instead of typed by hand. Start it
+in an empty folder or inside the clone — either works — and paste this:
+
+```
+Set this machine up to continue the quantum-experience project, then stop and brief me.
+
+Repo: https://github.com/ProzOz/quantum-experience
+
+1. If this folder isn't already the repo, clone it here. Then check out the branch
+   `prototype-pulse-difficulty` — that is where the design work lives, and `main`
+   does not have it. Run `npm install`.
+
+2. Restore the agent toolchain. It is gitignored, so it is bundled on the branch
+   `backup/local-main-old-pc`:
+     - git checkout origin/backup/local-main-old-pc -- .agents mobile-microsite skills-lock.json
+     - git reset          (unstage; the files stay on disk and .gitignore hides them)
+     - copy .agents/skills/* into .claude/skills/ as REAL directories, not symlinks —
+       the old PC used absolute symlinks that will not survive a different clone path
+   Then confirm these skills are present and tell me if any are missing: ask-matt,
+   grill-with-docs, grilling, domain-modeling, prototype, handoff, implement,
+   to-spec, to-tickets, wayfinder.
+
+3. Read RESUME.md, CONTEXT.md, docs/adr/0004-*.md and docs/adr/0005-*.md. Do not
+   re-derive or re-litigate anything in them. Ignore prototype-pulse/HANDOFF.md
+   entirely — it is superseded and says the opposite of what I decided.
+
+4. Then stop. Brief me in a few lines: what is settled, what is still open, and what
+   the next step is. Do not start building anything until I say go.
+
+Facts you can look up in the repo, look up. Decisions are mine.
+```
+
+## 6. Prompt for the actual work, once set up
 
 ```
 Repo: quantum-experience, branch prototype-pulse-difficulty.
