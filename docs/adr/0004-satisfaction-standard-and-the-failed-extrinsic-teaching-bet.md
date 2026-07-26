@@ -78,6 +78,12 @@ also measured zero.
 
 ## Still open
 
+> **Closed by ADR-0005.** The grilling resumed and settled the Station 4 diagnosis
+> and the Verb. The section below is left as written for the record; read ADR-0005
+> for the answers. Note that ADR-0005 also resolves the contradiction between
+> Decision §4 above ("The verb is Execution") and the Verb bullet below
+> ("unresolved") — they were never in real disagreement.
+
 The grilling that produced this ADR did not finish. Settled provisionally, pending
 the rest of it:
 

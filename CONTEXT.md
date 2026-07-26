@@ -46,11 +46,33 @@ _Avoid_: context, framing, story
 ### How a Station works
 
 **Execution**:
-A verb graded on how *well* it is performed — precision, timing, control. Admits
-a skill curve.
+A verb graded on how *well* it is performed. Admits a skill curve. "Well" is any
+dimension that ranks performances — **efficiency** counts, not only precision,
+timing and control. That narrower reading is what produced PULSE, whose skill was
+motor precision and therefore could not be compared against a classical baseline
+(ADR-0005).
 
 **Configuration**:
 A verb graded only on whether the final arrangement is *correct* — sliders,
 dials, gate placement. Solved once, then finished. Every Station built to date is
-Configuration, and every one has measured zero Satisfaction.
+Configuration, and every one has measured zero Satisfaction. Permanently rejected
+by ADR-0005.
 _Avoid_: tuning, adjusting, setup
+
+**Search**:
+The project's chosen verb. The player spends Queries against a hidden answer and
+is graded on how few they needed, racing a Classical baseline at the identical
+task. A species of Execution, graded on efficiency.
+_Avoid_: guessing, hunting, solving
+
+**Query**:
+One look at one hidden box — the unit a player spends and is scored on. The thing
+Grover's algorithm makes cheaper, and therefore the only quantity on which a
+quantum player can beat a Classical baseline.
+_Avoid_: move, turn, attempt, guess
+
+**Classical baseline**:
+A non-quantum solver working the same task beside the player, spending its own
+Queries visibly. It is not decoration and not a difficulty setting — it *is* the
+teaching, and the scoreboard against it is what supplies Intrinsic meaning.
+_Avoid_: opponent, AI, bot, computer
