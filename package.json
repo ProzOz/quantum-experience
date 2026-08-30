@@ -1,11 +1,15 @@
 {
-  "name": "quantum-experience",
+  "name": "quan2",
   "version": "1.0.0",
-  "description": "Bilingual interactive quantum outreach site — SCIUS BUU",
+  "description": "",
   "main": "app.js",
-  "author": "SCIUS BUU — Chonlatee Sukwiwattanaporn, Pawat Iemsupapong",
-  "license": "MIT",
-  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
   "devDependencies": {
     "playwright": "^1.61.1"
   }

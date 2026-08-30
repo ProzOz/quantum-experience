@@ -1,6 +1,6 @@
 node_modules
-.claude
-.agents
-test-results
 .git
-*.zip
+.claude
+*.log
+*.tmp
+.DS_Store
