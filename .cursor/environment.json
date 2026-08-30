@@ -1,0 +1,14 @@
+{
+  "name": "Quantum Experience",
+  "install": "npm ci",
+  "terminals": [
+    {
+      "name": "web",
+      "command": "python3 -m http.server 3000 --bind 0.0.0.0",
+      "description": "Static dev server for the Quantum Experience site, served at http://localhost:3000"
+    }
+  ],
+  "ports": [
+    { "name": "web server", "port": 3000 }
+  ]
+}
