@@ -1,4 +1,10 @@
-backend conversation.txt
-spaceball conversation.txt
+node_modules/
 .claude/
-.claude - Copy/
+.agents/
+test-results/
+playwright-report/
+*.zip
+.DS_Store
+Thumbs.db
+.env
+.env.*
