@@ -1,12 +1,13 @@
 # Quantum Experience
 
-Bilingual (TH / EN) lab site for basic quantum ideas. Built with SCIUS at Burapha University for booths and school visits — open it in a browser, no physics stack required.
+Interactive bilingual lab (Thai / English) for basic quantum ideas.
+Built with the SCIUS team at Burapha University for school booths — drag a gate, watch a bar move, hold Space and split.
 
 <p align="center">
   <img src="classroom.jpg" alt="Quantum Experience lab backdrop" width="720">
 </p>
 
-**Stack:** HTML · CSS · vanilla JS &nbsp;·&nbsp; **Runtime:** static files, no backend &nbsp;·&nbsp; **Lang:** Thai + English
+`HTML` `CSS` `vanilla JS` · static files, no backend · TH + EN
 
 ---
 
@@ -14,67 +15,63 @@ Bilingual (TH / EN) lab site for basic quantum ideas. Built with SCIUS at Buraph
 
 Most intro-to-quantum pages are slides. Kids tap Next and leave.
 
-We wanted something they can *break*: drag a Hadamard, watch the bars move, hold space and split into two lanes. If they only remember one thing after the booth, it should be “a qubit is not a coin flip with extra steps.”
+We wanted something they can *break*. If they only remember one thing after the booth, it should be: a qubit is not a coin flip with extra steps.
+
+The project also lives behind a Thai hostname used on booth machines (`เรียนควอนตัม.com`). **This repository is the thing to read** — source, circuit notes, how to run it locally. The public box is just how we load it onto school laptops.
 
 ---
 
-## What you can do
+## What is in the lab
 
 | | Room | What happens |
 | --- | --- | --- |
-| 🧪 | Lab stations | Superposition, measurement, entanglement, interference, tunneling… walk the trail |
-| ⚡ | Station 7 · Circuit | Drag H / X / CNOT / Oracle / Diffusion onto 3 wires. Run. Bars should peak on \|2⟩ |
+| 🧪 | Lab stations | Superposition, measurement, entanglement, interference, tunneling |
+| ⚡ | Station 7 · Circuit | Drag H / X / CNOT / Oracle / Diffusion onto 3 wires. Run. Bars peak on \|2⟩ |
 | 🎮 | Qubit Runner | Canvas runner. Hold `Space` to split and phase through walls |
-| 🌀 | Extra rooms | Aura intro, text-the-particle chat, match/duel, co-op entanglement |
+| 🌀 | Extra rooms | Aura intro, text-the-particle, match / duel, co-op entanglement |
 
-Language toggle sits in the header. `TH` ↔ `EN`.
+Language toggle is in the header. `TH` ↔ `EN`.
 
 ---
 
-## Run it
+## Run it from this repo
 
-Serve the folder. `file://` blocks the classroom video in some browsers.
+Serve the folder. Some browsers block the classroom video on `file://`.
 
 ```bash
 python3 -m http.server 8080
 ```
 
-Then open [http://localhost:8080](http://localhost:8080)
-
-Node, if you already have it:
+Open [http://localhost:8080](http://localhost:8080)
 
 ```bash
 npx serve .
 ```
-
-Docker:
 
 ```bash
 docker build -t quantum-experience .
 docker run --rm -p 3000:3000 quantum-experience
 ```
 
-→ [http://localhost:3000](http://localhost:3000)
-
-No `npm install` needed just to play the site. Playwright in `package.json` is optional, for UI checks later.
+No `npm install` just to open the site. Playwright in `package.json` is optional.
 
 ---
 
 ## How the circuit piece works
 
-Station 7 is a tiny state-vector on **3 qubits** (8 complex amplitudes).
+Station 7 is a state vector on **3 qubits** (8 complex amplitudes).
 
-- start at \|000⟩
-- H on each wire → uniform superposition
-- Oracle flips the phase of \|2⟩ (`010`)
-- Diffusion amplifies that amplitude
-- one Grover iteration → \|2⟩ around **82%**
+1. start at \|000⟩
+2. H on each wire → uniform superposition
+3. Oracle flips the phase of \|2⟩ (`010`)
+4. Diffusion amplifies that amplitude
+5. one Grover iteration → \|2⟩ around **82%**
 
-That is enough to *see* Grover. It is not Qiskit and it will not scale past 3 qubits. That was the point — keep the math on-screen and the loop under a second.
+Enough to *see* Grover on a booth laptop. Not Qiskit. Does not scale past 3 qubits. That was the constraint: math on screen, loop under a second.
 
 ---
 
-## Files
+## Layout
 
 ```
 index.html        entry + page shells
@@ -88,13 +85,11 @@ images/           station diagrams
 Dockerfile        nginx:alpine, port 3000
 ```
 
-Logos and classroom footage sit next to `index.html`.
-
 ---
 
 ## Team
 
-| | |
+| Role | Name |
 | --- | --- |
 | Dev | Chonlatee Sukwiwattanaporn |
 | Dev | Pawat Iemsupapong |
@@ -102,8 +97,6 @@ Logos and classroom footage sit next to `index.html`.
 
 SCIUS BUU · Faculty of Science, Burapha University
 
----
-
 ## License
 
-MIT on the code. SCIUS / BUU logos stay with their owners — don’t reuse those on other projects.
+MIT on the code. SCIUS / BUU logos stay with their owners.
