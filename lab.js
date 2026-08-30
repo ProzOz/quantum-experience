@@ -144,7 +144,8 @@ function buildLabHome() {
     const isFirst = idx === 0;
     const statusDot = solved ? '<span class="qx-mission-status qx-mission-done">✓</span>' : '<span class="qx-mission-status qx-mission-pending">—</span>';
     const cta = solved ? LT('replay_station') : LT('enter_station');
-    const startHere = isFirst && !solved ? '<span class="qx-start-here">← เริ่มที่นี่</span>' : '';
+    const startHere = isFirst && !solved ? '<span class="qx-start-here">↑ เริ่มที่นี่</span>' : '';
+    const ctaText = isFirst && !solved ? cta : `${cta} →`;
     
     return `
     <button class="qx-mission${solved ? ' qx-mission-solved' : ''}${isFirst ? ' qx-mission-first' : ''}"
@@ -156,8 +157,8 @@ function buildLabHome() {
         <div class="qx-mission-name">${s.name[lang]}</div>
         <div class="qx-mission-tagline">${s.tagline[lang]}</div>
       </div>
-      ${statusDot}
-      <div class="qx-mission-cta">${cta} →</div>
+      ${isFirst ? '' : statusDot}
+      <div class="qx-mission-cta">${ctaText}</div>
       ${startHere}
     </button>`;
   }).join('');

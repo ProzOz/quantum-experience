@@ -316,11 +316,11 @@ main {
 .qx-mission {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 16px;
     background: var(--bg-card);
     border: 1px solid var(--border-light);
     border-radius: var(--radius-md);
-    padding: 20px 24px;
+    padding: 14px 20px;
     cursor: pointer;
     text-align: left;
     transition: all 0.2s ease;
@@ -333,12 +333,20 @@ main {
 }
 
 .qx-mission-first {
-    border-color: var(--accent);
-    background: var(--accent-soft);
+    border: 2px solid var(--accent);
+    background: linear-gradient(135deg, rgba(217, 119, 6, 0.15) 0%, rgba(217, 119, 6, 0.05) 100%);
+    padding: 32px 40px;
+    margin-bottom: 24px;
+    box-shadow: 0 0 32px rgba(217, 119, 6, 0.15);
+}
+
+.qx-mission-first:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 48px rgba(217, 119, 6, 0.25);
 }
 
 .qx-mission-solved {
-    opacity: 0.75;
+    opacity: 0.7;
 }
 
 .qx-mission-solved:hover {
@@ -347,12 +355,17 @@ main {
 
 .qx-mission-num {
     font-family: var(--font-mono);
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 600;
     color: var(--accent);
     flex-shrink: 0;
-    width: 48px;
+    width: 40px;
     text-align: center;
+}
+
+.qx-mission-first .qx-mission-num {
+    font-size: 2.5rem;
+    width: 64px;
 }
 
 .qx-mission-content {
@@ -361,16 +374,27 @@ main {
 }
 
 .qx-mission-name {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--text-primary);
     margin-bottom: 4px;
 }
 
+.qx-mission-first .qx-mission-name {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
 .qx-mission-tagline {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--text-secondary);
     line-height: 1.4;
+}
+
+.qx-mission-first .qx-mission-tagline {
+    font-size: 1.05rem;
+    line-height: 1.6;
 }
 
 .qx-mission-status {
@@ -388,10 +412,20 @@ main {
 
 .qx-mission-cta {
     font-family: var(--font-mono);
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     color: var(--accent);
     flex-shrink: 0;
-    opacity: 0.8;
+    opacity: 0.7;
+}
+
+.qx-mission-first .qx-mission-cta {
+    font-size: 1rem;
+    font-weight: 600;
+    opacity: 1;
+    background: var(--accent);
+    color: var(--bg-primary);
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
 }
 
 .qx-mission:hover .qx-mission-cta {
@@ -400,14 +434,14 @@ main {
 
 .qx-start-here {
     position: absolute;
-    right: -120px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-family: var(--font-thai);
-    font-size: 0.85rem;
+    left: 24px;
+    bottom: -32px;
+    font-family: 'IBM Plex Sans Thai', 'Sarabun', sans-serif;
+    font-size: 0.9rem;
     color: var(--accent);
     white-space: nowrap;
-    opacity: 0.9;
+    opacity: 0.85;
+    font-weight: 500;
 }
 
 @media (max-width: 960px) {
