@@ -10,31 +10,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Kanit:wght@300;400;500;600;700&family=Orbitron:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=27">
-  <link rel="stylesheet" href="game.css?v=27">
-  <link rel="stylesheet" href="lab.css?v=27">
-  <link rel="stylesheet" href="circuit.css?v=27">
-  <link rel="stylesheet" href="coop.css?v=27">
-  <link rel="stylesheet" href="aura.css?v=27">
-  <link rel="stylesheet" href="emergency.css?v=27">
-  <link rel="stylesheet" href="chat.css?v=27">
-  <link rel="stylesheet" href="why.css?v=27">
+  <link rel="stylesheet" href="styles.css?v=13">
+  <link rel="stylesheet" href="game.css?v=13">
+  <link rel="stylesheet" href="lab.css?v=13">
+  <link rel="stylesheet" href="circuit.css?v=13">
+  <link rel="stylesheet" href="coop.css?v=13">
 </head>
 <body>
-  <video class="bg-video" autoplay muted loop playsinline poster="classroom.jpg" aria-hidden="true">
-    <source src="classroom-bg.mp4?v=27" type="video/mp4">
-  </video>
-  <div class="bg-video-veil"></div>
   <div class="bg-cosmos"></div>
   <div class="bg-particles" id="bgParticles"></div>
-
-  <!-- Quantum-emergency atmosphere overlays (pointer-events:none) -->
-  <div class="fx-scanlines"></div>
-  <div class="fx-scan"></div>
-  <div class="fx-alert"></div>
-  <div class="fx-hazard"></div>
-  <div class="fx-ticker"><div class="fx-ticker-track">⚠ QUANTUM CONTAINMENT BREACH&nbsp;&nbsp;·&nbsp;&nbsp;ระบบควอนตัมขัดข้องรุนแรง&nbsp;&nbsp;·&nbsp;&nbsp;RESTORE THE CORE&nbsp;&nbsp;·&nbsp;&nbsp;STABILITY CRITICAL&nbsp;&nbsp;·&nbsp;&nbsp;⚠ QUANTUM CONTAINMENT BREACH&nbsp;&nbsp;·&nbsp;&nbsp;ระบบควอนตัมขัดข้องรุนแรง&nbsp;&nbsp;·&nbsp;&nbsp;RESTORE THE CORE&nbsp;&nbsp;·&nbsp;&nbsp;STABILITY CRITICAL&nbsp;&nbsp;·&nbsp;&nbsp;</div></div>
-  <div class="fx-cam"><span class="rec">●</span> REC · CAM-07 · QUANTUM LAB</div>
 
   <!-- Header -->
   <header>
@@ -79,12 +63,6 @@
 
     <!-- Station 7: Quantum Circuit Puzzle — injected by circuit.js -->
     <section class="page" id="circuitPage"></section>
-
-    <!-- Quantum Aura — front door, injected by aura.js -->
-    <section class="page" id="auraPage"></section>
-
-    <!-- Text the Particle — chat, injected by chat.js -->
-    <section class="page" id="chatPage"></section>
 
     <!-- Bonus: Entangle Together co-op — injected by coop.js -->
     <section class="page" id="coopPage"></section>
@@ -145,6 +123,15 @@
         </div>
       </div>
 
+      <!-- Higgsfield explainer video (quantum tunneling) -->
+      <div class="station-video-wrap" style="margin-top:28px">
+        <div class="station-video-label">🎬 CONCEPT EXPLAINER · QUANTUM TUNNELING</div>
+        <video class="station-video"
+               src="https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_132735_e16fb52e-e17d-4a98-af38-6ac3883c2cb2.mp4"
+               controls playsinline preload="metadata"
+               poster="https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_101232_7d1b42cf-500c-4425-993f-1102c0f2c19c.png"></video>
+      </div>
+
       <!-- Quantum mechanics explanation -->
       <div class="simulation-container" style="margin-top:28px">
         <div class="challenge-strip">
@@ -189,13 +176,10 @@
     </footer>
   </main>
 
-  <script src="lab.js?v=27"></script>
-  <script src="app.js?v=27"></script>
-  <script src="aura.js?v=27"></script>
-  <script src="chat.js?v=27"></script>
-  <script src="why.js?v=27"></script>
-  <script src="circuit.js?v=27"></script>
-  <script src="coop.js?v=27"></script>
-  <script src="game.js?v=27"></script>
+  <script src="lab.js?v=13"></script>
+  <script src="app.js?v=13"></script>
+  <script src="circuit.js?v=13"></script>
+  <script src="coop.js?v=13"></script>
+  <script src="game.js?v=13"></script>
 </body>
 </html>

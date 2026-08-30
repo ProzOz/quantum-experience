@@ -1,0 +1,494 @@
+element.style {
+}
+:not(#\#), :not(#\#)::backdrop, :not(#\#):after, :not(#\#):before {
+    --blur: ;
+    --brightness: ;
+    --contrast: ;
+    --grayscale: ;
+    --hue-rotate: ;
+    --invert: ;
+    --saturate: ;
+    --sepia: ;
+    --drop-shadow: ;
+    --backdrop-blur: ;
+    --backdrop-brightness: ;
+    --backdrop-contrast: ;
+    --backdrop-grayscale: ;
+    --backdrop-hue-rotate: ;
+    --backdrop-invert: ;
+    --backdrop-opacity: ;
+    --backdrop-saturate: ;
+    --backdrop-sepia: ;
+    --gradient-from-position: ;
+    --gradient-to-position: ;
+    --gradient-via-position: ;
+    --scroll-snap-strictness: proximity;
+    --border-spacing-x: 0;
+    --border-spacing-y: 0;
+    --translate-x: 0;
+    --translate-y: 0;
+    --rotate: 0;
+    --rotate-x: 0;
+    --rotate-y: 0;
+    --skew-x: 0;
+    --skew-y: 0;
+    --scale-x: 1;
+    --scale-y: 1;
+}
+html, body {
+    background: var(--bits-colors-bg-primary);
+    color: var(--bits-colors-text-primary);
+}
+body {
+    font-family: var(--bits-fonts-body);
+    color: var(--bits-colors-chakra-body-text);
+    background: var(--bits-colors-chakra-body-bg);
+    transition-property: background-color;
+    transition-duration: var(--bits-transition-duration-normal);
+    line-height: var(--bits-lineHeights-base);
+}
+body {
+    position: relative;
+    min-height: 100%;
+    margin: 0;
+    font-feature-settings: "kern";
+}
+body {
+    line-height: inherit;
+    height: 100%;
+}
+body, html {
+    padding: 0;
+    margin: 0;
+}
+body {
+    counter-reset: katexEqnNo mmlEqnNo;
+}
+<style>
+body {
+    transition: opacity ease-in 0.2s;
+}
+*, *::before, ::after {
+    border-color: var(--bits-colors-chakra-border-color);
+}
+:where(*, *::before, *::after) {
+    border-width: 0;
+    border-style: solid;
+    box-sizing: border-box;
+    word-wrap: break-word;
+}
+*, ::backdrop, ::file-selector-button, :after, :before {
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    border-style: solid;
+    border-color: var(--global-color-border, currentcolor);
+    box-sizing: border-box;
+}
+* {
+    box-sizing: border-box;
+}
+user agent stylesheet
+body {
+    display: block;
+    margin: 8px;
+}
+style attribute {
+    color-scheme: light;
+}
+:where(:root,:host):not(#\#):not(#\#) {
+    --panda-assets-card-corner: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjEiIGhlaWdodD0iMjciIHZpZXdCb3g9IjAgMCA2MSAyNyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTU1IDE1LjY1NDFDNTUgMTAuMjUwNiA1MC41MjI5IDUuODcwMjcgNDUgNS44NzAyN0gwVjBINDVDNTMuODM2NSAwIDYxIDcuMDA4NTYgNjEgMTUuNjU0MVYyNi4xNTY4SDU1VjE1LjY1NDFaIiBmaWxsPSJ3aGl0ZSIgZmlsbC1vcGFjaXR5PSIwLjMiLz4KPHBhdGggZD0iTTU1IDE1LjY1NDFDNTUgMTAuMjUwNiA1MC41MjI5IDUuODcwMjcgNDUgNS44NzAyN0gyNFYwSDQ1QzUzLjgzNjUgMCA2MSA3LjAwODU2IDYxIDE1LjY1NDFWMTcuNTAyN0g1NVYxNS42NTQxWiIgZmlsbD0id2hpdGUiIGZpbGwtb3BhY2l0eT0iMC40Ii8+Cjwvc3ZnPgo=);
+    --panda-assets-card-shine: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjg2IiBoZWlnaHQ9IjMzMyIgdmlld0JveD0iMCAwIDI4NiAzMzMiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGcgb3BhY2l0eT0iMC41IiBjbGlwLXBhdGg9InVybCgjY2xpcDApIj4KICAgIDxyZWN0IHg9IjE2Ny43NDIiIHk9Ii0wLjA1MzcxMDkiIHdpZHRoPSI4MC4wMTcxIiBoZWlnaHQ9IjMzNSIgdHJhbnNmb3JtPSJyb3RhdGUoMzAgMTY3Ljc0MiAtMC4wNTM3MTA5KSIgZmlsbD0idXJsKCNwYWludDBfbGluZWFyKSIvPgogICAgPHJlY3QgeD0iMjUwLjYyMyIgeT0iNDcuODAxMyIgd2lkdGg9IjQwLjc5MyIgaGVpZ2h0PSIzMzUiIHRyYW5zZm9ybT0icm90YXRlKDMwIDI1MC42MjMgNDcuODAxMykiIGZpbGw9InVybCgjcGFpbnQxX2xpbmVhcikiLz4KICA8L2c+CiAgPGRlZnM+CiAgICA8Y2xpcFBhdGggaWQ9ImNsaXAwIj4KICAgICAgPHJlY3Qgd2lkdGg9IjI4NiIgaGVpZ2h0PSIzMzMiIGZpbGw9IndoaXRlIi8+CiAgICA8L2NsaXBQYXRoPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJwYWludDBfbGluZWFyIiB4MT0iMTY4Ljc1MSIgeTE9Ii0wLjA1MzcxMDkiIHgyPSIxNjguNzUxIiB5Mj0iMzM0Ljk0NiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAuMjciIHN0b3AtY29sb3I9IiNGNUVGRkYiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIwLjcxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIgc3RvcC1vcGFjaXR5PSIwIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJwYWludDFfbGluZWFyIiB4MT0iMjMyLjAyIiB5MT0iNDcuODAxMyIgeDI9IjIzMi4wMiIgeTI9IjM4Mi44MDEzIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMC4wODEzMDIiIHN0b3AtY29sb3I9IiNGNUVGRkYiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIwLjU3MDg0NCIgc3RvcC1jb2xvcj0id2hpdGUiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+Cjwvc3ZnPgo=);
+    --panda-colors-black: #000000;
+    --panda-colors-dark-gray: #1E1E1E;
+    --panda-colors-dark-gray-alpha: rgba(11, 11, 11, 0.8);
+    --panda-colors-white: #FFFFFF;
+    --panda-colors-current-color: currentColor;
+    --panda-colors-default: default;
+    --panda-colors-none: none;
+    --panda-colors-transparent: transparent;
+    --panda-colors-gray-50: #F8F8F8;
+    --panda-colors-gray-100: #F2F2F2;
+    --panda-colors-gray-200: #E5E5E5;
+    --panda-colors-gray-300: #CCCCCC;
+    --panda-colors-gray-400: #B3B3B3;
+    --panda-colors-gray-500: #999999;
+    --panda-colors-gray-600: #808080;
+    --panda-colors-gray-700: #666666;
+    --panda-colors-gray-800: #4c4c4c;
+    --panda-colors-gray-900: #383838;
+    --panda-colors-gray-950: #141414;
+    --panda-colors-yellow-50: #FFFCF4;
+    --panda-colors-yellow-100: #FEF9E9;
+    --panda-colors-yellow-200: #FDF3D3;
+    --panda-colors-yellow-300: #FCE49D;
+    --panda-colors-yellow-400: #F9D25C;
+    --panda-colors-yellow-500: #F7C325;
+    --panda-colors-yellow-600: #D7A613;
+    --panda-colors-yellow-700: #B78900;
+    --panda-colors-yellow-800: #926D00;
+    --panda-colors-yellow-850: #755600;
+    --panda-colors-yellow-900: #5C4400;
+    --panda-colors-yellow-950: #251B00;
+    --panda-colors-blue-50: #F6F8FF;
+    --panda-colors-blue-100: #ECF0FF;
+    --panda-colors-blue-200: #DAE2FF;
+    --panda-colors-blue-300: #ABBDFF;
+    --panda-colors-blue-400: #7491FF;
+    --panda-colors-blue-500: #456DFF;
+    --panda-colors-blue-600: #375CE3;
+    --panda-colors-blue-700: #294BC6;
+    --panda-colors-blue-800: #213C9E;
+    --panda-colors-blue-900: #142563;
+    --panda-colors-blue-950: #080F28;
+    --panda-colors-red-50: #FFF7F7;
+    --panda-colors-red-100: #FFEFEF;
+    --panda-colors-red-200: #FFDFDF;
+    --panda-colors-red-300: #FFB6B6;
+    --panda-colors-red-400: #FF8585;
+    --panda-colors-red-500: #FF5D5D;
+Show all properties (562 more)
+}
+<style>
+:root:not(#\#) {
+    --made-with-panda: "🐼";
+}
+:not(#\#), :not(#\#)::backdrop, :not(#\#):after, :not(#\#):before {
+    --blur: ;
+    --brightness: ;
+    --contrast: ;
+    --grayscale: ;
+    --hue-rotate: ;
+    --invert: ;
+    --saturate: ;
+    --sepia: ;
+    --drop-shadow: ;
+    --backdrop-blur: ;
+    --backdrop-brightness: ;
+    --backdrop-contrast: ;
+    --backdrop-grayscale: ;
+    --backdrop-hue-rotate: ;
+    --backdrop-invert: ;
+    --backdrop-opacity: ;
+    --backdrop-saturate: ;
+    --backdrop-sepia: ;
+    --gradient-from-position: ;
+    --gradient-to-position: ;
+    --gradient-via-position: ;
+    --scroll-snap-strictness: proximity;
+    --border-spacing-x: 0;
+    --border-spacing-y: 0;
+    --translate-x: 0;
+    --translate-y: 0;
+    --rotate: 0;
+    --rotate-x: 0;
+    --rotate-y: 0;
+    --skew-x: 0;
+    --skew-y: 0;
+    --scale-x: 1;
+    --scale-y: 1;
+}
+.chakra-ui-light :host:not([data-theme]), .chakra-ui-light :root:not([data-theme]), .chakra-ui-light [data-theme]:not([data-theme]), [data-theme=light] :host:not([data-theme]), [data-theme=light] :root:not([data-theme]), [data-theme=light] [data-theme]:not([data-theme]), :host[data-theme=light], :root[data-theme=light], [data-theme][data-theme=light] {
+    --bits-colors-chakra-body-bg: var(--bits-colors-white);
+    --bits-colors-chakra-border-color: var(--bits-colors-gray-200);
+    --bits-colors-chakra-inverse-text: var(--bits-colors-white);
+    --bits-colors-chakra-subtle-bg: var(--bits-colors-gray-100);
+    --bits-colors-chakra-subtle-text: var(--bits-colors-gray-600);
+    --bits-colors-chakra-placeholder-color: var(--bits-colors-gray-500);
+}
+<style>
+:root {
+    --shake-sdk-font-family: "Roobert", serif;
+    --shake-sdk-overlay: rgba(0, 0, 0, .5);
+    --shake-sdk-color-accent: var(--shake-sdk-purple);
+    --shake-sdk-background-color-primary: var(--shake-sdk-pureWhite);
+    --shake-sdk-highlight-color-primary: var(--shake-sdk-grey10);
+    --shake-sdk-outline-color-primary: var(--shake-sdk-grey20);
+    --shake-sdk-text-color-primary-title: var(--shake-sdk-grey90);
+    --shake-sdk-text-color-primary-subtitle: var(--shake-sdk-grey60);
+    --shake-sdk-icon-color-primary: var(--shake-sdk-grey100);
+    --shake-sdk-scrollbar-color-primary: var(--shake-sdk-grey20);
+    --shake-sdk-background-color-secondary: var(--shake-sdk-black);
+    --shake-sdk-highlight-color-secondary: var(--shake-sdk-grey100);
+    --shake-sdk-outline-color-secondary: var(--shake-sdk-grey90);
+    --shake-sdk-text-color-secondary-title: var(--shake-sdk-grey30);
+    --shake-sdk-text-color-secondary-subtitle: var(--shake-sdk-grey40);
+    --shake-sdk-icon-color-secondary: var(--shake-sdk-grey50);
+    --shake-sdk-scrollbar-color-secondary: var(--shake-sdk-grey100);
+    --shake-sdk-border-radius-small: 10px;
+    --shake-sdk-border-radius-medium: 20px;
+    --shake-sdk-border-radius-large: 24px;
+    --shake-sdk-button-accent-color: var(--shake-sdk-color-accent);
+    --shake-sdk-button-accent-text-color: var(--shake-sdk-white);
+    --shake-sdk-button-accent-border: 1px solid var(--shake-sdk-transparent);
+    --shake-sdk-button-accent-border-radius: var(--shake-sdk-border-radius-small);
+    --shake-sdk-button-color: var(--shake-sdk-highlight-color-secondary);
+    --shake-sdk-button-text-color: var(--shake-sdk-grey30);
+    --shake-sdk-button-border: 1px solid var(--shake-sdk-outline-color-secondary);
+    --shake-sdk-button-border-radius: var(--shake-sdk-border-radius-small);
+    --shake-sdk-attachments-card-background: var(--shake-sdk-background-color-secondary);
+    --shake-sdk-attachments-card-border: none;
+    --shake-sdk-attachments-card-border-radius: var(--shake-sdk-border-radius-medium);
+    --shake-sdk-attachments-card-box-shadow: 0 1px 1px 1px var(--shake-sdk-highlight-color-secondary);
+    --shake-sdk-attachments-card-scroll-bar: var(--shake-sdk-scrollbar-color-secondary);
+    --shake-sdk-context-menu-backgroud: var(--shake-sdk-highlight-color-secondary);
+    --shake-sdk-context-menu-text-color: var(--shake-sdk-text-color-secondary-title);
+    --shake-sdk-context-menu-border: none;
+    --shake-sdk-context-menu-border-radius: var(--shake-sdk-border-radius-small);
+    --shake-sdk-context-menu-hover-color: var(--shake-sdk-outline-color-secondary);
+    --shake-sdk-context-menu-icon-color: var(--shake-sdk-icon-color-secondary);
+    --shake-sdk-sheet-backgroud: var(--shake-sdk-background-color-primary);
+    --shake-sdk-sheet-text-color: var(--shake-sdk-text-color-primary-title);
+    --shake-sdk-sheet-border: none;
+    --shake-sdk-sheet-border-radius: var(--shake-sdk-border-radius-medium) var(--shake-sdk-border-radius-medium) 0 0;
+    --shake-sdk-sheet-hover-color: var(--shake-sdk-highlight-color-primary);
+    --shake-sdk-tooltip-background: var(--shake-sdk-highlight-color-primary);
+    --shake-sdk-tooltip-text-color: var(--shake-sdk-text-color-primary-title);
+    --shake-sdk-tooltip-border: 1px solid var(--shake-sdk-outline-color-primary);
+    --shake-sdk-tooltip-border-radius: var(--shake-sdk-border-radius-small);
+    --shake-sdk-tooltip-background-dark: var(--shake-sdk-highlight-color-secondary);
+    --shake-sdk-tooltip-text-color-dark: var(--shake-sdk-text-color-secondary-title);
+Show all properties (99 more)
+}
+@supports (height: 100dvh) {
+    :root, :host {
+        --chakra-vh: 100dvh;
+    }
+}
+@supports (height: -webkit-fill-available) {
+    :root, :host {
+        --chakra-vh: -webkit-fill-available;
+    }
+}
+:root, :host {
+    --chakra-vh: 100vh;
+}
+:host, :root, [data-theme] {
+    --chakra-ring-inset: var(--chakra-empty, );
+    --chakra-ring-offset-width: 0px;
+    --chakra-ring-offset-color: #fff;
+    --chakra-ring-color: rgba(66, 153, 225, 0.6);
+    --chakra-ring-offset-shadow: 0 0 #0000;
+    --chakra-ring-shadow: 0 0 #0000;
+    --chakra-space-x-reverse: 0;
+    --chakra-space-y-reverse: 0;
+    --bits-colors-transparent: transparent;
+    --bits-colors-current: currentColor;
+    --bits-colors-black: #000000;
+    --bits-colors-white: #FFFFFF;
+    --bits-colors-whiteAlpha-50: rgba(255, 255, 255, 0.025);
+    --bits-colors-whiteAlpha-100: rgba(255, 255, 255, 0.05);
+    --bits-colors-whiteAlpha-200: rgba(255, 255, 255, 0.1);
+    --bits-colors-whiteAlpha-300: rgba(255, 255, 255, 0.2);
+    --bits-colors-whiteAlpha-400: rgba(255, 255, 255, 0.3);
+    --bits-colors-whiteAlpha-500: rgba(255, 255, 255, 0.4);
+    --bits-colors-whiteAlpha-600: rgba(255, 255, 255, 0.5);
+    --bits-colors-whiteAlpha-700: rgba(255, 255, 255, 0.6);
+    --bits-colors-whiteAlpha-800: rgba(255, 255, 255, 0.7);
+    --bits-colors-whiteAlpha-900: rgba(255, 255, 255, 0.8);
+    --bits-colors-whiteAlpha-950: rgba(255, 255, 255, 0.9);
+    --bits-colors-whiteAlpha-1000: #FFF;
+    --bits-colors-blackAlpha-50: rgba(0, 0, 0, 0.025);
+    --bits-colors-blackAlpha-100: rgba(0, 0, 0, 0.05);
+    --bits-colors-blackAlpha-200: rgba(0, 0, 0, 0.1);
+    --bits-colors-blackAlpha-300: rgba(0, 0, 0, 0.2);
+    --bits-colors-blackAlpha-400: rgba(0, 0, 0, 0.3);
+    --bits-colors-blackAlpha-500: rgba(0, 0, 0, 0.4);
+    --bits-colors-blackAlpha-600: rgba(0, 0, 0, 0.5);
+    --bits-colors-blackAlpha-700: rgba(0, 0, 0, 0.6);
+    --bits-colors-blackAlpha-800: rgba(0, 0, 0, 0.7);
+    --bits-colors-blackAlpha-900: rgba(0, 0, 0, 0.78);
+    --bits-colors-blackAlpha-950: rgba(0, 0, 0, 0.9);
+    --bits-colors-blackAlpha-1000: #000;
+    --bits-colors-gray-50: #F8F8F8;
+    --bits-colors-gray-100: #F2F2F2;
+    --bits-colors-gray-200: #E5E5E5;
+    --bits-colors-gray-300: #CCCCCC;
+    --bits-colors-gray-400: #B3B3B3;
+    --bits-colors-gray-500: #999999;
+    --bits-colors-gray-600: #808080;
+    --bits-colors-gray-700: #666666;
+    --bits-colors-gray-800: #4c4c4c;
+    --bits-colors-gray-900: #383838;
+    --bits-colors-gray-950: #141414;
+    --bits-colors-red-50: #FFF7F7;
+    --bits-colors-red-100: #FFEFEF;
+    --bits-colors-red-200: #FFDFDF;
+Show all properties (678 more)
+}
+:root {
+    --swiper-theme-color: #007aff;
+}
+:root {
+    --safe-area-inset-top: env(safe-area-inset-top, 0px);
+    --safe-area-inset-right: env(safe-area-inset-right, 0px);
+    --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-area-inset-left: env(safe-area-inset-left, 0px);
+}
+html {
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+    font-family: system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    touch-action: manipulation;
+}
+:host, html {
+    --font-fallback: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -moz-tab-size: 4;
+    tab-size: 4;
+    font-family: var(--global-font-body, var(--font-fallback));
+    -webkit-tap-highlight-color: transparent;
+}
+:not(#\#), :not(#\#)::backdrop, :not(#\#):after, :not(#\#):before {
+    --blur: ;
+    --brightness: ;
+    --contrast: ;
+    --grayscale: ;
+    --hue-rotate: ;
+    --invert: ;
+    --saturate: ;
+    --sepia: ;
+    --drop-shadow: ;
+    --backdrop-blur: ;
+    --backdrop-brightness: ;
+    --backdrop-contrast: ;
+    --backdrop-grayscale: ;
+    --backdrop-hue-rotate: ;
+    --backdrop-invert: ;
+    --backdrop-opacity: ;
+    --backdrop-saturate: ;
+    --backdrop-sepia: ;
+    --gradient-from-position: ;
+    --gradient-to-position: ;
+    --gradient-via-position: ;
+    --scroll-snap-strictness: proximity;
+    --border-spacing-x: 0;
+    --border-spacing-y: 0;
+    --translate-x: 0;
+    --translate-y: 0;
+    --rotate: 0;
+    --rotate-x: 0;
+    --rotate-y: 0;
+    --skew-x: 0;
+    --skew-y: 0;
+    --scale-x: 1;
+    --scale-y: 1;
+}
+*, *::before, ::after {
+    border-color: var(--bits-colors-chakra-border-color);
+}
+*, ::backdrop, ::file-selector-button, :after, :before {
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    border-style: solid;
+    border-color: var(--global-color-border, currentcolor);
+    box-sizing: border-box;
+}
+:not(#\#), :not(#\#)::backdrop, :not(#\#):after, :not(#\#):before {
+    --blur: ;
+    --brightness: ;
+    --contrast: ;
+    --grayscale: ;
+    --hue-rotate: ;
+    --invert: ;
+    --saturate: ;
+    --sepia: ;
+    --drop-shadow: ;
+    --backdrop-blur: ;
+    --backdrop-brightness: ;
+    --backdrop-contrast: ;
+    --backdrop-grayscale: ;
+    --backdrop-hue-rotate: ;
+    --backdrop-invert: ;
+    --backdrop-opacity: ;
+    --backdrop-saturate: ;
+    --backdrop-sepia: ;
+    --gradient-from-position: ;
+    --gradient-to-position: ;
+    --gradient-via-position: ;
+    --scroll-snap-strictness: proximity;
+    --border-spacing-x: 0;
+    --border-spacing-y: 0;
+    --translate-x: 0;
+    --translate-y: 0;
+    --rotate: 0;
+    --rotate-x: 0;
+    --rotate-y: 0;
+    --skew-x: 0;
+    --skew-y: 0;
+    --scale-x: 1;
+    --scale-y: 1;
+}
+*, *::before, ::after {
+    border-color: var(--bits-colors-chakra-border-color);
+}
+*, ::backdrop, ::file-selector-button, :after, :before {
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    border-style: solid;
+    border-color: var(--global-color-border, currentcolor);
+    box-sizing: border-box;
+}
+:not(#\#), :not(#\#)::backdrop, :not(#\#):after, :not(#\#):before {
+    --blur: ;
+    --brightness: ;
+    --contrast: ;
+    --grayscale: ;
+    --hue-rotate: ;
+    --invert: ;
+    --saturate: ;
+    --sepia: ;
+    --drop-shadow: ;
+    --backdrop-blur: ;
+    --backdrop-brightness: ;
+    --backdrop-contrast: ;
+    --backdrop-grayscale: ;
+    --backdrop-hue-rotate: ;
+    --backdrop-invert: ;
+    --backdrop-opacity: ;
+    --backdrop-saturate: ;
+    --backdrop-sepia: ;
+    --gradient-from-position: ;
+    --gradient-to-position: ;
+    --gradient-via-position: ;
+    --scroll-snap-strictness: proximity;
+    --border-spacing-x: 0;
+    --border-spacing-y: 0;
+    --translate-x: 0;
+    --translate-y: 0;
+    --rotate: 0;
+    --rotate-x: 0;
+    --rotate-y: 0;
+    --skew-x: 0;
+    --skew-y: 0;
+    --scale-x: 1;
+    --scale-y: 1;
+}
+*, ::backdrop, ::file-selector-button, :after, :before {
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    border-style: solid;
+    border-color: var(--global-color-border, currentcolor);
+    box-sizing: border-box;
+}
+::selection {
+    background-color: var(--global-color-selection, rgba(0, 115, 255, .3));
+}
+::selection {
+    background-color: var(--global-color-selection, rgba(0, 115, 255, .3));
+}
+<style>
+@font-face {
+    font-family: coFoBrilliantFont;
+    src: url(/_next/static/media/41e280766329a0cc-s.p.woff2) format("woff2");
+    font-display: swap;
+}
