@@ -73,6 +73,8 @@ const I18N = {
   t1_title:   { th: "ความเป็นคู่ของคลื่นและอนุภาค", en: "Wave–Particle Duality" },
   t1_desc:    { th: "แสงและอิเล็กตรอนเป็นได้ทั้งอนุภาคและคลื่นในเวลาเดียวกัน", en: "Light and electrons act as both particles and waves at once." },
   t1_intro:   { th: "ยิงอนุภาคทีละตัวผ่านช่องคู่ แต่ละจุดตกดูสุ่มไปหมด แล้วทำไมพอสะสมมากพอถึงเกิดลายเส้นสว่าง–มืดได้? นั่นคือหลักฐานว่าอนุภาคเดินทางแบบคลื่น", en: "Fire particles one at a time through two slits. Each landing looks random — so why does a striped pattern appear once enough of them pile up? That is the signature of a wave." },
+  t1_brief_title:{ th: "การทดลองช่องคู่", en: "The Double-Slit Experiment" },
+  t1_brief:   { th: "คุณกำลังจะยิงอนุภาคทีละตัวผ่านช่องคู่ จุดตกแต่ละจุดดูเหมือนสุ่ม แต่พอยิงไปเรื่อย ๆ จุดเหล่านั้นจะรวมตัวเป็นลายแถบแทรกสอด นี่คือหลักฐานว่าอนุภาคมีธรรมชาติเป็นคลื่นด้วย ภารกิจของคุณคือปรับช่องและพลังงานจนรูปแบบที่เกิดขึ้นตรงกับเป้าหมายอย่างน้อย 80%", en: "You're about to fire particles one at a time through two slits. Each hit looks random, but as you keep firing, they'll cluster into interference stripes. That's proof the particle has a wave nature. Your mission: tune the slits and energy until your pattern matches the target at least 80%." },
   t1_challenge:{ th: "ยิงให้ครบ 60 อนุภาค แล้วสังเกตว่าแถบสว่าง–มืดโผล่มาตรงไหนบ้าง", en: "Fire 60 particles and watch where the bright and dark bands appear." },
   t1_q:       { th: "ทายดู: ยิงอนุภาคไปเรื่อย ๆ จุดตกจะไปรวมกันแบบไหน?", en: "Predict: as you keep firing, how will the landing spots cluster?" },
   t1_a:       { th: "กองอยู่ตรงกลางจุดเดียว", en: "All piled in one central spot" },
@@ -875,6 +877,11 @@ function buildTopics() {
             <h1 class="topic-header-title" data-i18n="${m.key}_title"></h1>
             <p class="topic-header-desc" data-i18n="${m.key}_desc"></p>
           </div>
+          ${i === 1 ? `<div class="pre-play-brief">
+            <div class="brief-icon">📋</div>
+            <h3 class="brief-title" data-i18n="t1_brief_title"></h3>
+            <p class="brief-text" data-i18n="t1_brief"></p>
+          </div>` : ''}
           <div class="howto-strip">
             <div class="howto-title" data-i18n="howto_title"></div>
             <div class="howto-steps">

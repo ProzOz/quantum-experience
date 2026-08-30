@@ -103,10 +103,10 @@ const PUZZLE = {
 
 /* ── Lab-only bilingual strings ───────────────────────────── */
 const LAB_I18N = {
-  alert_ok:      { th: 'ระบบควอนตัม — ทุกสถานีทำงานปกติ', en: 'QUANTUM FACILITY — ALL STATIONS NOMINAL' },
-  alert_bad:     { th: (n) => `ระบบควอนตัม — ขัดข้องรุนแรง — ${n} สถานีออฟไลน์`, en: (n) => `QUANTUM FACILITY — CRITICAL FAILURE — ${n} STATION${n === 1 ? '' : 'S'} OFFLINE` },
+  alert_ok:      { th: 'ห้องปฏิบัติการควอนตัม — ระบบทำงานปกติ', en: 'QUANTUM LAB — ALL SYSTEMS NOMINAL' },
+  alert_bad:     { th: (n) => `เตือน: ${n} สถานี${n === 1 ? '' : ''}ต้องการการซ่อมแซม`, en: (n) => `ALERT: ${n} STATION${n === 1 ? '' : 'S'} NEED REPAIR` },
   guardian_title:{ th: 'คุณคือผู้พิทักษ์ควอนตัม', en: 'You are a Quantum Guardian' },
-  guardian_desc: { th: 'สถานีควอนตัมทั้ง 7 เสียหายจากความผิดปกติของแกนกลาง ภารกิจของคุณคือซ่อมแซมสถานีให้กลับมาทำงานได้', en: 'Seven quantum stations are damaged by a core anomaly. Your mission: restore each station to working order.' },
+  guardian_desc: { th: 'ห้องปฏิบัติการควอนตัมของ วมว. มหาวิทยาลัยบูรพา กำลังรอคุณอยู่ เริ่มต้นจากสถานี 1 แล้วสำรวจการทดลองทั้ง 7 สถานี', en: 'The SCIUS BUU Quantum Laboratory is waiting for you. Start at Station 1 and explore all seven experiments.' },
   start_station1:{ th: 'เริ่มที่สถานี 1 — ทวิภาพ', en: 'Start at Station 1 — Duality' },
   core_label:    { th: 'แกนควอนตัม · การทดลองสุดท้าย', en: 'QUANTUM CORE · FINAL EXPERIMENT' },
   core_title:    { th: 'การค้นหาควอนตัมของ Grover', en: "Grover's Quantum Search" },
@@ -144,7 +144,8 @@ function buildLabHome() {
     const isFirst = idx === 0;
     const statusDot = solved ? '<span class="qx-mission-status qx-mission-done">✓</span>' : '<span class="qx-mission-status qx-mission-pending">—</span>';
     const cta = solved ? LT('replay_station') : LT('enter_station');
-    const startHere = isFirst && !solved ? '<span class="qx-start-here">← เริ่มที่นี่</span>' : '';
+    const startHere = isFirst && !solved ? '<span class="qx-start-here">↑ เริ่มที่นี่</span>' : '';
+    const ctaText = isFirst && !solved ? cta : `${cta} →`;
     
     return `
     <button class="qx-mission${solved ? ' qx-mission-solved' : ''}${isFirst ? ' qx-mission-first' : ''}"
@@ -156,8 +157,8 @@ function buildLabHome() {
         <div class="qx-mission-name">${s.name[lang]}</div>
         <div class="qx-mission-tagline">${s.tagline[lang]}</div>
       </div>
-      ${statusDot}
-      <div class="qx-mission-cta">${cta} →</div>
+      ${isFirst ? '' : statusDot}
+      <div class="qx-mission-cta">${ctaText}</div>
       ${startHere}
     </button>`;
   }).join('');
@@ -169,14 +170,23 @@ function buildLabHome() {
 
   page.innerHTML = `
   <div class="qx-home">
-    <div class="qx-briefing">
-      <div class="qx-guardian-badge">${doneCount === 7 ? LT('alert_ok') : LT('alert_bad', 7 - doneCount)}</div>
-      <h1 class="qx-guardian-title">${LT('guardian_title')}</h1>
-      <p class="qx-guardian-desc">${LT('guardian_desc')}</p>
-      <div class="qx-progress-wrap">
-        <div class="qx-progress-label">${doneCount}/7 ${LT('stations_unit')}</div>
-        <div class="qx-progress-bar">
-          <div class="qx-progress-fill" style="width:${pct}%"></div>
+    <div class="qx-hero">
+      <div class="qx-hero-image">
+        <img src="images/classroom.jpg" alt="SCIUS BUU Quantum Lab" class="qx-classroom-photo">
+        <div class="qx-hero-logos">
+          <img src="scius-buu-logo.png" alt="SCIUS BUU" class="qx-logo-scius">
+          <img src="buraphalogo.png" alt="Burapha University" class="qx-logo-bu">
+        </div>
+      </div>
+      <div class="qx-hero-content">
+        <div class="qx-guardian-badge">${doneCount === 7 ? LT('alert_ok') : LT('alert_bad', 7 - doneCount)}</div>
+        <h1 class="qx-guardian-title">${LT('guardian_title')}</h1>
+        <p class="qx-guardian-desc">${LT('guardian_desc')}</p>
+        <div class="qx-progress-wrap">
+          <div class="qx-progress-label">${doneCount}/7 ${LT('stations_unit')}</div>
+          <div class="qx-progress-bar">
+            <div class="qx-progress-fill" style="width:${pct}%"></div>
+          </div>
         </div>
       </div>
     </div>
