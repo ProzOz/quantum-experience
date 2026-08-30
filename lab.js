@@ -269,12 +269,28 @@ function injectPuzzleUI() {
 
 function puzzleSuccessHTML(s) {
   return `
-    <div class="puzzle-inner">
-      <div class="puzzle-icon">✅</div>
-      <div class="puzzle-title">${LT('restored_t')}</div>
-      <div class="puzzle-desc">${LT('restored_d', s.name[lang])}</div>
-      <button class="puzzle-btn puzzle-btn-secondary" onclick="dismissPuzzle(${s.id})">${LT('btn_review')}</button>
-      <button class="puzzle-btn puzzle-btn-primary" onclick="goHome()">${LT('btn_back_lab')}</button>
+    <div class="puzzle-inner summary-screen">
+      <div class="summary-icon">${s.icon}</div>
+      <div class="summary-title">${LT('restored_t')}</div>
+      <div class="summary-station">${s.name[lang]}</div>
+      
+      <div class="summary-learned">
+        <div class="summary-learned-title">✅ ${t('theory_what_you_did')}</div>
+        <p>${t(TOPIC_META[s.id].key + '_what_you_did')}</p>
+      </div>
+
+      ${STATION_ART[s.id] ? `<div class="summary-visual"><img class="summary-theory-img" src="${STATION_ART[s.id]}" alt="${s.name[lang]}" loading="lazy"></div>` : ''}
+
+      <div class="summary-learned">
+        <div class="summary-learned-title">🔬 ${t('theory_the_physics')}</div>
+        <p>${t(TOPIC_META[s.id].key + '_theory')}</p>
+      </div>
+
+      <div class="summary-actions">
+        <button class="puzzle-btn puzzle-btn-secondary" onclick="dismissPuzzle(${s.id})">${LT('btn_review')}</button>
+        ${s.id < 7 ? `<button class="puzzle-btn puzzle-btn-primary" onclick="dismissPuzzle(${s.id});setTimeout(()=>openTopic(${s.id + 1}),400)">${t('theory_next')}: ${STATIONS[s.id] ? STATIONS[s.id].name[lang] : 'Next'} →</button>` : ''}
+        <button class="puzzle-btn puzzle-btn-secondary" onclick="goHome()">${LT('btn_back_lab')}</button>
+      </div>
     </div>`;
 }
 
