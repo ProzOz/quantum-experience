@@ -4,7 +4,7 @@
    Replaces buildHome(); adds puzzle layer + Grover climax
    ============================================================ */
 
-/* ── Station metadata ───────────────────────────────────── */
+/* ── Station metadata ─────────────────────────────────────── */
 const STATIONS = [
   {
     id: 1, icon: '🌊',
@@ -17,7 +17,7 @@ const STATIONS = [
     id: 2, icon: '⚛️',
     name: { th: 'สถานีที่ 2: ซ้อนทับ', en: 'Station 2: Superposition' },
     tagline: { th: 'ปรับคิวบิตให้สมดุล 50:50 แล้ววัดซ้ำ', en: 'Balance the qubit 50:50 and measure it' },
-    goal: { th: 'เอียงลูกศรให้นอนราบ ( สมดุล 50:50) แล้ววัดให้ครบ 10 ครั้ง', en: 'Tilt the arrow flat (a 50:50 split) and measure 10 times' },
+    goal: { th: 'เอียงลูกศรให้นอนราบ (สมดุล 50:50) แล้ววัดให้ครบ 10 ครั้ง', en: 'Tilt the arrow flat (a 50:50 split) and measure 10 times' },
     goalIcon: '🔍',
   },
   {
