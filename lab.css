@@ -170,18 +170,80 @@ main {
 
 /* ── HOME / LAB ───────────────────────────────────────── */
 .qx-home {
-    max-width: 840px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 48px 24px 80px;
 }
 
-/* ── BRIEFING ────────────────────────────────────── */
-.qx-briefing {
+/* ── HERO WITH CLASSROOM PHOTO ───────────────────────── */
+.qx-hero {
+    position: relative;
+    margin-bottom: 48px;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
     background: var(--bg-card);
-    border: 1px solid var(--border-light);
+}
+
+.qx-hero-image {
+    position: relative;
+    width: 100%;
+    height: 480px;
+    overflow: hidden;
+}
+
+.qx-classroom-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.75;
+}
+
+.qx-hero-logos {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    background: rgba(6, 6, 15, 0.85);
+    backdrop-filter: blur(12px);
+    padding: 16px 24px;
     border-radius: var(--radius-lg);
-    padding: 32px;
-    margin-bottom: 32px;
+    border: 1px solid rgba(217, 119, 6, 0.3);
+}
+
+.qx-logo-scius,
+.qx-logo-bu {
+    height: 48px;
+    width: auto;
+}
+
+.qx-hero-content {
+    padding: 40px 48px;
+    background: linear-gradient(to top, var(--bg-card) 0%, rgba(10, 9, 6, 0.95) 100%);
+}
+
+@media (max-width: 768px) {
+    .qx-hero-image {
+        height: 320px;
+    }
+    
+    .qx-hero-logos {
+        top: 16px;
+        right: 16px;
+        padding: 12px 16px;
+        gap: 12px;
+    }
+    
+    .qx-logo-scius,
+    .qx-logo-bu {
+        height: 36px;
+    }
+    
+    .qx-hero-content {
+        padding: 32px 24px;
+    }
 }
 
 .qx-guardian-badge {
@@ -189,14 +251,15 @@ main {
     align-items: center;
     gap: 8px;
     font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 1px;
+    font-size: 0.7rem;
+    letter-spacing: 1.5px;
     color: var(--accent);
     background: var(--accent-soft);
-    padding: 6px 14px;
+    padding: 8px 16px;
     border-radius: 999px;
     border: 1px solid var(--accent);
     margin-bottom: 20px;
+    text-transform: uppercase;
 }
 
 .qx-guardian-title {
