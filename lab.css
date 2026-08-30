@@ -529,10 +529,7 @@ main {
 }
 
 .lab-title-line2 {
-    background: linear-gradient(135deg, var(--coral), var(--gold), var(--purple));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--accent);
 }
 
 /* ── LEGACY SUBTITLE ──────────────────────────────────── */
@@ -1832,6 +1829,68 @@ footer {
 .btn:active {
     transform: scale(0.97);
     transition: transform 100ms var(--ease-out, ease-out);
+}
+
+/* Summary screen mobile */
+@media (max-width: 768px) {
+    .summary-screen {
+        padding: 20px;
+    }
+    
+    .summary-icon {
+        font-size: 3.5rem;
+    }
+    
+    .summary-title {
+        font-size: 1.6rem;
+    }
+    
+    .summary-learned {
+        padding: 16px;
+        margin-bottom: 18px;
+    }
+    
+    .summary-learned-title {
+        font-size: 0.8rem;
+    }
+    
+    .summary-learned p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+    
+    .summary-theory-img {
+        max-height: 240px;
+        object-fit: contain;
+    }
+}
+
+@media (max-width: 480px) {
+    .summary-screen {
+        max-width: 100%;
+        padding: 16px;
+    }
+    
+    .summary-icon {
+        font-size: 3rem;
+    }
+    
+    .summary-title {
+        font-size: 1.4rem;
+    }
+    
+    .summary-learned {
+        padding: 14px;
+    }
+    
+    .summary-learned p {
+        font-size: 0.9rem;
+    }
+    
+    .puzzle-btn {
+        padding: 12px 20px;
+        font-size: 0.95rem;
+    }
 }
 
 .slider {

@@ -44,19 +44,10 @@
   font-family: 'Orbitron', sans-serif;
   font-size: clamp(1.6rem, 4vw, 2.6rem);
   font-weight: 800;
-  background: linear-gradient(125deg, var(--coop-coral), var(--coop-gold), var(--coop-purple));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--coop-text);
   margin-bottom: 12px;
   line-height: 1.15;
   text-shadow: 0 0 40px rgba(232, 121, 121, 0.3);
-  animation: warmGlow 3s ease-in-out infinite alternate;
-}
-
-@keyframes warmGlow {
-  0% { filter: drop-shadow(0 0 20px rgba(212, 165, 116, 0.2)); }
-  100% { filter: drop-shadow(0 0 30px rgba(232, 121, 121, 0.35)); }
 }
 
 .coop-header-desc {
@@ -267,18 +258,9 @@
   font-family: 'Orbitron', sans-serif;
   font-size: clamp(1.7rem, 4.5vw, 2.8rem);
   font-weight: 800;
-  background: linear-gradient(125deg, var(--coop-coral) 0%, var(--coop-text) 45%, var(--coop-gold) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--coop-text);
   letter-spacing: 2px;
-  filter: drop-shadow(0 0 25px rgba(232, 121, 121, 0.4));
-  animation: titleGlow 4s ease-in-out infinite alternate;
-}
-
-@keyframes titleGlow {
-  0% { filter: drop-shadow(0 0 20px rgba(232, 121, 121, 0.3)); }
-  100% { filter: drop-shadow(0 0 35px rgba(212, 165, 116, 0.5)); }
+  text-shadow: 0 0 25px rgba(232, 121, 121, 0.4);
 }
 
 .coop-subtitle {
