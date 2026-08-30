@@ -20,50 +20,51 @@ body {
 }
 
 :root {
-    /* ARTISTIC INDIE PALETTE — warm, cinematic, inviting */
-    --bg-primary: #0B0D14;
-    --bg-secondary: #13151E;
-    --bg-card: #1A1B24;
-    --bg-deep: #0A0B10;
+    /* Amber lab-lamp system — match styles.css */
+    --bg-primary: #0A0906;
+    --bg-secondary: #141210;
+    --bg-card: #1C1916;
+    --bg-deep: #0A0906;
 
-    /* Warm accent colors */
-    --coral: #E87979;
-    --coral-soft: #F0A8A8;
-    --gold: #D4A574;
-    --gold-soft: #E8C9A0;
-    --purple: #8B6BAE;
-    --purple-soft: #A991C9;
+    /* Amber accent */
+    --accent: #D97706;
+    --accent-soft: rgba(217, 119, 6, 0.12);
+    --accent-glow: rgba(217, 119, 6, 0.25);
 
-    /* Accent mappings for compatibility */
-    --quantum-blue: var(--coral);
-    --quantum-purple: var(--purple);
-    --quantum-cyan: var(--gold);
-    --quantum-pink: var(--coral-soft);
+    /* Legacy compatibility aliases */
+    --coral: var(--accent);
+    --coral-soft: var(--accent-soft);
+    --gold: var(--accent);
+    --gold-soft: var(--accent-soft);
+    --purple: var(--accent);
+    --purple-soft: var(--accent-soft);
+    --quantum-blue: var(--accent);
+    --quantum-purple: var(--accent);
+    --quantum-cyan: var(--accent);
+    --quantum-pink: var(--accent);
 
-    /* Status colors — warm variants */
-    --success: #7BC47F;
-    --warning: var(--gold);
-    --error: #E87979;
-    --offline: #5A5B66;
+    /* Status colors */
+    --success: #65A30D;
+    --warning: var(--accent);
+    --error: #DC2626;
+    --offline: #57534E;
 
-    /* Text — warm, readable on dark */
-    --text-primary: #E6E2DC;
-    --text-secondary: #A8A5A0;
-    --text-tertiary: #6B6966;
+    /* Text */
+    --text-primary: #F5F1EC;
+    --text-secondary: #A8A29E;
+    --text-tertiary: #78716C;
 
-    /* Borders & shadows — warm glow */
-    --border-light: #2A2B34;
-    --border-warm: linear-gradient(135deg, var(--coral), var(--purple));
+    /* Borders & shadows */
+    --border-light: #292524;
     --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
     --shadow-md: 0 8px 24px rgba(0,0,0,0.4);
-    --shadow-lg: 0 16px 48px rgba(0,0,0,0.5);
-    --shadow-glow: 0 0 30px rgba(232, 121, 121, 0.15);
-    --shadow-glow-warm: 0 0 40px rgba(212, 165, 116, 0.2), 0 0 80px rgba(139, 107, 174, 0.1);
+    --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+    --shadow-glow: 0 0 24px var(--accent-glow);
 
     /* Typography */
-    --font-display: 'Inter', -apple-system, sans-serif;
-    --font-body: 'Inter', -apple-system, sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
+    --font-display: 'IBM Plex Sans', 'Sarabun', sans-serif;
+    --font-body: 'IBM Plex Sans', 'Sarabun', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
 
     /* Spacing */
     --space-xs: 4px;
@@ -168,11 +169,216 @@ main {
 .page.active { display: block; }
 
 /* ── HOME / LAB ───────────────────────────────────────── */
-.lab-home {
-    max-width: 1200px;
+.qx-home {
+    max-width: 840px;
     margin: 0 auto;
-    padding: var(--space-3xl) var(--space-lg);
+    padding: 48px 24px 80px;
+}
+
+/* ── BRIEFING ────────────────────────────────────── */
+.qx-briefing {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    margin-bottom: 32px;
+}
+
+.qx-guardian-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--accent);
+    margin-bottom: 20px;
+}
+
+.qx-guardian-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    line-height: 1.2;
+}
+
+.qx-guardian-desc {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 24px;
+}
+
+.qx-progress-wrap {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    padding: 16px;
+}
+
+.qx-progress-label {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+    margin-bottom: 8px;
+}
+
+.qx-progress-bar {
+    height: 8px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.qx-progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 999px;
+    transition: width 0.5s ease;
+}
+
+/* ── MISSION LIST ────────────────────────────────────── */
+.qx-mission-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.qx-mission {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 20px 24px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.qx-mission:hover {
+    border-color: var(--accent);
+    transform: translateX(4px);
+}
+
+.qx-mission-first {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+}
+
+.qx-mission-solved {
+    opacity: 0.75;
+}
+
+.qx-mission-solved:hover {
+    opacity: 1;
+}
+
+.qx-mission-num {
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent);
+    flex-shrink: 0;
+    width: 48px;
     text-align: center;
+}
+
+.qx-mission-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.qx-mission-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.qx-mission-tagline {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+.qx-mission-status {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.qx-mission-done {
+    color: var(--success);
+}
+
+.qx-mission-pending {
+    color: var(--text-tertiary);
+}
+
+.qx-mission-cta {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+    flex-shrink: 0;
+    opacity: 0.8;
+}
+
+.qx-mission:hover .qx-mission-cta {
+    opacity: 1;
+}
+
+.qx-start-here {
+    position: absolute;
+    right: -120px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--font-thai);
+    font-size: 0.85rem;
+    color: var(--accent);
+    white-space: nowrap;
+    opacity: 0.9;
+}
+
+@media (max-width: 960px) {
+    .qx-start-here {
+        display: none;
+    }
+}
+
+@media (max-width: 640px) {
+    .qx-mission {
+        padding: 16px;
+        gap: 12px;
+    }
+    
+    .qx-mission-num {
+        font-size: 1.2rem;
+        width: 36px;
+    }
+    
+    .qx-mission-name {
+        font-size: 1rem;
+    }
+    
+    .qx-mission-tagline {
+        font-size: 0.85rem;
+    }
+    
+    .qx-mission-cta {
+        display: none;
+    }
+    
+    .qx-briefing {
+        padding: 24px 20px;
+    }
 }
 
 /* ── MISSION BRIEFING ────────────────────────────────── */

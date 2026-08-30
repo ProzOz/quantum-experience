@@ -105,10 +105,9 @@ const PUZZLE = {
 const LAB_I18N = {
   alert_ok:      { th: 'ระบบควอนตัม — ทุกสถานีทำงานปกติ', en: 'QUANTUM FACILITY — ALL STATIONS NOMINAL' },
   alert_bad:     { th: (n) => `ระบบควอนตัม — ขัดข้องรุนแรง — ${n} สถานีออฟไลน์`, en: (n) => `QUANTUM FACILITY — CRITICAL FAILURE — ${n} STATION${n === 1 ? '' : 'S'} OFFLINE` },
-  title_ok:      { th: 'ออนไลน์เต็มระบบ', en: 'FULLY ONLINE' },
-  title_bad:     { th: 'ห้องแล็บฉุกเฉิน', en: 'LAB EMERGENCY' },
-  subtitle_ok:   { th: '<span class="hl">ครบ 7 สถานีแล้ว!</span> กดเข้าแกนควอนตัมเพื่อดูการทดลองสุดท้ายเลย', en: '<span class="hl">All 7 stations online!</span> Enter the Quantum Core for the final experiment.' },
-  subtitle_bad:  { th: '<span class="hl">แกนควอนตัมล่ม!</span> เล่นเกมซ่อมทั้ง 7 สถานีให้ครบ เพื่อปลดล็อกการทดลองสุดท้าย', en: '<span class="hl">The quantum core is down!</span> Beat all 7 station games to unlock the final experiment.' },
+  guardian_title:{ th: 'คุณคือผู้พิทักษ์ควอนตัม', en: 'You are a Quantum Guardian' },
+  guardian_desc: { th: 'สถานีควอนตัมทั้ง 7 เสียหายจากความผิดปกติของแกนกลาง ภารกิจของคุณคือซ่อมแซมสถานีให้กลับมาทำงานได้', en: 'Seven quantum stations are damaged by a core anomaly. Your mission: restore each station to working order.' },
+  start_station1:{ th: 'เริ่มที่สถานี 1 — ทวิภาพ', en: 'Start at Station 1 — Duality' },
   core_label:    { th: 'แกนควอนตัม · การทดลองสุดท้าย', en: 'QUANTUM CORE · FINAL EXPERIMENT' },
   core_title:    { th: 'การค้นหาควอนตัมของ Grover', en: "Grover's Quantum Search" },
   core_ok:       { th: 'แกนออนไลน์แล้ว ดูควอนตัมคอมพิวเตอร์ค้นฐานข้อมูลใน 1 คิวรี — คอมพิวเตอร์ทั่วไปใช้เฉลี่ย 2.5', en: 'The core is online. Watch a quantum computer search a database in 1 query — a classical computer takes 2.5.' },
@@ -117,8 +116,8 @@ const LAB_I18N = {
   mission:       { th: 'เป้าหมายภารกิจ', en: 'MISSION OBJECTIVE' },
   online:        { th: 'ออนไลน์', en: 'ONLINE' },
   offline:       { th: 'ออฟไลน์', en: 'OFFLINE' },
-  play_btn:      { th: 'เล่นเลย', en: 'PLAY' },
-  replay_btn:    { th: 'ผ่านแล้ว · เล่นซ้ำ', en: 'DONE · Replay' },
+  enter_station: { th: 'เข้าสถานี', en: 'ENTER STATION' },
+  replay_station:{ th: 'เล่นซ้ำ', en: 'REPLAY' },
   restored_t:    { th: 'ซ่อมสถานีสำเร็จ!', en: 'STATION RESTORED' },
   restored_d:    { th: (n) => `${n} กลับมาออนไลน์แล้ว แกนควอนตัมแข็งแกร่งขึ้น`, en: (n) => `${n} is back online. The quantum core grows stronger.` },
   btn_review:    { th: 'ดูการทดลองต่อ →', en: 'Review simulation →' },
@@ -139,29 +138,27 @@ function buildLabHome() {
 
   const doneCount = Object.values(PUZZLE).filter(p => p.solved).length;
 
-  let stationCards = STATIONS.map(s => {
+  let missionList = STATIONS.map((s, idx) => {
     const solved = PUZZLE[s.id].solved;
     const onclick = s.id === 7 ? 'openCircuitPuzzle()' : `openTopic(${s.id})`;
+    const isFirst = idx === 0;
+    const statusDot = solved ? '<span class="qx-mission-status qx-mission-done">✓</span>' : '<span class="qx-mission-status qx-mission-pending">—</span>';
+    const cta = solved ? LT('replay_station') : LT('enter_station');
+    const startHere = isFirst && !solved ? '<span class="qx-start-here">← เริ่มที่นี่</span>' : '';
+    
     return `
-    <button class="station-card${solved ? ' online' : ''}"
-      data-station="${s.id}"
+    <button class="qx-mission${solved ? ' qx-mission-solved' : ''}${isFirst ? ' qx-mission-first' : ''}"
       onclick="${onclick}"
-      onmousemove="stationGlow(event,this)"
       onpointerenter="play('hover')"
       aria-label="${s.name[lang]}">
-      <div class="station-number">
-        <span class="station-status-dot"></span>
-        STATION-0${s.id} · ${solved ? LT('online') : LT('offline')}
+      <div class="qx-mission-num">0${s.id}</div>
+      <div class="qx-mission-content">
+        <div class="qx-mission-name">${s.name[lang]}</div>
+        <div class="qx-mission-tagline">${s.tagline[lang]}</div>
       </div>
-      <span class="station-icon">${s.icon}</span>
-      <div class="station-name">${s.name[lang]}</div>
-      <div class="station-tagline">${s.tagline[lang]}</div>
-      <div class="station-play">${solved ? '✔ ' + LT('replay_btn') : '▶ ' + LT('play_btn')}</div>
-      <div class="station-done-ring">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-          <path d="M20 6L9 17l-5-5"/>
-        </svg>
-      </div>
+      ${statusDot}
+      <div class="qx-mission-cta">${cta} →</div>
+      ${startHere}
     </button>`;
   }).join('');
 
@@ -171,22 +168,20 @@ function buildLabHome() {
   const pct = Math.round(doneCount / 7 * 100);
 
   page.innerHTML = `
-  <div class="lab-home">
-    <div class="lab-alert">
-      <span class="lab-alert-dot"></span>
-      ${doneCount === 7 ? LT('alert_ok') : LT('alert_bad', 7 - doneCount)}
+  <div class="qx-home">
+    <div class="qx-briefing">
+      <div class="qx-guardian-badge">${doneCount === 7 ? LT('alert_ok') : LT('alert_bad', 7 - doneCount)}</div>
+      <h1 class="qx-guardian-title">${LT('guardian_title')}</h1>
+      <p class="qx-guardian-desc">${LT('guardian_desc')}</p>
+      <div class="qx-progress-wrap">
+        <div class="qx-progress-label">${doneCount}/7 ${LT('stations_unit')}</div>
+        <div class="qx-progress-bar">
+          <div class="qx-progress-fill" style="width:${pct}%"></div>
+        </div>
+      </div>
     </div>
 
-    <h1 class="lab-title">
-      <div class="lab-title-line1">QUANTUM</div>
-      <div class="lab-title-line2">${doneCount === 7 ? LT('title_ok') : LT('title_bad')}</div>
-    </h1>
-
-    <p class="lab-subtitle">
-      ${doneCount === 7 ? LT('subtitle_ok') : LT('subtitle_bad')}
-    </p>
-
-    <div class="station-grid">${stationCards}</div>
+    <div class="qx-mission-list">${missionList}</div>
 
     ${typeof CT === 'function' ? `
     <button class="coop-banner" onclick="openCoop()" onpointerenter="play('hover')">
@@ -206,12 +201,6 @@ function buildLabHome() {
         <div class="core-title">${LT('core_title')}</div>
         <div class="core-desc">
           ${coreUnlocked ? LT('core_ok') : LT('core_bad')}
-        </div>
-        <div class="core-progress">
-          <div class="core-progress-bar-wrap">
-            <div class="core-progress-bar" id="coreProgressBar" style="width:${pct}%"></div>
-          </div>
-          <div class="core-progress-label" id="coreProgressLabel">${doneCount}/7 ${LT('stations_unit')}</div>
         </div>
       </div>
       ${coreUnlocked ? '<button class="core-cta" onclick="event.stopPropagation();openQuantumCore()">LAUNCH →</button>' : ''}

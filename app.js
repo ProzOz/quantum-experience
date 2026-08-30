@@ -19,7 +19,7 @@ const I18N = {
   home_hint:        { th: "เลือกหัวข้อไหนก่อนก็ได้ ไม่ต้องเรียงลำดับ", en: "Explore any topic in any order — it is all up to you" },
   home_topics_label:{ th: "หกการทดลองควอนตัม", en: "Six Quantum Experiments" },
   home_topics_label7:{ th: "เจ็ดสถานีควอนตัม", en: "Seven Quantum Stations" },
-  badge_recommended:{ th: "แนะนำให้เริ่มที่นี่", en: "Best place to start" },
+  badge_recommended:{ th: "แนะนำให้เริ่มที่นี่", en: "Start here" },
   progress_summary: { th: "ทำสำเร็จแล้ว", en: "Completed" },
 
   challenge_chip:   { th: "ภารกิจ", en: "Challenge" },
