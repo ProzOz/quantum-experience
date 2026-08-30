@@ -529,10 +529,7 @@ main {
 }
 
 .lab-title-line2 {
-    background: linear-gradient(135deg, var(--coral), var(--gold), var(--purple));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--accent);
 }
 
 /* ── LEGACY SUBTITLE ──────────────────────────────────── */

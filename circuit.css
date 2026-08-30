@@ -51,10 +51,6 @@
   font-weight: 700;
   color: var(--circuit-text);
   margin-bottom: 12px;
-  background: linear-gradient(125deg, var(--circuit-coral), var(--circuit-gold));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .circuit-header-desc {
