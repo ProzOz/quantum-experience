@@ -117,19 +117,19 @@ header {
     gap: 10px;
     text-decoration: none;
     color: var(--text-primary);
-    font-weight: 700;
-    font-size: 1.1rem;
+    font-weight: 600;
+    font-size: 1.15rem;
 }
 
 .logo-icon {
-    width: 36px;
-    height: 36px;
-    background: linear-gradient(135deg, var(--coral), var(--purple));
-    border-radius: var(--radius-sm);
+    width: 22px;
+    height: 22px;
+    background: transparent;
+    border-radius: 0;
     display: grid;
     place-items: center;
     color: white;
-    font-weight: 800;
+    font-weight: 600;
 }
 
 .header-center {
@@ -440,7 +440,8 @@ html[lang="th"] .qx-rest-name {
 }
 
 @media (max-width: 800px) {
-    .logo-text { display: none; }
+    .logo-sub { display: none; }
+    .header-logo-img { width: 18px; height: 18px; }
     header { padding: 0 12px; }
 
     .qx-home {

@@ -1,5 +1,5 @@
 /* ============================================================
-   Quantum Experience — SCIUS BUU
+   เรียนควอนตัม — SCIUS BUU
    Interactive quantum-science learning platform
    lab.js extends with the Quantum Lab redesign.
    ============================================================ */
@@ -10,11 +10,11 @@
    1. TRANSLATIONS (Thai default, English full support)
    ============================================================ */
 const I18N = {
-  brand:            { th: "Quantum Experience", en: "Quantum Experience" },
+  brand:            { th: "เรียนควอนตัม", en: "เรียนควอนตัม" },
   nav_back:         { th: "กลับหน้าหลัก", en: "Back to menu" },
 
   home_eyebrow:     { th: "ห้องทดลองควอนตัมเสมือนจริง", en: "A Virtual Quantum Laboratory" },
-  home_title:       { th: "Quantum Experience", en: "Quantum Experience" },
+  home_title:       { th: "เรียนควอนตัม", en: "เรียนควอนตัม" },
   home_subtitle:    { th: "สัมผัสโลกของอนุภาคที่เล็กที่สุด ทดลองด้วยตัวเอง แล้วค้นพบว่าทำไมควอนตัมถึงพลิกทุกอย่างที่เรารู้จัก", en: "Step into the world of the tiniest particles. Run the experiments yourself and discover why the quantum world breaks all the rules." },
   home_hint:        { th: "เลือกหัวข้อไหนก่อนก็ได้ ไม่ต้องเรียงลำดับ", en: "Explore any topic in any order — it is all up to you" },
   home_topics_label:{ th: "หกการทดลองควอนตัม", en: "Six Quantum Experiments" },

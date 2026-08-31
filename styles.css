@@ -1,5 +1,5 @@
 /* ============================================================
-   Quantum Experience — SCIUS BUU
+   เรียนควอนตัม — SCIUS BUU
    Stylesheet: "Artistic Indie" design language
    Dark cinematic mode with warm accents (amber, coral, soft purple)
    ============================================================ */
@@ -121,7 +121,7 @@ header {
 .logo {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     text-decoration: none;
     color: var(--text);
     cursor: pointer;
@@ -130,22 +130,45 @@ header {
     flex-shrink: 0;
 }
 
+.logo-wordmark {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.15;
+}
+
 .logo-icon, .header-logo-img {
-    width: 42px;
-    height: 42px;
-    border-radius: 8px;
+    width: 22px;
+    height: 22px;
+    border-radius: 0;
     object-fit: contain;
     background: transparent;
-    padding: 2px;
+    padding: 0;
+}
+
+.logo-marks {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 4px;
 }
 
 .logo-text {
-    font-family: var(--font-display);
+    font-family: 'IBM Plex Sans Thai', 'Sarabun', var(--font-display);
     font-weight: 600;
-    font-size: 1rem;
-    letter-spacing: 1.5px;
+    font-size: 1.15rem;
+    letter-spacing: 0;
     white-space: nowrap;
     color: var(--text);
+}
+
+.logo-sub {
+    font-family: 'IBM Plex Sans', 'Sarabun', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: #C4B5A0;
+    white-space: nowrap;
 }
 
 .logo-dot {

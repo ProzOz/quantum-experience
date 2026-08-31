@@ -1,7 +1,7 @@
 'use strict';
 
 /* ============================================================
-   Qubit Runner — Quantum Experience · SCIUS BUU
+   Qubit Runner — เรียนควอนตัม · SCIUS BUU
    An arcade game where you ARE a quantum particle.
    ============================================================
    RULES:
