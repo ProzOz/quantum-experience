@@ -745,7 +745,7 @@ html[lang="th"] .howto-title { font-family: var(--font-thai); letter-spacing: 0;
 .btn {
     padding: 14px 28px;
     border: none;
-    border-radius: var(--radius-sm);
+    border-radius: 0;
     font-family: var(--font-body);
     font-size: 1rem;
     font-weight: 700;
@@ -768,18 +768,18 @@ html[lang="th"] .btn { font-family: var(--font-thai); font-weight: 600; }
     background: var(--accent);
     color: #0A0906;
     font-weight: 600;
-    box-shadow: 0 2px 8px var(--accent-glow);
+    box-shadow: none;
 }
-.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px var(--accent-glow); background: #EA580C; }
-.btn-primary:active { transform: translateY(0); }
+.btn-primary:hover { background: #EA580C; }
+.btn-primary:active { transform: none; }
 
 .btn-violet {
     background: var(--accent);
     color: #0A0906;
     font-weight: 600;
-    box-shadow: 0 2px 8px var(--accent-glow);
+    box-shadow: none;
 }
-.btn-violet:hover { transform: translateY(-1px); box-shadow: 0 4px 12px var(--accent-glow); background: #EA580C; }
+.btn-violet:hover { background: #EA580C; }
 
 .btn-secondary {
     background: rgba(255, 255, 255, 0.04);

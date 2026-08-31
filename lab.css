@@ -1074,7 +1074,7 @@ html[lang="th"] .qx-rest-name {
     font-size: 0.95rem;
     font-weight: 600;
     letter-spacing: 0;
-    color: #6B4A12;
+    color: #3F2A0A;
     margin-bottom: var(--space-md);
     text-transform: none;
 }
@@ -1086,7 +1086,7 @@ html[lang="th"] .qx-rest-name {
     margin: 0 auto;
     border-radius: 0;
     background: #EDE6D9;
-    filter: grayscale(0.25) sepia(0.35) saturate(0.7) contrast(1.05);
+    filter: grayscale(0.45) sepia(0.55) saturate(0.55) contrast(1.08);
 }
 
 .station-video {
@@ -1141,23 +1141,14 @@ html[lang="th"] .qx-rest-name {
     font-weight: 600;
 }
 
-.puzzle-goal-status {
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--success);
-    padding: 6px 12px;
-    background: rgba(123, 196, 127, 0.15);
-    border-radius: var(--radius-full);
-}
-
 /* ── SIMULATION CONTAINER ───────────────────────────── */
 .simulation-container {
-    background: var(--bg-card);
-    border: 1px solid var(--border-light);
-    border-radius: var(--radius-lg);
+    background: #141210;
+    border: 1px solid #3D3935;
+    border-radius: 0;
     padding: var(--space-lg);
     margin-bottom: var(--space-lg);
-    box-shadow: var(--shadow-md);
+    box-shadow: none;
 }
 
 /* Controls panel */
@@ -1210,24 +1201,26 @@ html[lang="th"] .qx-rest-name {
 .btn {
     padding: 12px 24px;
     border: none;
-    border-radius: var(--radius-md);
+    border-radius: 0;
     font-weight: 600;
     font-size: 0.95rem;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: background 0.15s;
     display: inline-flex;
     align-items: center;
     gap: var(--space-sm);
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--coral), var(--purple));
-    color: white;
+    background: #D97706;
+    color: #1A1208;
+    box-shadow: none;
 }
 
 .btn-primary:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(232, 121, 121, 0.4);
+    background: #EA580C;
+    transform: none;
+    box-shadow: none;
 }
 
 .btn-secondary {
@@ -1947,11 +1940,11 @@ footer {
 .btn {
     padding: 12px 24px;
     border: none;
-    border-radius: var(--radius-md);
+    border-radius: 0;
     font-weight: 600;
     font-size: 1rem;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: background 0.15s;
     display: inline-flex;
     align-items: center;
     justify-content: center;
