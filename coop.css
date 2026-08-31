@@ -166,7 +166,7 @@
 .coop-goal.hidden { opacity: 0; transform: translateX(-50%) translateY(-8px); }
 
 .coop-goal-tag {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'IBM Plex Sans Thai', 'Sarabun', 'IBM Plex Sans', sans-serif;
   font-size: 0.62rem;
   letter-spacing: 2px;
   color: var(--coop-text-secondary);
@@ -174,7 +174,7 @@
 }
 
 .coop-goal-text {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'IBM Plex Sans Thai', 'Sarabun', 'IBM Plex Sans', sans-serif;
   font-size: 1.05rem;
   font-weight: 700;
   letter-spacing: 1px;
@@ -255,7 +255,7 @@
 }
 
 .coop-title {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'IBM Plex Sans Thai', 'Sarabun', 'IBM Plex Sans', sans-serif;
   font-size: clamp(1.7rem, 4.5vw, 2.8rem);
   font-weight: 800;
   color: var(--coop-text);
@@ -283,7 +283,7 @@
   border-radius: 999px;
   border: none;
   cursor: pointer;
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'IBM Plex Sans Thai', 'Sarabun', 'IBM Plex Sans', sans-serif;
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 1.5px;
@@ -317,24 +317,24 @@
   flex-direction: column;
   gap: 8px;
   align-items: flex-start;
-  background: rgba(26, 27, 36, 0.7);
-  border: 1px solid rgba(232, 121, 121, 0.15);
-  border-radius: var(--coop-radius-md);
-  padding: 14px 20px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 8px 0;
   max-width: 460px;
   width: 100%;
-  backdrop-filter: blur(8px);
 }
 
 .coop-howto-title {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 0.68rem;
-  letter-spacing: 2px;
-  color: var(--coop-gold);
-  margin-bottom: 2px;
+  font-family: 'IBM Plex Sans Thai', 'Sarabun', 'IBM Plex Sans', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0;
+  font-weight: 600;
+  color: #F0A020;
+  margin-bottom: 8px;
 }
 
-html[lang="th"] .coop-howto-title { font-family: 'Kanit', sans-serif; font-size: 0.95rem; letter-spacing: 0.5px; }
+html[lang="th"] .coop-howto-title { font-family: 'IBM Plex Sans Thai', 'Sarabun', sans-serif; font-size: 1rem; letter-spacing: 0; }
 
 .coop-howto-step {
   display: flex;
@@ -347,17 +347,16 @@ html[lang="th"] .coop-howto-title { font-family: 'Kanit', sans-serif; font-size:
 }
 
 .coop-howto-num {
-  width: 26px;
-  height: 26px;
+  width: auto;
+  height: auto;
   flex-shrink: 0;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--coop-coral), var(--coop-gold));
-  color: #fff;
-  font-weight: 800;
-  font-size: 0.85rem;
-  display: grid;
-  place-items: center;
-  box-shadow: 0 0 12px rgba(232, 121, 121, 0.3);
+  border-radius: 0;
+  background: none;
+  color: #F0A020;
+  font-weight: 600;
+  font-size: 1rem;
+  font-family: 'IBM Plex Mono', monospace;
+  display: block;
 }
 
 /* Controls legend */
@@ -380,7 +379,7 @@ html[lang="th"] .coop-howto-title { font-family: 'Kanit', sans-serif; font-size:
 }
 
 .coop-legend-title {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'IBM Plex Sans Thai', 'Sarabun', 'IBM Plex Sans', sans-serif;
   font-size: 0.68rem;
   letter-spacing: 2px;
   margin-bottom: 8px;
@@ -426,7 +425,7 @@ html[lang="th"] .coop-howto-title { font-family: 'Kanit', sans-serif; font-size:
 }
 
 .coop-stat-value {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'IBM Plex Sans Thai', 'Sarabun', 'IBM Plex Sans', sans-serif;
   font-size: 1.9rem;
   font-weight: 800;
   color: var(--coop-gold);
@@ -440,7 +439,7 @@ html[lang="th"] .coop-howto-title { font-family: 'Kanit', sans-serif; font-size:
 }
 
 .coop-over-title-win {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'IBM Plex Sans Thai', 'Sarabun', 'IBM Plex Sans', sans-serif;
   font-size: clamp(1.6rem, 4vw, 2.5rem);
   font-weight: 800;
   color: var(--coop-coral);
@@ -455,7 +454,7 @@ html[lang="th"] .coop-howto-title { font-family: 'Kanit', sans-serif; font-size:
 }
 
 .coop-over-title-lose {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'IBM Plex Sans Thai', 'Sarabun', 'IBM Plex Sans', sans-serif;
   font-size: clamp(1.6rem, 4vw, 2.5rem);
   font-weight: 800;
   color: var(--coop-text-secondary);
@@ -593,7 +592,7 @@ html[lang="th"] .coop-howto-title { font-family: 'Kanit', sans-serif; font-size:
 }
 
 .coop-physics-title {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'IBM Plex Sans Thai', 'Sarabun', 'IBM Plex Sans', sans-serif;
   font-size: 0.8rem;
   color: var(--coop-gold);
   margin-bottom: 6px;

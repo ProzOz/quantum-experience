@@ -15,8 +15,11 @@
     --bg-deep: #0A0906;
     --bg-mid: #141210;
     --bg-card: #1C1916;
-    --glass: rgba(28, 25, 22, 0.88);
+    --accent: #D97706;
+    --glass: #141210;
     --gold: var(--accent);
+    --coral: var(--accent);
+    --purple: var(--accent);
     --accent-soft: rgba(217, 119, 6, 0.12);
     --accent-glow: rgba(217, 119, 6, 0.25);
     --text: #F5F1EC;
@@ -621,11 +624,12 @@ html[lang="th"] .howto-title { font-family: var(--font-thai); letter-spacing: 0;
     display: flex;
     align-items: flex-start;
     gap: 14px;
-    padding: 16px 20px;
+    padding: 8px 0 8px 16px;
     margin-bottom: 22px;
-    border-radius: var(--radius-md);
-    background: linear-gradient(135deg, rgba(232, 121, 121, 0.12), rgba(139, 107, 174, 0.08));
-    border: 1px solid rgba(232, 121, 121, 0.28);
+    border-radius: 0;
+    background: transparent;
+    border: none;
+    border-left: 3px solid var(--accent);
     font-size: 0.98rem;
     color: var(--text);
     line-height: 1.6;
@@ -830,23 +834,24 @@ html[lang="th"] .btn { font-family: var(--font-thai); font-weight: 600; }
 
 /* Quiz */
 .quiz-section {
-    background: var(--glass);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: clamp(20px, 3vw, 32px);
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: none;
+    border-top: 1px solid var(--border);
+    border-radius: 0;
+    padding: 28px 0 8px;
     margin-bottom: 28px;
 }
 
 .quiz-tag {
     display: inline-block;
-    font-family: var(--font-mono);
-    font-size: 0.74rem;
-    font-weight: 500;
-    letter-spacing: 2.5px;
-    color: var(--purple);
-    text-transform: uppercase;
+    font-family: var(--font-thai), var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    color: #F0A020;
+    text-transform: none;
     margin-bottom: 14px;
 }
 
