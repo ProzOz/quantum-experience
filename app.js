@@ -825,19 +825,19 @@ function svg(name) {
 // Higgsfield-generated explainer videos (classroom-based), per station.
 // Station 4 is the Qubit Runner game — its video lives on the game page.
 const STATION_VIDEOS = {
-  1: 'https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_104853_1e8fc765-0e24-4b8f-ba62-579f554aa9c6.mp4',
-  2: 'https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_130944_c0bd6fd4-858f-4d74-a20c-df415b1a606c.mp4',
-  3: 'https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_132733_9084c938-0aa3-4b32-9cf5-da2c9e840589.mp4',
-  5: 'https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_105737_7f873eb4-d36d-4937-b523-d58a7ef039e4.mp4',
-  6: 'https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_132739_00cf7ce8-fefb-42a4-96b9-48dac5eb6f00.mp4',
+  1: 'videos/station1.mp4?v=17',
+  2: 'videos/station2.mp4?v=17',
+  3: 'videos/station3.mp4?v=17',
+  5: 'videos/station5.mp4?v=17',
+  6: 'videos/station6.mp4?v=17',
 };
 // Station illustration art (used as video poster + fallback)
 const STATION_ART = {
-  1: 'https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_100048_8000a702-38cd-441e-96a2-18a6c376b438.png',
-  2: 'https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_100657_0a58bcc9-90c4-4837-b784-522841f7b96c.png',
-  3: 'https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_100946_a91231de-864a-4ddd-9011-b8a28f099d96.png',
-  5: 'https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_101532_1c7db88b-667b-4cd9-acad-c5c22a16e97d.png',
-  6: 'https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_101836_1eb4f70c-8f7e-4f3e-a029-fab45b072898.png',
+  1: 'images/station1-bg.jpg?v=17',
+  2: 'images/station2-bg.jpg?v=17',
+  3: 'images/station3-bg.jpg?v=17',
+  5: 'images/station5-bg.jpg?v=17',
+  6: 'images/station6-bg.jpg?v=17',
 };
 
 function buildTopics() {
