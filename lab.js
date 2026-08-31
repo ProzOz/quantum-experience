@@ -170,23 +170,19 @@ function buildLabHome() {
 
   page.innerHTML = `
   <div class="qx-home">
-    <div class="qx-hero">
-      <div class="qx-hero-image">
-        <img src="images/classroom.jpg" alt="SCIUS BUU Quantum Lab" class="qx-classroom-photo">
-        <div class="qx-hero-logos">
-          <img src="scius-buu-logo.png" alt="SCIUS BUU" class="qx-logo-scius">
-          <img src="buraphalogo.png" alt="Burapha University" class="qx-logo-bu">
-        </div>
-      </div>
-      <div class="qx-hero-content">
-        <div class="qx-guardian-badge">${doneCount === 7 ? LT('alert_ok') : LT('alert_bad', 7 - doneCount)}</div>
-        <h1 class="qx-guardian-title">${LT('guardian_title')}</h1>
-        <p class="qx-guardian-desc">${LT('guardian_desc')}</p>
-        <div class="qx-progress-wrap">
-          <div class="qx-progress-label">${doneCount}/7 ${LT('stations_unit')}</div>
-          <div class="qx-progress-bar">
-            <div class="qx-progress-fill" style="width:${pct}%"></div>
-          </div>
+    <div class="qx-hero-logos">
+      <img src="scius-buu-logo.png" alt="SCIUS BUU" class="qx-logo-scius">
+      <img src="buraphalogo.png" alt="Burapha University" class="qx-logo-bu">
+    </div>
+    
+    <div class="qx-hero-content">
+      <div class="qx-guardian-badge">${doneCount === 7 ? LT('alert_ok') : LT('alert_bad', 7 - doneCount)}</div>
+      <h1 class="qx-guardian-title">${LT('guardian_title')}</h1>
+      <p class="qx-guardian-desc">${LT('guardian_desc')}</p>
+      <div class="qx-progress-wrap">
+        <div class="qx-progress-label">${doneCount}/7 ${LT('stations_unit')}</div>
+        <div class="qx-progress-bar">
+          <div class="qx-progress-fill" style="width:${pct}%"></div>
         </div>
       </div>
     </div>
