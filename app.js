@@ -822,22 +822,13 @@ function svg(name) {
   return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + (ICONS[name] || '') + '</svg>';
 }
 
-// Higgsfield-generated explainer videos (classroom-based), per station.
-// Station 4 is the Qubit Runner game — its video lives on the game page.
-const STATION_VIDEOS = {
-  1: 'videos/station1.mp4?v=17',
-  2: 'videos/station2.mp4?v=17',
-  3: 'videos/station3.mp4?v=17',
-  5: 'videos/station5.mp4?v=17',
-  6: 'videos/station6.mp4?v=17',
-};
-// Station illustration art (used as video poster + fallback)
-const STATION_ART = {
-  1: 'images/station1-bg.jpg?v=17',
-  2: 'images/station2-bg.jpg?v=17',
-  3: 'images/station3-bg.jpg?v=17',
-  5: 'images/station5-bg.jpg?v=17',
-  6: 'images/station6-bg.jpg?v=17',
+// Theory diagrams for each station (used in post-clear recap and pre-play)
+const STATION_THEORY = {
+  1: 'images/station1-theory.png?v=20',
+  2: 'images/station2-theory.png?v=20',
+  3: 'images/station3-theory.png?v=20',
+  5: 'images/station5-theory.png?v=20',
+  6: 'images/station6-theory.png?v=20',
 };
 
 function buildTopics() {
@@ -890,10 +881,10 @@ function buildTopics() {
               <div class="howto-step"><span class="howto-num">3</span><span class="howto-text" data-i18n="${m.key}_how3"></span></div>
             </div>
           </div>
-          ${STATION_VIDEOS[i] ? `
-          <div class="station-video-wrap">
-            <div class="station-video-label" data-i18n="video_label"></div>
-            <video class="station-video" src="${STATION_VIDEOS[i]}" controls playsinline preload="metadata" poster="${STATION_ART[i] || ''}"></video>
+          ${STATION_THEORY[i] ? `
+          <div class="theory-diagram-wrap">
+            <div class="theory-diagram-label">${lang === 'th' ? '📐 รูปประกอบทฤษฎี' : '📐 Theory Diagram'}</div>
+            <img class="theory-diagram-img" src="${STATION_THEORY[i]}" alt="${t(m.key + '_title')}" loading="lazy">
           </div>` : ''}
           <div class="simulation-container">
             <div class="sim-canvas-wrap">

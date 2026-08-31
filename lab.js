@@ -285,7 +285,7 @@ function puzzleSuccessHTML(s) {
         <p>${t(TOPIC_META[s.id].key + '_what_you_did')}</p>
       </div>
 
-      ${STATION_ART[s.id] ? `<div class="summary-visual"><img class="summary-theory-img" src="${STATION_ART[s.id]}" alt="${s.name[lang]}" loading="lazy"></div>` : ''}
+      ${typeof STATION_THEORY !== 'undefined' && STATION_THEORY[s.id] ? `<div class="summary-visual"><img class="summary-theory-img" src="${STATION_THEORY[s.id]}" alt="${s.name[lang]}" loading="lazy"></div>` : ''}
 
       <div class="summary-learned">
         <div class="summary-learned-title">🔬 ${t('theory_the_physics')}</div>
@@ -724,11 +724,6 @@ function renderGroverState() {
           'A quantum computer searches a 4-item database in <strong style="color:var(--cyan)">1 query</strong>. A classical computer takes <strong style="color:var(--gold)">2.5 on average</strong>. Pick the hidden item and watch both algorithms race.'
         )}
       </p>
-    </div>
-
-    <div class="station-video-wrap" style="max-width:900px;margin:0 auto 28px">
-      <div class="station-video-label">${gv('🎬 แกนควอนตัมออนไลน์', '🎬 QUANTUM CORE ONLINE')}</div>
-      <video class="station-video" src="videos/quantum-core.mp4?v=17" controls playsinline preload="metadata" poster="images/quantum-core-poster.jpg?v=17"></video>
     </div>
 
     <div class="core-phase">
