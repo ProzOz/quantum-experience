@@ -64,6 +64,7 @@ body {
     /* Typography */
     --font-display: 'IBM Plex Sans', 'Sarabun', sans-serif;
     --font-body: 'IBM Plex Sans', 'Sarabun', sans-serif;
+    --font-thai: 'IBM Plex Sans Thai', 'Sarabun', sans-serif;
     --font-mono: 'IBM Plex Mono', monospace;
 
     /* Spacing */
@@ -99,9 +100,9 @@ header {
     position: fixed;
     top: 0; left: 0; right: 0;
     height: 64px;
-    background: rgba(26, 27, 36, 0.85);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border-light);
+    background: rgba(10, 9, 6, 0.32);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(61, 57, 53, 0.6);
     z-index: 100;
     display: flex;
     align-items: center;
@@ -169,340 +170,408 @@ main {
 .page.active { display: block; }
 
 /* ── HOME / LAB ───────────────────────────────────────── */
-/* ── HOME PAGE ───────────────────────────────────────────── */
 .qx-home {
     position: relative;
     min-height: calc(100vh - 64px);
-    padding: 0;
+    padding: 0 0 64px;
     margin: 0;
 }
 
-/* Full-page classroom background — let the room breathe */
+/* The room itself — chalkboard high, desks low */
 .qx-home::before {
     content: '';
     position: absolute;
     inset: 0;
     background-image: url('images/classroom.jpg?v=18');
     background-size: cover;
-    background-position: center 40%;
-    background-attachment: fixed;
-    opacity: 0.80;
+    background-position: center 32%;
+    opacity: 0.92;
     z-index: 0;
 }
 
-/* Amber-brown vignette — late-night lab atmosphere */
+/* Darken only the desks so type can sit there. Leave the board readable. */
 .qx-home::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: 
-        /* Lighter upper area (chalkboard/TV visible) */
-        linear-gradient(to bottom, 
-            rgba(10, 9, 6, 0.20) 0%, 
-            rgba(10, 9, 6, 0.35) 30%, 
-            rgba(10, 9, 6, 0.60) 60%, 
-            rgba(15, 12, 8, 0.82) 100%
-        ),
-        /* Subtle vignette from sides */
-        radial-gradient(ellipse at center, 
-            transparent 0%, 
-            rgba(10, 9, 6, 0.15) 50%, 
-            rgba(10, 9, 6, 0.35) 85%
+    background:
+        linear-gradient(to bottom,
+            rgba(10, 9, 6, 0.22) 0%,
+            rgba(10, 9, 6, 0.06) 22%,
+            rgba(10, 9, 6, 0.18) 48%,
+            rgba(10, 9, 6, 0.62) 72%,
+            rgba(10, 9, 6, 0.92) 100%
         );
     z-index: 1;
 }
 
-/* School logos — small, top right, above vignette */
 .qx-hero-logos {
     position: absolute;
-    top: 32px;
-    right: 32px;
+    top: 20px;
+    right: 24px;
     display: flex;
-    gap: 16px;
+    gap: 14px;
     z-index: 2;
-    opacity: 0.85;
 }
 
 .qx-logo-scius,
 .qx-logo-bu {
-    height: 36px;
+    height: 40px;
     width: auto;
-    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.55));
 }
 
-/* Hero content — centered, above vignette, warm text */
-.qx-hero-content {
+/* Lower third: words on the desks, chalkboard stays the picture */
+.qx-stage {
     position: relative;
     z-index: 2;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 120px 48px 60px;
-    text-align: center;
-    background: linear-gradient(to bottom, 
-        rgba(10, 9, 6, 0.25) 0%, 
-        rgba(10, 9, 6, 0.65) 100%
-    );
-    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    min-height: calc(100vh - 64px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    max-width: 720px;
+    padding: 72px 32px 28px;
+    text-align: left;
 }
 
-@media (max-width: 768px) {
-    .qx-hero-logos {
-        top: 20px;
-        right: 20px;
-        gap: 12px;
-    }
-    
-    .qx-logo-scius,
-    .qx-logo-bu {
-        height: 28px;
-    }
-    
-    .qx-hero-content {
-        padding: 100px 24px 48px;
-    }
-}
-
-
-.qx-guardian-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 1.5px;
-    color: var(--accent);
-    background: var(--accent-soft);
-    padding: 8px 16px;
-    border-radius: 999px;
-    border: 1px solid var(--accent);
-    margin-bottom: 20px;
-    text-transform: uppercase;
+.qx-place {
+    font-family: var(--font-thai), var(--font-body);
+    font-size: 0.92rem;
+    color: #E8D5B5;
+    letter-spacing: 0.02em;
+    margin-bottom: 10px;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
 }
 
 .qx-guardian-title {
     font-family: var(--font-display);
-    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-size: clamp(1.65rem, 3.8vw, 2.4rem);
     font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: 16px;
-    line-height: 1.2;
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8), 0 4px 24px rgba(10, 9, 6, 0.9);
+    margin-bottom: 12px;
+    line-height: 1.22;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.9), 0 0 2px rgba(0, 0, 0, 0.8);
+    max-width: 18em;
+}
+
+html[lang="th"] .qx-guardian-title,
+html[lang="th"] .qx-door-name,
+html[lang="th"] .qx-place {
+    font-family: 'IBM Plex Sans Thai', 'Sarabun', sans-serif;
 }
 
 .qx-guardian-desc {
-    font-size: 1.05rem;
-    color: #D4C4B0;
-    line-height: 1.65;
-    margin-bottom: 24px;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+    font-size: 1.08rem;
+    color: #E4D4BE;
+    line-height: 1.7;
+    margin-bottom: 10px;
+    max-width: 36em;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.7);
 }
 
-.qx-progress-wrap {
-    background: var(--bg-secondary);
-    border-radius: var(--radius-md);
-    padding: 16px;
+.qx-whisper {
+    font-size: 0.85rem;
+    color: #C4B5A0;
+    margin-bottom: 18px;
 }
 
-.qx-progress-label {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: var(--text-tertiary);
-    margin-bottom: 8px;
-}
-
-.qx-progress-bar {
-    height: 8px;
-    background: rgba(255,255,255,0.06);
-    border-radius: 999px;
-    overflow: hidden;
-}
-
-.qx-progress-fill {
-    height: 100%;
-    background: var(--accent);
-    border-radius: 999px;
-    transition: width 0.5s ease;
-}
-
-/* ── MISSION LIST ────────────────────────────────────── */
-.qx-mission-list {
-    position: relative;
-    z-index: 2;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 32px 24px 48px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    background: linear-gradient(to bottom, 
-        rgba(10, 9, 6, 0.5) 0%, 
-        rgba(10, 9, 6, 0.75) 100%
-    );
-    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
-}
-
-.qx-mission {
-    display: flex;
+/* Station 1 — the only loud door */
+.qx-door {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+        "kicker kicker"
+        "name   cta"
+        "line   cta";
+    column-gap: 24px;
+    row-gap: 2px;
     align-items: center;
-    gap: 16px;
-    background: rgba(28, 25, 22, 0.85);
-    border: 1px solid var(--border-light);
-    border-radius: var(--radius-md);
-    padding: 14px 20px;
+    width: 100%;
+    margin-top: 14px;
+    padding: 14px 4px 14px 16px;
+    background: transparent;
+    border: none;
+    border-left: 3px solid var(--accent);
+    border-radius: 0;
     cursor: pointer;
     text-align: left;
-    transition: all 0.2s ease;
-    position: relative;
+    color: inherit;
+    font: inherit;
+    transition: background 160ms cubic-bezier(0.23, 1, 0.32, 1), transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.qx-mission:hover {
-    border-color: var(--accent);
-    transform: translateX(4px);
+.qx-door:hover {
+    background: rgba(10, 9, 6, 0.28);
 }
 
-.qx-mission-first {
-    border: 2px solid var(--accent);
-    background: linear-gradient(135deg, rgba(217, 119, 6, 0.20) 0%, rgba(217, 119, 6, 0.08) 100%);
-    padding: 32px 40px;
-    margin-bottom: 24px;
-    box-shadow: 0 0 32px rgba(217, 119, 6, 0.20);
+.qx-door:active {
+    transform: scale(0.985);
 }
 
-.qx-mission-first:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 48px rgba(217, 119, 6, 0.30);
-}
-
-.qx-mission-solved {
-    opacity: 0.7;
-}
-
-.qx-mission-solved:hover {
-    opacity: 1;
-}
-
-.qx-mission-num {
-    font-family: var(--font-mono);
-    font-size: 1.2rem;
-    font-weight: 600;
+.qx-door-kicker {
+    grid-area: kicker;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
     color: var(--accent);
-    flex-shrink: 0;
-    width: 40px;
-    text-align: center;
+    font-weight: 600;
 }
 
-.qx-mission-first .qx-mission-num {
-    font-size: 2.5rem;
-    width: 64px;
+.qx-door-name {
+    grid-area: name;
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    font-weight: 700;
+    color: #F5F1EC;
+    line-height: 1.15;
 }
 
-.qx-mission-content {
-    flex: 1;
-    min-width: 0;
+.qx-door-line {
+    grid-area: line;
+    font-size: 0.98rem;
+    color: #D4C4B0;
+    line-height: 1.5;
+    margin-top: 4px;
 }
 
-.qx-mission-name {
+.qx-door-cta {
+    grid-area: cta;
+    font-family: 'IBM Plex Sans Thai', 'Sarabun', var(--font-body);
     font-size: 1rem;
     font-weight: 600;
-    color: var(--text-primary);
+    background: var(--accent);
+    color: #1A1208;
+    padding: 14px 22px;
+    white-space: nowrap;
+    align-self: center;
+    transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.qx-door:active .qx-door-cta {
+    transform: scale(0.97);
+}
+
+.qx-door-done {
+    opacity: 0.88;
+}
+
+.qx-door-done .qx-door-cta {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+}
+
+/* Stations 2–7: chalkboard roll, not cards */
+.qx-rest {
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+    padding: 8px 32px 8px;
+}
+
+.qx-rest-label {
+    font-size: 0.8rem;
+    color: #8A8074;
+    letter-spacing: 0.04em;
+    margin: 8px 0 4px;
+}
+
+.qx-rest-row {
+    display: grid;
+    grid-template-columns: 2.4rem 1fr auto;
+    grid-template-areas: "num name mark" "num line mark";
+    column-gap: 12px;
+    align-items: baseline;
+    width: 100%;
+    padding: 12px 0;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(245, 241, 236, 0.08);
+    border-radius: 0;
+    cursor: pointer;
+    text-align: left;
+    color: inherit;
+    font: inherit;
+    transition: color 160ms ease, background 160ms ease;
+}
+
+.qx-rest-row:hover {
+    background: rgba(245, 241, 236, 0.03);
+}
+
+.qx-rest-row:active {
+    transform: none;
+    opacity: 0.85;
+}
+
+.qx-rest-num {
+    grid-area: num;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: #A89070;
+    padding-top: 3px;
+}
+
+.qx-rest-name {
+    grid-area: name;
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: #E8DDD0;
+}
+
+.qx-rest-line {
+    grid-area: line;
+    font-size: 0.88rem;
+    color: #9A8E80;
+    line-height: 1.45;
+    margin-top: 2px;
+}
+
+.qx-rest-mark {
+    grid-area: mark;
+    font-size: 0.75rem;
+    color: #7A9A4A;
+    align-self: center;
+}
+
+.qx-rest-done {
+    opacity: 0.62;
+}
+
+.qx-aside {
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+    padding: 28px 32px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.qx-extra,
+.qx-core {
+    display: block;
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-top: 1px solid rgba(245, 241, 236, 0.08);
+    border-radius: 0;
+    padding: 18px 0;
+    text-align: left;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+}
+
+.qx-extra:hover,
+.qx-core.unlocked:hover {
+    background: rgba(245, 241, 236, 0.03);
+}
+
+.qx-extra-name,
+.qx-core-title {
+    display: block;
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: #C4B5A0;
     margin-bottom: 4px;
 }
 
-.qx-mission-first .qx-mission-name {
-    font-size: 1.6rem;
-    font-weight: 700;
-    margin-bottom: 8px;
+.qx-extra-line,
+.qx-core-desc {
+    display: block;
+    font-size: 0.88rem;
+    color: #8A8074;
+    line-height: 1.5;
 }
 
-.qx-mission-tagline {
-    font-size: 0.85rem;
-    color: #C4B5A0;
-    line-height: 1.4;
+.qx-core-kicker {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: #8A8074;
+    margin-bottom: 4px;
 }
 
-.qx-mission-first .qx-mission-tagline {
-    font-size: 1.05rem;
-    line-height: 1.6;
+.qx-core {
+    cursor: default;
 }
 
-.qx-mission-status {
-    font-size: 1.2rem;
-    flex-shrink: 0;
+.qx-core.unlocked {
+    cursor: pointer;
 }
 
-.qx-mission-done {
-    color: var(--success);
+.qx-core.unlocked .qx-core-title {
+    color: #F5F1EC;
 }
 
-.qx-mission-pending {
-    color: var(--text-tertiary);
-}
-
-.qx-mission-cta {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--accent);
-    flex-shrink: 0;
-    opacity: 0.7;
-}
-
-.qx-mission-first .qx-mission-cta {
-    font-size: 1rem;
+.qx-core-cta {
+    margin-top: 12px;
+    font-family: 'IBM Plex Sans Thai', 'Sarabun', var(--font-body);
+    font-size: 0.92rem;
     font-weight: 600;
-    opacity: 1;
     background: var(--accent);
-    color: var(--bg-primary);
-    padding: 12px 24px;
-    border-radius: var(--radius-md);
-}
-
-.qx-mission:hover .qx-mission-cta {
-    opacity: 1;
-}
-
-.qx-start-here {
-    position: absolute;
-    left: 24px;
-    bottom: -32px;
-    font-family: 'IBM Plex Sans Thai', 'Sarabun', sans-serif;
-    font-size: 0.9rem;
-    color: var(--accent);
-    white-space: nowrap;
-    opacity: 0.85;
-    font-weight: 500;
-}
-
-@media (max-width: 960px) {
-    .qx-start-here {
-        display: none;
-    }
+    color: #1A1208;
+    border: none;
+    padding: 10px 18px;
+    cursor: pointer;
 }
 
 @media (max-width: 640px) {
-    .qx-mission {
-        padding: 16px;
-        gap: 12px;
+    .logo-text { display: none; }
+
+    header { padding: 0 12px; }
+
+    .qx-stage {
+        padding: 80px 20px 28px;
+        min-height: calc(100dvh - 64px);
     }
-    
-    .qx-mission-num {
-        font-size: 1.2rem;
-        width: 36px;
+
+    .qx-hero-logos {
+        top: 14px;
+        right: 16px;
+        gap: 10px;
     }
-    
-    .qx-mission-name {
-        font-size: 1rem;
+
+    .qx-logo-scius,
+    .qx-logo-bu {
+        height: 30px;
     }
-    
-    .qx-mission-tagline {
-        font-size: 0.85rem;
+
+    .qx-door {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "kicker"
+            "name"
+            "line"
+            "cta";
+        padding: 18px 0 18px 16px;
     }
-    
-    .qx-mission-cta {
+
+    .qx-door-cta {
+        justify-self: start;
+        margin-top: 12px;
+        padding: 12px 20px;
+    }
+
+    .qx-rest,
+    .qx-aside {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .qx-rest-row {
+        grid-template-columns: 2.2rem 1fr;
+        grid-template-areas: "num name" "num line";
+    }
+
+    .qx-rest-mark {
         display: none;
     }
-    
-    .qx-briefing {
-        padding: 24px 20px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .qx-door,
+    .qx-door-cta,
+    .qx-rest-row {
+        transition: none;
     }
 }
 
@@ -1425,11 +1494,11 @@ main {
 
 /* ── FOOTER ─────────────────────────────────────────── */
 footer {
-    background: var(--bg-secondary);
+    background: #0A0906;
     padding: var(--space-2xl) var(--space-lg);
     text-align: center;
-    margin-top: var(--space-3xl);
-    border-top: 1px solid var(--border-light);
+    margin-top: 0;
+    border-top: 1px solid rgba(61, 57, 53, 0.45);
 }
 
 .credits-logo {
@@ -1550,49 +1619,35 @@ footer {
     max-width: 550px;
 }
 
-.summary-icon {
-    font-size: 5rem;
-    margin-bottom: 16px;
-    animation: bounce 0.6s ease;
-}
-
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
-}
-
 .summary-title {
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--success);
-    margin-bottom: 8px;
+    font-size: 1.55rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 6px;
 }
 
 .summary-station {
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: var(--text-secondary);
     margin-bottom: 24px;
 }
 
 .summary-learned {
-    background: rgba(123, 196, 127, 0.1);
-    border: 2px solid rgba(123, 196, 127, 0.3);
-    border-radius: var(--radius-lg);
-    padding: 20px;
-    margin-bottom: 24px;
+    background: transparent;
+    border: none;
+    border-left: 3px solid var(--accent);
+    border-radius: 0;
+    padding: 4px 0 4px 16px;
+    margin-bottom: 22px;
     text-align: left;
 }
 
 .summary-learned-title {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--success);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    margin-bottom: 8px;
 }
 
 .summary-learned p {

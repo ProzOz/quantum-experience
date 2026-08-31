@@ -75,11 +75,7 @@ body {
 }
 
 .bg-particles {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    overflow: hidden;
+    display: none;
 }
 
 .bg-particle {
@@ -134,11 +130,10 @@ header {
 .logo-icon, .header-logo-img {
     width: 42px;
     height: 42px;
-    border-radius: 12px;
-    box-shadow: 0 0 18px var(--glow-gold);
+    border-radius: 8px;
     object-fit: contain;
-    background: var(--gold-soft);
-    padding: 4px;
+    background: transparent;
+    padding: 2px;
 }
 
 .logo-text {
@@ -148,6 +143,10 @@ header {
     letter-spacing: 1.5px;
     white-space: nowrap;
     color: var(--text);
+}
+
+.logo-dot {
+    color: var(--accent);
 }
 
 .header-center {
@@ -496,34 +495,26 @@ main {
 
 .topic-header { text-align: center; margin-bottom: 36px; }
 
-/* Pre-play brief (Station 1 only) */
+/* Pre-play brief (Station 1 only) — a note before the experiment, not a card */
 .pre-play-brief {
-    background: linear-gradient(135deg, rgba(217, 119, 6, 0.12) 0%, rgba(217, 119, 6, 0.04) 100%);
-    border: 2px solid rgba(217, 119, 6, 0.3);
-    border-radius: var(--radius-lg);
-    padding: var(--space-xl);
-    margin-bottom: var(--space-xl);
-    text-align: center;
-}
-
-.brief-icon {
-    font-size: 3rem;
-    margin-bottom: var(--space-md);
+    border-left: 3px solid var(--accent);
+    padding: 8px 0 8px 20px;
+    margin: 0 auto 36px;
+    max-width: 720px;
+    text-align: left;
 }
 
 .brief-title {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: var(--space-md);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
 }
 
 .brief-text {
-    font-size: 1.05rem;
+    font-size: 1.02rem;
     color: var(--text-secondary);
-    line-height: 1.7;
-    max-width: 680px;
-    margin: 0 auto;
+    line-height: 1.75;
 }
 
 .topic-header-number {
@@ -956,7 +947,7 @@ footer {
     margin: 0 auto 18px;
     display: block;
     opacity: 0.95;
-    filter: drop-shadow(0 0 12px var(--glow-gold));
+    filter: none;
 }
 
 .credits-title {
