@@ -49,13 +49,13 @@ body {
     --error: #DC2626;
     --offline: #57534E;
 
-    /* Text */
+    /* Text — warmer secondary */
     --text-primary: #F5F1EC;
-    --text-secondary: #A8A29E;
+    --text-secondary: #C4B5A0;
     --text-tertiary: #78716C;
 
-    /* Borders & shadows */
-    --border-light: #292524;
+    /* Borders & shadows — lighter for definition */
+    --border-light: #3D3935;
     --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
     --shadow-md: 0 8px 24px rgba(0,0,0,0.4);
     --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
@@ -177,7 +177,7 @@ main {
     margin: 0;
 }
 
-/* Full-page classroom background */
+/* Full-page classroom background — let the room breathe */
 .qx-home::before {
     content: '';
     position: absolute;
@@ -186,28 +186,28 @@ main {
     background-size: cover;
     background-position: center 40%;
     background-attachment: fixed;
-    opacity: 0.65;
+    opacity: 0.80;
     z-index: 0;
 }
 
-/* Multi-layer amber-brown vignette — late-night lab feel */
+/* Amber-brown vignette — late-night lab atmosphere */
 .qx-home::after {
     content: '';
     position: absolute;
     inset: 0;
     background: 
-        /* Keep upper classroom lighter (chalkboard/TV readable) */
+        /* Lighter upper area (chalkboard/TV visible) */
         linear-gradient(to bottom, 
-            rgba(10, 9, 6, 0.35) 0%, 
-            rgba(10, 9, 6, 0.5) 30%, 
-            rgba(10, 9, 6, 0.75) 60%, 
-            rgba(15, 12, 8, 0.92) 100%
+            rgba(10, 9, 6, 0.20) 0%, 
+            rgba(10, 9, 6, 0.35) 30%, 
+            rgba(10, 9, 6, 0.60) 60%, 
+            rgba(15, 12, 8, 0.82) 100%
         ),
-        /* Vignette from sides */
+        /* Subtle vignette from sides */
         radial-gradient(ellipse at center, 
             transparent 0%, 
-            rgba(10, 9, 6, 0.2) 50%, 
-            rgba(10, 9, 6, 0.5) 85%
+            rgba(10, 9, 6, 0.15) 50%, 
+            rgba(10, 9, 6, 0.35) 85%
         );
     z-index: 1;
 }
@@ -230,7 +230,7 @@ main {
     filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
 }
 
-/* Hero content — centered, above vignette */
+/* Hero content — centered, above vignette, warm text */
 .qx-hero-content {
     position: relative;
     z-index: 2;
@@ -239,8 +239,8 @@ main {
     padding: 120px 48px 60px;
     text-align: center;
     background: linear-gradient(to bottom, 
-        rgba(10, 9, 6, 0.4) 0%, 
-        rgba(10, 9, 6, 0.75) 100%
+        rgba(10, 9, 6, 0.25) 0%, 
+        rgba(10, 9, 6, 0.65) 100%
     );
     border-radius: var(--radius-xl) var(--radius-xl) 0 0;
 }
@@ -291,7 +291,7 @@ main {
 
 .qx-guardian-desc {
     font-size: 1.05rem;
-    color: var(--text-secondary);
+    color: #D4C4B0;
     line-height: 1.65;
     margin-bottom: 24px;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
@@ -335,8 +335,8 @@ main {
     flex-direction: column;
     gap: 12px;
     background: linear-gradient(to bottom, 
-        rgba(10, 9, 6, 0.6) 0%, 
-        rgba(10, 9, 6, 0.85) 100%
+        rgba(10, 9, 6, 0.5) 0%, 
+        rgba(10, 9, 6, 0.75) 100%
     );
     border-radius: 0 0 var(--radius-xl) var(--radius-xl);
 }
@@ -345,7 +345,7 @@ main {
     display: flex;
     align-items: center;
     gap: 16px;
-    background: var(--bg-card);
+    background: rgba(28, 25, 22, 0.85);
     border: 1px solid var(--border-light);
     border-radius: var(--radius-md);
     padding: 14px 20px;
@@ -362,15 +362,15 @@ main {
 
 .qx-mission-first {
     border: 2px solid var(--accent);
-    background: linear-gradient(135deg, rgba(217, 119, 6, 0.15) 0%, rgba(217, 119, 6, 0.05) 100%);
+    background: linear-gradient(135deg, rgba(217, 119, 6, 0.20) 0%, rgba(217, 119, 6, 0.08) 100%);
     padding: 32px 40px;
     margin-bottom: 24px;
-    box-shadow: 0 0 32px rgba(217, 119, 6, 0.15);
+    box-shadow: 0 0 32px rgba(217, 119, 6, 0.20);
 }
 
 .qx-mission-first:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 48px rgba(217, 119, 6, 0.25);
+    box-shadow: 0 8px 48px rgba(217, 119, 6, 0.30);
 }
 
 .qx-mission-solved {
@@ -416,7 +416,7 @@ main {
 
 .qx-mission-tagline {
     font-size: 0.85rem;
-    color: var(--text-secondary);
+    color: #C4B5A0;
     line-height: 1.4;
 }
 
@@ -678,7 +678,7 @@ main {
 
 /* Station card — warm, artistic, with illustration backgrounds */
 .station-card {
-    background: var(--bg-card);
+    background: rgba(28, 25, 22, 0.85);
     border-radius: var(--radius-lg);
     padding: var(--space-xl);
     cursor: pointer;
@@ -697,7 +697,7 @@ main {
     inset: 0;
     background-size: cover;
     background-position: center;
-    opacity: 0.35;
+    opacity: 0.30;
     transition: opacity 0.4s ease, transform 0.4s ease;
     z-index: 0;
 }
@@ -736,7 +736,7 @@ main {
     content: '';
     position: absolute;
     inset: -1px;
-    background: linear-gradient(135deg, var(--coral), var(--gold), var(--purple));
+    background: linear-gradient(135deg, var(--accent), var(--accent), var(--accent));
     border-radius: var(--radius-lg);
     z-index: -1;
     opacity: 0;
@@ -834,12 +834,12 @@ main {
 
 .station-tagline {
     font-size: 1.02rem;
-    color: var(--text-secondary);
+    color: #C4B5A0;
     line-height: 1.5;
     margin-bottom: var(--space-md);
 }
 
-/* Play affordance — warm gradient */
+/* Play affordance — amber accent */
 .station-play {
     display: inline-flex;
     align-items: center;
@@ -850,14 +850,14 @@ main {
     letter-spacing: 0.5px;
     padding: 8px 16px;
     border-radius: var(--radius-full);
-    background: linear-gradient(135deg, var(--coral), var(--purple));
-    color: #fff;
+    background: var(--accent);
+    color: #0A0906;
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .station-card:hover .station-play {
     transform: translateX(3px);
-    box-shadow: 0 4px 14px rgba(232, 121, 121, 0.35);
+    box-shadow: 0 4px 14px var(--accent-glow);
 }
 
 .station-card.online .station-play {
