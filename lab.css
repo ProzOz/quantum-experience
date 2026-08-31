@@ -141,6 +141,21 @@ header {
 .header-controls {
     display: flex;
     gap: var(--space-sm);
+    align-items: center;
+}
+
+.sister-link {
+    font-family: 'IBM Plex Sans Thai', 'Sarabun', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #E8DCC8;
+    text-decoration: none;
+    white-space: nowrap;
+    padding: 0 4px;
+}
+
+.sister-link:hover {
+    color: #F0A020;
 }
 
 .toggle-btn {
@@ -348,6 +363,11 @@ html[lang="th"] .qx-rest-name {
 }
 
 .qx-rest-row:hover { background: #141210; }
+
+a.qx-rest-row {
+    text-decoration: none;
+    color: inherit;
+}
 
 .qx-rest-num {
     grid-area: num;
@@ -1406,6 +1426,21 @@ footer {
     margin-top: var(--space-md);
     font-size: 0.85rem;
     color: var(--text-tertiary);
+}
+
+.credits-sister {
+    margin-top: 12px;
+    font-size: 0.9rem;
+}
+
+.credits-sister a {
+    font-family: 'IBM Plex Sans Thai', 'Sarabun', sans-serif;
+    color: #E8DCC8;
+    text-decoration: none;
+}
+
+.credits-sister a:hover {
+    color: #F0A020;
 }
 
 /* ── PUZZLE OVERLAY ─────────────────────────────── */

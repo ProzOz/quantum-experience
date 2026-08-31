@@ -192,6 +192,14 @@ function buildLabHome() {
       <div class="qx-rest">
         <p class="qx-rest-label">${LT('rest_label')}</p>
         ${rest}
+        <a class="qx-rest-row qx-sister"
+          href="https://ทดลองควอนตัม.com"
+          target="_blank"
+          rel="noopener">
+          <span class="qx-rest-num"></span>
+          <span class="qx-rest-name">ทดลองวงจร · ทดลองควอนตัม.com</span>
+          <span class="qx-rest-line">สร้างวงจร 1–4 qubit เอง</span>
+        </a>
       </div>
 
       <div class="qx-aside">
