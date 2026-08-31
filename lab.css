@@ -184,19 +184,31 @@ main {
     inset: 0;
     background-image: url('images/classroom.jpg?v=18');
     background-size: cover;
-    background-position: center;
+    background-position: center 40%;
     background-attachment: fixed;
+    opacity: 0.65;
     z-index: 0;
 }
 
-/* Amber-brown vignette overlay — darker toward bottom and sides */
+/* Multi-layer amber-brown vignette — late-night lab feel */
 .qx-home::after {
     content: '';
     position: absolute;
     inset: 0;
     background: 
-        radial-gradient(ellipse at center top, transparent 0%, rgba(10, 9, 6, 0.3) 40%, rgba(10, 9, 6, 0.7) 70%, rgba(10, 9, 6, 0.85) 90%),
-        linear-gradient(to bottom, rgba(10, 9, 6, 0.4) 0%, rgba(10, 9, 6, 0.6) 50%, rgba(10, 9, 6, 0.9) 100%);
+        /* Keep upper classroom lighter (chalkboard/TV readable) */
+        linear-gradient(to bottom, 
+            rgba(10, 9, 6, 0.35) 0%, 
+            rgba(10, 9, 6, 0.5) 30%, 
+            rgba(10, 9, 6, 0.75) 60%, 
+            rgba(15, 12, 8, 0.92) 100%
+        ),
+        /* Vignette from sides */
+        radial-gradient(ellipse at center, 
+            transparent 0%, 
+            rgba(10, 9, 6, 0.2) 50%, 
+            rgba(10, 9, 6, 0.5) 85%
+        );
     z-index: 1;
 }
 
@@ -226,6 +238,11 @@ main {
     margin: 0 auto;
     padding: 120px 48px 60px;
     text-align: center;
+    background: linear-gradient(to bottom, 
+        rgba(10, 9, 6, 0.4) 0%, 
+        rgba(10, 9, 6, 0.75) 100%
+    );
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
 }
 
 @media (max-width: 768px) {
@@ -269,6 +286,7 @@ main {
     color: var(--text-primary);
     margin-bottom: 16px;
     line-height: 1.2;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8), 0 4px 24px rgba(10, 9, 6, 0.9);
 }
 
 .qx-guardian-desc {
@@ -276,6 +294,7 @@ main {
     color: var(--text-secondary);
     line-height: 1.65;
     margin-bottom: 24px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
 }
 
 .qx-progress-wrap {
@@ -311,10 +330,15 @@ main {
     z-index: 2;
     max-width: 900px;
     margin: 0 auto;
-    padding: 0 24px 48px;
+    padding: 32px 24px 48px;
     display: flex;
     flex-direction: column;
     gap: 12px;
+    background: linear-gradient(to bottom, 
+        rgba(10, 9, 6, 0.6) 0%, 
+        rgba(10, 9, 6, 0.85) 100%
+    );
+    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
 }
 
 .qx-mission {
