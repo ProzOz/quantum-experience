@@ -126,7 +126,8 @@ const LAB_I18N = {
   btn_review:    { th: 'ดูการทดลองต่อ', en: 'Review the simulation' },
   btn_back_lab:  { th: 'กลับห้องแล็บ', en: 'Back to the lab' },
   core_unlocked: { th: 'แกนควอนตัมเปิดแล้ว', en: 'Quantum core unlocked' },
-  done_count:    { th: (n) => n === 0 ? '' : `กู้แล้ว ${n} จาก 7`, en: (n) => n === 0 ? '' : `${n} of 7 restored` },
+  coop_home:     { th: 'เล่นคู่ — พัวพันด้วยกัน', en: 'Play together — Entangle Together' },
+  done_count:    { th: (n) => `กู้แล้ว ${n} จาก 7`, en: (n) => `${n} of 7 restored` },
 };
 function LT(key, arg) {
   const e = LAB_I18N[key];
@@ -163,8 +164,6 @@ function buildLabHome() {
     </button>`;
   }).join('');
 
-  const whisper = LT('done_count', doneCount);
-
   page.innerHTML = `
   <div class="qx-home">
     <div class="qx-hero-logos">
@@ -176,7 +175,7 @@ function buildLabHome() {
       <p class="qx-place">${LT('place')}</p>
       <h1 class="qx-guardian-title">${allDone ? LT('title_done') : LT('guardian_title')}</h1>
       <p class="qx-guardian-desc">${allDone ? LT('desc_done') : LT('guardian_desc')}</p>
-      ${whisper ? `<p class="qx-whisper">${whisper}</p>` : ''}
+      ${doneCount ? `<p class="qx-whisper">${LT('done_count', doneCount)}</p>` : ''}
 
       <button class="qx-door${s1Solved ? ' qx-door-done' : ''}"
         onclick="openTopic(1)"
@@ -197,7 +196,7 @@ function buildLabHome() {
     <div class="qx-aside">
       ${typeof CT === 'function' ? `
       <button class="qx-extra" onclick="openCoop()" onpointerenter="play('hover')">
-        <span class="qx-extra-name">${CT('banner_title')}</span>
+        <span class="qx-extra-name">${LT('coop_home')}</span>
         <span class="qx-extra-line">${CT('banner_desc')}</span>
       </button>` : ''}
 

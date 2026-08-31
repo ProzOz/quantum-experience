@@ -100,7 +100,7 @@ header {
     position: fixed;
     top: 0; left: 0; right: 0;
     height: 64px;
-    background: rgba(10, 9, 6, 0.55);
+    background: rgba(10, 9, 6, 0.32);
     backdrop-filter: blur(14px);
     border-bottom: 1px solid rgba(61, 57, 53, 0.6);
     z-index: 100;
@@ -196,11 +196,11 @@ main {
     inset: 0;
     background:
         linear-gradient(to bottom,
-            rgba(10, 9, 6, 0.12) 0%,
-            rgba(10, 9, 6, 0.08) 28%,
-            rgba(10, 9, 6, 0.38) 58%,
-            rgba(10, 9, 6, 0.82) 78%,
-            rgba(10, 9, 6, 0.94) 100%
+            rgba(10, 9, 6, 0.22) 0%,
+            rgba(10, 9, 6, 0.06) 22%,
+            rgba(10, 9, 6, 0.18) 48%,
+            rgba(10, 9, 6, 0.62) 72%,
+            rgba(10, 9, 6, 0.92) 100%
         );
     z-index: 1;
 }
@@ -230,7 +230,7 @@ main {
     flex-direction: column;
     justify-content: flex-end;
     max-width: 720px;
-    padding: 88px 32px 36px;
+    padding: 72px 32px 28px;
     text-align: left;
 }
 
@@ -245,12 +245,12 @@ main {
 
 .qx-guardian-title {
     font-family: var(--font-display);
-    font-size: clamp(1.85rem, 4.2vw, 2.7rem);
+    font-size: clamp(1.65rem, 3.8vw, 2.4rem);
     font-weight: 600;
     color: var(--text-primary);
     margin-bottom: 12px;
     line-height: 1.22;
-    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.75);
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.9), 0 0 2px rgba(0, 0, 0, 0.8);
     max-width: 18em;
 }
 
@@ -284,14 +284,14 @@ html[lang="th"] .qx-place {
         "name   cta"
         "line   cta";
     column-gap: 24px;
-    row-gap: 4px;
+    row-gap: 2px;
     align-items: center;
     width: 100%;
-    margin-top: 18px;
-    padding: 22px 24px;
-    background: rgba(12, 10, 7, 0.55);
+    margin-top: 14px;
+    padding: 14px 4px 14px 16px;
+    background: transparent;
     border: none;
-    border-left: 4px solid var(--accent);
+    border-left: 3px solid var(--accent);
     border-radius: 0;
     cursor: pointer;
     text-align: left;
@@ -301,7 +301,7 @@ html[lang="th"] .qx-place {
 }
 
 .qx-door:hover {
-    background: rgba(12, 10, 7, 0.72);
+    background: rgba(10, 9, 6, 0.28);
 }
 
 .qx-door:active {
@@ -515,6 +515,10 @@ html[lang="th"] .qx-place {
 }
 
 @media (max-width: 640px) {
+    .logo-text { display: none; }
+
+    header { padding: 0 12px; }
+
     .qx-stage {
         padding: 80px 20px 28px;
         min-height: calc(100dvh - 64px);
