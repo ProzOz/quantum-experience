@@ -326,9 +326,9 @@ function buildCircuitHTML() {
         </div>
       </div>
 
-      <div class="station-video-wrap">
-        <div class="station-video-label">${c7('🎬 วิดีโออธิบายแนวคิด', '🎬 CONCEPT EXPLAINER')}</div>
-        <video class="station-video" src="videos/circuit-grover.mp4?v=17" controls playsinline preload="metadata" poster="images/station7-bg.jpg?v=17"></video>
+      <div class="theory-diagram-wrap">
+        <div class="theory-diagram-label">${c7('📐 รูปประกอบทฤษฎี', '📐 Theory Diagram')}</div>
+        <img class="theory-diagram-img" src="images/station7-theory.png?v=20" alt="${c7('วงจรควอนตัม Grover', 'Grover Quantum Circuit')}" loading="lazy">
       </div>
 
       ${resultHTML}

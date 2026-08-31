@@ -1121,6 +1121,35 @@ main {
     border: 1px solid var(--border-light);
 }
 
+/* ── THEORY DIAGRAM DISPLAY ─────────────────────────── */
+.theory-diagram-wrap {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+    box-shadow: 0 0 24px rgba(217, 119, 6, 0.08);
+}
+
+.theory-diagram-label {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--accent);
+    margin-bottom: var(--space-md);
+    text-transform: uppercase;
+}
+
+.theory-diagram-img {
+    width: 100%;
+    max-width: 800px;
+    display: block;
+    margin: 0 auto;
+    border-radius: var(--radius-md);
+    background: var(--bg-deep);
+}
+
 /* ── PUZZLE GOAL STRIP ─────────────────────────────── */
 .puzzle-goal-strip {
     background: linear-gradient(135deg, rgba(212, 165, 116, 0.1), rgba(232, 121, 121, 0.1));
