@@ -20,11 +20,11 @@
     --accent-soft: rgba(217, 119, 6, 0.12);
     --accent-glow: rgba(217, 119, 6, 0.25);
     --text: #F5F1EC;
-    --text-secondary: #A8A29E;
+    --text-secondary: #C4B5A0;
     --text-dim: #78716C;
     --success: #65A30D;
     --error: #DC2626;
-    --border: #292524;
+    --border: #3D3935;
     --font-display: 'IBM Plex Sans', 'Sarabun', sans-serif;
     --font-body: 'IBM Plex Sans', 'Sarabun', sans-serif;
     --font-thai: 'IBM Plex Sans Thai', 'Sarabun', sans-serif;
@@ -61,16 +61,16 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Warm cosmic background layers */
+/* Warm cosmic background layers — amber lamp glow */
 .bg-cosmos {
     position: fixed;
     inset: 0;
     z-index: 0;
     pointer-events: none;
     background:
-        radial-gradient(1200px 700px at 15% -10%, rgba(212, 165, 116, 0.08), transparent 60%),
-        radial-gradient(1000px 800px at 100% 0%, rgba(139, 107, 174, 0.06), transparent 55%),
-        radial-gradient(900px 900px at 50% 120%, rgba(232, 121, 121, 0.04), transparent 55%),
+        radial-gradient(1200px 700px at 15% -10%, rgba(217, 119, 6, 0.10), transparent 60%),
+        radial-gradient(1000px 800px at 100% 0%, rgba(217, 119, 6, 0.06), transparent 55%),
+        radial-gradient(900px 900px at 50% 120%, rgba(217, 119, 6, 0.04), transparent 55%),
         var(--bg-deep);
 }
 
@@ -245,7 +245,7 @@ main {
     overflow: hidden;
 }
 
-/* Hero background image */
+/* Hero background image — let the classroom color show */
 .hero-bg {
     position: absolute;
     inset: 0;
@@ -253,8 +253,8 @@ main {
     background-image: url('images/classroom.jpg?v=17');
     background-size: cover;
     background-position: center;
-    opacity: 0.35;
-    filter: saturate(0.8) brightness(0.6);
+    opacity: 0.75;
+    filter: saturate(1.1) brightness(0.85);
 }
 
 .hero-bg::after {
@@ -263,10 +263,10 @@ main {
     inset: 0;
     background: linear-gradient(
         to bottom,
-        rgba(11, 13, 20, 0.7) 0%,
-        rgba(11, 13, 20, 0.5) 40%,
-        rgba(11, 13, 20, 0.8) 70%,
-        rgba(11, 13, 20, 1) 100%
+        rgba(10, 9, 6, 0.25) 0%,
+        rgba(10, 9, 6, 0.35) 40%,
+        rgba(10, 9, 6, 0.65) 75%,
+        rgba(10, 9, 6, 0.85) 100%
     );
 }
 
@@ -277,7 +277,7 @@ main {
     transform: translateX(-50%);
     width: min(680px, 90vw);
     height: 360px;
-    background: radial-gradient(ellipse at center, rgba(212, 165, 116, 0.12), transparent 70%);
+    background: radial-gradient(ellipse at center, rgba(217, 119, 6, 0.18), transparent 70%);
     pointer-events: none;
     filter: blur(30px);
 }
@@ -288,7 +288,7 @@ main {
     left: 20%;
     width: 500px;
     height: 400px;
-    background: radial-gradient(ellipse at center, rgba(232, 121, 121, 0.08), transparent 70%);
+    background: radial-gradient(ellipse at center, rgba(217, 119, 6, 0.12), transparent 70%);
     pointer-events: none;
     filter: blur(40px);
     animation: gentlePulse 8s ease-in-out infinite;
