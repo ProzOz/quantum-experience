@@ -29,48 +29,48 @@
 }
 
 .circuit-header {
-  text-align: center;
+  text-align: left;
   margin-bottom: 32px;
-  padding: 32px 20px;
-  background: var(--circuit-bg-deep);
-  border-radius: var(--circuit-radius-lg);
-  border: 1px solid var(--circuit-border);
+  padding: 8px 0 24px;
+  background: transparent;
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid var(--circuit-border);
 }
 
 .circuit-header-number {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 0.78rem;
-  letter-spacing: 3px;
-  color: var(--circuit-gold);
+  letter-spacing: 0.06em;
+  color: var(--accent, #D97706);
   margin-bottom: 10px;
 }
 
 .circuit-header-title {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'IBM Plex Sans Thai', 'Sarabun', 'IBM Plex Sans', sans-serif;
   font-size: clamp(1.5rem, 3.5vw, 2.2rem);
-  font-weight: 700;
+  font-weight: 600;
   color: var(--circuit-text);
   margin-bottom: 12px;
 }
 
 .circuit-header-desc {
-  color: var(--circuit-text-secondary);
-  max-width: 600px;
-  margin: 0 auto 16px;
+  color: #E8DCC8;
+  max-width: 640px;
+  margin: 0 0 16px;
   line-height: 1.8;
-  font-size: 1rem;
+  font-size: 1.05rem;
 }
 
 .circuit-objective {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 20px;
-  background: rgba(212, 165, 116, 0.15);
-  border: 1px solid rgba(212, 165, 116, 0.35);
-  border-radius: 999px;
-  font-size: 0.9rem;
-  color: var(--circuit-gold);
+  display: block;
+  padding: 8px 0 8px 14px;
+  background: transparent;
+  border: none;
+  border-left: 3px solid var(--accent, #D97706);
+  border-radius: 0;
+  font-size: 1rem;
+  color: #E8DCC8;
 }
 
 .circuit-objective strong {
@@ -505,7 +505,7 @@
 }
 
 .hint-title {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'IBM Plex Sans Thai', 'Sarabun', 'IBM Plex Sans', sans-serif;
   font-size: 0.7rem;
   letter-spacing: 2px;
   color: var(--circuit-gold);
@@ -533,23 +533,24 @@
 
 /* ── Run button — warm coral gradient ── */
 .circuit-run-btn {
-  padding: 12px 28px;
-  background: linear-gradient(135deg, var(--circuit-coral), var(--circuit-gold));
-  color: #fff;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 0.82rem;
+  padding: 12px 22px;
+  background: #D97706;
+  color: #1A1208;
+  font-family: 'IBM Plex Sans Thai', 'Sarabun', 'IBM Plex Sans', sans-serif;
+  font-size: 0.95rem;
   font-weight: 600;
-  letter-spacing: 1.5px;
+  letter-spacing: 0;
   border: none;
-  border-radius: 999px;
+  border-radius: 0;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(232, 121, 121, 0.3);
-  transition: all 0.2s;
+  box-shadow: none;
+  transition: background 0.15s;
 }
 
 .circuit-run-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(232, 121, 121, 0.4);
+  background: #EA580C;
+  transform: none;
+  box-shadow: none;
 }
 
 .circuit-run-btn:disabled {

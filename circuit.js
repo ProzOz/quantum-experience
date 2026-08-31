@@ -327,7 +327,7 @@ function buildCircuitHTML() {
       </div>
 
       <div class="theory-diagram-wrap">
-        <div class="theory-diagram-label">${c7('📐 รูปประกอบทฤษฎี', '📐 Theory Diagram')}</div>
+        <div class="theory-diagram-label">${c7('รูปประกอบทฤษฎี', 'Theory diagram')}</div>
         <img class="theory-diagram-img" src="images/station7-theory.png?v=20" alt="${c7('วงจรควอนตัม Grover', 'Grover Quantum Circuit')}" loading="lazy">
       </div>
 
@@ -558,36 +558,28 @@ function showCircuitSuccess() {
   const overlay = document.createElement('div');
   overlay.id = 'circuitSuccessOverlay';
   overlay.style.cssText = `
-    position:fixed;inset:0;background:rgba(6,6,16,0.9);backdrop-filter:blur(12px);
+    position:fixed;inset:0;background:#0A0906;
     display:flex;flex-direction:column;align-items:center;justify-content:center;
-    z-index:200;text-align:center;gap:16px;
-    animation:fade-in 0.4s ease-out;
+    z-index:200;text-align:center;gap:16px;padding:24px;
   `;
   overlay.innerHTML = `
-    <style>@keyframes fade-in{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}</style>
-    <div style="font-size:4rem;animation:bounce 0.6s ease-out">
-      <div style="font-size:5rem;line-height:1">🔓</div>
+    <div style="font-family:'IBM Plex Sans Thai','Sarabun',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:600;color:#F5F1EC">
+      ${c7('สร้างวงจรสำเร็จ', 'Circuit complete')}
     </div>
-    <div style="font-family:'Orbitron',sans-serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;
-                background:linear-gradient(125deg,#34e08a,#22e0ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-                filter:drop-shadow(0 0 20px rgba(52,224,138,0.4))">
-      ${c7('สร้างวงจรสำเร็จ!', 'CIRCUIT SUCCESSFUL')}
-    </div>
-    <div style="color:#c8d0ee;font-size:1rem;max-width:480px;line-height:1.7">
+    <div style="color:#E8DCC8;font-size:1.05rem;max-width:480px;line-height:1.7;font-family:'IBM Plex Sans Thai','Sarabun',sans-serif">
       ${c7(
-        `คุณสร้างอัลกอริทึมการค้นหาของ Grover สำเร็จแล้ว ตอนนี้สถานะ |2⟩ มีความน่าจะเป็น <strong style="color:#34e08a">${(CIRCUIT.probs[TARGET_STATE] * 100).toFixed(1)}%</strong> — เร็วกว่าการค้นหาแบบทั่วไปแบบ quadratic speedup`,
-        `You've built Grover's Search algorithm. The |2⟩ state now has <strong style="color:#34e08a">${(CIRCUIT.probs[TARGET_STATE] * 100).toFixed(1)}%</strong> probability — a quadratic speedup over classical search.`
+        `สถานะ |2⟩ มีความน่าจะเป็น <strong style="color:#F0A020">${(CIRCUIT.probs[TARGET_STATE] * 100).toFixed(1)}%</strong> — Grover เร็วกว่าการค้นหาแบบทั่วไป`,
+        `The |2⟩ state is now at <strong style="color:#F0A020">${(CIRCUIT.probs[TARGET_STATE] * 100).toFixed(1)}%</strong> — Grover’s quadratic speedup over classical search.`
       )}
     </div>
-    <div style="color:#8e9ac0;font-size:0.88rem;margin-top:4px">
-      ${c7('ปลดล็อกแกนควอนตัมเรียบร้อยแล้ว', 'The Quantum Core is now fully unlocked.')}
+    <div style="color:#E8DCC8;font-size:0.95rem;margin-top:4px;font-family:'IBM Plex Sans Thai','Sarabun',sans-serif">
+      ${c7('ปลดล็อกแกนควอนตัมแล้ว', 'The Quantum Core is unlocked.')}
     </div>
     <button onclick="dismissCircuitSuccess()" style="
-      margin-top:16px;padding:12px 32px;background:linear-gradient(135deg,#34e08a,#22e0ff);
-      color:#fff;font-family:'Orbitron',sans-serif;font-size:0.85rem;font-weight:600;
-      letter-spacing:1.5px;border:none;border-radius:999px;cursor:pointer;
-      box-shadow:0 4px 24px rgba(52,224,138,0.35);transition:all 0.2s">
-      ${c7('กลับห้องแล็บ', 'Back to Lab')}
+      margin-top:16px;padding:12px 24px;background:#D97706;
+      color:#1A1208;font-family:'IBM Plex Sans Thai','Sarabun',sans-serif;font-size:1rem;font-weight:600;
+      letter-spacing:0;border:none;border-radius:0;cursor:pointer;">
+      ${c7('กลับห้องแล็บ', 'Back to the lab')}
     </button>
   `;
   document.body.appendChild(overlay);
