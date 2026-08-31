@@ -103,26 +103,30 @@ const PUZZLE = {
 
 /* ── Lab-only bilingual strings ───────────────────────────── */
 const LAB_I18N = {
-  alert_ok:      { th: 'ห้องปฏิบัติการควอนตัม — ระบบทำงานปกติ', en: 'QUANTUM LAB — ALL SYSTEMS NOMINAL' },
-  alert_bad:     { th: (n) => `เตือน: ${n} สถานี${n === 1 ? '' : ''}ต้องการการซ่อมแซม`, en: (n) => `ALERT: ${n} STATION${n === 1 ? '' : 'S'} NEED REPAIR` },
-  guardian_title:{ th: 'คุณคือผู้พิทักษ์ควอนตัม', en: 'You are a Quantum Guardian' },
-  guardian_desc: { th: 'ห้องปฏิบัติการควอนตัมของ วมว. มหาวิทยาลัยบูรพา กำลังรอคุณอยู่ เริ่มต้นจากสถานี 1 แล้วสำรวจการทดลองทั้ง 7 สถานี', en: 'The SCIUS BUU Quantum Laboratory is waiting for you. Start at Station 1 and explore all seven experiments.' },
-  start_station1:{ th: 'เริ่มที่สถานี 1 — ทวิภาพ', en: 'Start at Station 1 — Duality' },
-  core_label:    { th: 'แกนควอนตัม · การทดลองสุดท้าย', en: 'QUANTUM CORE · FINAL EXPERIMENT' },
+  place:         { th: 'วมว. มหาวิทยาลัยบูรพา · ห้องแล็บกลางคืน', en: 'SCIUS BUU · the lab at night' },
+  guardian_title:{ th: 'คืนนี้คุณอยู่เวรห้องแล็บ', en: "You're on night duty in the lab" },
+  guardian_desc: { th: 'เจ็ดสถานีบนกระดานด้านหน้ายังรอให้กู้ เริ่มที่สถานี 1 — ทวิภาพ', en: 'Seven stations on that board still need you. Start at Station 1 — Duality.' },
+  title_done:    { th: 'ห้องแล็บกลับมาทำงานแล้ว', en: 'The lab is back online' },
+  desc_done:     { th: 'กู้ครบทั้งเจ็ดสถานีแล้ว เปิดแกนควอนตัมด้านล่างได้เลย', en: 'All seven stations are restored. The quantum core below is open.' },
+  start_station1:{ th: 'เริ่มที่กระดานนี้', en: 'Start at this board' },
+  rest_label:    { th: 'สถานีถัดไป', en: 'The other stations' },
+  door_kicker:   { th: 'สถานี 1', en: 'Station 1' },
+  core_label:    { th: 'แกนควอนตัม', en: 'Quantum core' },
   core_title:    { th: 'การค้นหาควอนตัมของ Grover', en: "Grover's Quantum Search" },
-  core_ok:       { th: 'แกนออนไลน์แล้ว ดูควอนตัมคอมพิวเตอร์ค้นฐานข้อมูลใน 1 คิวรี — คอมพิวเตอร์ทั่วไปใช้เฉลี่ย 2.5', en: 'The core is online. Watch a quantum computer search a database in 1 query — a classical computer takes 2.5.' },
-  core_bad:      { th: 'กู้ทั้ง 7 สถานีเพื่อปลดล็อกการสาธิตสุดท้าย และชมความได้เปรียบของควอนตัมแบบสด ๆ', en: 'Restore all 7 stations to unlock the final demonstration. See the quantum advantage live.' },
-  stations_unit: { th: 'สถานี', en: 'STATIONS' },
-  mission:       { th: 'เป้าหมายภารกิจ', en: 'MISSION OBJECTIVE' },
-  online:        { th: 'ออนไลน์', en: 'ONLINE' },
-  offline:       { th: 'ออฟไลน์', en: 'OFFLINE' },
-  enter_station: { th: 'เข้าสถานี', en: 'ENTER STATION' },
-  replay_station:{ th: 'เล่นซ้ำ', en: 'REPLAY' },
-  restored_t:    { th: 'ซ่อมสถานีสำเร็จ!', en: 'STATION RESTORED' },
-  restored_d:    { th: (n) => `${n} กลับมาออนไลน์แล้ว แกนควอนตัมแข็งแกร่งขึ้น`, en: (n) => `${n} is back online. The quantum core grows stronger.` },
-  btn_review:    { th: 'ดูการทดลองต่อ →', en: 'Review simulation →' },
-  btn_back_lab:  { th: 'กลับห้องแล็บ', en: 'Back to lab' },
-  core_unlocked: { th: '⚛️ ปลดล็อกแกนควอนตัมแล้ว!', en: '⚛️ Quantum Core unlocked!' },
+  core_ok:       { th: 'แกนเปิดแล้ว — ดูควอนตัมคอมพิวเตอร์ค้นฐานข้อมูลใน 1 คิวรี เครื่องทั่วไปใช้เฉลี่ย 2.5', en: 'The core is open. Watch a quantum computer search a database in 1 query — a classical computer takes 2.5.' },
+  core_bad:      { th: 'ล็อกไว้จนกว่าจะกู้ครบ 7 สถานี', en: 'Locked until all 7 stations are restored.' },
+  stations_unit: { th: 'สถานี', en: 'stations' },
+  mission:       { th: 'สิ่งที่ต้องทำ', en: 'What to do' },
+  online:        { th: 'กู้แล้ว', en: 'Restored' },
+  offline:       { th: 'ยังรอ', en: 'Waiting' },
+  enter_station: { th: 'เข้าสถานี', en: 'Enter' },
+  replay_station:{ th: 'เล่นซ้ำ', en: 'Replay' },
+  restored_t:    { th: 'สิ่งที่คุณเพิ่งทำ', en: 'What you just did' },
+  restored_d:    { th: (n) => `${n} กลับมาแล้ว`, en: (n) => `${n} is back.` },
+  btn_review:    { th: 'ดูการทดลองต่อ', en: 'Review the simulation' },
+  btn_back_lab:  { th: 'กลับห้องแล็บ', en: 'Back to the lab' },
+  core_unlocked: { th: 'แกนควอนตัมเปิดแล้ว', en: 'Quantum core unlocked' },
+  done_count:    { th: (n) => n === 0 ? '' : `กู้แล้ว ${n} จาก 7`, en: (n) => n === 0 ? '' : `${n} of 7 restored` },
 };
 function LT(key, arg) {
   const e = LAB_I18N[key];
@@ -131,42 +135,35 @@ function LT(key, arg) {
   return typeof v === 'function' ? v(arg) : v;
 }
 
+function stationShortName(s) {
+  return s.name[lang].replace(/^สถานีที่\s*\d+\s*:\s*/i, '').replace(/^Station\s*\d+\s*:\s*/i, '');
+}
+
 /* ── Build new home page ──────────────────────────────────── */
 function buildLabHome() {
   const page = document.getElementById('homePage');
   if (!page) return;
 
   const doneCount = Object.values(PUZZLE).filter(p => p.solved).length;
-
-  let missionList = STATIONS.map((s, idx) => {
+  const allDone = doneCount === 7;
+  const s1 = STATIONS[0];
+  const s1Solved = PUZZLE[1].solved;
+  const rest = STATIONS.slice(1).map((s) => {
     const solved = PUZZLE[s.id].solved;
     const onclick = s.id === 7 ? 'openCircuitPuzzle()' : `openTopic(${s.id})`;
-    const isFirst = idx === 0;
-    const statusDot = solved ? '<span class="qx-mission-status qx-mission-done">✓</span>' : '<span class="qx-mission-status qx-mission-pending">—</span>';
-    const cta = solved ? LT('replay_station') : LT('enter_station');
-    const startHere = isFirst && !solved ? '<span class="qx-start-here">↑ เริ่มที่นี่</span>' : '';
-    const ctaText = isFirst && !solved ? cta : `${cta} →`;
-    
     return `
-    <button class="qx-mission${solved ? ' qx-mission-solved' : ''}${isFirst ? ' qx-mission-first' : ''}"
+    <button class="qx-rest-row${solved ? ' qx-rest-done' : ''}"
       onclick="${onclick}"
       onpointerenter="play('hover')"
       aria-label="${s.name[lang]}">
-      <div class="qx-mission-num">0${s.id}</div>
-      <div class="qx-mission-content">
-        <div class="qx-mission-name">${s.name[lang]}</div>
-        <div class="qx-mission-tagline">${s.tagline[lang]}</div>
-      </div>
-      ${isFirst ? '' : statusDot}
-      <div class="qx-mission-cta">${ctaText}</div>
-      ${startHere}
+      <span class="qx-rest-num">0${s.id}</span>
+      <span class="qx-rest-name">${stationShortName(s)}</span>
+      <span class="qx-rest-line">${s.tagline[lang]}</span>
+      <span class="qx-rest-mark">${solved ? LT('online') : ''}</span>
     </button>`;
   }).join('');
 
-  const coreUnlocked = doneCount === 7;
-  const coreClass = coreUnlocked ? 'quantum-core-panel unlocked' : 'quantum-core-panel';
-  const coreCursor = coreUnlocked ? '' : 'style="cursor:not-allowed"';
-  const pct = Math.round(doneCount / 7 * 100);
+  const whisper = LT('done_count', doneCount);
 
   page.innerHTML = `
   <div class="qx-home">
@@ -174,42 +171,44 @@ function buildLabHome() {
       <img src="scius-buu-logo.png" alt="SCIUS BUU" class="qx-logo-scius">
       <img src="buraphalogo.png" alt="Burapha University" class="qx-logo-bu">
     </div>
-    
-    <div class="qx-hero-content">
-      <div class="qx-guardian-badge">${doneCount === 7 ? LT('alert_ok') : LT('alert_bad', 7 - doneCount)}</div>
-      <h1 class="qx-guardian-title">${LT('guardian_title')}</h1>
-      <p class="qx-guardian-desc">${LT('guardian_desc')}</p>
-      <div class="qx-progress-wrap">
-        <div class="qx-progress-label">${doneCount}/7 ${LT('stations_unit')}</div>
-        <div class="qx-progress-bar">
-          <div class="qx-progress-fill" style="width:${pct}%"></div>
-        </div>
-      </div>
+
+    <div class="qx-stage">
+      <p class="qx-place">${LT('place')}</p>
+      <h1 class="qx-guardian-title">${allDone ? LT('title_done') : LT('guardian_title')}</h1>
+      <p class="qx-guardian-desc">${allDone ? LT('desc_done') : LT('guardian_desc')}</p>
+      ${whisper ? `<p class="qx-whisper">${whisper}</p>` : ''}
+
+      <button class="qx-door${s1Solved ? ' qx-door-done' : ''}"
+        onclick="openTopic(1)"
+        onpointerenter="play('hover')"
+        aria-label="${s1.name[lang]}">
+        <span class="qx-door-kicker">${LT('door_kicker')}</span>
+        <span class="qx-door-name">${stationShortName(s1)}</span>
+        <span class="qx-door-line">${s1.tagline[lang]}</span>
+        <span class="qx-door-cta">${s1Solved ? LT('replay_station') : LT('start_station1')}</span>
+      </button>
     </div>
 
-    <div class="qx-mission-list">${missionList}</div>
+    <div class="qx-rest">
+      <p class="qx-rest-label">${LT('rest_label')}</p>
+      ${rest}
+    </div>
 
-    ${typeof CT === 'function' ? `
-    <button class="coop-banner" onclick="openCoop()" onpointerenter="play('hover')">
-      <div class="coop-banner-icon">👥</div>
-      <div class="coop-banner-content">
-        <div class="coop-banner-label">${CT('banner_label')}</div>
-        <div class="coop-banner-title">${CT('banner_title')}</div>
-        <div class="coop-banner-desc">${CT('banner_desc')}</div>
-      </div>
-      <div class="coop-banner-play">▶</div>
-    </button>` : ''}
+    <div class="qx-aside">
+      ${typeof CT === 'function' ? `
+      <button class="qx-extra" onclick="openCoop()" onpointerenter="play('hover')">
+        <span class="qx-extra-name">${CT('banner_title')}</span>
+        <span class="qx-extra-line">${CT('banner_desc')}</span>
+      </button>` : ''}
 
-    <div class="${coreClass}" id="corePanel" onclick="${coreUnlocked ? 'openQuantumCore()' : ''}" ${coreCursor}>
-      <div class="core-lock-icon">${coreUnlocked ? '⚛️' : '🔒'}</div>
-      <div class="core-content">
-        <div class="core-label">${LT('core_label')}</div>
-        <div class="core-title">${LT('core_title')}</div>
-        <div class="core-desc">
-          ${coreUnlocked ? LT('core_ok') : LT('core_bad')}
-        </div>
+      <div class="qx-core${allDone ? ' unlocked' : ''}" id="corePanel"
+        ${allDone ? 'onclick="openQuantumCore()"' : ''}
+        ${allDone ? '' : 'style="cursor:default"'}>
+        <div class="qx-core-kicker">${LT('core_label')}</div>
+        <div class="qx-core-title">${LT('core_title')}</div>
+        <p class="qx-core-desc">${allDone ? LT('core_ok') : LT('core_bad')}</p>
+        ${allDone ? `<button class="qx-core-cta" onclick="event.stopPropagation();openQuantumCore()">${lang === 'th' ? 'เปิดแกนควอนตัม' : 'Open the core'}</button>` : ''}
       </div>
-      ${coreUnlocked ? '<button class="core-cta" onclick="event.stopPropagation();openQuantumCore()">LAUNCH →</button>' : ''}
     </div>
   </div>`;
 }
@@ -276,25 +275,24 @@ function injectPuzzleUI() {
 function puzzleSuccessHTML(s) {
   return `
     <div class="puzzle-inner summary-screen">
-      <div class="summary-icon">${s.icon}</div>
       <div class="summary-title">${LT('restored_t')}</div>
       <div class="summary-station">${s.name[lang]}</div>
       
       <div class="summary-learned">
-        <div class="summary-learned-title">✅ ${t('theory_what_you_did')}</div>
+        <div class="summary-learned-title">${t('theory_what_you_did')}</div>
         <p>${t(TOPIC_META[s.id].key + '_what_you_did')}</p>
       </div>
 
       ${typeof STATION_THEORY !== 'undefined' && STATION_THEORY[s.id] ? `<div class="summary-visual"><img class="summary-theory-img" src="${STATION_THEORY[s.id]}" alt="${s.name[lang]}" loading="lazy"></div>` : ''}
 
       <div class="summary-learned">
-        <div class="summary-learned-title">🔬 ${t('theory_the_physics')}</div>
+        <div class="summary-learned-title">${t('theory_the_physics')}</div>
         <p>${t(TOPIC_META[s.id].key + '_theory')}</p>
       </div>
 
       <div class="summary-actions">
         <button class="puzzle-btn puzzle-btn-secondary" onclick="dismissPuzzle(${s.id})">${LT('btn_review')}</button>
-        ${s.id < 7 ? `<button class="puzzle-btn puzzle-btn-primary" onclick="dismissPuzzle(${s.id});setTimeout(()=>openTopic(${s.id + 1}),400)">${t('theory_next')}: ${STATIONS[s.id] ? STATIONS[s.id].name[lang] : 'Next'} →</button>` : ''}
+        ${s.id < 7 ? `<button class="puzzle-btn puzzle-btn-primary" onclick="dismissPuzzle(${s.id});setTimeout(()=>openTopic(${s.id + 1}),400)">${t('theory_next')}: ${STATIONS[s.id] ? stationShortName(STATIONS[s.id]) : 'Next'}</button>` : ''}
         <button class="puzzle-btn puzzle-btn-secondary" onclick="goHome()">${LT('btn_back_lab')}</button>
       </div>
     </div>`;
@@ -359,28 +357,21 @@ let coreUnlockToasted = false;
 
 function updateLabProgress(silent) {
   const done = STATIONS.filter(s => PUZZLE[s.id].solved).length;
-  const bar = document.getElementById('coreProgressBar');
-  const lbl = document.getElementById('coreProgressLabel');
-  if (bar) bar.style.width = Math.round(done / 7 * 100) + '%';
-  if (lbl) lbl.textContent = done + '/7 ' + LT('stations_unit');
 
-  // Update station cards (handle both openTopic and openCircuitPuzzle)
   for (const s of STATIONS) {
     const sel = s.id === 7
       ? `[onclick="openCircuitPuzzle()"]`
       : `[onclick="openTopic(${s.id})"]`;
     const card = document.querySelector(sel);
-    if (card && PUZZLE[s.id].solved) card.classList.add('online');
+    if (card && PUZZLE[s.id].solved) card.classList.add(s.id === 1 ? 'qx-door-done' : 'qx-rest-done');
   }
 
-  // Unlock core
   if (done === 7) {
     const panel = document.getElementById('corePanel');
     if (panel) {
       panel.classList.add('unlocked');
       panel.onclick = () => openQuantumCore();
       panel.style.cursor = 'pointer';
-      panel.querySelector('.core-lock-icon').textContent = '⚛️';
     }
     if (!silent && !coreUnlockToasted) {
       coreUnlockToasted = true;

@@ -869,7 +869,6 @@ function buildTopics() {
             <p class="topic-header-desc" data-i18n="${m.key}_desc"></p>
           </div>
           ${i === 1 ? `<div class="pre-play-brief">
-            <div class="brief-icon">📋</div>
             <h3 class="brief-title" data-i18n="t1_brief_title"></h3>
             <p class="brief-text" data-i18n="t1_brief"></p>
           </div>` : ''}
@@ -883,7 +882,7 @@ function buildTopics() {
           </div>
           ${STATION_THEORY[i] ? `
           <div class="theory-diagram-wrap">
-            <div class="theory-diagram-label">${lang === 'th' ? '📐 รูปประกอบทฤษฎี' : '📐 Theory Diagram'}</div>
+            <div class="theory-diagram-label">${lang === 'th' ? 'รูปประกอบทฤษฎี' : 'Theory diagram'}</div>
             <img class="theory-diagram-img" src="${STATION_THEORY[i]}" alt="${t(m.key + '_title')}" loading="lazy">
           </div>` : ''}
           <div class="simulation-container">
