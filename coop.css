@@ -41,13 +41,13 @@
 }
 
 .coop-header-title {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'IBM Plex Sans Thai', 'Sarabun', 'IBM Plex Sans', sans-serif;
   font-size: clamp(1.6rem, 4vw, 2.6rem);
-  font-weight: 800;
+  font-weight: 600;
   color: var(--coop-text);
   margin-bottom: 12px;
   line-height: 1.15;
-  text-shadow: 0 0 40px rgba(232, 121, 121, 0.3);
+  text-shadow: none;
 }
 
 .coop-header-desc {

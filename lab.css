@@ -100,9 +100,8 @@ header {
     position: fixed;
     top: 0; left: 0; right: 0;
     height: 64px;
-    background: rgba(10, 9, 6, 0.32);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid rgba(61, 57, 53, 0.6);
+    background: #0A0906;
+    border-bottom: 1px solid #3D3935;
     z-index: 100;
     display: flex;
     align-items: center;
@@ -155,9 +154,8 @@ header {
 }
 
 .toggle-btn:hover {
-    border-color: var(--coral);
-    color: var(--coral);
-    box-shadow: 0 0 12px rgba(232, 121, 121, 0.2);
+    border-color: var(--accent);
+    color: var(--accent);
 }
 
 /* ── MAIN CONTENT ──────────────────────────────────────── */
@@ -170,48 +168,42 @@ main {
 .page.active { display: block; }
 
 /* ── HOME / LAB ───────────────────────────────────────── */
+/* Left column = readable type. Right / top = the real classroom. */
 .qx-home {
-    position: relative;
+    display: grid;
+    grid-template-columns: minmax(320px, 440px) 1fr;
     min-height: calc(100vh - 64px);
-    padding: 0 0 64px;
     margin: 0;
+    padding: 0;
+    background: #0A0906;
 }
 
-/* The room itself — chalkboard high, desks low */
-.qx-home::before {
-    content: '';
-    position: absolute;
-    inset: 0;
+.qx-photo {
+    grid-column: 2;
+    grid-row: 1;
+    position: sticky;
+    top: 64px;
+    height: calc(100vh - 64px);
     background-image: url('images/classroom.jpg?v=18');
     background-size: cover;
     background-position: center 32%;
-    opacity: 0.92;
-    z-index: 0;
+    background-repeat: no-repeat;
 }
 
-/* Darken only the desks so type can sit there. Leave the board readable. */
-.qx-home::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-        linear-gradient(to bottom,
-            rgba(10, 9, 6, 0.22) 0%,
-            rgba(10, 9, 6, 0.06) 22%,
-            rgba(10, 9, 6, 0.18) 48%,
-            rgba(10, 9, 6, 0.62) 72%,
-            rgba(10, 9, 6, 0.92) 100%
-        );
-    z-index: 1;
+.qx-read {
+    grid-column: 1;
+    grid-row: 1;
+    background: #0A0906;
+    padding: 36px 28px 56px;
+    z-index: 2;
 }
 
 .qx-hero-logos {
     position: absolute;
-    top: 20px;
-    right: 24px;
+    top: 16px;
+    right: 16px;
     display: flex;
-    gap: 14px;
-    z-index: 2;
+    gap: 12px;
 }
 
 .qx-logo-scius,
@@ -221,74 +213,55 @@ main {
     filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.55));
 }
 
-/* Lower third: words on the desks, chalkboard stays the picture */
-.qx-stage {
-    position: relative;
-    z-index: 2;
-    min-height: calc(100vh - 64px);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    max-width: 720px;
-    padding: 72px 32px 28px;
-    text-align: left;
-}
-
 .qx-place {
     font-family: var(--font-thai), var(--font-body);
-    font-size: 0.92rem;
-    color: #E8D5B5;
+    font-size: 0.95rem;
+    color: #E8DCC8;
     letter-spacing: 0.02em;
     margin-bottom: 10px;
-    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
 }
 
 .qx-guardian-title {
     font-family: var(--font-display);
-    font-size: clamp(1.65rem, 3.8vw, 2.4rem);
+    font-size: clamp(1.55rem, 2.4vw, 2.15rem);
     font-weight: 600;
-    color: var(--text-primary);
+    color: #F5F1EC;
     margin-bottom: 12px;
-    line-height: 1.22;
-    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.9), 0 0 2px rgba(0, 0, 0, 0.8);
-    max-width: 18em;
+    line-height: 1.25;
 }
 
 html[lang="th"] .qx-guardian-title,
 html[lang="th"] .qx-door-name,
-html[lang="th"] .qx-place {
+html[lang="th"] .qx-place,
+html[lang="th"] .qx-rest-name {
     font-family: 'IBM Plex Sans Thai', 'Sarabun', sans-serif;
 }
 
 .qx-guardian-desc {
-    font-size: 1.08rem;
-    color: #E4D4BE;
+    font-size: 1.05rem;
+    color: #E8DCC8;
     line-height: 1.7;
-    margin-bottom: 10px;
-    max-width: 36em;
-    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.7);
+    margin-bottom: 12px;
 }
 
 .qx-whisper {
-    font-size: 0.85rem;
-    color: #C4B5A0;
-    margin-bottom: 18px;
+    font-size: 0.9rem;
+    color: #E8DCC8;
+    margin-bottom: 16px;
 }
 
-/* Station 1 — the only loud door */
 .qx-door {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr;
     grid-template-areas:
-        "kicker kicker"
-        "name   cta"
-        "line   cta";
-    column-gap: 24px;
-    row-gap: 2px;
-    align-items: center;
+        "kicker"
+        "name"
+        "line"
+        "cta";
+    row-gap: 4px;
     width: 100%;
-    margin-top: 14px;
-    padding: 14px 4px 14px 16px;
+    margin: 18px 0 8px;
+    padding: 16px 0 16px 14px;
     background: transparent;
     border: none;
     border-left: 3px solid var(--accent);
@@ -297,153 +270,118 @@ html[lang="th"] .qx-place {
     text-align: left;
     color: inherit;
     font: inherit;
-    transition: background 160ms cubic-bezier(0.23, 1, 0.32, 1), transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.qx-door:hover {
-    background: rgba(10, 9, 6, 0.28);
-}
+.qx-door:hover { background: #141210; }
 
-.qx-door:active {
-    transform: scale(0.985);
-}
+.qx-door:active { transform: scale(0.99); }
 
 .qx-door-kicker {
     grid-area: kicker;
-    font-size: 0.78rem;
-    letter-spacing: 0.08em;
-    color: var(--accent);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    color: #F0A020;
     font-weight: 600;
 }
 
 .qx-door-name {
     grid-area: name;
-    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    font-size: 1.7rem;
     font-weight: 700;
     color: #F5F1EC;
-    line-height: 1.15;
+    line-height: 1.2;
 }
 
 .qx-door-line {
     grid-area: line;
-    font-size: 0.98rem;
-    color: #D4C4B0;
+    font-size: 1rem;
+    color: #E8DCC8;
     line-height: 1.5;
-    margin-top: 4px;
 }
 
 .qx-door-cta {
     grid-area: cta;
+    justify-self: start;
+    margin-top: 10px;
     font-family: 'IBM Plex Sans Thai', 'Sarabun', var(--font-body);
     font-size: 1rem;
     font-weight: 600;
     background: var(--accent);
     color: #1A1208;
-    padding: 14px 22px;
-    white-space: nowrap;
-    align-self: center;
-    transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.qx-door:active .qx-door-cta {
-    transform: scale(0.97);
-}
-
-.qx-door-done {
-    opacity: 0.88;
+    padding: 12px 20px;
+    border: none;
+    box-shadow: none;
 }
 
 .qx-door-done .qx-door-cta {
     background: transparent;
-    color: var(--accent);
-    border: 1px solid var(--accent);
+    color: #F0A020;
+    border: 1px solid #F0A020;
 }
 
-/* Stations 2–7: chalkboard roll, not cards */
-.qx-rest {
-    position: relative;
-    z-index: 2;
-    max-width: 720px;
-    padding: 8px 32px 8px;
-}
+.qx-rest { margin-top: 20px; padding: 0; }
 
 .qx-rest-label {
-    font-size: 0.8rem;
-    color: #8A8074;
-    letter-spacing: 0.04em;
-    margin: 8px 0 4px;
+    font-size: 0.85rem;
+    color: #E8DCC8;
+    margin: 8px 0 6px;
 }
 
 .qx-rest-row {
     display: grid;
     grid-template-columns: 2.4rem 1fr auto;
     grid-template-areas: "num name mark" "num line mark";
-    column-gap: 12px;
+    column-gap: 10px;
     align-items: baseline;
     width: 100%;
-    padding: 12px 0;
+    padding: 11px 0;
     background: transparent;
     border: none;
-    border-bottom: 1px solid rgba(245, 241, 236, 0.08);
+    border-bottom: 1px solid #3D3935;
     border-radius: 0;
     cursor: pointer;
     text-align: left;
     color: inherit;
     font: inherit;
-    transition: color 160ms ease, background 160ms ease;
 }
 
-.qx-rest-row:hover {
-    background: rgba(245, 241, 236, 0.03);
-}
-
-.qx-rest-row:active {
-    transform: none;
-    opacity: 0.85;
-}
+.qx-rest-row:hover { background: #141210; }
 
 .qx-rest-num {
     grid-area: num;
     font-family: var(--font-mono);
-    font-size: 0.82rem;
-    color: #A89070;
+    font-size: 0.85rem;
+    color: #F0A020;
     padding-top: 3px;
 }
 
 .qx-rest-name {
     grid-area: name;
-    font-size: 1.02rem;
+    font-size: 1.05rem;
     font-weight: 600;
-    color: #E8DDD0;
+    color: #F5F1EC;
 }
 
 .qx-rest-line {
     grid-area: line;
-    font-size: 0.88rem;
-    color: #9A8E80;
+    font-size: 0.92rem;
+    color: #E8DCC8;
     line-height: 1.45;
     margin-top: 2px;
 }
 
 .qx-rest-mark {
     grid-area: mark;
-    font-size: 0.75rem;
-    color: #7A9A4A;
+    font-size: 0.8rem;
+    color: #C5D48A;
     align-self: center;
 }
 
-.qx-rest-done {
-    opacity: 0.62;
-}
-
 .qx-aside {
-    position: relative;
-    z-index: 2;
-    max-width: 720px;
-    padding: 28px 32px 0;
+    margin-top: 8px;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 8px;
 }
 
 .qx-extra,
@@ -452,60 +390,45 @@ html[lang="th"] .qx-place {
     width: 100%;
     background: transparent;
     border: none;
-    border-top: 1px solid rgba(245, 241, 236, 0.08);
+    border-top: 1px solid #3D3935;
     border-radius: 0;
-    padding: 18px 0;
+    padding: 16px 0;
     text-align: left;
     color: inherit;
     font: inherit;
     cursor: pointer;
 }
 
-.qx-extra:hover,
-.qx-core.unlocked:hover {
-    background: rgba(245, 241, 236, 0.03);
-}
-
 .qx-extra-name,
 .qx-core-title {
     display: block;
-    font-size: 0.98rem;
+    font-size: 1rem;
     font-weight: 600;
-    color: #C4B5A0;
+    color: #F5F1EC;
     margin-bottom: 4px;
 }
 
 .qx-extra-line,
 .qx-core-desc {
     display: block;
-    font-size: 0.88rem;
-    color: #8A8074;
+    font-size: 0.92rem;
+    color: #E8DCC8;
     line-height: 1.5;
 }
 
 .qx-core-kicker {
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    color: #8A8074;
+    font-size: 0.8rem;
+    color: #E8DCC8;
     margin-bottom: 4px;
 }
 
-.qx-core {
-    cursor: default;
-}
-
-.qx-core.unlocked {
-    cursor: pointer;
-}
-
-.qx-core.unlocked .qx-core-title {
-    color: #F5F1EC;
-}
+.qx-core { cursor: default; }
+.qx-core.unlocked { cursor: pointer; }
 
 .qx-core-cta {
     margin-top: 12px;
     font-family: 'IBM Plex Sans Thai', 'Sarabun', var(--font-body);
-    font-size: 0.92rem;
+    font-size: 0.95rem;
     font-weight: 600;
     background: var(--accent);
     color: #1A1208;
@@ -514,65 +437,47 @@ html[lang="th"] .qx-place {
     cursor: pointer;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 800px) {
     .logo-text { display: none; }
-
     header { padding: 0 12px; }
 
-    .qx-stage {
-        padding: 80px 20px 28px;
-        min-height: calc(100dvh - 64px);
+    .qx-home {
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
     }
 
+    .qx-photo {
+        position: relative;
+        top: 0;
+        height: 168px;
+        min-height: 168px;
+        width: 100%;
+        flex-shrink: 0;
+        background-position: center 28%;
+    }
+
+    .qx-read { padding: 24px 20px 48px; }
+
     .qx-hero-logos {
-        top: 14px;
-        right: 16px;
-        gap: 10px;
+        top: 10px;
+        right: 12px;
+        gap: 8px;
     }
 
     .qx-logo-scius,
-    .qx-logo-bu {
-        height: 30px;
-    }
-
-    .qx-door {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "kicker"
-            "name"
-            "line"
-            "cta";
-        padding: 18px 0 18px 16px;
-    }
-
-    .qx-door-cta {
-        justify-self: start;
-        margin-top: 12px;
-        padding: 12px 20px;
-    }
-
-    .qx-rest,
-    .qx-aside {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
+    .qx-logo-bu { height: 28px; }
 
     .qx-rest-row {
         grid-template-columns: 2.2rem 1fr;
         grid-template-areas: "num name" "num line";
     }
 
-    .qx-rest-mark {
-        display: none;
-    }
+    .qx-rest-mark { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .qx-door,
-    .qx-door-cta,
-    .qx-rest-row {
-        transition: none;
-    }
+    .qx-door, .qx-door-cta, .qx-rest-row { transition: none; }
 }
 
 /* ── MISSION BRIEFING ────────────────────────────────── */
@@ -1152,24 +1057,24 @@ html[lang="th"] .qx-place {
     text-transform: uppercase;
 }
 
-/* ── THEORY DIAGRAM DISPLAY ─────────────────────────── */
+/* ── THEORY DIAGRAM — chalkboard / print ─────────────── */
 .theory-diagram-wrap {
-    background: var(--bg-card);
-    border: 1px solid var(--border-light);
-    border-radius: var(--radius-lg);
+    background: #EDE6D9;
+    border: 1px solid #C4B5A0;
+    border-radius: 0;
     padding: var(--space-lg);
     margin-bottom: var(--space-lg);
-    box-shadow: 0 0 24px rgba(217, 119, 6, 0.08);
+    box-shadow: none;
 }
 
 .theory-diagram-label {
-    font-family: var(--font-mono, monospace);
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: var(--accent);
+    font-family: var(--font-thai), var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    color: #6B4A12;
     margin-bottom: var(--space-md);
-    text-transform: uppercase;
+    text-transform: none;
 }
 
 .theory-diagram-img {
@@ -1177,8 +1082,9 @@ html[lang="th"] .qx-place {
     max-width: 800px;
     display: block;
     margin: 0 auto;
-    border-radius: var(--radius-md);
-    background: var(--bg-deep);
+    border-radius: 0;
+    background: #EDE6D9;
+    filter: grayscale(0.25) sepia(0.35) saturate(0.7) contrast(1.05);
 }
 
 .station-video {
@@ -1190,24 +1096,24 @@ html[lang="th"] .qx-place {
     border: 1px solid var(--border-light);
 }
 
-/* ── THEORY DIAGRAM DISPLAY ─────────────────────────── */
+/* ── THEORY DIAGRAM — chalkboard / print ─────────────── */
 .theory-diagram-wrap {
-    background: var(--bg-card);
-    border: 1px solid var(--border-light);
-    border-radius: var(--radius-lg);
+    background: #EDE6D9;
+    border: 1px solid #C4B5A0;
+    border-radius: 0;
     padding: var(--space-lg);
     margin-bottom: var(--space-lg);
-    box-shadow: 0 0 24px rgba(217, 119, 6, 0.08);
+    box-shadow: none;
 }
 
 .theory-diagram-label {
-    font-family: var(--font-mono, monospace);
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: var(--accent);
+    font-family: var(--font-thai), var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    color: #6B4A12;
     margin-bottom: var(--space-md);
-    text-transform: uppercase;
+    text-transform: none;
 }
 
 .theory-diagram-img {
@@ -1215,36 +1121,47 @@ html[lang="th"] .qx-place {
     max-width: 800px;
     display: block;
     margin: 0 auto;
-    border-radius: var(--radius-md);
-    background: var(--bg-deep);
+    border-radius: 0;
+    background: #EDE6D9;
+    filter: grayscale(0.25) sepia(0.35) saturate(0.7) contrast(1.05);
 }
 
 /* ── PUZZLE GOAL STRIP ─────────────────────────────── */
 .puzzle-goal-strip {
-    background: linear-gradient(135deg, rgba(212, 165, 116, 0.1), rgba(232, 121, 121, 0.1));
-    border: 1px solid rgba(212, 165, 116, 0.3);
-    border-radius: var(--radius-md);
-    padding: var(--space-md) var(--space-lg);
+    background: transparent;
+    border: none;
+    border-left: 3px solid var(--accent);
+    border-radius: 0;
+    padding: 8px 0 8px 16px;
     margin-bottom: var(--space-lg);
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: var(--space-md);
 }
 
 .puzzle-goal-icon {
-    font-size: 1.75rem;
+    display: none;
+}
+
+.puzzle-goal-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #F0A020;
+    text-transform: none;
+    letter-spacing: 0;
+    margin-bottom: 2px;
+}
+
+.puzzle-goal-status {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #C5D48A;
+    padding: 0;
+    background: none;
+    border-radius: 0;
 }
 
 .puzzle-goal-text { flex: 1; }
-
-.puzzle-goal-label {
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: var(--gold);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 2px;
-}
 
 .puzzle-goal-desc {
     font-size: 1.12rem;
@@ -1815,8 +1732,8 @@ footer {
 
 /* Diagram placeholder */
 .theory-diagram {
-    background: linear-gradient(135deg, rgba(139, 107, 174, 0.1), rgba(212, 165, 116, 0.1));
-    border-radius: var(--radius-md);
+    background: #EDE6D9;
+    border-radius: 0;
     padding: 28px;
     text-align: center;
     margin: 20px 0;
@@ -1824,11 +1741,11 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid rgba(139, 107, 174, 0.2);
+    border: 1px solid #C4B5A0;
 }
 
 .theory-diagram-placeholder {
-    color: var(--purple);
+    color: #6B4A12;
     font-size: 0.95rem;
 }
 

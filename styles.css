@@ -16,7 +16,7 @@
     --bg-mid: #141210;
     --bg-card: #1C1916;
     --glass: rgba(28, 25, 22, 0.88);
-    --accent: #D97706;
+    --gold: var(--accent);
     --accent-soft: rgba(217, 119, 6, 0.12);
     --accent-glow: rgba(217, 119, 6, 0.25);
     --text: #F5F1EC;
@@ -520,8 +520,8 @@ main {
 .topic-header-number {
     font-family: var(--font-mono);
     font-size: 0.8rem;
-    color: var(--gold);
-    letter-spacing: 3px;
+    color: var(--accent);
+    letter-spacing: 0.06em;
     margin-bottom: 12px;
 }
 
@@ -543,90 +543,74 @@ main {
     opacity: 1;
 }
 
-/* How-to-play strip — warm indie style */
+/* How-to — numbered lines, not cards */
 .howto-strip {
-    background: linear-gradient(135deg, rgba(139, 107, 174, 0.12), rgba(212, 165, 116, 0.08));
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 20px 24px;
-    margin-bottom: 22px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0 0 28px;
+    margin-bottom: 8px;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .howto-title {
-    font-family: var(--font-display);
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: var(--gold);
-    margin-bottom: 14px;
-    text-transform: uppercase;
+    font-family: var(--font-thai), var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    color: #F0A020;
+    margin-bottom: 12px;
+    text-transform: none;
 }
 
-html[lang="th"] .howto-title { font-family: var(--font-thai); letter-spacing: 0.5px; font-size: 1.05rem; }
+html[lang="th"] .howto-title { font-family: var(--font-thai); letter-spacing: 0; font-size: 1.05rem; }
 
 .howto-steps {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    gap: 14px;
-}
-
-.howto-step {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    background: rgba(26, 27, 36, 0.5);
-    border-radius: var(--radius-md);
-    padding: 14px 16px;
-}
-
-.howto-step-header {
-    display: flex;
-    align-items: center;
     gap: 10px;
 }
 
-.howto-step-title {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--text);
-}
-
-.howto-step-desc {
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin: 0;
-    padding-left: 40px;
+.howto-step {
+    display: grid;
+    grid-template-columns: 1.75rem 1fr;
+    gap: 8px;
+    align-items: start;
+    background: transparent;
+    border-radius: 0;
+    padding: 0;
 }
 
 .howto-num {
-    width: 30px;
-    height: 30px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--coral), var(--gold));
-    color: var(--bg-deep);
-    font-weight: 800;
+    width: auto;
+    height: auto;
+    border-radius: 0;
+    background: none;
+    color: #F0A020;
+    font-weight: 600;
     font-size: 1rem;
-    display: grid;
-    place-items: center;
+    font-family: var(--font-mono);
+    display: block;
+    padding-top: 2px;
 }
 
 .howto-text {
     font-size: 1.05rem;
-    font-weight: 500;
-    color: var(--text);
-    line-height: 1.55;
-    padding-top: 2px;
+    font-weight: 400;
+    color: #F5F1EC;
+    line-height: 1.6;
+    padding-top: 0;
 }
 
 /* Simulation container */
 .simulation-container {
-    background: var(--glass);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
+    background: #141210;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: 1px solid #3D3935;
+    border-radius: 0;
     padding: clamp(18px, 2.5vw, 30px);
     margin-bottom: 26px;
     position: relative;

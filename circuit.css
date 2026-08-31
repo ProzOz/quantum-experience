@@ -38,17 +38,17 @@
 }
 
 .circuit-header-number {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 0.78rem;
-  letter-spacing: 3px;
-  color: var(--circuit-gold);
+  letter-spacing: 0.06em;
+  color: var(--accent, #D97706);
   margin-bottom: 10px;
 }
 
 .circuit-header-title {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'IBM Plex Sans Thai', 'Sarabun', 'IBM Plex Sans', sans-serif;
   font-size: clamp(1.5rem, 3.5vw, 2.2rem);
-  font-weight: 700;
+  font-weight: 600;
   color: var(--circuit-text);
   margin-bottom: 12px;
 }

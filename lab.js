@@ -166,12 +166,14 @@ function buildLabHome() {
 
   page.innerHTML = `
   <div class="qx-home">
-    <div class="qx-hero-logos">
-      <img src="scius-buu-logo.png" alt="SCIUS BUU" class="qx-logo-scius">
-      <img src="buraphalogo.png" alt="Burapha University" class="qx-logo-bu">
+    <div class="qx-photo" role="img" aria-label="${lang === 'th' ? 'ห้องเรียน วมว. มหาวิทยาลัยบูรพา กลางคืน' : 'SCIUS BUU classroom at night'}">
+      <div class="qx-hero-logos">
+        <img src="scius-buu-logo.png" alt="SCIUS BUU" class="qx-logo-scius">
+        <img src="buraphalogo.png" alt="Burapha University" class="qx-logo-bu">
+      </div>
     </div>
 
-    <div class="qx-stage">
+    <div class="qx-read">
       <p class="qx-place">${LT('place')}</p>
       <h1 class="qx-guardian-title">${allDone ? LT('title_done') : LT('guardian_title')}</h1>
       <p class="qx-guardian-desc">${allDone ? LT('desc_done') : LT('guardian_desc')}</p>
@@ -186,27 +188,27 @@ function buildLabHome() {
         <span class="qx-door-line">${s1.tagline[lang]}</span>
         <span class="qx-door-cta">${s1Solved ? LT('replay_station') : LT('start_station1')}</span>
       </button>
-    </div>
 
-    <div class="qx-rest">
-      <p class="qx-rest-label">${LT('rest_label')}</p>
-      ${rest}
-    </div>
+      <div class="qx-rest">
+        <p class="qx-rest-label">${LT('rest_label')}</p>
+        ${rest}
+      </div>
 
-    <div class="qx-aside">
-      ${typeof CT === 'function' ? `
-      <button class="qx-extra" onclick="openCoop()" onpointerenter="play('hover')">
-        <span class="qx-extra-name">${LT('coop_home')}</span>
-        <span class="qx-extra-line">${CT('banner_desc')}</span>
-      </button>` : ''}
+      <div class="qx-aside">
+        ${typeof CT === 'function' ? `
+        <button class="qx-extra" onclick="openCoop()" onpointerenter="play('hover')">
+          <span class="qx-extra-name">${LT('coop_home')}</span>
+          <span class="qx-extra-line">${CT('banner_desc')}</span>
+        </button>` : ''}
 
-      <div class="qx-core${allDone ? ' unlocked' : ''}" id="corePanel"
-        ${allDone ? 'onclick="openQuantumCore()"' : ''}
-        ${allDone ? '' : 'style="cursor:default"'}>
-        <div class="qx-core-kicker">${LT('core_label')}</div>
-        <div class="qx-core-title">${LT('core_title')}</div>
-        <p class="qx-core-desc">${allDone ? LT('core_ok') : LT('core_bad')}</p>
-        ${allDone ? `<button class="qx-core-cta" onclick="event.stopPropagation();openQuantumCore()">${lang === 'th' ? 'เปิดแกนควอนตัม' : 'Open the core'}</button>` : ''}
+        <div class="qx-core${allDone ? ' unlocked' : ''}" id="corePanel"
+          ${allDone ? 'onclick="openQuantumCore()"' : ''}
+          ${allDone ? '' : 'style="cursor:default"'}>
+          <div class="qx-core-kicker">${LT('core_label')}</div>
+          <div class="qx-core-title">${LT('core_title')}</div>
+          <p class="qx-core-desc">${allDone ? LT('core_ok') : LT('core_bad')}</p>
+          ${allDone ? `<button class="qx-core-cta" onclick="event.stopPropagation();openQuantumCore()">${lang === 'th' ? 'เปิดแกนควอนตัม' : 'Open the core'}</button>` : ''}
+        </div>
       </div>
     </div>
   </div>`;
@@ -699,19 +701,18 @@ function renderGroverState() {
     </button>
 
     <div style="text-align:center;margin:28px 0 36px">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;letter-spacing:3px;color:var(--violet);margin-bottom:12px">
+      <div style="font-family:var(--font-mono);font-size:0.8rem;letter-spacing:0.06em;color:var(--accent);margin-bottom:12px">
         ${LT('core_label')}
       </div>
-      <h1 style="font-family:'Orbitron',sans-serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:800;
-                 background:linear-gradient(125deg,var(--violet),var(--cyan));
-                 -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+      <h1 style="font-family:'IBM Plex Sans Thai','Sarabun',var(--font-display);font-size:clamp(1.7rem,4vw,2.4rem);font-weight:600;
+                 color:#F5F1EC;
                  margin-bottom:14px">
         ${LT('core_title')}
       </h1>
-      <p style="font-size:1rem;color:var(--text-secondary);max-width:580px;margin:0 auto;line-height:1.8">
+      <p style="font-size:1rem;color:#E8DCC8;max-width:580px;margin:0 auto;line-height:1.8">
         ${gv(
-          'ควอนตัมคอมพิวเตอร์ค้นฐานข้อมูล 4 ไอเทมใน <strong style="color:var(--cyan)">1 คิวรี</strong> คอมพิวเตอร์ทั่วไปใช้ <strong style="color:var(--gold)">เฉลี่ย 2.5</strong> — เลือกไอเทมลับแล้วดูสองอัลกอริทึมแข่งกัน',
-          'A quantum computer searches a 4-item database in <strong style="color:var(--cyan)">1 query</strong>. A classical computer takes <strong style="color:var(--gold)">2.5 on average</strong>. Pick the hidden item and watch both algorithms race.'
+          'ควอนตัมคอมพิวเตอร์ค้นฐานข้อมูล 4 ไอเทมใน <strong style="color:#F5F1EC">1 คิวรี</strong> คอมพิวเตอร์ทั่วไปใช้ <strong style="color:#F0A020">เฉลี่ย 2.5</strong> — เลือกไอเทมลับแล้วดูสองอัลกอริทึมแข่งกัน',
+          'A quantum computer searches a 4-item database in <strong style="color:#F5F1EC">1 query</strong>. A classical computer takes <strong style="color:#F0A020">2.5 on average</strong>. Pick the hidden item and watch both algorithms race.'
         )}
       </p>
     </div>
@@ -758,8 +759,8 @@ function renderGroverState() {
     <div style="text-align:center;margin-top:40px;padding:28px;
                 border:1px solid var(--border-light, var(--line));border-radius:var(--radius-lg);
                 background:var(--bg-card);box-shadow:0 0 30px rgba(212,165,116,0.06)">
-      <div style="font-family:'Orbitron',sans-serif;font-size:0.72rem;letter-spacing:3px;
-                  color:var(--gold);margin-bottom:12px">${gv('บทสรุป', 'THE TAKEAWAY')}</div>
+      <div style="font-family:'IBM Plex Sans Thai','Sarabun',sans-serif;font-size:0.85rem;letter-spacing:0.04em;
+                  color:var(--accent);margin-bottom:12px">${gv('บทสรุป', 'THE TAKEAWAY')}</div>
       <p style="color:var(--text-secondary);max-width:620px;margin:0 auto;line-height:1.8;font-size:0.95rem">
         ${gv(
           'ทุกสถานีที่คุณซ่อม คือ<strong style="color:var(--text-primary)">เครื่องมือจริงของควอนตัมคอมพิวเตอร์</strong> และคุณเพิ่งใช้มันครบทุกชิ้น',
