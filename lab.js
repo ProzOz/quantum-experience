@@ -121,7 +121,7 @@ const LAB_I18N = {
   offline:       { th: 'ยังรอ', en: 'Waiting' },
   enter_station: { th: 'เข้าสถานี', en: 'Enter' },
   replay_station:{ th: 'เล่นซ้ำ', en: 'Replay' },
-  restored_t:    { th: 'สิ่งที่คุณเพิ่งทำ', en: 'What you just did' },
+  restored_t:    { th: 'สิ่งที่คุณได้เรียนรู้', en: 'What you learned' },
   restored_d:    { th: (n) => `${n} กลับมาแล้ว`, en: (n) => `${n} is back.` },
   btn_review:    { th: 'ดูการทดลองต่อ', en: 'Review the simulation' },
   btn_back_lab:  { th: 'กลับห้องแล็บ', en: 'Back to the lab' },
@@ -274,34 +274,45 @@ function injectPuzzleUI() {
 }
 
 function puzzleSuccessHTML(s) {
+  const key = TOPIC_META[s.id].key;
+  const img = typeof STATION_THEORY !== 'undefined' && STATION_THEORY[s.id];
+  const caption = img ? t(key + '_caption') : '';
+  const cta = s.id < 7
+    ? `<button class="puzzle-btn puzzle-btn-primary" onclick="advanceAfterPuzzle(${s.id})">${t('theory_next')} →</button>`
+    : `<button class="puzzle-btn puzzle-btn-primary" onclick="advanceAfterPuzzle(${s.id})">${LT('btn_back_lab')}</button>`;
   return `
     <div class="puzzle-inner summary-screen">
       <div class="summary-title">${LT('restored_t')}</div>
-      <div class="summary-station">${s.name[lang]}</div>
-      
+      <div class="summary-station">${stationShortName(s)}</div>
       <div class="summary-learned">
-        <div class="summary-learned-title">${t('theory_what_you_did')}</div>
-        <p>${t(TOPIC_META[s.id].key + '_what_you_did')}</p>
+        <p>${t(key + '_what_you_did')}</p>
+        <p>${t(key + '_theory')}</p>
       </div>
-
-      ${typeof STATION_THEORY !== 'undefined' && STATION_THEORY[s.id] ? `<div class="summary-visual"><img class="summary-theory-img" src="${STATION_THEORY[s.id]}" alt="${s.name[lang]}" loading="lazy"></div>` : ''}
-
-      <div class="summary-learned">
-        <div class="summary-learned-title">${t('theory_the_physics')}</div>
-        <p>${t(TOPIC_META[s.id].key + '_theory')}</p>
-      </div>
-
-      <div class="summary-actions">
-        <button class="puzzle-btn puzzle-btn-secondary" onclick="dismissPuzzle(${s.id})">${LT('btn_review')}</button>
-        ${s.id < 7 ? `<button class="puzzle-btn puzzle-btn-primary" onclick="dismissPuzzle(${s.id});setTimeout(()=>openTopic(${s.id + 1}),400)">${t('theory_next')}: ${STATIONS[s.id] ? stationShortName(STATIONS[s.id]) : 'Next'}</button>` : ''}
-        <button class="puzzle-btn puzzle-btn-secondary" onclick="goHome()">${LT('btn_back_lab')}</button>
-      </div>
+      ${img ? `<figure class="summary-visual">
+        <img class="summary-theory-img" src="${img}" alt="${s.name[lang]}" loading="lazy">
+        ${caption ? `<figcaption class="summary-caption">${caption}</figcaption>` : ''}
+      </figure>` : ''}
+      <div class="summary-actions">${cta}</div>
     </div>`;
 }
 
+function advanceAfterPuzzle(id) {
+  dismissPuzzle(id);
+  if (id === 7) { goHome(); return; }
+  const go = () => {
+    if (id === 6 && typeof openCircuitPuzzle === 'function') openCircuitPuzzle();
+    else if (typeof openTopic === 'function') openTopic(id + 1);
+  };
+  setTimeout(go, 200);
+}
+
 function showPuzzleSuccess(id) {
-  const overlay = document.getElementById('puzzleOverlay' + id);
-  if (!overlay) return;
+  let overlay = document.getElementById('puzzleOverlay' + id);
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'puzzleOverlay' + id;
+  }
+  document.body.appendChild(overlay);
   const s = STATIONS.find(x => x.id === id);
   overlay.className = 'puzzle-overlay puzzle-overlay-success';
   overlay.innerHTML = puzzleSuccessHTML(s);
@@ -312,7 +323,6 @@ function showPuzzleSuccess(id) {
   // Sync to app.js progress state
   if (typeof progress !== 'undefined') { progress[id] = true; localStorage.setItem('qx_progress', JSON.stringify(progress)); }
   if (typeof renderProgress === 'function') renderProgress();
-  if (typeof toast === 'function') toast(t('toast_done'));
   markComplete(id);
   updateLabProgress();
 }

@@ -545,51 +545,8 @@ function runCircuit7() {
 }
 
 function showCircuitSuccess() {
-  // Pulse the target bar
   document.querySelectorAll('.prob-bar').forEach(bar => bar.classList.add('success-pulse'));
-
-  // Trigger confetti
-  if (typeof confetti === 'function') confetti();
-
-  // Show success overlay
-  const page = document.getElementById('circuitPage');
-  if (!page) return;
-
-  const overlay = document.createElement('div');
-  overlay.id = 'circuitSuccessOverlay';
-  overlay.style.cssText = `
-    position:fixed;inset:0;background:#0A0906;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    z-index:200;text-align:center;gap:16px;padding:24px;
-  `;
-  overlay.innerHTML = `
-    <div style="font-family:'IBM Plex Sans Thai','Sarabun',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:600;color:#F5F1EC">
-      ${c7('สร้างวงจรสำเร็จ', 'Circuit complete')}
-    </div>
-    <div style="color:#E8DCC8;font-size:1.05rem;max-width:480px;line-height:1.7;font-family:'IBM Plex Sans Thai','Sarabun',sans-serif">
-      ${c7(
-        `สถานะ |2⟩ มีความน่าจะเป็น <strong style="color:#F0A020">${(CIRCUIT.probs[TARGET_STATE] * 100).toFixed(1)}%</strong> — Grover เร็วกว่าการค้นหาแบบทั่วไป`,
-        `The |2⟩ state is now at <strong style="color:#F0A020">${(CIRCUIT.probs[TARGET_STATE] * 100).toFixed(1)}%</strong> — Grover’s quadratic speedup over classical search.`
-      )}
-    </div>
-    <div style="color:#E8DCC8;font-size:0.95rem;margin-top:4px;font-family:'IBM Plex Sans Thai','Sarabun',sans-serif">
-      ${c7('ปลดล็อกแกนควอนตัมแล้ว', 'The Quantum Core is unlocked.')}
-    </div>
-    <button onclick="dismissCircuitSuccess()" style="
-      margin-top:16px;padding:12px 24px;background:#D97706;
-      color:#1A1208;font-family:'IBM Plex Sans Thai','Sarabun',sans-serif;font-size:1rem;font-weight:600;
-      letter-spacing:0;border:none;border-radius:0;cursor:pointer;">
-      ${c7('กลับห้องแล็บ', 'Back to the lab')}
-    </button>
-  `;
-  document.body.appendChild(overlay);
-
-  // Mark station 7 complete
-  PUZZLE[7].solved = true;
-  if (typeof progress !== 'undefined') { progress[7] = true; localStorage.setItem('qx_progress', JSON.stringify(progress)); }
-  if (typeof markComplete === 'function') markComplete(7);
-  if (typeof updateLabProgress === 'function') updateLabProgress();
-  if (typeof renderProgress === 'function') renderProgress();
+  if (typeof showPuzzleSuccess === 'function') showPuzzleSuccess(7);
 }
 
 function dismissCircuitSuccess() {

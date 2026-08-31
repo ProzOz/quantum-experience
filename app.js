@@ -172,38 +172,36 @@ const I18N = {
   lab_classical_q:    { th: "คิวรี", en: "queries" },
   lab_select_target:  { th: "เลือกไอเทมในฐานข้อมูลเพื่อกำหนดเป้าหมาย แล้วรันเซิร์ช", en: "Select a database item to mark as the target, then run the search." },
 
-  // Theory recap labels
-  theory_what_you_did: { th: "สิ่งที่คุณทำ", en: "What you did" },
-  theory_the_physics:  { th: "ทฤษฎีที่อยู่เบื้องหลัง", en: "The physics behind it" },
-  theory_next:         { th: "ต่อไป", en: "Next up" },
+  // Completion recap — two short sentences, no lecture
+  theory_what_you_did: { th: "สิ่งที่คุณได้เรียนรู้", en: "What you learned" },
+  theory_next:         { th: "ต่อไป", en: "Next" },
 
-  // Station 1 theory
-  t1_what_you_did: { th: "คุณยิงอนุภาคทีละตัวผ่านช่องคู่ แล้วปรับระยะช่องกับพลังงานจนรูปแบบที่เกิดขึ้นตรงกับเป้าหมาย", en: "You fired particles one by one through a double slit, then tuned the slit separation and energy until the pattern matched the target." },
-  t1_theory: { th: "แม้ยิงทีละอนุภาค จุดตกกลับรวมเป็นแถบแทรกสอด เหมือนคลื่นสองลูกจากสองช่องมาเสริมและหักล้างกัน นี่คือหลักฐานว่าอนุภาคมีธรรมชาติเป็นคลื่นด้วย นักฟิสิกส์เรียกมันว่า \"ความเป็นคู่ของคลื่น-อนุภาค\" เป็นรากฐานของกลศาสตร์ควอนตัมทั้งหมด", en: "Even fired one by one, the hits build interference bands — as if a wave from each slit adds and cancels. That proves particles have a wave nature too. Physicists call this \"wave-particle duality,\" the foundation of all quantum mechanics." },
+  t1_what_you_did: { th: "คุณยิงอนุภาคทีละตัว จนลายแถบบนจอตรงกับเป้าหมาย", en: "You fired particles one by one until the screen pattern matched." },
+  t1_theory: { th: "จุดตกเป็นแถบแทรกสอด เพราะอนุภาคมีธรรมชาติเป็นคลื่นด้วย", en: "The hits form interference bands because particles also act as waves." },
+  t1_caption: { th: "รูปนี้บอกว่าอิเล็กตรอนยิงทีละตัว แต่จุดตกกลับรวมเป็นลายแถบของคลื่น", en: "This picture says electrons arrive one by one, yet the hits build a wave pattern." },
 
-  // Station 2 theory
-  t2_what_you_did: { th: "คุณตั้งคิวบิตให้อยู่ในสถานะซ้อนทับ 50:50 (θ = 90°) แล้ววัดผลหลายครั้ง ดูว่าผลสุ่มออกมาครึ่ง–ครึ่งระหว่าง 0 กับ 1", en: "You set a qubit into a 50:50 superposition (θ = 90°), then measured many times to see it randomly collapse to 0 or 1, averaging to half and half." },
-  t2_theory: { th: "ก่อนถูกวัด คิวบิตอยู่ในสถานะซ้อนทับของ 0 และ 1 พร้อมกัน แต่พอวัดมันจะยุบลงเหลือเพียงคำตอบเดียว ความสุ่มนี้ไม่ได้เกิดจากความไม่รู้ของเรา แต่เป็นธรรมชาติจริง ๆ ของควอนตัมตามที่กลศาสตร์ควอนตัมทำนายไว้ การซ้อนทับนี้คือพื้นฐานของการคำนวณควอนตัม", en: "Before measurement, the qubit genuinely exists as a superposition of 0 and 1 at once. Only when measured does it collapse to a single answer. This randomness isn't from our ignorance — it's the true quantum nature that mechanics predicts. Superposition is the foundation of quantum computing." },
+  t2_what_you_did: { th: "คุณตั้งคิวบิตที่ 50:50 แล้ววัดออกมาสุ่มครึ่ง ๆ", en: "You set the qubit to 50:50 and measured a random half-and-half." },
+  t2_theory: { th: "ก่อนวัด มันเป็นทั้ง 0 และ 1 พร้อมกัน", en: "Before measurement it is 0 and 1 at the same time." },
+  t2_caption: { th: "รูปนี้คือลูกบอล Bloch — ลูกศรอยู่ระหว่าง 0 กับ 1 จนกว่าจะวัด", en: "This is the Bloch sphere — the arrow sits between 0 and 1 until you measure." },
 
-  // Station 3 theory
-  t3_what_you_did: { th: "คุณบีบความกว้างของกลุ่มคลื่นให้แคบที่สุดเท่าที่เป็นไปได้ โดยที่ผลคูณ Δx·Δp ยังต่ำกว่าขีดจำกัดของธรรมชาติ", en: "You squeezed the wave packet as narrow as possible while keeping the product Δx·Δp below nature's limit." },
-  t3_theory: { th: "หลักความไม่แน่นอนของไฮเซนเบิร์กบอกว่า ยิ่งรู้ตำแหน่งแม่นเท่าไร ก็ยิ่งไม่รู้โมเมนตัม และในทางกลับกัน ผลคูณ Δx·Δp ≥ ħ/2 เป็นขีดจำกัดของธรรมชาติ ไม่มีเทคโนโลยีไหนหลบเลี่ยงได้ นี่ไม่ใช่ข้อจำกัดของเครื่องมือวัด แต่เป็นธรรมชาติควอนตัมจริง ๆ", en: "Heisenberg's uncertainty principle says the more you know position, the less you know momentum — and vice versa. The product Δx·Δp ≥ ħ/2 is nature's floor. No technology can dodge it. This isn't a limit of instruments but of quantum reality itself." },
+  t3_what_you_did: { th: "คุณบีบกลุ่มคลื่นให้แคบลง จนรู้ตำแหน่งชัดขึ้น", en: "You squeezed the wave packet so position became sharper." },
+  t3_theory: { th: "ยิ่งรู้ตำแหน่งแม่น โมเมนตัมยิ่งพร่า — นี่คือขีดของธรรมชาติ", en: "Sharper position means blurrier momentum — that is nature's limit." },
+  t3_caption: { th: "รูปนี้บอกว่ายิ่งบีบตำแหน่งให้แคบ โมเมนตัมยิ่งพร่า", en: "This picture says a narrow position spike makes momentum spread out." },
 
-  // Station 4 theory (Qubit Runner)
-  t4_what_you_did: { th: "คุณวิ่งหนีกำแพงในเกม Qubit Runner กด SPACE เพื่อแยกตัวเป็นซ้อนทับและทะลุกำแพงที่ควรข้ามไม่ได้", en: "You ran Qubit Runner, holding SPACE to split into superposition and tunnel through walls you shouldn't be able to cross." },
-  t4_theory: { th: "การทะลุอุโมงค์ควอนตัมคือปรากฏการณ์ที่อนุภาคสามารถผ่านกำแพงพลังงานที่ตามฟิสิกส์คลาสสิกข้ามไม่ได้ โอกาสทะลุลดลงแบบทวีคูณตามความสูงและความหนาของกำแพง ปรากฏการณ์นี้ทำให้ดวงอาทิตย์สามารถหลอมนิวเคลียสได้ และเป็นพื้นฐานของอุปกรณ์อิเล็กทรอนิกส์สมัยใหม่", en: "Quantum tunneling lets particles slip through energy barriers they classically cannot cross. The odds fall exponentially with barrier height and width. This phenomenon powers the sun's fusion and underlies modern electronics." },
+  t4_what_you_did: { th: "คุณแยกตัวเป็นซ้อนทับ แล้วทะลุกำแพงที่ควรข้ามไม่ได้", en: "You split into superposition and passed a wall you should not cross." },
+  t4_theory: { th: "ควอนตัมให้อนุภาคเล็ดลอดกำแพงพลังงานได้จริง", en: "Quantum mechanics really lets a particle slip through an energy wall." },
 
-  // Station 5 theory
-  t5_what_you_did: { th: "คุณสร้างคู่อนุภาคพัวพัน ตั้งเครื่องวัดทั้งสองให้เท่ากัน แล้ววัด 40 ครั้ง พบว่าผลตรงกันเกิน 80% ทั้งที่แต่ละครั้งสุ่ม", en: "You made entangled pairs, set both detectors to the same angle, ran 40 trials, and saw matches above 80% — even though each result was random." },
-  t5_theory: { th: "การพัวพันควอนตัมคือปรากฏการณ์ที่อนุภาคสองตัวแบ่งปันสถานะเดียวกัน แม้จะอยู่ห่างกันคนละมุมโลก เมื่อวัดหนึ่ง อีกตัวจะทราบทันที ความสัมพันธ์นี้ละเมิดขอบเขตคลาสสิก (ทฤษฎีบทเบลล์) พิสูจน์ว่าธรรมชาติไม่ใช่ \"ตัวแปรท้องถิ่นที่ซ่อนอยู่\" แต่เป็นควอนตัมจริง ๆ", en: "Quantum entanglement means two particles share one state, no matter the distance. Measure one and the other \"knows\" instantly. This correlation violates classical bounds (Bell's theorem), proving nature isn't \"local hidden variables\" but genuinely quantum." },
+  t5_what_you_did: { th: "คุณวัดคู่พัวพัน 40 ครั้ง ผลตรงกันเกินที่คลาสสิกยอม", en: "You measured 40 entangled pairs and they matched more than classical physics allows." },
+  t5_theory: { th: "สองอนุภาคแบ่งสถานะเดียวกัน แม้ห่างกันแค่ไหน", en: "Two particles share one state, no matter how far apart." },
+  t5_caption: { th: "รูปนี้บอกว่าวัดอนุภาคหนึ่ง อีกตัวจะทราบทันที แม้คนละที่", en: "This picture says measuring one particle fixes the other, even at a distance." },
 
-  // Station 6 theory
-  t6_what_you_did: { th: "คุณเปิดกล่องแมว 5 ครั้ง แต่ละครั้งสุ่มออกมาเป็นหรือตาย สังเกตว่าอัตราส่วนเข้าใกล้ที่ทฤษฎีทำนาย", en: "You opened Schrödinger's box 5 times, each randomly alive or dead, and watched the ratio approach what theory predicts." },
-  t6_theory: { th: "แมวของชเรอดิงเงอร์คือการทดลองความคิดที่แสดงว่า ก่อนถูกสังเกต ระบบควอนตัมอยู่ในสถานะซ้อนทับของทุกผลลัพธ์ที่เป็นไปได้พร้อมกัน การสังเกต (การวัด) ทำให้สถานะยุบลงเหลือเพียงคำตอบเดียว นี่คือ \"ปัญหาการวัด\" หัวใจของการตีความกลศาสตร์ควอนตัม", en: "Schrödinger's cat is a thought experiment showing that before observation, a quantum system is in a superposition of all outcomes. Observation (measurement) collapses it to one. This is the \"measurement problem,\" the heart of quantum interpretation." },
+  t6_what_you_did: { th: "คุณเปิดกล่องห้าครั้ง แต่ละครั้งสุ่มเป็นหรือตาย", en: "You opened the box five times; each time was randomly alive or dead." },
+  t6_theory: { th: "ก่อนเปิด แมวอยู่ในทั้งสองสถานะพร้อมกัน", en: "Before you look, the cat is in both states at once." },
+  t6_caption: { th: "รูปนี้บอกว่าก่อนเปิดกล่อง แมวเป็นทั้งเป็นและตายพร้อมกัน", en: "This picture says that before the box opens, the cat is alive and dead together." },
 
-  // Station 7 theory (Circuit Puzzle)
-  t7_what_you_did: { th: "คุณประกอบวงจร Grover โดยวาง H บนทุกคิวบิตเพื่อสร้างซ้อนทับ แล้วใส่ Oracle + Diffusion เพื่อขยายแอมพลิจูดของ |2⟩ ให้สูงกว่า 75%", en: "You built Grover's circuit by placing H on all qubits to create superposition, then Oracle + Diffusion to amplify |2⟩ above 75%." },
-  t7_theory: { th: "อัลกอริทึม Grover คือวิธีค้นหาฐานข้อมูลแบบควอนตัมที่เร็วกว่าคลาสสิก สำหรับฐานข้อมูล N รายการ คลาสสิกต้องตรวจเฉลี่ย N/2 รายการ แต่ Grover ใช้แค่ √N รายการ นี่คือ \"ความได้เปรียบของควอนตัม\" — พิสูจน์แล้วว่าควอนตัมคอมพิวเตอร์เร็วกว่าจริง", en: "Grover's algorithm is a quantum database search faster than classical. For N items, classical takes N/2 on average; Grover takes just √N. This is \"quantum advantage\" — proven that quantum computers are genuinely faster." },
+  t7_what_you_did: { th: "คุณประกอบวงจร Grover จน |2⟩ สูงกว่า 75%", en: "You built Grover's circuit until |2⟩ rose above 75%." },
+  t7_theory: { th: "การค้นควอนตัมใช้ประมาณ √N ครั้ง ไม่ใช่ครึ่งฐานข้อมูล", en: "Quantum search takes about √N steps, not half the database." },
+  t7_caption: { th: "รูปนี้คือวงจร Grover — H สร้างซ้อนทับ Oracle ทำเครื่องหมาย แล้ว Diffusion ขยายคำตอบ", en: "This is Grover's circuit — H for superposition, Oracle to mark, Diffusion to amplify." },
 
   // Control labels
   ctl_slit_sep:  { th: "ระยะห่างช่อง", en: "Slit separation" },
@@ -559,6 +557,9 @@ function goHome() {
   stopContinuous();
   stopAnimations();
   if (typeof QR !== 'undefined' && QR.raf) cancelAnimationFrame(QR.raf);
+  document.querySelectorAll('.puzzle-overlay').forEach(el => el.classList.add('hidden'));
+  const circuitOverlay = document.getElementById('circuitSuccessOverlay');
+  if (circuitOverlay) circuitOverlay.remove();
   // Bring the mascot back if a page (e.g. co-op) hid it
   const ball = document.getElementById('ownerSpaceball');
   if (ball) ball.style.display = '';
@@ -829,6 +830,7 @@ const STATION_THEORY = {
   3: 'images/station3-theory.png?v=20',
   5: 'images/station5-theory.png?v=20',
   6: 'images/station6-theory.png?v=20',
+  7: 'images/station7-theory.png?v=20',
 };
 
 function buildTopics() {
