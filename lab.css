@@ -676,31 +676,31 @@ main {
 
 /* Station-specific illustration backgrounds */
 .station-card[data-station="1"]::before {
-    background-image: url('https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_100048_8000a702-38cd-441e-96a2-18a6c376b438.png');
+    background-image: url('images/station1-bg.jpg?v=17');
 }
 
 .station-card[data-station="2"]::before {
-    background-image: url('https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_100657_0a58bcc9-90c4-4837-b784-522841f7b96c.png');
+    background-image: url('images/station2-bg.jpg?v=17');
 }
 
 .station-card[data-station="3"]::before {
-    background-image: url('https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_100946_a91231de-864a-4ddd-9011-b8a28f099d96.png');
+    background-image: url('images/station3-bg.jpg?v=17');
 }
 
 .station-card[data-station="4"]::before {
-    background-image: url('https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_101232_7d1b42cf-500c-4425-993f-1102c0f2c19c.png');
+    background-image: url('images/station4-bg.jpg?v=17');
 }
 
 .station-card[data-station="5"]::before {
-    background-image: url('https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_101532_1c7db88b-667b-4cd9-acad-c5c22a16e97d.png');
+    background-image: url('images/station5-bg.jpg?v=17');
 }
 
 .station-card[data-station="6"]::before {
-    background-image: url('https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_101836_1eb4f70c-8f7e-4f3e-a029-fab45b072898.png');
+    background-image: url('images/station6-bg.jpg?v=17');
 }
 
 .station-card[data-station="7"]::before {
-    background-image: url('https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_102133_8bcbef58-d72b-414d-bba0-cf960dde1255.png');
+    background-image: url('images/station7-bg.jpg?v=17');
 }
 
 /* Warm gradient border effect */
@@ -887,7 +887,7 @@ main {
     transform: translateY(-50%);
     width: 250px;
     height: 250px;
-    background-image: url('https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_100242_f63c22ab-d800-4a9a-b8fc-cbb262bd39e8.png');
+    background-image: url('images/quantum-core-poster.jpg?v=17');
     background-size: contain;
     background-repeat: no-repeat;
     opacity: 0.15;

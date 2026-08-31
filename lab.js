@@ -732,7 +732,7 @@ function renderGroverState() {
 
     <div class="station-video-wrap" style="max-width:900px;margin:0 auto 28px">
       <div class="station-video-label">${gv('🎬 แกนควอนตัมออนไลน์', '🎬 QUANTUM CORE ONLINE')}</div>
-      <video class="station-video" src="https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_104333_c1ccbfff-2a9e-4da2-bbc1-1ec71bd03977.mp4" controls playsinline preload="metadata" poster="https://d8j0ntlcm91z4.cloudfront.net/user_3GoMLVnG8OtCKYFji8KiOMERBWu/hf_20260722_100242_f63c22ab-d800-4a9a-b8fc-cbb262bd39e8.png"></video>
+      <video class="station-video" src="videos/quantum-core.mp4?v=17" controls playsinline preload="metadata" poster="images/quantum-core-poster.jpg?v=17"></video>
     </div>
 
     <div class="core-phase">
