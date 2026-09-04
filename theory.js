@@ -8,11 +8,22 @@ function theoryBriefHTML(key) {
   const titleKey = key + '_brief_title';
   const textKey = key + '_brief';
   if (typeof I18N === 'undefined' || !I18N[titleKey] || !I18N[textKey]) return '';
+  const parts = t(textKey).split(/\n\n+/);
+  const paras = parts.map((p, i) =>
+    `<p class="brief-text" data-i18n-para="${textKey}" data-i18n-index="${i}">${p}</p>`
+  ).join('');
   return `
     <div class="pre-play-brief">
       <h3 class="brief-title" data-i18n="${titleKey}">${t(titleKey)}</h3>
-      <p class="brief-text" data-i18n="${textKey}">${t(textKey)}</p>
+      ${paras}
     </div>`;
+}
+
+function theoryParasHTML(key) {
+  if (typeof I18N === 'undefined' || !I18N[key]) return '';
+  return t(key).split(/\n\n+/).map((p, i) =>
+    `<p class="brief-text" data-i18n-para="${key}" data-i18n-index="${i}">${p}</p>`
+  ).join('');
 }
 
 function theoryFigureHTML(id) {

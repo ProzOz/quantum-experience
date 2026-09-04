@@ -281,14 +281,14 @@ function puzzleSuccessHTML(s) {
       
       <div class="summary-learned">
         <div class="summary-learned-title" data-i18n="theory_what_you_did">${t('theory_what_you_did')}</div>
-        <p class="brief-text" data-i18n="${TOPIC_META[s.id].key}_what_you_did">${t(TOPIC_META[s.id].key + '_what_you_did')}</p>
+        ${typeof theoryParasHTML === 'function' ? theoryParasHTML(TOPIC_META[s.id].key + '_what_you_did') : `<p>${t(TOPIC_META[s.id].key + '_what_you_did')}</p>`}
       </div>
 
       ${typeof theoryFigureHTML === 'function' ? `<div class="summary-visual">${theoryFigureHTML(s.id)}</div>` : ''}
 
       <div class="summary-learned">
         <div class="summary-learned-title" data-i18n="theory_the_physics">${t('theory_the_physics')}</div>
-        <p class="brief-text" data-i18n="${TOPIC_META[s.id].key}_theory">${t(TOPIC_META[s.id].key + '_theory')}</p>
+        ${typeof theoryParasHTML === 'function' ? theoryParasHTML(TOPIC_META[s.id].key + '_theory') : `<p>${t(TOPIC_META[s.id].key + '_theory')}</p>`}
       </div>
 
       <div class="summary-actions">

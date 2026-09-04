@@ -527,13 +527,17 @@ main {
     font-family: var(--font-thai), var(--font-body);
     font-size: 1.05rem;
     color: var(--text-secondary);
-    line-height: 1.9;
+    line-height: 1.95;
     text-align: justify;
     text-justify: inter-character;
-    white-space: pre-line;
     overflow-wrap: break-word;
     word-break: normal;
     text-wrap: pretty;
+    margin: 0 0 0.9em;
+}
+
+.brief-text:last-child {
+    margin-bottom: 0;
 }
 
 html[lang="en"] .brief-title,

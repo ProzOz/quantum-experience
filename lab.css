@@ -1182,7 +1182,6 @@ html[lang="en"] .theory-art {
     line-height: 1.85;
     text-align: justify;
     text-justify: inter-character;
-    white-space: pre-line;
     overflow-wrap: break-word;
     color: #3F2A0A;
 }

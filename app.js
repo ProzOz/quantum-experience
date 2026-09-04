@@ -537,6 +537,18 @@ function toggleLanguage() {
   toast(t('toast_lang'));
 }
 
+function applyI18nTree(root) {
+  const scope = root || document;
+  scope.querySelectorAll('[data-i18n]').forEach(el => {
+    el.textContent = t(el.getAttribute('data-i18n'));
+  });
+  scope.querySelectorAll('[data-i18n-para]').forEach(el => {
+    const parts = t(el.getAttribute('data-i18n-para')).split(/\n\n+/);
+    const i = parseInt(el.getAttribute('data-i18n-index') || '0', 10);
+    if (parts[i] != null) el.textContent = parts[i];
+  });
+}
+
 function applyLanguage() {
   document.documentElement.lang = lang;
 
@@ -561,9 +573,7 @@ function applyLanguage() {
   }
   if (typeof updateLabGoalStrips === 'function') updateLabGoalStrips();
 
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    el.textContent = t(el.getAttribute('data-i18n'));
-  });
+  applyI18nTree(document);
   document.getElementById('langBtn').querySelector('span').textContent = lang === 'th' ? 'EN' : 'TH';
   // header title
   if (currentTopic) {
@@ -927,7 +937,7 @@ function buildTopics() {
             <h1 class="topic-header-title" data-i18n="${m.key}_title"></h1>
             <p class="topic-header-desc" data-i18n="${m.key}_desc"></p>
           </div>
-          ${i !== 4 && typeof theoryBlockHTML === 'function' ? theoryBlockHTML(i) : ''}
+          ${i !== 4 && typeof theoryBriefHTML === 'function' ? theoryBriefHTML(m.key) : ''}
           <div class="howto-strip">
             <div class="howto-title" data-i18n="howto_title"></div>
             <div class="howto-steps">
@@ -936,6 +946,7 @@ function buildTopics() {
               <div class="howto-step"><span class="howto-num">3</span><span class="howto-text" data-i18n="${m.key}_how3"></span></div>
             </div>
           </div>
+          ${i !== 4 && typeof theoryFigureHTML === 'function' ? theoryFigureHTML(i) : ''}
           <div class="simulation-container">
             <div class="sim-canvas-wrap">
               <canvas id="${cfg.canvas}"></canvas>
