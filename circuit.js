@@ -326,10 +326,7 @@ function buildCircuitHTML() {
         </div>
       </div>
 
-      <div class="theory-diagram-wrap">
-        <div class="theory-diagram-label">${c7('รูปประกอบทฤษฎี', 'Theory diagram')}</div>
-        <img class="theory-diagram-img" src="images/station7-theory.png?v=20" alt="${c7('วงจรควอนตัม Grover', 'Grover Quantum Circuit')}" loading="lazy">
-      </div>
+      ${typeof theoryBlockHTML === 'function' ? theoryBlockHTML(7) : ''}
 
       ${resultHTML}
 

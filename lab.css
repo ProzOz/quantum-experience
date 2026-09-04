@@ -1059,24 +1059,30 @@ html[lang="th"] .qx-rest-name {
     text-transform: uppercase;
 }
 
-/* ── THEORY DIAGRAM — chalkboard / print ─────────────── */
-.theory-diagram-wrap {
+/* ── THEORY FIGURE — chalkboard ink on paper, bilingual ─ */
+.theory-diagram-wrap,
+.theory-figure {
     background: #EDE6D9;
     border: 1px solid #C4B5A0;
     border-radius: 0;
-    padding: var(--space-lg);
-    margin-bottom: var(--space-lg);
+    padding: 18px 20px 16px;
+    margin: 0 auto 32px;
+    max-width: 800px;
     box-shadow: none;
 }
 
 .theory-diagram-label {
     font-family: var(--font-thai), var(--font-body);
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     font-weight: 600;
     letter-spacing: 0;
-    color: #3F2A0A;
-    margin-bottom: var(--space-md);
+    color: #6B4A12;
+    margin-bottom: 12px;
     text-transform: none;
+}
+
+html[lang="en"] .theory-diagram-label {
+    font-family: var(--font-body);
 }
 
 .theory-diagram-img {
@@ -1086,7 +1092,155 @@ html[lang="th"] .qx-rest-name {
     margin: 0 auto;
     border-radius: 0;
     background: #EDE6D9;
-    filter: grayscale(0.45) sepia(0.55) saturate(0.55) contrast(1.08);
+}
+
+.theory-art {
+    color: #3F2A0A;
+    font-family: var(--font-thai), var(--font-body);
+}
+
+html[lang="en"] .theory-art {
+    font-family: var(--font-body);
+}
+
+.theory-art-title {
+    font-size: 1.2rem;
+    font-weight: 650;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 1.4;
+    margin: 0 0 4px;
+    color: #3F2A0A;
+}
+
+.theory-art-sub {
+    text-align: center;
+    font-size: 0.95rem;
+    color: #6B4A12;
+    margin: 0 0 14px;
+    line-height: 1.55;
+}
+
+.theory-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 10px;
+    overflow: visible;
+}
+
+.theory-svg-narrow {
+    max-width: 320px;
+}
+
+.theory-art-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 18px;
+    margin: 6px 0 2px;
+}
+
+.theory-art-legend-sub {
+    margin-top: 4px;
+}
+
+.theory-art-tag {
+    font-size: 0.88rem;
+    color: #3F2A0A;
+    line-height: 1.45;
+    text-align: center;
+}
+
+.theory-art-kicker {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #6B4A12;
+    text-align: center;
+    margin-bottom: 6px;
+    line-height: 1.45;
+}
+
+.theory-art-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 20px;
+    align-items: end;
+}
+
+.theory-art-eq {
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 1.15rem;
+    color: #B45309;
+    margin: 8px 0 6px;
+}
+
+.theory-art-caption {
+    margin: 12px 4px 0;
+    font-size: 0.98rem;
+    line-height: 1.85;
+    text-align: justify;
+    text-justify: inter-character;
+    white-space: pre-line;
+    overflow-wrap: break-word;
+    color: #3F2A0A;
+}
+
+html[lang="en"] .theory-art-caption {
+    text-justify: auto;
+    line-height: 1.7;
+}
+
+.theory-art-bars {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 8px;
+    height: 72px;
+    margin: 4px 0 10px;
+}
+
+.theory-art-bars span {
+    width: 18px;
+    background: #C4B5A0;
+    display: block;
+}
+
+.theory-art-bars span.is-target {
+    background: #B45309;
+}
+
+.game-phys-title {
+    font-family: var(--font-thai), var(--font-body);
+    font-size: 0.95rem;
+    color: var(--accent);
+    margin-bottom: 6px;
+}
+
+.game-phys-body {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    text-align: justify;
+    text-justify: inter-character;
+}
+
+html[lang="en"] .game-phys-title,
+html[lang="en"] .game-phys-body {
+    font-family: var(--font-body);
+    text-justify: auto;
+}
+
+@media (max-width: 640px) {
+    .theory-art-split {
+        grid-template-columns: 1fr;
+    }
+    .brief-text,
+    .theory-art-caption {
+        text-align: left;
+        text-justify: auto;
+    }
 }
 
 .station-video {
@@ -1540,8 +1694,10 @@ footer {
 
 .summary-visual {
     margin-bottom: 20px;
-    border-radius: var(--radius-md);
-    overflow: hidden;
+}
+
+.summary-visual .theory-figure {
+    margin-bottom: 0;
 }
 
 .summary-theory-img {
