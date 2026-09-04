@@ -528,8 +528,7 @@ main {
     font-size: 1.05rem;
     color: var(--text-secondary);
     line-height: 1.95;
-    text-align: justify;
-    text-justify: inter-character;
+    text-align: left;
     overflow-wrap: break-word;
     word-break: normal;
     text-wrap: pretty;
@@ -546,7 +545,6 @@ html[lang="en"] .brief-text {
 }
 
 html[lang="en"] .brief-text {
-    text-justify: auto;
     line-height: 1.75;
 }
 

@@ -1180,14 +1180,15 @@ html[lang="en"] .theory-art {
     margin: 12px 4px 0;
     font-size: 0.98rem;
     line-height: 1.85;
-    text-align: justify;
-    text-justify: inter-character;
+    text-align: center;
     overflow-wrap: break-word;
     color: #3F2A0A;
+    max-width: 40rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 html[lang="en"] .theory-art-caption {
-    text-justify: auto;
     line-height: 1.7;
 }
 
@@ -1221,14 +1222,12 @@ html[lang="en"] .theory-art-caption {
     font-size: 1rem;
     color: var(--text-secondary);
     line-height: 1.75;
-    text-align: justify;
-    text-justify: inter-character;
+    text-align: left;
 }
 
 html[lang="en"] .game-phys-title,
 html[lang="en"] .game-phys-body {
     font-family: var(--font-body);
-    text-justify: auto;
 }
 
 @media (max-width: 640px) {
@@ -1238,7 +1237,6 @@ html[lang="en"] .game-phys-body {
     .brief-text,
     .theory-art-caption {
         text-align: left;
-        text-justify: auto;
     }
 }
 
