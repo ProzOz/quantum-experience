@@ -217,7 +217,9 @@ function renderCircuit() {
   if (!page) return;
   page.innerHTML = buildCircuitHTML();
   // Localize any data-i18n slots (renderCircuit runs outside applyLanguage too)
-  if (typeof t === 'function') {
+  if (typeof applyI18nTree === 'function') {
+    applyI18nTree(page);
+  } else if (typeof t === 'function') {
     page.querySelectorAll('[data-i18n]').forEach(el => {
       el.textContent = t(el.getAttribute('data-i18n'));
     });
@@ -317,6 +319,8 @@ function buildCircuitHTML() {
         </div>
       </div>
 
+      ${typeof theoryBriefHTML === 'function' ? theoryBriefHTML('t7') : ''}
+
       <div class="howto-strip">
         <div class="howto-title" data-i18n="howto_title">HOW TO PLAY</div>
         <div class="howto-steps">
@@ -326,10 +330,7 @@ function buildCircuitHTML() {
         </div>
       </div>
 
-      <div class="theory-diagram-wrap">
-        <div class="theory-diagram-label">${c7('รูปประกอบทฤษฎี', 'Theory diagram')}</div>
-        <img class="theory-diagram-img" src="images/station7-theory.png?v=20" alt="${c7('วงจรควอนตัม Grover', 'Grover Quantum Circuit')}" loading="lazy">
-      </div>
+      ${typeof theoryFigureHTML === 'function' ? theoryFigureHTML(7) : ''}
 
       ${resultHTML}
 

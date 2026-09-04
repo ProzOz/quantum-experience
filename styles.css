@@ -44,9 +44,15 @@ html[lang="th"] .quiz-question,
 html[lang="th"] .topic-header-desc,
 html[lang="th"] .hero-subtitle,
 html[lang="th"] .topic-desc,
-html[lang="th"] .challenge-strip { font-family: var(--font-thai); font-weight: 400; }
+html[lang="th"] .challenge-strip,
+html[lang="th"] .brief-text,
+html[lang="th"] .brief-title,
+html[lang="th"] .theory-art,
+html[lang="th"] .game-phys-body,
+html[lang="th"] .game-phys-title { font-family: var(--font-thai); font-weight: 400; }
 html[lang="th"] .topic-title,
-html[lang="th"] .topic-header-title { font-family: var(--font-thai); font-weight: 500; }
+html[lang="th"] .topic-header-title,
+html[lang="th"] .theory-art-title { font-family: var(--font-thai); font-weight: 500; }
 html[lang="th"] .btn,
 html[lang="th"] .quiz-option,
 html[lang="th"] .control-label { font-family: var(--font-thai); font-weight: 500; }
@@ -498,25 +504,47 @@ main {
 
 .topic-header { text-align: center; margin-bottom: 36px; }
 
-/* Pre-play brief (Station 1 only) — a note before the experiment, not a card */
+/* Pre-play brief — theory copy for every station */
 .pre-play-brief {
     border-left: 3px solid var(--accent);
-    padding: 8px 0 8px 20px;
-    margin: 0 auto 36px;
-    max-width: 720px;
+    padding: 4px 0 4px 20px;
+    margin: 0 auto 28px;
+    max-width: 40rem;
     text-align: left;
 }
 
 .brief-title {
-    font-size: 1.15rem;
+    font-family: var(--font-thai), var(--font-display);
+    font-size: 1.12rem;
     font-weight: 600;
     color: var(--text);
-    margin-bottom: 8px;
+    margin-bottom: 10px;
+    line-height: 1.45;
+    letter-spacing: 0;
 }
 
 .brief-text {
-    font-size: 1.02rem;
+    font-family: var(--font-thai), var(--font-body);
+    font-size: 1.05rem;
     color: var(--text-secondary);
+    line-height: 1.95;
+    text-align: left;
+    overflow-wrap: break-word;
+    word-break: normal;
+    text-wrap: pretty;
+    margin: 0 0 0.9em;
+}
+
+.brief-text:last-child {
+    margin-bottom: 0;
+}
+
+html[lang="en"] .brief-title,
+html[lang="en"] .brief-text {
+    font-family: var(--font-body);
+}
+
+html[lang="en"] .brief-text {
     line-height: 1.75;
 }
 

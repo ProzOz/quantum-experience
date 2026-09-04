@@ -280,15 +280,15 @@ function puzzleSuccessHTML(s) {
       <div class="summary-station">${s.name[lang]}</div>
       
       <div class="summary-learned">
-        <div class="summary-learned-title">${t('theory_what_you_did')}</div>
-        <p>${t(TOPIC_META[s.id].key + '_what_you_did')}</p>
+        <div class="summary-learned-title" data-i18n="theory_what_you_did">${t('theory_what_you_did')}</div>
+        ${typeof theoryParasHTML === 'function' ? theoryParasHTML(TOPIC_META[s.id].key + '_what_you_did') : `<p>${t(TOPIC_META[s.id].key + '_what_you_did')}</p>`}
       </div>
 
-      ${typeof STATION_THEORY !== 'undefined' && STATION_THEORY[s.id] ? `<div class="summary-visual"><img class="summary-theory-img" src="${STATION_THEORY[s.id]}" alt="${s.name[lang]}" loading="lazy"></div>` : ''}
+      ${typeof theoryFigureHTML === 'function' ? `<div class="summary-visual">${theoryFigureHTML(s.id)}</div>` : ''}
 
       <div class="summary-learned">
-        <div class="summary-learned-title">${t('theory_the_physics')}</div>
-        <p>${t(TOPIC_META[s.id].key + '_theory')}</p>
+        <div class="summary-learned-title" data-i18n="theory_the_physics">${t('theory_the_physics')}</div>
+        ${typeof theoryParasHTML === 'function' ? theoryParasHTML(TOPIC_META[s.id].key + '_theory') : `<p>${t(TOPIC_META[s.id].key + '_theory')}</p>`}
       </div>
 
       <div class="summary-actions">
