@@ -10,11 +10,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=30">
-  <link rel="stylesheet" href="game.css?v=30">
-  <link rel="stylesheet" href="lab.css?v=30">
-  <link rel="stylesheet" href="circuit.css?v=30">
-  <link rel="stylesheet" href="coop.css?v=30">
+  <link rel="stylesheet" href="styles.css?v=31">
+  <link rel="stylesheet" href="game.css?v=31">
+  <link rel="stylesheet" href="lab.css?v=31">
+  <link rel="stylesheet" href="circuit.css?v=31">
+  <link rel="stylesheet" href="coop.css?v=31">
+  <link rel="stylesheet" href="station-chrome.css?v=31">
 </head>
 <body>
   <div class="bg-cosmos"></div>
@@ -24,9 +25,9 @@
   <header>
     <button class="logo" onclick="goHome()" aria-label="Home">
       <img src="buraphalogo.png" alt="SCIUS BUU" class="header-logo-img">
-      <span class="logo-text">QUANTUM<span class="logo-dot">·</span>EXPERIENCE</span>
+      <span class="logo-text" data-i18n="chrome_brand">เรียนควอนตัม</span>
     </button>
-    <span class="header-center" id="headerTitle"></span>
+    <span class="header-center is-brand" id="headerTitle">เรียนควอนตัม</span>
     <div class="header-controls">
       <button class="toggle-btn lang-btn" id="langBtn" onclick="toggleLanguage()" aria-label="Switch language" title="TH / EN">
         <span>EN</span>
@@ -72,8 +73,13 @@
 
     <!-- Quantum Arcade -->
     <section class="page" id="gamePage">
-      <div class="game-page-header">
-        <div class="game-page-header-number" data-i18n="game_eyebrow">ARCADE · QUANTUM</div>
+      <div class="topic-page">
+      <button class="back-btn" onclick="goHome()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span data-i18n="nav_back">กลับหน้าหลัก</span>
+      </button>
+      <div class="game-page-header topic-header">
+        <div class="game-page-header-number">04 / T4</div>
         <h1 class="game-page-header-title">Qubit Runner</h1>
         <p class="game-page-header-desc">
           You are a quantum particle dashing through a barrier field.
@@ -81,7 +87,6 @@
           then collapse back to survive. How far can you run before the universe measures you?
         </p>
       </div>
-      <div data-theory-slot="4"></div>
 
       <div class="game-viewport">
         <div id="gameWrap">
@@ -151,6 +156,8 @@
           </div>
         </div>
       </div>
+      <div data-theory-slot="4"></div>
+      </div>
     </section>
 
     <!-- Footer -->
@@ -168,11 +175,11 @@
     </footer>
   </main>
 
-  <script src="lab.js?v=30"></script>
-  <script src="app.js?v=30"></script>
-  <script src="theory.js?v=30"></script>
-  <script src="circuit.js?v=30"></script>
-  <script src="coop.js?v=30"></script>
-  <script src="game.js?v=30"></script>
+  <script src="lab.js?v=31"></script>
+  <script src="app.js?v=31"></script>
+  <script src="theory.js?v=31"></script>
+  <script src="circuit.js?v=31"></script>
+  <script src="coop.js?v=31"></script>
+  <script src="game.js?v=31"></script>
 </body>
 </html>

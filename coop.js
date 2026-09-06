@@ -254,7 +254,8 @@ function openCoop() {
   currentTopic = 0;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('coopPage').classList.add('active');
-  document.getElementById('headerTitle').textContent = CT('header_title');
+  if (typeof setHeaderChrome === 'function') setHeaderChrome('coop');
+  else document.getElementById('headerTitle').textContent = CT('chrome_coop') || CT('header_title');
   window.scrollTo({ top: 0, behavior: 'auto' });
   play('nav');
   // The floating mascot wanders over the play field — park it during co-op

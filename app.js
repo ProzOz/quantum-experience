@@ -10,7 +10,12 @@
    1. TRANSLATIONS (Thai default, English full support)
    ============================================================ */
 const I18N = {
-  brand:            { th: "Quantum Experience", en: "Quantum Experience" },
+  brand:            { th: "เรียนควอนตัม", en: "เรียนควอนตัม" },
+  chrome_brand:     { th: "เรียนควอนตัม", en: "เรียนควอนตัม" },
+  chrome_coop:      { th: "คู่หู", en: "CO-OP" },
+  chrome_core:      { th: "แกนควอนตัม", en: "CORE" },
+  theory_drawer:    { th: "ทฤษฎีสั้น ๆ", en: "Quick theory" },
+  theory_drawer_hint:{ th: "แตะเพื่อเปิด", en: "Tap to open" },
   nav_back:         { th: "กลับหน้าหลัก", en: "Back to menu" },
 
   home_eyebrow:     { th: "ห้องทดลองควอนตัมเสมือนจริง", en: "A Virtual Quantum Laboratory" },
@@ -398,6 +403,7 @@ document.addEventListener('DOMContentLoaded', () => {
   buildTopics();
   if (typeof hydrateTheorySlots === 'function') hydrateTheorySlots();
   injectPuzzleUI(); // adds puzzle goal strips + overlays to each topic page
+  if (typeof syncTheoryDrawers === 'function') syncTheoryDrawers();
   buildBackground();
   initAudio();
   setupCanvases();
@@ -575,16 +581,11 @@ function applyLanguage() {
 
   applyI18nTree(document);
   document.getElementById('langBtn').querySelector('span').textContent = lang === 'th' ? 'EN' : 'TH';
-  // header title
-  if (currentTopic) {
-    document.getElementById('headerTitle').textContent = t(TOPIC_META[currentTopic].key + '_title');
-  }
+  setHeaderChrome();
+  if (typeof syncTheoryDrawers === 'function') syncTheoryDrawers();
   // game page bilingual elements
-  document.querySelector('.game-page-header-number')?.setAttribute('data-i18n', 'game_eyebrow');
   const gp = document.getElementById('gamePage');
   if (gp) {
-    const h = gp.querySelector('.game-page-header-number');
-    if (h) h.textContent = t('game_eyebrow');
     const ht = gp.querySelector('.game-page-header-title');
     if (ht) ht.textContent = t('game_title');
     const hd = gp.querySelector('.game-page-header-desc');
@@ -631,6 +632,46 @@ function stopAnimations() {
   if (b) { b.querySelector('span').textContent = t('btn_play'); b.classList.remove('pressed'); }
 }
 
+function stationChromeCode(id) {
+  const meta = TOPIC_META[id];
+  if (!meta) return '';
+  return String(id).padStart(2, '0') + ' / ' + meta.key.toUpperCase();
+}
+
+let chromeContext = { mode: 'home', id: 0 };
+
+function setHeaderChrome(mode, id) {
+  if (mode) chromeContext = { mode, id: id || 0 };
+  const el = document.getElementById('headerTitle');
+  if (!el) return;
+  el.classList.remove('is-brand', 'is-code');
+  const m = chromeContext.mode;
+  const n = chromeContext.id;
+  let text = t('chrome_brand');
+  let kind = 'is-brand';
+  if (m === 'topic' && n) {
+    text = stationChromeCode(n);
+    kind = 'is-code';
+  } else if (m === 'circuit') {
+    text = stationChromeCode(7);
+    kind = 'is-code';
+  } else if (m === 'game') {
+    text = stationChromeCode(4);
+    kind = 'is-code';
+  } else if (m === 'core') {
+    text = t('chrome_core');
+    kind = 'is-code';
+  } else if (m === 'coop') {
+    text = t('chrome_coop');
+    kind = 'is-code';
+  }
+  el.textContent = text;
+  el.classList.add(kind);
+  el.setAttribute('aria-label', (m === 'topic' && n)
+    ? t(TOPIC_META[n].key + '_title')
+    : text);
+}
+
 function goHome() {
   stopContinuous();
   stopAnimations();
@@ -641,7 +682,7 @@ function goHome() {
   currentTopic = 0;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('homePage').classList.add('active');
-  document.getElementById('headerTitle').textContent = '';
+  setHeaderChrome('home');
   window.scrollTo({ top: 0, behavior: 'smooth' });
   play('nav');
   if (typeof buildLabHome === 'function') buildLabHome();
@@ -655,7 +696,7 @@ function openTopic(id) {
   currentTopic = id;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('topic' + id + 'Page').classList.add('active');
-  document.getElementById('headerTitle').textContent = t(TOPIC_META[id].key + '_title');
+  setHeaderChrome('topic', id);
   window.scrollTo({ top: 0, behavior: 'auto' });
   play('nav');
   requestAnimationFrame(() => { resizeCanvas(id); drawTopic(id); });
@@ -664,10 +705,10 @@ function openTopic(id) {
 function openGame() {
   stopContinuous();
   stopAnimations();
-  currentTopic = 0;
+  currentTopic = 4;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('gamePage').classList.add('active');
-  document.getElementById('headerTitle').textContent = t('game_title');
+  setHeaderChrome('game', 4);
   window.scrollTo({ top: 0, behavior: 'auto' });
   play('nav');
   // resize and refresh game
@@ -681,10 +722,10 @@ function openGame() {
 function openCircuitPuzzle() {
   stopContinuous();
   stopAnimations();
-  currentTopic = 0;
+  currentTopic = 7;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('circuitPage').classList.add('active');
-  document.getElementById('headerTitle').textContent = t('t7_title');
+  setHeaderChrome('circuit', 7);
   window.scrollTo({ top: 0, behavior: 'auto' });
   play('nav');
   if (typeof initCircuit7 === 'function') initCircuit7();
@@ -933,20 +974,21 @@ function buildTopics() {
         <div class="topic-page">
           <button class="back-btn" onclick="goHome()">${svg('back')}<span data-i18n="nav_back"></span></button>
           <div class="topic-header">
-            <div class="topic-header-number">0${i} / ${m.key.toUpperCase()}</div>
+            <div class="topic-header-number">${String(i).padStart(2, '0')} / ${m.key.toUpperCase()}</div>
             <h1 class="topic-header-title" data-i18n="${m.key}_title"></h1>
             <p class="topic-header-desc" data-i18n="${m.key}_desc"></p>
           </div>
-          ${i !== 4 && typeof theoryBriefHTML === 'function' ? theoryBriefHTML(m.key) : ''}
-          <div class="howto-strip">
-            <div class="howto-title" data-i18n="howto_title"></div>
-            <div class="howto-steps">
-              <div class="howto-step"><span class="howto-num">1</span><span class="howto-text" data-i18n="${m.key}_how1"></span></div>
-              <div class="howto-step"><span class="howto-num">2</span><span class="howto-text" data-i18n="${m.key}_how2"></span></div>
-              <div class="howto-step"><span class="howto-num">3</span><span class="howto-text" data-i18n="${m.key}_how3"></span></div>
+          <div class="mission-card">
+            <div data-goal-slot="${i}"></div>
+            <div class="howto-strip">
+              <div class="howto-title" data-i18n="howto_title"></div>
+              <div class="howto-steps">
+                <div class="howto-step"><span class="howto-num">1</span><span class="howto-text" data-i18n="${m.key}_how1"></span></div>
+                <div class="howto-step"><span class="howto-num">2</span><span class="howto-text" data-i18n="${m.key}_how2"></span></div>
+                <div class="howto-step"><span class="howto-num">3</span><span class="howto-text" data-i18n="${m.key}_how3"></span></div>
+              </div>
             </div>
           </div>
-          ${i !== 4 && typeof theoryFigureHTML === 'function' ? theoryFigureHTML(i) : ''}
           <div class="simulation-container">
             <div class="sim-canvas-wrap">
               <canvas id="${cfg.canvas}"></canvas>
@@ -956,6 +998,7 @@ function buildTopics() {
             <div class="btn-group">${buttons}</div>
             <div class="stats-panel">${stats}</div>
           </div>
+          ${i !== 4 && typeof theoryDrawerHTML === 'function' ? theoryDrawerHTML(i, m.key) : ''}
           <div class="quiz-section">
             <div class="quiz-tag" data-i18n="predict_tag"></div>
             <h3 class="quiz-question" data-i18n="${m.key}_q"></h3>

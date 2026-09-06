@@ -237,9 +237,9 @@ function injectPuzzleUI() {
     const page = document.getElementById('topic' + s.id + 'Page');
     if (!page) continue;
 
-    // Insert goal strip before simulation-container
+    const slot = page.querySelector('[data-goal-slot="' + s.id + '"]');
     const simContainer = page.querySelector('.simulation-container');
-    if (simContainer) {
+    if (slot || simContainer) {
       const strip = document.createElement('div');
       strip.className = 'puzzle-goal-strip';
       strip.id = 'goalStrip' + s.id;
@@ -250,7 +250,8 @@ function injectPuzzleUI() {
           <div class="puzzle-goal-desc" id="goalDesc${s.id}">${s.goal[lang]}</div>
         </div>
         <div class="puzzle-goal-status" id="goalStatus${s.id}"></div>`;
-      simContainer.parentNode.insertBefore(strip, simContainer);
+      if (slot) slot.replaceWith(strip);
+      else simContainer.parentNode.insertBefore(strip, simContainer);
     }
 
     // Inject success overlay (hidden initially unless already solved)
@@ -332,7 +333,9 @@ function openCircuitPuzzle() {
   currentTopic = 7;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('circuitPage').classList.add('active');
-  document.getElementById('headerTitle').textContent = t('t7_title');
+  if (typeof setHeaderChrome === 'function') setHeaderChrome('circuit', 7);
+  else document.getElementById('headerTitle').textContent = stationChromeCode
+    ? stationChromeCode(7) : t('t7_title');
   window.scrollTo({ top: 0, behavior: 'auto' });
   play('nav');
   if (typeof initCircuit7 === 'function') initCircuit7();
@@ -507,7 +510,8 @@ function openQuantumCore() {
   const corePage = document.getElementById('corePage');
   if (corePage) {
     corePage.classList.add('active');
-    document.getElementById('headerTitle').textContent = t('lab_title');
+    if (typeof setHeaderChrome === 'function') setHeaderChrome('core');
+    else document.getElementById('headerTitle').textContent = t('chrome_core');
     window.scrollTo({ top: 0, behavior: 'auto' });
     buildGroverPage();
   }

@@ -1,0 +1,489 @@
+/* ============================================================
+   Station chrome — mobile lab-app pass
+   Short header codes, loud hero type, mission card first.
+   Dark classroom + amber. No Orbitron, no neon purple.
+   Loaded last so these rules win the cascade.
+   ============================================================ */
+
+/* ── Header: Speak-style short chrome, never the long topic ── */
+header {
+    height: calc(64px + env(safe-area-inset-top, 0px));
+    padding: env(safe-area-inset-top, 0px) calc(20px + env(safe-area-inset-right, 0px)) 0 calc(20px + env(safe-area-inset-left, 0px));
+    gap: 12px;
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+main {
+    padding-top: calc(64px + env(safe-area-inset-top, 0px));
+}
+
+.logo-text {
+    font-family: var(--font-thai), var(--font-display);
+    font-weight: 700;
+    font-size: 1.02rem;
+    letter-spacing: 0;
+    line-height: 1.2;
+}
+
+.header-center {
+    font-family: var(--font-thai), var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-align: center;
+    flex: 1 1 0;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: nowrap;
+    opacity: 1;
+    color: var(--text);
+}
+
+.header-center.is-brand {
+    font-family: var(--font-thai), var(--font-display);
+    font-weight: 700;
+    letter-spacing: 0;
+}
+
+.header-center.is-code {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+}
+
+@media (min-width: 801px) {
+    .header-center.is-brand {
+        visibility: hidden;
+    }
+}
+
+/* ── Type: heavy display, tighter meta, comfortable body ── */
+html[lang="th"] .topic-header-title,
+html[lang="th"] .circuit-header-title,
+html[lang="th"] .game-page-header-title,
+html[lang="th"] .coop-header-title,
+html[lang="th"] .qx-guardian-title {
+    font-family: var(--font-thai);
+    font-weight: 700;
+}
+
+.topic-header-title,
+.circuit-header-title,
+.game-page-header-title,
+.coop-header-title {
+    font-family: var(--font-thai), var(--font-display);
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1.18;
+}
+
+.game-page-header-title {
+    font-family: var(--font-thai), var(--font-display);
+    text-shadow: none;
+}
+
+.topic-header-number,
+.circuit-header-number,
+.game-page-header-number,
+.coop-header-number {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+}
+
+.topic-header-desc,
+.circuit-header-desc,
+.game-page-header-desc {
+    line-height: 1.55;
+}
+
+/* ── Mission card (Speak tasks / Duolingo energy, lab colors) ── */
+.mission-card {
+    background: #161310;
+    border: 1px solid #3D3935;
+    border-radius: 12px;
+    padding: 14px 16px 16px;
+    margin: 0 auto 16px;
+    max-width: 720px;
+}
+
+.mission-card .puzzle-goal-strip,
+.mission-card .circuit-objective {
+    border: none;
+    border-bottom: 1px solid #3D3935;
+    border-radius: 0;
+    padding: 0 0 12px;
+    margin: 0 0 12px;
+    background: transparent;
+}
+
+.mission-card .howto-strip {
+    padding: 0;
+    margin: 0 auto;
+    max-width: none;
+}
+
+.mission-card .howto-title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+}
+
+.mission-card .howto-steps {
+    gap: 6px;
+}
+
+.mission-card .howto-step {
+    grid-template-columns: 1.4rem 1fr;
+    gap: 6px;
+}
+
+.mission-card .howto-num {
+    font-size: 0.88rem;
+    padding-top: 1px;
+}
+
+.mission-card .howto-text {
+    font-size: 0.95rem;
+    line-height: 1.45;
+    font-weight: 500;
+}
+
+.mission-card .puzzle-goal-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.mission-card .puzzle-goal-desc {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.mission-card .puzzle-goal-status {
+    font-size: 0.88rem;
+    white-space: nowrap;
+}
+
+/* ── Theory drawer: chalkboard stays, not a dominating poster ── */
+.theory-drawer {
+    margin: 0 auto 20px;
+    max-width: 800px;
+}
+
+.theory-drawer-toggle {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 44px;
+    padding: 10px 14px;
+    background: #141210;
+    border: 1px solid #3D3935;
+    border-radius: 10px;
+    color: var(--text);
+    transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), background 160ms ease;
+}
+
+.theory-drawer-toggle::-webkit-details-marker {
+    display: none;
+}
+
+.theory-drawer-toggle::after {
+    content: '+';
+    font-family: var(--font-mono);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--accent);
+    line-height: 1;
+}
+
+.theory-drawer[open] .theory-drawer-toggle {
+    border-radius: 10px 10px 0 0;
+    border-bottom-color: transparent;
+}
+
+.theory-drawer[open] .theory-drawer-toggle::after {
+    content: '–';
+}
+
+.theory-drawer-toggle:active {
+    transform: scale(0.98);
+}
+
+.theory-drawer-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.theory-drawer-label {
+    font-family: var(--font-thai), var(--font-display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    line-height: 1.3;
+}
+
+.theory-drawer-hint {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    font-weight: 500;
+}
+
+.theory-drawer[open] .theory-drawer-hint {
+    display: none;
+}
+
+.theory-drawer-body {
+    border: 1px solid #3D3935;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    padding: 12px 14px 14px;
+    background: #0E0C0A;
+}
+
+.theory-drawer .pre-play-brief {
+    margin: 0 0 12px;
+    max-width: none;
+    padding: 0 0 0 14px;
+}
+
+.theory-drawer .brief-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    line-height: 1.35;
+}
+
+.theory-drawer .brief-text {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    margin-bottom: 0.7em;
+}
+
+.theory-drawer .theory-figure {
+    margin: 0;
+    max-width: none;
+    padding: 12px 12px 10px;
+    border-radius: 8px;
+}
+
+.theory-drawer .theory-art-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 1.3;
+}
+
+.theory-drawer .theory-art-caption {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    margin-top: 8px;
+}
+
+.back-btn:active {
+    transform: scale(0.97);
+}
+
+/* ── Phone-width: app mission screen, not textbook chapter ── */
+@media (max-width: 768px) {
+    header {
+        height: calc(56px + env(safe-area-inset-top, 0px));
+        padding: env(safe-area-inset-top, 0px) calc(10px + env(safe-area-inset-right, 0px)) 0 calc(10px + env(safe-area-inset-left, 0px));
+        gap: 8px;
+    }
+
+    .header-logo-img {
+        width: 36px;
+        height: 36px;
+    }
+
+    .header-controls {
+        gap: 6px;
+    }
+
+    .toggle-btn {
+        height: 44px;
+        min-width: 44px;
+        padding: 0 10px;
+    }
+
+    .header-center.is-brand {
+        font-size: 0.92rem;
+    }
+
+    .header-center.is-code {
+        font-size: 0.78rem;
+    }
+
+    main {
+        padding-top: calc(56px + env(safe-area-inset-top, 0px));
+    }
+
+    .topic-page,
+    .circuit-page-inner {
+        padding: 10px 16px 28px;
+    }
+
+    #circuitPage {
+        padding: 0;
+    }
+
+    .back-btn {
+        margin-bottom: 10px;
+        padding: 8px 12px;
+        min-height: 44px;
+        font-size: 0.88rem;
+    }
+
+    .topic-header,
+    .circuit-header,
+    .game-page-header,
+    .coop-header {
+        text-align: left;
+        margin-bottom: 14px;
+        padding: 0;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+    }
+
+    .topic-header-number,
+    .circuit-header-number,
+    .game-page-header-number,
+    .coop-header-number {
+        font-size: 0.7rem;
+        margin-bottom: 6px;
+        letter-spacing: 0.12em;
+    }
+
+    .topic-header-title,
+    .circuit-header-title,
+    .game-page-header-title,
+    .coop-header-title {
+        font-size: clamp(1.7rem, 7.4vw, 2.15rem);
+        font-weight: 700;
+        line-height: 1.16;
+        margin-bottom: 8px;
+        letter-spacing: 0;
+        max-width: 20ch;
+    }
+
+    .topic-header-desc,
+    .circuit-header-desc,
+    .game-page-header-desc,
+    .coop-header-desc {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin: 0;
+        max-width: none;
+        opacity: 1;
+    }
+
+    .mission-card {
+        padding: 12px 14px 14px;
+        margin-bottom: 14px;
+    }
+
+    .simulation-container {
+        border-radius: 12px;
+        padding: 14px;
+        margin-bottom: 16px;
+    }
+
+    .sim-canvas-wrap {
+        height: clamp(220px, 52vw, 300px);
+        border-radius: 8px;
+    }
+
+    .howto-strip {
+        padding-bottom: 12px;
+        margin-bottom: 0;
+    }
+
+    .pre-play-brief {
+        margin-bottom: 14px;
+        padding-left: 14px;
+    }
+
+    .theory-figure {
+        padding: 12px;
+        margin-bottom: 16px;
+        border-radius: 8px;
+    }
+
+    .quiz-section {
+        padding: 16px 14px;
+        border-radius: 12px;
+    }
+
+    .game-page-header {
+        padding: 0 0 4px;
+        margin-bottom: 14px;
+    }
+
+    #gamePage .topic-page {
+        padding-bottom: 32px;
+    }
+
+    .game-viewport {
+        border-radius: 12px;
+        margin-bottom: 16px;
+    }
+}
+
+@media (min-width: 768px) {
+    .theory-drawer-hint { display: none; }
+}
+
+@media (max-width: 480px) {
+    .topic-page,
+    .circuit-page-inner {
+        padding: 8px 14px calc(24px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .topic-header-title,
+    .circuit-header-title,
+    .game-page-header-title {
+        font-size: clamp(1.62rem, 8vw, 1.95rem);
+        line-height: 1.18;
+        max-width: none;
+    }
+
+    .btn {
+        min-height: 48px;
+    }
+
+    .mission-card .puzzle-goal-strip {
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .mission-card .puzzle-goal-status {
+        width: 100%;
+    }
+
+    #gamePage .simulation-container {
+        margin-top: 8px !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .theory-drawer-toggle,
+    .back-btn {
+        transition: none;
+    }
+    .theory-drawer-toggle:active,
+    .back-btn:active {
+        transform: none;
+    }
+}
