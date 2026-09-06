@@ -224,6 +224,7 @@ function renderCircuit() {
       el.textContent = t(el.getAttribute('data-i18n'));
     });
   }
+  if (typeof syncTheoryDrawers === 'function') syncTheoryDrawers();
   attachCircuitEvents();
 }
 
@@ -303,34 +304,37 @@ function buildCircuitHTML() {
 
   return `
     <div class="circuit-page-inner">
-      <div class="circuit-header">
-        <div class="circuit-header-number">07 / CIRCUIT</div>
+      <button class="back-btn" onclick="goHome()">${typeof svg === 'function' ? svg('back') : ''}
+        <span data-i18n="nav_back">${typeof t === 'function' ? t('nav_back') : 'Back'}</span>
+      </button>
+      <div class="circuit-header topic-header">
+        <div class="circuit-header-number">07 / T7</div>
         <h1 class="circuit-header-title" data-i18n="c7_title">Quantum Circuit Builder</h1>
         <p class="circuit-header-desc" data-i18n="c7_intro">
           Build Grover's search algorithm from scratch. Drag gates onto the circuit wires,
           run the simulation, and amplify the probability of finding the target state.
         </p>
-        <div class="circuit-objective">
-          <span>🎯</span>
-          <span>${c7(
-            `เป้าหมาย: ค้นหา <strong>${TARGET_LABEL}</strong> (ไบนารี 010) — ทำความน่าจะเป็นให้เกิน <strong>${(SUCCESS_THRESHOLD * 100).toFixed(0)}%</strong>`,
-            `Target: find <strong>${TARGET_LABEL}</strong> (binary 010) — get probability above <strong>${(SUCCESS_THRESHOLD * 100).toFixed(0)}%</strong>`
-          )}</span>
-        </div>
       </div>
 
-      ${typeof theoryBriefHTML === 'function' ? theoryBriefHTML('t7') : ''}
-
-      <div class="howto-strip">
-        <div class="howto-title" data-i18n="howto_title">HOW TO PLAY</div>
-        <div class="howto-steps">
-          <div class="howto-step"><span class="howto-num">1</span><span class="howto-text" data-i18n="c7_how1"></span></div>
-          <div class="howto-step"><span class="howto-num">2</span><span class="howto-text" data-i18n="c7_how2"></span></div>
-          <div class="howto-step"><span class="howto-num">3</span><span class="howto-text" data-i18n="c7_how3"></span></div>
+      <div class="mission-card">
+        <div class="puzzle-goal-strip circuit-objective">
+          <div class="puzzle-goal-text">
+            <div class="puzzle-goal-label">${c7('ภารกิจ', 'Mission')}</div>
+            <div class="puzzle-goal-desc">${c7(
+              `ค้นหา ${TARGET_LABEL} (ไบนารี 010) ให้ความน่าจะเป็นเกิน ${(SUCCESS_THRESHOLD * 100).toFixed(0)}%`,
+              `Find ${TARGET_LABEL} (binary 010) — probability above ${(SUCCESS_THRESHOLD * 100).toFixed(0)}%`
+            )}</div>
+          </div>
+        </div>
+        <div class="howto-strip">
+          <div class="howto-title" data-i18n="howto_title">HOW TO PLAY</div>
+          <div class="howto-steps">
+            <div class="howto-step"><span class="howto-num">1</span><span class="howto-text" data-i18n="c7_how1"></span></div>
+            <div class="howto-step"><span class="howto-num">2</span><span class="howto-text" data-i18n="c7_how2"></span></div>
+            <div class="howto-step"><span class="howto-num">3</span><span class="howto-text" data-i18n="c7_how3"></span></div>
+          </div>
         </div>
       </div>
-
-      ${typeof theoryFigureHTML === 'function' ? theoryFigureHTML(7) : ''}
 
       ${resultHTML}
 
@@ -396,6 +400,8 @@ function buildCircuitHTML() {
           </div>
         </div>
       </div>
+
+      ${typeof theoryDrawerHTML === 'function' ? theoryDrawerHTML(7, 't7') : ''}
 
       <div class="simulation-container">
         <div class="challenge-strip">

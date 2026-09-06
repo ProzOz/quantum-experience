@@ -42,10 +42,37 @@ function theoryFigureHTML(id) {
     </figure>`;
 }
 
+function theoryDrawerHTML(id, key) {
+  const k = key || ((typeof TOPIC_META !== 'undefined' && TOPIC_META[id]) ? TOPIC_META[id].key : ('t' + id));
+  const label = typeof t === 'function' ? t('theory_drawer') : 'Quick theory';
+  const hint = typeof t === 'function' ? t('theory_drawer_hint') : 'Tap to open';
+  return `
+    <details class="theory-drawer">
+      <summary class="theory-drawer-toggle">
+        <span class="theory-drawer-copy">
+          <span class="theory-drawer-label" data-i18n="theory_drawer">${label}</span>
+          <span class="theory-drawer-hint" data-i18n="theory_drawer_hint">${hint}</span>
+        </span>
+      </summary>
+      <div class="theory-drawer-body">
+        ${theoryBriefHTML(k)}
+        ${theoryFigureHTML(id)}
+      </div>
+    </details>`;
+}
+
+function syncTheoryDrawers() {
+  if (typeof window === 'undefined' || !window.matchMedia) return;
+  const wide = window.matchMedia('(min-width: 768px)').matches;
+  document.querySelectorAll('.theory-drawer').forEach(d => {
+    d.open = wide;
+  });
+}
+
 function theoryBlockHTML(id) {
   const meta = typeof TOPIC_META !== 'undefined' ? TOPIC_META[id] : null;
   const key = meta ? meta.key : ('t' + id);
-  return theoryBriefHTML(key) + theoryFigureHTML(id);
+  return theoryDrawerHTML(id, key);
 }
 
 function hydrateTheorySlots() {

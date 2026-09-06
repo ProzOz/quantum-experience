@@ -39,7 +39,7 @@
 
 html { scroll-behavior: smooth; }
 
-html[lang="th"] body { font-family: var(--font-thai); font-weight: 400; }
+html[lang="th"] body { font-family: var(--font-thai); font-weight: 400; letter-spacing: 0; }
 html[lang="th"] .quiz-question,
 html[lang="th"] .topic-header-desc,
 html[lang="th"] .hero-subtitle,
@@ -52,7 +52,7 @@ html[lang="th"] .game-phys-body,
 html[lang="th"] .game-phys-title { font-family: var(--font-thai); font-weight: 400; }
 html[lang="th"] .topic-title,
 html[lang="th"] .topic-header-title,
-html[lang="th"] .theory-art-title { font-family: var(--font-thai); font-weight: 500; }
+html[lang="th"] .theory-art-title { font-family: var(--font-thai); font-weight: 700; }
 html[lang="th"] .btn,
 html[lang="th"] .quiz-option,
 html[lang="th"] .control-label { font-family: var(--font-thai); font-weight: 500; }
@@ -146,10 +146,10 @@ header {
 }
 
 .logo-text {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 1rem;
-    letter-spacing: 1.5px;
+    font-family: var(--font-thai), var(--font-display);
+    font-weight: 700;
+    font-size: 1.02rem;
+    letter-spacing: 0;
     white-space: nowrap;
     color: var(--text);
 }
@@ -159,17 +159,18 @@ header {
 }
 
 .header-center {
-    font-family: var(--font-display);
-    font-size: 0.88rem;
-    font-weight: 500;
+    font-family: var(--font-thai), var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
     color: var(--text);
-    letter-spacing: 1.5px;
+    letter-spacing: 0;
     text-align: center;
     flex: 1;
+    min-width: 0;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: clip;
     white-space: nowrap;
-    opacity: 0.85;
+    opacity: 1;
 }
 
 .header-controls {

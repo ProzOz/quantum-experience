@@ -441,7 +441,9 @@ html[lang="th"] .qx-rest-name {
 
 @media (max-width: 800px) {
     .logo-text { display: none; }
-    header { padding: 0 12px; }
+    header {
+        padding: env(safe-area-inset-top, 0px) calc(10px + env(safe-area-inset-right, 0px)) 0 calc(10px + env(safe-area-inset-left, 0px));
+    }
 
     .qx-home {
         display: flex;
