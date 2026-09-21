@@ -12,6 +12,8 @@ header {
     gap: 12px;
     z-index: 1000;
     box-sizing: border-box;
+    overflow: visible;
+    align-items: center;
 }
 
 main {
@@ -28,15 +30,16 @@ main {
 
 .header-center {
     font-family: var(--font-thai), var(--font-display);
-    font-size: 0.95rem;
+    font-size: clamp(0.82rem, 3.8vw, 0.95rem);
     font-weight: 700;
     letter-spacing: 0;
     text-align: center;
-    flex: 1 1 0;
+    flex: 1 1 auto;
     min-width: 0;
-    overflow: hidden;
-    text-overflow: clip;
+    overflow: visible;
     white-space: nowrap;
+    line-height: 1.5;
+    padding-block: 2px;
     opacity: 1;
     color: var(--text);
 }
@@ -253,9 +256,22 @@ html[lang="th"] .qx-guardian-title {
 }
 
 .theory-drawer .pre-play-brief {
-    margin: 0 0 12px;
+    margin: 0 0 14px;
     max-width: none;
-    padding: 0 0 0 14px;
+    padding: 0;
+    border-left: none;
+}
+
+.theory-drawer .theory-diagram-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 .theory-drawer .brief-title {
@@ -274,8 +290,16 @@ html[lang="th"] .qx-guardian-title {
 .theory-drawer .theory-figure {
     margin: 0;
     max-width: none;
-    padding: 12px 12px 10px;
-    border-radius: 8px;
+    padding: 16px 14px 14px;
+    border-radius: 14px;
+    position: relative;
+}
+
+.theory-drawer .theory-art-tag {
+    background: rgba(63, 42, 10, 0.08);
+    border-radius: 999px;
+    padding: 4px 10px;
+    line-height: 1.4;
 }
 
 .theory-drawer .theory-art-title {
@@ -318,7 +342,28 @@ html[lang="th"] .qx-guardian-title {
     }
 
     .header-center.is-brand {
-        font-size: 0.92rem;
+        font-size: clamp(0.84rem, 4.2vw, 1rem);
+        line-height: 1.5;
+    }
+
+    html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+
+    button, a, .qx-rest-row, .qx-door, .quiz-option {
+        touch-action: manipulation;
+    }
+
+    .mission-card .howto-num {
+        width: 1.4rem;
+        height: 1.4rem;
+        border-radius: 999px;
+        background: rgba(217, 119, 6, 0.16);
+        display: grid;
+        place-items: center;
+        font-size: 0.75rem;
+        padding-top: 0;
     }
 
     .header-center.is-code {

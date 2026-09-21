@@ -164,6 +164,7 @@ header {
 main {
     padding-top: 64px;
     min-height: 100vh;
+    min-height: 100dvh;
 }
 
 .page { display: none; }
@@ -175,6 +176,7 @@ main {
     display: grid;
     grid-template-columns: minmax(320px, 440px) 1fr;
     min-height: calc(100vh - 64px);
+    min-height: calc(100dvh - 64px);
     margin: 0;
     padding: 0;
     background: #0A0906;
@@ -186,6 +188,7 @@ main {
     position: sticky;
     top: 64px;
     height: calc(100vh - 64px);
+    height: calc(100dvh - 64px);
     background-image: url('images/classroom.jpg?v=18');
     background-size: cover;
     background-position: center 32%;
@@ -374,10 +377,22 @@ html[lang="th"] .qx-rest-name {
 
 .qx-rest-mark {
     grid-area: mark;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     font-size: 0.8rem;
     color: #C5D48A;
     align-self: center;
 }
+
+.qx-rest-go {
+    font-size: 1.35rem;
+    line-height: 1;
+    color: #F0A020;
+    font-weight: 500;
+}
+
+.qx-rest-row:active { transform: scale(0.985); }
 
 .qx-aside {
     margin-top: 8px;
@@ -472,12 +487,33 @@ html[lang="th"] .qx-rest-name {
     .qx-logo-scius,
     .qx-logo-bu { height: 28px; }
 
-    .qx-rest-row {
-        grid-template-columns: 2.2rem 1fr;
-        grid-template-areas: "num name" "num line";
+    .qx-door {
+        background: #161310;
+        border: 1px solid #3D3935;
+        border-left: 3px solid var(--accent);
+        border-radius: 16px;
+        padding: 16px 16px 14px;
+        margin-top: 14px;
     }
 
-    .qx-rest-mark { display: none; }
+    .qx-rest-row {
+        grid-template-columns: 2.2rem 1fr auto;
+        grid-template-areas: "num name mark" "num line mark";
+        padding: 14px 2px;
+        min-height: 64px;
+    }
+
+    .qx-rest-name {
+        font-size: 1.12rem;
+        font-weight: 700;
+        line-height: 1.35;
+    }
+
+    .qx-rest-line {
+        line-height: 1.45;
+    }
+
+    .qx-rest-mark { display: inline-flex; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2372,8 +2408,10 @@ footer {
 
     .theory-content {
         max-height: 100vh;
+        max-height: 100dvh;
         border-radius: 0;
         height: 100vh;
+        height: 100dvh;
     }
 
     .theory-header {

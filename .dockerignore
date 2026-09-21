@@ -1,6 +1,27 @@
 node_modules
 .git
 .claude
+.cursor
+.agents
+test-results
+mobile-microsite
+videos
+*.md
+*.txt
+*.zip
 *.log
 *.tmp
 .DS_Store
+package.json
+package-lock.json
+skills-lock.json
+spaceball.js
+images/*-theory.png
+images/*-theory.jpg
+G304-product.png
+owner.png
+new image.png
+IMG_*.png
+Screenshot*.png
+brilliant1.webp
+scius-buu-logo-removebg-preview.png

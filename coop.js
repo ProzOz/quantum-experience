@@ -190,7 +190,7 @@ function buildCoopPage() {
 }
 
 function coopBest() {
-  try { return JSON.parse(localStorage.getItem('qx_coop_best') || 'null'); }
+  try { return JSON.parse(readStore('qx_coop_best') || 'null'); }
   catch (e) { return null; }
 }
 
@@ -466,7 +466,7 @@ function endCoop(won) {
   const prev = coopBest();
   if (!prev || COOP.score > prev.score ||
       (COOP.score === prev.score && COOP.bestStreak > prev.streak)) {
-    localStorage.setItem('qx_coop_best',
+    writeStore('qx_coop_best',
       JSON.stringify({ score: COOP.score, streak: COOP.bestStreak }));
   }
   if (won) {
