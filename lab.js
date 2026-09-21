@@ -37,14 +37,14 @@ const STATIONS = [
   {
     id: 5, icon: '🔗',
     name: { th: 'สถานีที่ 5: พัวพัน', en: 'Station 5: Entanglement' },
-    tagline: { th: 'จับสปายด้วยทฤษฎีบทเบลล์', en: 'Catch the eavesdropper using Bell inequality' },
-    goal: { th: 'วัด 40 คู่ พิสูจน์ว่าผลละเมิดขอบเขตคลาสสิก', en: 'Run 40 trials and prove Bell inequality violation' },
+    tagline: { th: 'ดูผลสองฝั่งที่ผูกกัน แม้แต่ละครั้งจะสุ่ม', en: 'Watch two results stay linked, even when each shot is random' },
+    goal: { th: 'ตั้งมุมเท่ากัน วัด 40 คู่ ให้ผลตรงกันเกิน 80%', en: 'Set both angles equal, run 40 trials, and match above 80%' },
     goalIcon: '🕵️',
   },
   {
     id: 6, icon: '🐈',
     name: { th: 'สถานีที่ 6: การยุบตัว', en: 'Station 6: Collapse' },
-    tagline: { th: 'หาหน้าต่างวัดที่ดีที่สุดก่อน decoherence', en: 'Find the optimal measurement window before decoherence' },
+    tagline: { th: 'เปิดกล่อง แล้วดูสถานะยุบเป็นคำตอบเดียว', en: 'Open the box and watch the state collapse to one answer' },
     goal: { th: 'เปิดกล่อง 5 ครั้ง สังเกตรูปแบบการยุบตัว', en: 'Open the box 5× and complete the observation log' },
     goalIcon: '⏱️',
   },
@@ -83,7 +83,7 @@ const PUZZLE = {
     scoreNeeded: 100,
     solved: false,
   },
-  // Station 5: Bell violation detection
+  // Station 5: equal-angle correlation (not a Bell test)
   5: {
     trialsNeeded: 40,
     solved: false,
@@ -116,7 +116,7 @@ const LAB_I18N = {
   core_ok:       { th: 'แกนเปิดแล้ว — ดูควอนตัมคอมพิวเตอร์ค้นฐานข้อมูลใน 1 คิวรี เครื่องทั่วไปใช้เฉลี่ย 2.5', en: 'The core is open. Watch a quantum computer search a database in 1 query — a classical computer takes 2.5.' },
   core_bad:      { th: 'ล็อกไว้จนกว่าจะกู้ครบ 7 สถานี', en: 'Locked until all 7 stations are restored.' },
   stations_unit: { th: 'สถานี', en: 'stations' },
-  mission:       { th: 'สิ่งที่ต้องทำ', en: 'What to do' },
+  mission:       { th: 'ทำให้ได้', en: 'Clear this' },
   online:        { th: 'กู้แล้ว', en: 'Restored' },
   offline:       { th: 'ยังรอ', en: 'Waiting' },
   enter_station: { th: 'เข้าสถานี', en: 'Enter' },
@@ -160,7 +160,7 @@ function buildLabHome() {
       <span class="qx-rest-num">0${s.id}</span>
       <span class="qx-rest-name">${stationShortName(s)}</span>
       <span class="qx-rest-line">${s.tagline[lang]}</span>
-      <span class="qx-rest-mark">${solved ? LT('online') : ''}</span>
+      <span class="qx-rest-mark">${solved ? LT('online') : ''}<span class="qx-rest-go" aria-hidden="true">›</span></span>
     </button>`;
   }).join('');
 
@@ -311,7 +311,7 @@ function showPuzzleSuccess(id) {
   // Update progress
   PUZZLE[id].solved = true;
   // Sync to app.js progress state
-  if (typeof progress !== 'undefined') { progress[id] = true; localStorage.setItem('qx_progress', JSON.stringify(progress)); }
+  if (typeof progress !== 'undefined') { progress[id] = true; writeStore('qx_progress', JSON.stringify(progress)); }
   if (typeof renderProgress === 'function') renderProgress();
   if (typeof toast === 'function') toast(t('toast_done'));
   markComplete(id);
@@ -321,7 +321,7 @@ function showPuzzleSuccess(id) {
 /* ── Wrapper compatible with app.js ───────────────────────── */
 function markCompleteApp(id) {
   // Called by lab.js showPuzzleSuccess to update app.js progress
-  if (typeof progress !== 'undefined') { progress[id] = true; localStorage.setItem('qx_progress', JSON.stringify(progress)); }
+  if (typeof progress !== 'undefined') { progress[id] = true; writeStore('qx_progress', JSON.stringify(progress)); }
   if (typeof renderProgress === 'function') renderProgress();
   if (typeof toast === 'function') toast(t('toast_done'));
 }
@@ -472,11 +472,12 @@ function checkStation5Bell(trials, corrPct) {
   if (statusEl) {
     statusEl.textContent = `${trials} trials · ${corrPct}% match`;
     if (trials >= 40) {
-      // CHSH violation: at 0° same-basis, QM predicts 100% match
-      // Classical bound: 75% for optimally-chosen angles
-      const violation = corrPct > 80 || corrPct < 20; // either pole of correlation
-      statusEl.className = 'puzzle-goal-status' + (violation ? ' ok' : '');
-      if (violation) showPuzzleSuccess(5);
+      // Φ+ at equal angles is about 100% same-result. That correlation
+      // is classical-possible; it is not a Bell/CHSH violation.
+      // >80% is the booth pass line for a 40-shot sample.
+      const linked = corrPct > 80 || corrPct < 20;
+      statusEl.className = 'puzzle-goal-status' + (linked ? ' ok' : '');
+      if (linked) showPuzzleSuccess(5);
     }
   }
 }

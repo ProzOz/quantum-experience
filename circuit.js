@@ -593,7 +593,7 @@ function showCircuitSuccess() {
 
   // Mark station 7 complete
   PUZZLE[7].solved = true;
-  if (typeof progress !== 'undefined') { progress[7] = true; localStorage.setItem('qx_progress', JSON.stringify(progress)); }
+  if (typeof progress !== 'undefined') { progress[7] = true; writeStore('qx_progress', JSON.stringify(progress)); }
   if (typeof markComplete === 'function') markComplete(7);
   if (typeof updateLabProgress === 'function') updateLabProgress();
   if (typeof renderProgress === 'function') renderProgress();

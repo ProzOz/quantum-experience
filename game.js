@@ -34,7 +34,8 @@ const QR = (() => {
 
   // Score
   let score = 0;
-  let highScore = parseInt(localStorage.getItem('qrun_hs') || '0');
+  let highScore = 0;
+  try { highScore = parseInt(readStore('qrun_hs') || '0', 10) || 0; } catch (e) { highScore = 0; }
   let speed = 2.8;        // pixels per frame
   let dist = 0;           // world distance scrolled
 
@@ -246,7 +247,7 @@ const QR = (() => {
     const isNewRecord = score > highScore && score > 0;
     if (isNewRecord) {
       highScore = score;
-      localStorage.setItem('qrun_hs', highScore);
+      writeStore('qrun_hs', String(highScore));
     }
 
     // Notify lab puzzle system

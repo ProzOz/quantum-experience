@@ -14,8 +14,8 @@ const I18N = {
   chrome_brand:     { th: "เรียนควอนตัม", en: "เรียนควอนตัม" },
   chrome_coop:      { th: "คู่หู", en: "CO-OP" },
   chrome_core:      { th: "แกนควอนตัม", en: "CORE" },
-  theory_drawer:    { th: "ทฤษฎีสั้น ๆ", en: "Quick theory" },
-  theory_drawer_hint:{ th: "แตะเพื่อเปิด", en: "Tap to open" },
+  theory_drawer:    { th: "ใจความ", en: "The idea" },
+  theory_drawer_hint:{ th: "แตะอ่าน", en: "Tap" },
   nav_back:         { th: "กลับหน้าหลัก", en: "Back to menu" },
 
   home_eyebrow:     { th: "ห้องทดลองควอนตัมเสมือนจริง", en: "A Virtual Quantum Laboratory" },
@@ -141,7 +141,7 @@ const I18N = {
   t5_a:       { th: "ตรงกันทุกครั้ง (100%)", en: "Identical every time (100%)" },
   t5_b:       { th: "ตรงข้ามกันทุกครั้ง", en: "Opposite every time" },
   t5_c:       { th: "สุ่มไม่มีความสัมพันธ์", en: "Random and unrelated" },
-  t5_explain: { th: "เมื่อมุมเท่ากัน ผลของ A และ B จะตรงกันทุกครั้ง ทั้งที่แต่ละตัวออกมาแบบสุ่ม ความสัมพันธ์ที่แน่นขนาดนี้เองที่คลาสสิกอธิบายไม่ได้ นี่คือหัวใจของทฤษฎีบทเบลล์", en: "At equal angles A and B match every single time, even though each result is random on its own. That perfect link is what classical physics cannot explain — the heart of Bell’s theorem." },
+  t5_explain: { th: "เมื่อมุมเท่ากัน ผลของ A และ B จะตรงกันทุกครั้ง ทั้งที่แต่ละตัวออกมาแบบสุ่ม ความสัมพันธ์แน่นขนาดนี้เป็นจุดตั้งต้นของทฤษฎีบทเบลล์ ส่วนที่คลาสสิกเลียนแบบไม่ได้จะโผล่เมื่อวัดคนละมุม", en: "At equal angles A and B match every time, even though each result is random. That link is the setup for Bell’s theorem — the part classical physics cannot copy shows up when the angles differ." },
 
   // Topic 6
   t6_title:   { th: "แมวของชเรอดิงเงอร์", en: "Schrödinger’s Cat" },
@@ -204,7 +204,7 @@ const I18N = {
   t2_theory: { th: "ก่อนถูกวัด คิวบิตอยู่ในสถานะซ้อนทับของ 0 และ 1 พร้อมกัน แต่พอวัดมันจะยุบลงเหลือเพียงคำตอบเดียว\n\nความสุ่มนี้ไม่ได้เกิดจากความไม่รู้ของเรา แต่เป็นธรรมชาติจริง ๆ ของควอนตัม การซ้อนทับนี้คือพื้นฐานของการคำนวณควอนตัม", en: "Before measurement, the qubit genuinely exists as a superposition of 0 and 1 at once. Only when measured does it collapse to a single answer.\n\nThis randomness is not from our ignorance — it is quantum nature. Superposition is the foundation of quantum computing." },
 
   // Station 3 theory
-  t3_what_you_did: { th: "คุณบีบความกว้างของกลุ่มคลื่นให้แคบที่สุดเท่าที่เป็นไปได้ โดยที่ผลคูณ Δx·Δp ยังต่ำกว่าขีดจำกัดของธรรมชาติ", en: "You squeezed the wave packet as narrow as possible while keeping the product Δx·Δp below nature's limit." },
+  t3_what_you_did: { th: "คุณบีบความกว้างของกลุ่มคลื่นให้แคบ โดยที่ผลคูณ Δx·Δp ยังอยู่เหนือพื้น ħ/2 ของธรรมชาติ", en: "You squeezed the wave packet narrow while Δx·Δp stayed above nature's floor, ħ/2." },
   t3_theory: { th: "หลักความไม่แน่นอนของไฮเซนเบิร์กบอกว่า ยิ่งรู้ตำแหน่งแม่นเท่าไร ก็ยิ่งไม่รู้โมเมนตัม และในทางกลับกัน\n\nผลคูณ Δx·Δp ≥ ħ/2 เป็นขีดจำกัดของธรรมชาติ ไม่ใช่ข้อจำกัดของเครื่องมือวัด", en: "Heisenberg's uncertainty principle says the more you know position, the less you know momentum — and vice versa.\n\nThe product Δx·Δp ≥ ħ/2 is nature's floor, not a limit of the measuring tools." },
 
   // Station 4 theory (Qubit Runner)
@@ -213,7 +213,7 @@ const I18N = {
 
   // Station 5 theory
   t5_what_you_did: { th: "คุณสร้างคู่อนุภาคพัวพัน ตั้งเครื่องวัดทั้งสองให้เท่ากัน แล้ววัด 40 ครั้ง พบว่าผลตรงกันเกิน 80% ทั้งที่แต่ละครั้งสุ่ม", en: "You made entangled pairs, set both detectors to the same angle, ran 40 trials, and saw matches above 80% — even though each result was random." },
-  t5_theory: { th: "การพัวพันควอนตัมคือปรากฏการณ์ที่อนุภาคสองตัวแบ่งปันสถานะเดียวกัน แม้จะอยู่ห่างกันคนละมุมโลก เมื่อวัดหนึ่ง อีกตัวจะทราบทันที\n\nความสัมพันธ์นี้ละเมิดขอบเขตคลาสสิก (ทฤษฎีบทเบลล์) พิสูจน์ว่าธรรมชาติไม่ใช่ตัวแปรท้องถิ่นที่ซ่อนอยู่", en: "Quantum entanglement means two particles share one state, no matter the distance. Measure one and the other is determined at once.\n\nThis correlation violates classical bounds (Bell's theorem): nature is not local hidden variables." },
+  t5_theory: { th: "การพัวพันควอนตัมคือปรากฏการณ์ที่อนุภาคสองตัวแบ่งปันสถานะเดียวกัน แม้จะอยู่ห่างกัน เมื่อมุมวัดเท่ากัน ผลจึงตรงกันทุกครั้ง ทั้งที่แต่ละฝั่งสุ่ม แต่ส่งข้อความข้ามไปหากันไม่ได้\n\nความสัมพันธ์แน่นแบบนี้เป็นจุดตั้งต้นของทฤษฎีบทเบลล์ การแยกจากคำอธิบายคลาสสิกต้องวัดที่มุมต่างกัน", en: "Quantum entanglement means two particles share one state, no matter the distance. At equal angles the results match every time, even though each side is random — and you still cannot send a message that way.\n\nThat link is the setup for Bell's theorem. The split from a classical explanation shows up when the angles differ." },
 
   // Station 6 theory
   t6_what_you_did: { th: "คุณเปิดกล่องแมว 5 ครั้ง แต่ละครั้งสุ่มออกมาเป็นหรือตาย สังเกตว่าอัตราส่วนเข้าใกล้ที่ทฤษฎีทำนาย", en: "You opened Schrödinger's box 5 times, each randomly alive or dead, and watched the ratio approach what theory predicts." },
@@ -257,7 +257,7 @@ const I18N = {
   td5_a:       { th: "อนุภาค A", en: "Particle A" },
   td5_b:       { th: "อนุภาค B", en: "Particle B" },
   td5_link:    { th: "สถานะร่วม — ระยะเท่าไรก็ได้", en: "Shared state — any distance" },
-  td5_caption: { th: "วัดฝั่งหนึ่ง อีกฝั่งถูกกำหนดทันที ทั้งที่แต่ละครั้งดูสุ่ม นี่คือหัวใจของทฤษฎีบทเบลล์", en: "Measure one and the other is fixed at once, even though each shot looks random. That is the heart of Bell's theorem." },
+  td5_caption: { th: "มุมเท่ากันแล้วผลตรงกันทุกครั้ง ทั้งที่แต่ละฝั่งสุ่ม ส่งข้อความหากันไม่ได้ ทฤษฎีบทเบลล์ใช้มุมที่ต่างกัน", en: "Equal angles match every time, even though each side is random. You cannot send a message. Bell's theorem uses different angles." },
 
   td6_title:   { th: "แมวของชเรอดิงเงอร์", en: "Schrödinger's cat" },
   td6_sub:     { th: "การทดลองความคิดเรื่องการวัด", en: "A thought experiment about measurement" },
@@ -381,10 +381,28 @@ const QUIZ = {
 /* ============================================================
    2. GLOBAL STATE
    ============================================================ */
-let lang = localStorage.getItem('qx_lang') || 'th';
-let soundOn = localStorage.getItem('qx_sound') !== 'false';
+function readStore(key) {
+  try { return localStorage.getItem(key); }
+  catch (e) { return null; }
+}
+function writeStore(key, value) {
+  try { localStorage.setItem(key, value); }
+  catch (e) { /* Safari private mode or a full disk */ }
+}
+function readProgress() {
+  try {
+    const raw = readStore('qx_progress');
+    const v = raw ? JSON.parse(raw) : {};
+    return v && typeof v === 'object' && !Array.isArray(v) ? v : {};
+  } catch (e) {
+    return {};
+  }
+}
+
+let lang = readStore('qx_lang') || 'th';
+let soundOn = readStore('qx_sound') !== 'false';
 let currentTopic = 0;
-let progress = JSON.parse(localStorage.getItem('qx_progress') || '{}');
+let progress = readProgress();
 
 let audioCtx = null;
 const buffers = {};
@@ -519,7 +537,7 @@ function play(name) {
 
 function toggleSound() {
   soundOn = !soundOn;
-  localStorage.setItem('qx_sound', soundOn);
+  writeStore('qx_sound', soundOn);
   applySoundUI();
   if (soundOn) play('click');
   toast(soundOn ? t('toast_sound_on') : t('toast_sound_off'));
@@ -537,7 +555,7 @@ function applySoundUI() {
    ============================================================ */
 function toggleLanguage() {
   lang = lang === 'th' ? 'en' : 'th';
-  localStorage.setItem('qx_lang', lang);
+  writeStore('qx_lang', lang);
   applyLanguage();
   play('nav');
   toast(t('toast_lang'));
@@ -770,7 +788,7 @@ function buildBackground() {
 function markComplete(id) {
   if (progress[id]) return;
   progress[id] = true;
-  localStorage.setItem('qx_progress', JSON.stringify(progress));
+  writeStore('qx_progress', JSON.stringify(progress));
   // Keep lab station state in sync so cards show ONLINE without a reload
   if (typeof PUZZLE !== 'undefined' && PUZZLE[id]) PUZZLE[id].solved = true;
   if (typeof updateLabProgress === 'function') updateLabProgress();
@@ -1966,7 +1984,7 @@ function debugUnlockAll() {
     progress[i] = true;
     if (typeof PUZZLE !== 'undefined' && PUZZLE[i]) PUZZLE[i].solved = true;
   }
-  localStorage.setItem('qx_progress', JSON.stringify(progress));
+  writeStore('qx_progress', JSON.stringify(progress));
   renderProgress();
   if (typeof buildLabHome === 'function' &&
       document.getElementById('homePage')?.classList.contains('active')) {
