@@ -351,7 +351,7 @@ const I18N = {
   hint_schrodinger:{ th: "เริ่มการทดลอง แล้วค่อยเปิดกล่อง", en: "Set it up, then open the box" },
 
   // Footer
-  credits_note: { th: "โครงการ วมว. · มหาวิทยาลัยบูรพา — สร้างขึ้นเพื่อจุดประกายความสนใจในวิทยาศาสตร์ควอนตัม", en: "SCIUS · Burapha University — built to spark curiosity in quantum science" },
+  credits_note: { th: "โครงการ วมว. · KMIDS — สร้างขึ้นเพื่อจุดประกายความสนใจในวิทยาศาสตร์ควอนตัม", en: "SCIUS · KMIDS — built to spark curiosity in quantum science" },
   credits_team: { th: "วมว มหาวิทยาลัยบูรพา X\nสาธิตนานาชาติลาดกระบัง สจล", en: "SCiUS Burapha University X KMIDS" },
   contrib_title: { th: "ผู้ร่วมพัฒนาเว็บไซต์", en: "Site contributors" },
   role_creator: { th: "ผู้สร้าง", en: "Creator" },
