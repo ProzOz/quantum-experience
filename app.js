@@ -354,6 +354,9 @@ const I18N = {
   credits_note: { th: "โครงการ วมว. · มหาวิทยาลัยบูรพา — สร้างขึ้นเพื่อจุดประกายความสนใจในวิทยาศาสตร์ควอนตัม", en: "SCIUS · Burapha University — built to spark curiosity in quantum science" },
   role_dev:     { th: "นักพัฒนา", en: "Developer" },
   role_advisor: { th: "อาจารย์ที่ปรึกษา", en: "Advisor" },
+  contrib_title: { th: "ผู้ร่วมพัฒนาเว็บไซต์", en: "Site contributors" },
+  role_creator: { th: "ผู้สร้าง", en: "Creator" },
+  role_codev:   { th: "ผู้ร่วมพัฒนา", en: "Co-developer" },
 
   // Toasts
   toast_lang:     { th: "เปลี่ยนเป็นภาษาไทยแล้ว", en: "Switched to English" },
