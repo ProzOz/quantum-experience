@@ -103,7 +103,7 @@ const PUZZLE = {
 
 /* ── Lab-only bilingual strings ───────────────────────────── */
 const LAB_I18N = {
-  place:         { th: 'วมว. มหาวิทยาลัยบูรพา · ห้องแล็บกลางคืน', en: 'SCIUS BUU · the lab at night' },
+  place:         { th: 'SCiUS BUU X KMIDS · ห้องแล็บกลางคืน', en: 'SCiUS BUU X KMIDS · the lab at night' },
   guardian_title:{ th: 'คืนนี้คุณอยู่เวรห้องแล็บ', en: "You're on night duty in the lab" },
   guardian_desc: { th: 'เจ็ดสถานีบนกระดานด้านหน้ายังรอให้กู้ เริ่มที่สถานี 1 — ทวิภาพ', en: 'Seven stations on that board still need you. Start at Station 1 — Duality.' },
   title_done:    { th: 'ห้องแล็บกลับมาทำงานแล้ว', en: 'The lab is back online' },
