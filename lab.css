@@ -2515,3 +2515,6 @@ footer {
 
 /* Mobile: TH footer team label breaks after "X" (newline in credits_team); desktop collapses it to one line */
 @media (max-width: 600px) { .credits-title { white-space: pre-line; } }
+
+/* footer: old dev/advisor list removed; contributors block sits right under the team label */
+.credits-title + .credits-contrib { margin-top: var(--space-md); }
