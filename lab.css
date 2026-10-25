@@ -2505,3 +2505,6 @@ footer {
         --text-secondary: #CCCCCC;
     }
 }
+
+/* team label: long bilingual name, wrap cleanly */
+.credits-title { letter-spacing: 0.5px; line-height: 1.5; text-wrap: balance; overflow-wrap: break-word; max-width: 34em; margin-left: auto; margin-right: auto; }
