@@ -988,6 +988,26 @@ footer {
 .credits-list .role { color: var(--text-secondary); font-weight: 400; }
 .credits-list .name { color: var(--text); font-weight: 600; }
 
+.credits-contrib { margin-top: 22px; }
+.credits-contrib-title {
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+}
+.credits-gh { color: var(--text-secondary); font-size: 0.85rem; text-decoration: none; margin-left: 4px; }
+.credits-gh:hover { color: var(--gold); }
+.credits-school {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: 6px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    vertical-align: middle;
+}
+.credits-school-logo { width: auto; height: 20px; display: inline-block; }
+
 .credits-note {
     margin-top: 24px;
     font-size: 0.88rem;
