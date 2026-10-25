@@ -2512,3 +2512,6 @@ footer {
 /* footer: BUU seal + KMIDS crest side by side, same height, centered */
 .credits-logos { display: flex; justify-content: center; align-items: center; gap: 14px; margin-bottom: var(--space-md); }
 .credits-logos .credits-logo { width: auto; height: 48px; margin: 0; object-fit: contain; display: block; }
+
+/* Mobile: TH footer team label breaks after "X" (newline in credits_team); desktop collapses it to one line */
+@media (max-width: 600px) { .credits-title { white-space: pre-line; } }
